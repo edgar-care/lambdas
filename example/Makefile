@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 AWS_REGION 					:= eu-west-3
 AWS_LAMBDA_FUNCTION_NAME	:=
 AWS_CLI_PROFILE				:= edgar.care
@@ -26,10 +27,23 @@ endif
 clean:
 	@rm -rf $(BINARY_NAME)
 	@rm -rf $(BUILD_DIR)
+=======
+all: install
+
+
+build:
+	@echo "No need to build"
+
+
+deploy:
+	@terraform apply
+
+>>>>>>> d0232d5 (feat(workflow): Makefile architecture with example lambda folder)
 
 install:
 	@go mod tidy
 
+<<<<<<< HEAD
 start:
 	@$(GO_BINARY_PATH)/air -c .air.toml
 
@@ -45,3 +59,13 @@ zip: build
 		install \
 		start \
 		zip
+=======
+
+start:
+	@echo "I am an example lambda"
+
+
+.PHONY:  build \
+		install \
+		start
+>>>>>>> d0232d5 (feat(workflow): Makefile architecture with example lambda folder)
