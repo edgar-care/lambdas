@@ -13,7 +13,6 @@ start:
 	@go run main.go
 
 
-
 .PHONY: all \
 		build \
 		install \

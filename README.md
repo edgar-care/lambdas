@@ -12,11 +12,15 @@ To install the dependencies use the following command :
 ```bash
 make
 ```
+To install the dependencies for a certain lambda use the following command :
+```bash
+make install t=mylambda
+```
 
 ## Run
 To run a particular lambda use the following command :
 ```bash
-make run mylambda
+make run t=mylambda
 ```
 
 ## Deployment

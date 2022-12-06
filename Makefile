@@ -23,7 +23,6 @@ else
 build:
 	@make -C $(t) build
 
-
 install:
 	@make -C $(t) install
 
@@ -37,7 +36,7 @@ start:
 endif
 
 
-deploy: build
+deploy:
 	@terraform apply
 
 
