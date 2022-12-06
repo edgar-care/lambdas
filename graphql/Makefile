@@ -1,28 +1,20 @@
 all: install
 
 build:
-	@yarn build
+	@go build main.go
 
 clean:
-	@rm -rf node_modules/
-	@rm -rf build/
+	@rm -rf main
 
 install:
-	@yarn install
-
-deploy:
-	@npx prisma db push
-	@echo "No deploy specified"
+	@go mod tidy
 
 start:
-	@yarn start
+	@go run main.go
 
-prisma:
-	@npx prisma generate
+
 
 .PHONY: all \
 		build \
 		install \
-		deploy \
-		start \
-		prisma
+		start

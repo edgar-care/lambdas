@@ -11,12 +11,6 @@ build:
 		make -C $${d} build; \
 	done
 
-deploy:
-	@for d in $(DIRECTORIES); do \
-		make -C $${d} install; \
-	done
-	@terraform apply
-
 install:
 	@for d in $(DIRECTORIES); do \
 		make -C $${d} install; \
@@ -29,8 +23,6 @@ else
 build:
 	@make -C $(t) build
 
-deploy:
-	@make -C $(t) deploy
 
 install:
 	@make -C $(t) install
@@ -43,6 +35,10 @@ start:
 		install \
 		start
 endif
+
+
+deploy: build
+	@terraform apply
 
 
 terraform:
