@@ -1,5 +1,6 @@
 DIRECTORIES	:= $(shell ls -d */)
 t ?=
+BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 
 
 all: install
@@ -23,6 +24,9 @@ else
 build:
 	@make -C $(t) build
 
+deploy:
+	@make -C $(t) deploy
+
 install:
 	@make -C $(t) install
 
@@ -36,13 +40,15 @@ start:
 endif
 
 
-deploy:
-	@terraform apply
+ifeq ($(BRANCH), dev)
+pr:
+	gh pr create --base main --fill
+else
+pr:
+	gh pr create --base dev --fill
+endif
 
 
-terraform:
-	@terraform init
 
-
-.PHONY: all \
-		terraform
+.PHONY: all \`
+		pr
