@@ -15,7 +15,7 @@ build:
 	@go build -o $(BINARY_NAME) $(SOURCE_DIR)
 
 deploy: zip
-	@AWS_REGION=$(AWS_REGION) aws lambda update-function-code --function-name $(AWS_LAMBDA_FUNCTION_NAME) --profile $(AWS_CLI_PROFILE) --zip-file fileb://$(ARCHIVE_NAME).zip
+	@AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-function-code --function-name $(AWS_LAMBDA_FUNCTION_NAME) --profile $(AWS_CLI_PROFILE) --zip-file fileb://$(ARCHIVE_NAME).zip --output yaml
 
 clean:
 	@rm -rf $(BINARY_NAME)
