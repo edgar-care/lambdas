@@ -1,34 +1,18 @@
 type User {
     id: ID!
     email: String!
+    password: String!
     name: String
     age: Int
 }
 
 type Query {
     getUsers: [User]
-    findUser(id: String): User
+    findUser(id: String!): User
 }
 
 type Mutation {
-    createUser(email: String!, name: String, age: Int): User
-    updateUser(id: ID!, email: String, name: String, age: Int): User
-    deleteUser(id: ID!): Boolean
-}
-type User {
-    id: ID!
-    email: String!
-    name: String
-    age: Int
-}
-
-type Query {
-    getUsers: [User]
-    # findUser(id: String): User
-}
-
-type Mutation {
-    createUser(email: String!, name: String, age: Int): User
-    # updateUser(id: ID!, email: String, name: String, age: Int): User
-    # deleteUser(id: ID!): Boolean
+    createUser(email: String!, password: String!, name: String, age: Int): User
+    updateUser(id: String!, email: String, password: String, name: String, age: Int): User
+    deleteUser(id: String!): Boolean
 }

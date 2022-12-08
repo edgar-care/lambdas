@@ -1,83 +1,82 @@
 package graphql
 
 import (
-	"strconv"
-
+	"github.com/edgar-care/graphql/database/models"
+	"github.com/edgar-care/graphql/lib"
 	"github.com/graph-gophers/graphql-go"
 )
 
-type user struct {
-	ID    graphql.ID
-	email string
-	name  *string
-	age   *int32
-}
-
-type userCreateInput struct {
-	Email string
-	Name  *string
-	Age   *int32
-}
-
 type userResolver struct {
-	u *user
+	u *models.User
 }
 
 func (u *userResolver) ID() graphql.ID {
-	return u.u.ID
+	return graphql.ID(u.u.ID.Hex())
 }
 
 func (u *userResolver) Email() string {
-	return u.u.email
+	return u.u.Email
+}
+
+func (u *userResolver) Password() string {
+	return u.u.Password
 }
 
 func (u *userResolver) Name() *string {
-	return u.u.name
+	return u.u.Name
 }
 
 func (u *userResolver) Age() *int32 {
-	return u.u.age
+	return u.u.Age
+}
+
+func resolverFromUser(user *models.User) userResolver {
+	return userResolver{u: user}
 }
 
 var names = []string{"John", "Paul", "Ringo"}
 var ages = []int32{20, 30, 40}
 
-var users = []*userResolver{
-	{
-		&user{
-			ID:    graphql.ID("1"),
-			email: "john@example.com",
-			name:  &names[0],
-			age:   &ages[0],
-		},
-	},
-	{
-		&user{
-			ID:    graphql.ID("2"),
-			email: "fabrice@gmail.com",
-			age:   &ages[1],
-		},
-	},
-	{
-		&user{
-			ID:    graphql.ID("3"),
-			email: "test@test.com",
-			name:  &names[2],
-		},
-	},
-}
-
 func (*Resolver) GetUsers() (*[]*userResolver, error) {
-	return &users, nil
+	users, err := db.FindUsers()
+	lib.CheckError(err)
+
+	var entities []*userResolver
+	for i := range *users {
+		resolv := resolverFromUser(&(*users)[i])
+		entities = append(entities, &resolv)
+	}
+	return &entities, nil
 }
 
-func (*Resolver) CreateUser(input userCreateInput) (*userResolver, error) {
-	var user = user{
-		ID:    graphql.ID(strconv.Itoa(len(users))),
-		name:  input.Name,
-		email: input.Email,
-		age:   input.Age,
+func (*Resolver) FindUser(args struct{ Id string }) (*userResolver, error) {
+	user, err := db.FindUserByID(args.Id)
+	lib.CheckError(err)
+
+	resolv := resolverFromUser(user)
+	return &resolv, nil
+}
+
+func (*Resolver) CreateUser(input models.UserCreateInput) (*userResolver, error) {
+	var user = models.UserCreateInput{
+		Name:     input.Name,
+		Password: input.Password, //TODO crypt that
+		Email:    input.Email,
+		Age:      input.Age,
 	}
-	users = append(users, &userResolver{&user})
-	return &userResolver{&user}, nil
+	entity, err := db.InsertUser(&user)
+	lib.CheckError(err)
+	return &userResolver{entity}, nil
+}
+
+func (*Resolver) UpdateUser(input models.UserUpdateInput) (*userResolver, error) {
+	res, err := db.UpdateUser(&input)
+	lib.CheckError(err)
+	return &userResolver{res}, nil
+}
+
+func (*Resolver) DeleteUser(args struct{ Id string }) (*bool, error) {
+	result, err := db.DeleteUser(args.Id)
+	lib.CheckError(err)
+	return &result, err
 }

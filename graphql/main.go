@@ -10,10 +10,13 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/edgar-care/graphql/database"
 	edGraphql "github.com/edgar-care/graphql/graphql"
+	"github.com/edgar-care/graphql/lib"
 
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
+	"github.com/joho/godotenv"
 )
 
 var schema *graphql.Schema
@@ -53,15 +56,20 @@ func Handler(context context.Context, request events.APIGatewayProxyRequest) (ev
 }
 
 func init() {
+	err := godotenv.Load()
+	lib.CheckError(err)
+
 	rawSchema, err := os.ReadFile("schema.graphql")
-	if err != nil {
-		log.Fatal(err)
-	}
+	lib.CheckError(err)
+
 	schema = graphql.MustParseSchema(string(rawSchema), &edGraphql.Resolver{})
 }
 
 func main() {
 	_, present := os.LookupEnv("AWS_LAMBDA_FUNCTION_NAME")
+	db := database.Connect(os.Getenv("DATABASE_URL"))
+	edGraphql.Init(db)
+
 	if !present {
 		http.Handle("/graphql", &relay.Handler{Schema: schema})
 		log.Print("Starting to listen 8080...")
