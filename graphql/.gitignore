@@ -1,9 +1,0 @@
-# Node temporary files
-node_modules/
-build/
-
-# Yarn files
-*.log
-
-# Environment files
-.env

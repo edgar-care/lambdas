@@ -157,3 +157,6 @@ go.work
 
 # Build files
 builds/
+
+# Environment files
+.env
