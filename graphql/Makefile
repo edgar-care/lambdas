@@ -3,10 +3,11 @@ AWS_LAMBDA_FUNCTION_NAME	:= graphql
 AWS_CLI_PROFILE				:= edgar.care
 BINARY_NAME					:= main
 BUILD_DIR					:= builds
-SOURCE_DIR			:= ./cmd/main
+SOURCE_DIR					:= ./cmd/main
 DATE						:= $(shell date +"%d%m%y_%H%M%S")
 EXTRA_FILES					:= schema.graphql .env
 ARCHIVE_NAME				:= $(BUILD_DIR)/$(AWS_LAMBDA_FUNCTION_NAME)$(DATE)
+GO_BINARY_PATH  			:= $(shell go env GOPATH)/bin
 
 all: install
 
@@ -24,7 +25,7 @@ install:
 	@go mod tidy
 
 start:
-	@go run main.go
+	@$(GO_BINARY_PATH)/air -c .air.toml
 
 zip: build
 	@mkdir -p $(BUILD_DIR)
