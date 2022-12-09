@@ -31,7 +31,7 @@ func Handler(context context.Context, request events.APIGatewayProxyRequest) (ev
 	if len(request.Body) < 1 {
 		return events.APIGatewayProxyResponse{
 			Body:       string(lib.ErrorMarshal("No query was provided in the HTTP body")),
-			StatusCode: 400,
+			StatusCode: 200,
 		}, nil
 	}
 
