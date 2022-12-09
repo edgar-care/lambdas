@@ -1,18 +1,65 @@
-type User {
+# Patient entity
+type Patient {
     id: ID!
     email: String!
     password: String!
-    name: String
-    age: Int
+    name: String!
+    age: Int!
+    height: Int!
+    weight: Int!
+    sex: Sex!
+}
+
+# Doctor entity
+type Doctor {
+    id: ID!
+    email: String!
+    password: String!
+    name: String!
+    lastName: String!
 }
 
 type Query {
-    getUsers: [User]
-    findUser(id: String!): User
+    # Get the entire list of patients.
+    getPatients: [Patient]
+
+    # Find a patient using its id.
+    getPatientById(id: String!): Patient
+
+    # Find a patient using its email.
+    getPatientByEmail(email: String!): Patient
+
+    # Get the entire list of doctors.
+    getDoctors: [Doctor]
+
+    # Find a doctor using its id.
+    getDoctorById(id: String!): Doctor
+
+    # Find a doctor using its email.
+    getDoctorByEmail(email: String!): Doctor
 }
 
 type Mutation {
-    createUser(email: String!, password: String!, name: String, age: Int): User
-    updateUser(id: String!, email: String, password: String, name: String, age: Int): User
-    deleteUser(id: String!): Boolean
+    # Create a new patient.
+    createPatient(email: String!, password: String!, name: String!, age: Int!, height: Int!, weight: Int!, sex: String!): Patient
+
+    # Update a patient.
+    updatePatient(id: String!, email: String, password: String, name: String, age: Int, height: Int, weight: Int, sex: String): Patient
+
+    # Delete a patient.
+    deletePatient(id: String!): Boolean
+
+    # Create a new doctor.
+    createDoctor(email: String!, password: String!, name: String!, lastName: String!): Doctor
+
+    # Update a doctor.
+    updateDoctor(id: String!, email: String, password: String, name: String, lastName: String): Doctor
+
+    # Delete a doctor.
+    deleteDoctor(id: String!): Boolean
+}
+
+enum Sex {
+    M,
+    F
 }
