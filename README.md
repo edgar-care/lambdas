@@ -2,10 +2,9 @@
 This is the repository where all of the edgar.care api functions are implemented.
 
 ## Prerequisities
-- aws_cli
-- terraform
-- go
-- nodejs
+- [aws_cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- [terraform](https://developer.hashicorp.com/terraform/downloads)
+- [go](https://go.dev/doc/install)
 
 ## Installation
 To install the dependencies use the following command :
@@ -20,16 +19,11 @@ make install t=mylambda
 ## Run
 To run a particular lambda use the following command :
 ```bash
-make run t=mylambda
+make start t=mylambda
 ```
 
 ## Deployment
-Create the terraform environment using the following command :
+Deploy a certain lambda using the following command :
 ```bash
-make terraform
-```
-
-Deploy your modifications to AWS using the following command :
-```bash
-make deploy
+make deploy t=mylambda
 ```
