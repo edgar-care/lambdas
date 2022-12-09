@@ -137,6 +137,7 @@ dist
 #
 # Binaries for programs and plugins
 main
+!main/
 *.exe
 *.exe~
 *.dll
@@ -160,3 +161,4 @@ builds/
 
 # Environment files
 .env
+*tmp/

@@ -8,14 +8,20 @@ DATE						:= $(shell date +"%d%m%y_%H%M%S")
 EXTRA_FILES					:= schema.graphql .env
 ARCHIVE_NAME				:= $(BUILD_DIR)/$(AWS_LAMBDA_FUNCTION_NAME)$(DATE)
 GO_BINARY_PATH  			:= $(shell go env GOPATH)/bin
+z 							?=
 
 all: install
 
 build:
 	@go build -o $(BINARY_NAME) $(SOURCE_DIR)
 
+ifeq ($(strip $(z)),)
 deploy: zip
 	@AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-function-code --function-name $(AWS_LAMBDA_FUNCTION_NAME) --profile $(AWS_CLI_PROFILE) --zip-file fileb://$(ARCHIVE_NAME).zip --output yaml
+else
+deploy:
+	@AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-function-code --function-name $(AWS_LAMBDA_FUNCTION_NAME) --profile $(AWS_CLI_PROFILE) --zip-file fileb://$(z) --output yaml
+endif
 
 clean:
 	@rm -rf $(BINARY_NAME)
