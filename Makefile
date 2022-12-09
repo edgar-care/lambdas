@@ -42,10 +42,11 @@ endif
 
 ifeq ($(BRANCH), dev)
 pr:
-	gh pr create --base main --fill
+	@gh pr create --base main --fill
 else
 pr:
-	gh pr create --base dev --fill
+	@gh pr create --base dev --fill
+	@echo "\033[0;31;1mMake sure that your lambda is deployed !!\033[0m"
 endif
 
 
