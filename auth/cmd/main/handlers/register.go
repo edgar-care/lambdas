@@ -16,25 +16,27 @@ func Register(w http.ResponseWriter, req *http.Request) {
 
     if t == "d" {
         var input services.DoctorInput
-        input.Password = lib.HashPassword(input.Password)
         err := json.NewDecoder(req.Body).Decode(&input)
         lib.CheckError(err)
 
+        input.Password = lib.HashPassword(input.Password)
         user, err := services.CreateDoctor(input)
         if err != nil {
             lib.WriteResponse(w, map[string]string{
                 "message": "User already exists.",
             }, 400)
+            return
         }
         token, err = lib.CreateToken(map[string]interface{}{
             "user": user,
         })
     } else {
         var input services.PatientInput
-        input.Password = lib.HashPassword(input.Password)
+
         err := json.NewDecoder(req.Body).Decode(&input)
         lib.CheckError(err)
 
+        input.Password = lib.HashPassword(input.Password)
         user, err := services.CreatePatient(input)
         if err != nil {
             log.Print(err.Error())

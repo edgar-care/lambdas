@@ -217,8 +217,8 @@ func CreatePatient(newPatient PatientInput) (Patient, error) {
 func CreateDoctor(newDoctor DoctorInput) (Doctor, error){
     var doctor createDoctorResponse
     var resp Doctor
-    query := `mutation createUsers($email: String!, $password: String!, $name: String!, $lastName: String!) {
-        createUser(email:$email, password:$password, name:$name, lastName:$lastName) {
+    query := `mutation createDoctor($email: String!, $password: String!, $name: String!, $lastName: String!) {
+        createDoctor(email:$email, password:$password, name:$name, lastName:$lastName) {
                     id,
                     name,
                     lastName,
@@ -246,6 +246,7 @@ func Query(query string, variables map[string]interface{}, respData interface{})
     for key, value := range variables {
         request.Var(key, value)
     }
+    spew.Dump(variables)
     err := createClient().Run(ctx, request, respData)
     spew.Dump(respData)
     return err
