@@ -4,6 +4,7 @@ type Patient {
     email: String!
     password: String!
     name: String!
+    lastName: String!
     age: Int!
     height: Int!
     weight: Int!
@@ -41,10 +42,10 @@ type Query {
 
 type Mutation {
     # Create a new patient.
-    createPatient(email: String!, password: String!, name: String!, age: Int!, height: Int!, weight: Int!, sex: String!): Patient
+    createPatient(email: String!, password: String!, name: String!, lastName: String!, age: Int!, height: Int!, weight: Int!, sex: String!): Patient
 
     # Update a patient.
-    updatePatient(id: String!, email: String, password: String, name: String, age: Int, height: Int, weight: Int, sex: String): Patient
+    updatePatient(id: String!, email: String, password: String, name: String, lastName: String, age: Int, height: Int, weight: Int, sex: String): Patient
 
     # Delete a patient.
     deletePatient(id: String!): Boolean

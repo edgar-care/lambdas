@@ -28,6 +28,10 @@ func (r *patientResolver) Name() string {
 	return r.p.Name
 }
 
+func (r *patientResolver) LastName() string {
+	return r.p.LastName
+}
+
 func (r *patientResolver) Age() int32 {
 	return r.p.Age
 }
