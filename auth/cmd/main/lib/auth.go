@@ -8,10 +8,13 @@ import (
     "golang.org/x/crypto/bcrypt"
 )
 
-var tokenAuth *jwtauth.JWTAuth
+func NewTokenAuth() *jwtauth.JWTAuth {
+    tokenAuth := jwtauth.New("HS256", []byte(os.Getenv("JWT_SECRET")), nil)
+    return tokenAuth
+}
 
 func CreateToken(claims map[string]interface{}) (string, error) {
-    _, token, err := tokenAuth.Encode(claims)
+    _, token, err := NewTokenAuth().Encode(claims)
     return token, err
 }
 
