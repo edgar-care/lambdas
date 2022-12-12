@@ -19,6 +19,7 @@ func (db *DB) InsertPatient(patient *models.PatientCreateInput) (*models.Patient
 		Email:    patient.Email,
 		Password: patient.Password,
 		Name:     patient.Name,
+		LastName: patient.LastName,
 		Age:      patient.Age,
 		Height:   patient.Height,
 		Weight:   patient.Weight,
