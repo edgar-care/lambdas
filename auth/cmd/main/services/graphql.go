@@ -2,9 +2,13 @@ package services
 
 import (
     "context"
+    "github.com/davecgh/go-spew/spew"
     "github.com/machinebox/graphql"
+    "github.com/jinzhu/copier"
     "os"
 )
+
+/********** Types ***********/
 
 type Patient struct {
     Id          string `json:"id"`
@@ -16,6 +20,18 @@ type Patient struct {
     Height      int    `json:"height"`
     Weight      int    `json:"weight"`
     Sex         string `json:"sex"`
+}
+
+type PatientOutput struct {
+    Id          *string `json:"id"`
+    Password    *string `json:"password"`
+    Name        *string `json:"name"`
+    LastName    *string `json:"lastName"`
+    Email       *string `json:"email"`
+    Age         *int    `json:"age"`
+    Height      *int    `json:"height"`
+    Weight      *int    `json:"weight"`
+    Sex         *string `json:"sex"`
 }
 
 type PatientInput struct {
@@ -37,6 +53,14 @@ type Doctor struct {
     Email       string `json:"email"`
 }
 
+type DoctorOutput struct {
+    Id          *string `json:"id"`
+    Password    *string `json:"password"`
+    Name        *string `json:"name"`
+    LastName    *string `json:"lastName"`
+    Email       *string `json:"email"`
+}
+
 type DoctorInput struct {
     Password    string `json:"password"`
     Name        string `json:"name"`
@@ -44,8 +68,37 @@ type DoctorInput struct {
     Email       string `json:"email"`
 }
 
+/**************** GraphQL types *****************/
+
+type getPatientByEmailResponse struct {
+    Content PatientOutput `json:"getPatientByEmail"`
+}
+
+type getPatientByIdResponse struct {
+    Content PatientOutput `json:"getPatientById"`
+}
+
+type createPatientResponse struct {
+    Content PatientOutput `json:"createPatient"`
+}
+
+type getDoctorByIdResponse struct {
+    Content DoctorOutput `json:"getDoctorById"`
+}
+
+type getDoctorByEmailResponse struct {
+    Content DoctorOutput `json:"getDoctorByEmail"`
+}
+
+type createDoctorResponse struct {
+    Content DoctorOutput `json:"createDoctor"`
+}
+
+/*************** Implementations *****************/
+
 func GetPatientById(id string) (Patient, error) {
-    var patient Patient
+    var patient getPatientByIdResponse
+    var resp Patient
     query := `query getPatientByID($id: String!) {
                 getPatientByID(id: $id) {
                     id,
@@ -63,11 +116,13 @@ func GetPatientById(id string) (Patient, error) {
     err := Query(query, map[string]interface{}{
         "id": id,
     }, &patient)
-    return patient, err
+    _ = copier.Copy(&resp, &patient.Content)
+    return resp, err
 }
 
 func GetDoctorById(id string) (Doctor, error){
-    var doctor Doctor
+    var doctor getDoctorByIdResponse
+    var resp Doctor
     query := `query getDoctorByID($id: String!) {
                 getDoctorByID(id: $id) {
                     id,
@@ -81,11 +136,13 @@ func GetDoctorById(id string) (Doctor, error){
     err := Query(query, map[string]interface{}{
         "id": id,
     }, &doctor)
-    return doctor, err
+    _ = copier.Copy(&resp, &doctor.Content)
+    return resp, err
 }
 
 func GetPatientByEmail(email string) (Patient, error) {
-    var patient Patient
+    var patient getPatientByEmailResponse
+    var resp Patient
     query := `query getPatientByEmail($email: String!) {
                 getPatientByEmail(email: $email) {
                     id,
@@ -103,11 +160,13 @@ func GetPatientByEmail(email string) (Patient, error) {
     err := Query(query, map[string]interface{}{
         "email": email,
     }, &patient)
-    return patient, err
+    _ = copier.Copy(&resp, &patient.Content)
+    return resp, err
 }
 
 func GetDoctorByEmail(email string) (Doctor, error) {
-    var doctor Doctor
+    var doctor getDoctorByEmailResponse
+    var resp Doctor
     query := `query getDoctorByEmail($email: String!) {
                 getDoctorByEmail(email: $email) {
                     id,
@@ -121,13 +180,15 @@ func GetDoctorByEmail(email string) (Doctor, error) {
     err := Query(query, map[string]interface{}{
         "email": email,
         }, &doctor)
-    return doctor, err
+    _ = copier.Copy(&resp, &doctor.Content)
+    return resp, err
 }
 
 func CreatePatient(newPatient PatientInput) (Patient, error) {
-    var createdPatient Patient
+    var patient createPatientResponse
+    var resp Patient
     query := `mutation createPatient($email: String!, $name: String!, $lastName: String!, $password: String!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!) {
-                createPatient(email:$email, name:$name, password:$password, age:$age, height:$height, weight:$weight, sex:$sex) {
+            createPatient(email:$email, name:$name, lastName:$lastName, password:$password, age:$age, height:$height, weight:$weight, sex:$sex) {
                     id,
                     password,
                     name,
@@ -148,14 +209,16 @@ func CreatePatient(newPatient PatientInput) (Patient, error) {
             "height": newPatient.Height,
             "weight": newPatient.Weight,
             "sex": newPatient.Sex,
-            }, &createdPatient)
-    return createdPatient, err
+            }, &patient)
+    _ = copier.Copy(&resp, &patient.Content)
+    return resp, err
 }
 
 func CreateDoctor(newDoctor DoctorInput) (Doctor, error){
-    var doctor Doctor
+    var doctor createDoctorResponse
+    var resp Doctor
     query := `mutation createUsers($email: String!, $password: String!, $name: String!, $lastName: String!) {
-                createUser(email:$email, password:$password, name:$name, lastName:$LastName) {
+        createUser(email:$email, password:$password, name:$name, lastName:$lastName) {
                     id,
                     name,
                     lastName,
@@ -169,7 +232,8 @@ func CreateDoctor(newDoctor DoctorInput) (Doctor, error){
         "lastName": newDoctor.LastName,
         "password": newDoctor.Password,
         }, &doctor)
-    return doctor, err
+    _ = copier.Copy(&resp, &doctor.Content)
+    return resp, err
 }
 
 func createClient() *graphql.Client {
@@ -182,5 +246,7 @@ func Query(query string, variables map[string]interface{}, respData interface{})
     for key, value := range variables {
         request.Var(key, value)
     }
-    return createClient().Run(ctx, request, &respData)
+    err := createClient().Run(ctx, request, respData)
+    spew.Dump(respData)
+    return err
 }

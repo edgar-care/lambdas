@@ -41,6 +41,7 @@ func Register(w http.ResponseWriter, req *http.Request) {
             lib.WriteResponse(w, map[string]string{
                 "message": "User already exists.",
                 }, 400)
+            return
         }
         token, err = lib.CreateToken(map[string]interface{}{
             "user": user,
