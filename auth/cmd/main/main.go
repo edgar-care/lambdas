@@ -18,8 +18,8 @@ func init() {
 func main() {
 	gola.Main(common.Options{
 		Apigw2Configurator: func(r *common.HttpRouter) {
-            r.Post("/{type:^[pd]{1}$}/login", handlers.Login)
-            r.Post("/{type:^[pd]{1}$}/register", handlers.Register)
+			r.Post("/auth/{type}/login", handlers.Login)
+			r.Post("/auth/{type}/register", handlers.Register)
 		},
 		Features: map[string]bool{
 			"logger":    true,
