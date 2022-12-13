@@ -65,7 +65,7 @@ func (*Resolver) GetDoctorByEmail(args struct{ Email string }) (*doctorResolver,
 }
 
 func (*Resolver) CreateDoctor(doctor models.DoctorCreateInput) (*doctorResolver, error) {
-	_, err := db.GetPatientByEmail(doctor.Email)
+	_, err := db.GetDoctorByEmail(doctor.Email)
 	if err == nil {
 		return nil, errors.New("Email already exists")
 	}
