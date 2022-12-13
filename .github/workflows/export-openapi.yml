@@ -1,0 +1,22 @@
+name: Export OpenAPI
+run-name: ${{ github.actor }} is exporting a new version of OpenAPI 🚀
+on:
+  push:
+    branches:
+      - "dev"
+
+jobs:
+  Export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - run: aws s3 sync ./.openapi s3://edgar-care-openapi

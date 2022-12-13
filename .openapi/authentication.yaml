@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: edgar.care authentication API
+  description: This is the authentication part of the edgar.care API reference.
+  version: 0.0.1
+
+paths:
+  /auth/d/login:
+    post:
+      summary: Login as a Doctor entity.
+      responses:
+        "200":
+          description: The user is now logged as a Doctor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Token for the authenticated doctor.
+        "400":
+          description: The provided credentials are invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message.
+
+  /auth/d/register:
+    post:
+      summary: Register as a new Doctor entity.
+      responses:
+        "200":
+          description: The new Doctor entity has been registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Token for the authenticated doctor.
+        "400":
+          description: The provided credentials are invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message.
+
+  /auth/p/login:
+    post:
+      summary: Login as a Patient entity.
+      responses:
+        "200":
+          description: The user is now logged in as a Patient.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Token for the authenticated patient.
+        "400":
+          description: The provided credentials are invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Error message.
+
+  /auth/p/register:
+    post:
+      summary: Register as a Patient entity.
+      responses:
+        "200":
+          description: The new Patient entity has been registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Token for the authenticated patient.
+        "400":
+          description: The provided credentials are invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message.
