@@ -19,4 +19,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - run: aws s3 sync ./.openapi s3://edgar-care-openapi
+      - run: aws s3 sync ./.openapi s3://edgar-care-openapi --delete --acl public-read
