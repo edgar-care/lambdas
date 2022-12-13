@@ -8,12 +8,14 @@ DATE						:= $(shell date +"%d%m%y_%H%M%S")
 EXTRA_FILES					:= schema.graphql .env
 ARCHIVE_NAME				:= $(BUILD_DIR)/$(AWS_LAMBDA_FUNCTION_NAME)$(DATE)
 GO_BINARY_PATH  			:= $(shell go env GOPATH)/bin
+GOOS						:= linux
+GOARCH						:= amd64
 z 							?=
 
 all: install
 
 build:
-	@go build -o $(BINARY_NAME) $(SOURCE_DIR)
+	@GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=0 go build -o $(BINARY_NAME) $(SOURCE_DIR)
 
 ifeq ($(strip $(z)),)
 deploy: zip

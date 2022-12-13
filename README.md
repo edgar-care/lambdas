@@ -4,7 +4,7 @@ This is the repository where all of the edgar.care api functions are implemented
 ## Prerequisities
 - [aws_cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 - [terraform](https://developer.hashicorp.com/terraform/downloads)
-- [go](https://go.dev/doc/install)
+- [go 1.19.4](https://go.dev/doc/install)
 
 ## Installation
 To install the dependencies use the following command :
