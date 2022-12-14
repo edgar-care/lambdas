@@ -32,6 +32,10 @@ func (u *doctorResolver) LastName() string {
 	return u.p.LastName
 }
 
+func (u *doctorResolver) Address() string {
+	return u.p.Address
+}
+
 func resolverFromDoctor(p *models.Doctor) doctorResolver {
 	return doctorResolver{p: p}
 }
