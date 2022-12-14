@@ -20,6 +20,7 @@ func (db *DB) InsertDoctor(doctor *models.DoctorCreateInput) (*models.Doctor, er
 		Password: doctor.Password,
 		Name:     doctor.Name,
 		LastName: doctor.LastName,
+		Address:  doctor.Address,
 	}
 	return &entity, err
 }
