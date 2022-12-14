@@ -160,7 +160,7 @@ paths:
                 sex:
                   type: string
                   enum: [ "M", "F" ]
-                  description: Patient's sex
+                  description: Patient's sex, either M or F
                 height:
                   type: integer
                   description: Patient's height
@@ -193,6 +193,8 @@ paths:
 
   /patient:
     get:
+      security:
+        - BearerAuth: []
       summary: Get the information of the current Patient entity.
       responses:
         "200":
@@ -203,6 +205,22 @@ paths:
                 $ref: "#/components/schemas/Patient"
 
 
+# ---------------------------------- Doctor ---------------------------------- #
+
+  /doctor:
+    get:
+      security:
+        - BearerAuth: []
+
+      summary: Get the information of the current Doctor entity.
+      responses:
+        "200":
+          description: The current Doctor entity has been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Doctor"
+
 
 # ---------------------------------------------------------------------------- #
 #                                  Components                                  #
@@ -210,10 +228,17 @@ paths:
 
 
 components:
+
+# --------------------------------- Security --------------------------------- #
+
+  securitySchemes:
+      BearerAuth:
+        type: http
+        scheme: bearer
+
+# ---------------------------------- Schemas --------------------------------- #
+
   schemas:
-
-# ---------------------------------- Patient Schema --------------------------------- #
-
     Patient:
       type: object
       properties:
@@ -242,7 +267,6 @@ components:
           type: integer
           description: Weight of the patient.
 
-# ---------------------------------- Doctor Schema ---------------------------------- #
 
     Doctor:
       type: object
