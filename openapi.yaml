@@ -15,6 +15,19 @@ paths:
   /auth/d/login:
     post:
       summary: Login as a Doctor entity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Doctor's email address
+                password:
+                  type: string
+                  description: Doctor's password
       responses:
         "200":
           description: The user is now logged as a Doctor.
@@ -40,6 +53,25 @@ paths:
   /auth/d/register:
     post:
       summary: Register as a new Doctor entity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Doctor's email address
+                password:
+                  type: string
+                  description: Doctor's password
+                name:
+                  type: string
+                  description: Doctor's name
+                last_name:
+                  type: string
+                  description: Doctor's last name
       responses:
         "200":
           description: The new Doctor entity has been registered.
@@ -65,6 +97,19 @@ paths:
   /auth/p/login:
     post:
       summary: Login as a Patient entity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Patient's email address
+                password:
+                  type: string
+                  description: Patient's password
       responses:
         "200":
           description: The user is now logged in as a Patient.
@@ -90,6 +135,38 @@ paths:
   /auth/p/register:
     post:
       summary: Register as a Patient entity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Patient's email address
+                password:
+                  type: string
+                  description: Patient's password
+                name:
+                  type: string
+                  description: Patient's name
+                last_name:
+                  type: string
+                  description: Patient's last name
+                age:
+                  type: integer
+                  description: Patient's age
+                sex:
+                  type: string
+                  enum: [ "M", "F" ]
+                  description: Patient's sex
+                height:
+                  type: integer
+                  description: Patient's height
+                weight:
+                  type: integer
+                  description: Patient's weight
       responses:
         "200":
           description: The new Patient entity has been registered.
