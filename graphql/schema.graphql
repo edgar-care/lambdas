@@ -18,6 +18,7 @@ type Doctor {
     password: String!
     name: String!
     lastName: String!
+    address: String!
 }
 
 type Query {
@@ -51,10 +52,10 @@ type Mutation {
     deletePatient(id: String!): Boolean
 
     # Create a new doctor.
-    createDoctor(email: String!, password: String!, name: String!, lastName: String!): Doctor
+    createDoctor(email: String!, password: String!, name: String!, lastName: String!, address: String!): Doctor
 
     # Update a doctor.
-    updateDoctor(id: String!, email: String, password: String, name: String, lastName: String): Doctor
+    updateDoctor(id: String!, email: String, password: String, name: String, lastName: String, address: String): Doctor
 
     # Delete a doctor.
     deleteDoctor(id: String!): Boolean
