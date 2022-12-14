@@ -214,7 +214,6 @@ paths:
     get:
       security:
         - BearerAuth: []
-
       summary: Get the information of the current Doctor entity.
       responses:
         "200":
@@ -223,6 +222,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Doctor"
+
+
+# ------------------------------------ NLP ----------------------------------- #
+
+  /nlp:
+    get:
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                symptoms:
+                  type: array
+                  items:
+                    type: string
+                  description: The symptoms concerned by the input.
+                input:
+                  type: string
+                  description: The input of the user.
+      summary: Parse the input from the user to a valid ExamContext.
+      responses:
+        "200":
+          description: The input is valid and has been treated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  context:
+                    $ref: "#/components/schemas/ExamContext"
+                    description: A brand new context containing new symptoms parsed from the input.
+
+
+# ----------------------------------- EXAM ----------------------------------- #
+
+  /exam:
+    get:
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  $ref: "#/components/schemas/ExamContext"
+                  description: The context with new information from the nlp endpoint.
+      responses:
+        "200":
+          description: The context is valid and has been treated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  context:
+                    $ref: "#/components/schemas/ExamContext"
+                    description: The context after adding the new symptoms to it.
+                  question:
+                    type: string
+                    description: The next question to ask the user.
+                  symptoms:
+                    type: array
+                    items:
+                      type: string
+                    description: The symptoms related to the given question.
+                  done:
+                    type: boolean
+                    description: Whether the context has aggregated enough information or not.
 
 
 # ---------------------------------------------------------------------------- #
@@ -289,3 +363,18 @@ components:
         address:
           type: string
           description: Address of the doctor.
+
+    ExamContextItem:
+      type: object
+      properties:
+        symptom:
+          type: string
+          description: The symptom described by the object.
+        present:
+          type: boolean
+          description: Whether the symptom is present or not.
+
+    ExamContext:
+      type: array
+      items:
+        $ref: "#/components/schemas/ExamContextItem"
