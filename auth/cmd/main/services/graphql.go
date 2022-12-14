@@ -134,7 +134,7 @@ func GetDoctorById(id string) (Doctor, error) {
                     name,
                     lastName,
                     email,
-                    address
+					address
                 }
             }`
 
@@ -179,7 +179,7 @@ func GetDoctorByEmail(email string) (Doctor, error) {
                     name,
                     lastName,
                     email,
-                    address
+					address
                 }
             }`
 
@@ -223,14 +223,14 @@ func CreatePatient(newPatient PatientInput) (Patient, error) {
 func CreateDoctor(newDoctor DoctorInput) (Doctor, error) {
 	var doctor createDoctorResponse
 	var resp Doctor
-	query := `mutation createDoctor($email: String!, $password: String!, $name: String!, $lastName: String!) {
-        createDoctor(email:$email, password:$password, name:$name, lastName:$lastName) {
+	query := `mutation createDoctor($email: String!, $password: String!, $name: String!, $lastName: String!, $address: String!) {
+        createDoctor(email:$email, password:$password, name:$name, lastName:$lastName, address:$address) {
                     id,
                     name,
                     lastName,
                     email,
                     password,
-                    address
+					address
                 }
             }`
 	err := Query(query, map[string]interface{}{
@@ -238,7 +238,7 @@ func CreateDoctor(newDoctor DoctorInput) (Doctor, error) {
 		"name":     newDoctor.Name,
 		"lastName": newDoctor.LastName,
 		"password": newDoctor.Password,
-		"address":  newDoctor.Address,
+		"address":	newDoctor.Address,
 	}, &doctor)
 	_ = copier.Copy(&resp, &doctor.Content)
 	return resp, err
