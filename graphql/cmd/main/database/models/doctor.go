@@ -10,6 +10,7 @@ type Doctor struct {
 	Password string             `bson:"password,omitempty"`
 	Name     string             `bson:"name,omitempty"`
 	LastName string             `bson:"last_name,omitempty"`
+	Address  string             `bson:"address,omitempty"`
 }
 
 type DoctorCreateInput struct {
@@ -17,6 +18,7 @@ type DoctorCreateInput struct {
 	Password string `bson:"password,omitempty"`
 	Name     string `bson:"name,omitempty"`
 	LastName string `bson:"last_name,omitempty"`
+	Address  string `bson:"address,omitempty"`
 }
 
 type DoctorUpdateInput struct {
@@ -25,4 +27,5 @@ type DoctorUpdateInput struct {
 	Password *string `bson:"password,omitempty"`
 	Name     *string `bson:"name,omitempty"`
 	LastName *string `bson:"last_name,omitempty"`
+	Address  *string `bson:"address,omitempty"`
 }
