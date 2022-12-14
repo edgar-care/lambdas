@@ -72,6 +72,9 @@ paths:
                 last_name:
                   type: string
                   description: Doctor's last name
+                address:
+                  type: string
+                  description: Doctor's address
       responses:
         "200":
           description: The new Doctor entity has been registered.
@@ -259,3 +262,6 @@ components:
         email:
           type: string
           description: Email address of the doctor.
+        address:
+          type: string
+          description: Address of the doctor.
