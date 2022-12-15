@@ -1,57 +1,56 @@
 package handlers
 
 import (
-    "encoding/json"
-    "github.com/edgar-care/auth/cmd/main/lib"
-    "github.com/edgar-care/auth/cmd/main/services"
-    "github.com/go-chi/chi/v5"
-    "log"
-    "net/http"
+	"encoding/json"
+	"net/http"
+	"strings"
+
+	"github.com/edgar-care/auth/cmd/main/lib"
+	"github.com/edgar-care/auth/cmd/main/services"
+	"github.com/go-chi/chi/v5"
 )
 
-
 func Register(w http.ResponseWriter, req *http.Request) {
-    t := chi.URLParam(req, "type")
+	t := chi.URLParam(req, "type")
 
-    var token string
+	var token string
 
-    if t == "d" {
-        var input services.DoctorInput
-        err := json.NewDecoder(req.Body).Decode(&input)
-        lib.CheckError(err)
+	if t == "d" {
+		var input services.DoctorInput
+		err := json.NewDecoder(req.Body).Decode(&input)
+		lib.CheckError(err)
 
-        input.Password = lib.HashPassword(input.Password)
-        doctor, err := services.CreateDoctor(input)
-        if err != nil {
-            lib.WriteResponse(w, map[string]string{
-                "message": "User already exists.",
-            }, 400)
-            return
-        }
-        token, err = lib.CreateToken(map[string]interface{}{
-            "doctor": doctor,
-        })
-    } else {
-        var input services.PatientInput
+		input.Password = lib.HashPassword(input.Password)
+		doctor, err := services.CreateDoctor(input)
+		if err != nil {
+			lib.WriteResponse(w, map[string]string{
+				"message": "Unable to create account: " + err.Error(),
+			}, http.StatusBadRequest)
+			return
+		}
+		token, _ = lib.CreateToken(map[string]interface{}{
+			"doctor": doctor,
+		})
+	} else {
+		var input services.PatientInput
 
-        err := json.NewDecoder(req.Body).Decode(&input)
-        lib.CheckError(err)
+		err := json.NewDecoder(req.Body).Decode(&input)
+		lib.CheckError(err)
 
-        input.Password = lib.HashPassword(input.Password)
-        patient, err := services.CreatePatient(input)
-        if err != nil {
-            log.Print(err.Error())
-            lib.WriteResponse(w, map[string]string{
-                "message": "User already exists.",
-                }, 400)
-            return
-        }
-        token, err = lib.CreateToken(map[string]interface{}{
-            "patient": patient,
-        })
-    }
+		input.Password = lib.HashPassword(input.Password)
+		patient, err := services.CreatePatient(input)
+		if err != nil {
+			lib.WriteResponse(w, map[string]string{
+				"message": "Unable to create account: " + strings.ToLower(err.Error()[9:]),
+			}, 400)
+			return
+		}
+		token, _ = lib.CreateToken(map[string]interface{}{
+			"patient": patient,
+		})
+	}
 
-    lib.WriteResponse(w, map[string]string{
-        "token": token,
-    }, 200)
+	lib.WriteResponse(w, map[string]string{
+		"token": token,
+	}, 200)
 }
