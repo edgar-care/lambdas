@@ -28,6 +28,7 @@ endif
 clean:
 	@rm -rf $(BINARY_NAME)
 	@rm -rf $(BUILD_DIR)
+	@rm -rf tmp/
 
 install:
 	@go mod tidy
