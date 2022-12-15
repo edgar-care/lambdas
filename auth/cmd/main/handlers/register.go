@@ -12,6 +12,7 @@ import (
 
 func Register(w http.ResponseWriter, req *http.Request) {
     t := chi.URLParam(req, "type")
+
     var token string
 
     if t == "d" {
@@ -20,7 +21,7 @@ func Register(w http.ResponseWriter, req *http.Request) {
         lib.CheckError(err)
 
         input.Password = lib.HashPassword(input.Password)
-        user, err := services.CreateDoctor(input)
+        doctor, err := services.CreateDoctor(input)
         if err != nil {
             lib.WriteResponse(w, map[string]string{
                 "message": "User already exists.",
@@ -28,7 +29,7 @@ func Register(w http.ResponseWriter, req *http.Request) {
             return
         }
         token, err = lib.CreateToken(map[string]interface{}{
-            "user": user,
+            "doctor": doctor,
         })
     } else {
         var input services.PatientInput
@@ -37,7 +38,7 @@ func Register(w http.ResponseWriter, req *http.Request) {
         lib.CheckError(err)
 
         input.Password = lib.HashPassword(input.Password)
-        user, err := services.CreatePatient(input)
+        patient, err := services.CreatePatient(input)
         if err != nil {
             log.Print(err.Error())
             lib.WriteResponse(w, map[string]string{
@@ -46,7 +47,7 @@ func Register(w http.ResponseWriter, req *http.Request) {
             return
         }
         token, err = lib.CreateToken(map[string]interface{}{
-            "user": user,
+            "patient": patient,
         })
     }
 
