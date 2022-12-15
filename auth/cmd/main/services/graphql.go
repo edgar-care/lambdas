@@ -4,7 +4,6 @@ import (
 	"context"
 	"os"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/jinzhu/copier"
 	"github.com/machinebox/graphql"
 )
@@ -238,7 +237,7 @@ func CreateDoctor(newDoctor DoctorInput) (Doctor, error) {
 		"name":     newDoctor.Name,
 		"lastName": newDoctor.LastName,
 		"password": newDoctor.Password,
-		"address":	newDoctor.Address,
+		"address":  newDoctor.Address,
 	}, &doctor)
 	_ = copier.Copy(&resp, &doctor.Content)
 	return resp, err
@@ -254,8 +253,6 @@ func Query(query string, variables map[string]interface{}, respData interface{})
 	for key, value := range variables {
 		request.Var(key, value)
 	}
-	spew.Dump(variables)
 	err := createClient().Run(ctx, request, respData)
-	spew.Dump(respData)
 	return err
 }
