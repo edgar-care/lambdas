@@ -227,7 +227,7 @@ paths:
 # ------------------------------------ NLP ----------------------------------- #
 
   /nlp:
-    get:
+    post:
       security:
         - BearerAuth: []
       requestBody:
@@ -262,7 +262,7 @@ paths:
 # ----------------------------------- EXAM ----------------------------------- #
 
   /exam:
-    get:
+    post:
       security:
         - BearerAuth: []
       requestBody:
