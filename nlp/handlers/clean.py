@@ -12,9 +12,7 @@ def slug(s: str):
 
 
 abbreviations = [
-    ["(^|)f\.\s*c\.", "fc"],
-    ["(^|)r\.\s*c\.", "rc"],
-    ["(^|)r\.\s*s\.", "as"]
+    ["slt", "salut"]
 ]
 
 
