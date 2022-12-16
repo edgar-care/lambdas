@@ -12,7 +12,11 @@ def slug(s: str):
 
 
 abbreviations = [
-    ["slt", "salut"]
+    ["slt", "salut"],
+    ["taite", "tete"],
+    ["venrte", "ventre"],
+    ["vantre", "ventre"],
+    ["tourble", "trouble"]
 ]
 
 

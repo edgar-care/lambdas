@@ -17,10 +17,34 @@ func isPresent(context []ExamContextItem, symptom string) *bool {
 	return nil
 }
 
+func filter(context []ExamContextItem, symptom string) []ExamContextItem {
+	newContext := []ExamContextItem{}
+	for _, item := range context {
+		if item.Symptom == symptom {
+			newContext = append(newContext, item)
+		}
+	}
+	return newContext
+}
+
+func replaceContext(context []ExamContextItem) []ExamContextItem {
+	newContext := []ExamContextItem{}
+
+	for _, item := range context {
+		if isPresent(newContext, item.Symptom) != nil {
+			break
+		}
+		filtered := filter(context, item.Symptom)
+		newContext = append(newContext, filtered[len(filtered)-1])
+	}
+	return newContext
+}
+
 func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
 	if len(context) == 0 {
 		return "Pourriez-vous décrire vos symptomes ?", []string{}, false
 	}
+	context = replaceContext(context)
 	if isPresent(context, "maux_de_tetes") != nil {
 		if isPresent(context, "vision_trouble") == nil {
 			return "Avez vous la vision trouble ?", []string{"vision_trouble"}, false
