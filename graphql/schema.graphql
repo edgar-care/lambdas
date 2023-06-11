@@ -21,6 +21,17 @@ type Doctor {
     address: String!
 }
 
+# Session entity
+type Session {
+	id: ID!
+	symptoms: [String!]!
+    age: Int!
+    height: Int!
+    weight: Int!
+    sex: String!
+	last_question: String!
+}
+
 type Query {
     # Get the entire list of patients.
     getPatients: [Patient]
@@ -39,6 +50,12 @@ type Query {
 
     # Find a doctor using its email.
     getDoctorByEmail(email: String!): Doctor
+
+    # Get the entire list of sessions.
+    getSessions: [Session]
+
+    # Find a session using its id.
+    getSessionById(id: String!): Session
 }
 
 type Mutation {
@@ -59,6 +76,15 @@ type Mutation {
 
     # Delete a doctor.
     deleteDoctor(id: String!): Boolean
+
+    # Create a new session.
+    createSession(symptoms: [String!]!, age: Int!, height: Int!, weight: Int!, sex: String!, last_question: String!): Session
+
+    # Update a new session.
+    updateSession(id: String!, symptoms: [String!], age: Int, height: Int, weight: Int, sex: String, last_question: String): Session
+
+    # Delete a session.
+    deleteSession(id: String!): Boolean
 }
 
 enum Sex {
