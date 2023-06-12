@@ -44,6 +44,10 @@ zip: build
 	@zip -r $(ARCHIVE_NAME).zip $(BINARY_NAME) $(EXTRA_FILES)
 	@zip -r $(ARCHIVE_NAME) $(BINARY_NAME) $(EXTRA_FILES)
 
+test:
+	@python3 -m coverage run -m unittest discover -s tests -v
+	@python3 -m coverage report
+	@python3 -m coverage html
 
 .PHONY: all \
 		build \
@@ -53,4 +57,5 @@ zip: build
 		deploy \
 		install \
 		start \
-		zip
+		zip \
+		test

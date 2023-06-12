@@ -33,10 +33,14 @@ install:
 start:
 	@make -C $(t) start
 
+test:
+	@make -C $(t) test
+
 .PHONY: build \
 		deploy \
 		install \
-		start
+		start	\
+		test
 endif
 
 
