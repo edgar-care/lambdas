@@ -40,6 +40,9 @@ zip: build
 	@mkdir -p $(BUILD_DIR)
 	@zip builds/$(AWS_LAMBDA_FUNCTION_NAME)$(DATE) $(BINARY_NAME) $(EXTRA_FILES)
 
+test:
+	@go test -coverprofile=coverage.out -v ./...
+	@go tool cover -html=coverage.out
 
 .PHONY: all \
 		build \

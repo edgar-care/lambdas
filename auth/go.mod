@@ -3,7 +3,6 @@ module github.com/edgar-care/auth
 go 1.19
 
 require (
-	github.com/davecgh/go-spew v1.1.1
 	github.com/go-chi/chi/v5 v5.0.4
 	github.com/go-chi/jwtauth/v5 v5.0.2
 	github.com/jinzhu/copier v0.3.5

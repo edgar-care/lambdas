@@ -2,15 +2,6 @@ import re
 import unidecode
 import string
 
-
-def lower(s: str):
-    return s.lower()
-
-
-def slug(s: str):
-    return re.sub(r'[&/,;.:=+^$*%`<>@_\-\s]+', "-", s.lower())
-
-
 abbreviations = [
     ["slt", "salut"]
 ]
