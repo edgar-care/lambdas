@@ -1,8 +1,13 @@
-module github.com/edgar-care/exam
+module github.com/edgar-care/unboarding
 
 go 1.19
 
-require github.com/ohoareau/gola v0.4.9
+require (
+	github.com/jinzhu/copier v0.3.5
+	github.com/joho/godotenv v1.5.1
+	github.com/machinebox/graphql v0.2.2
+	github.com/ohoareau/gola v0.4.9
+)
 
 require (
 	github.com/aws/aws-lambda-go v1.26.0 // indirect
@@ -18,6 +23,7 @@ require (
 	github.com/lestrrat-go/iter v1.0.1 // indirect
 	github.com/lestrrat-go/jwx v1.2.6 // indirect
 	github.com/lestrrat-go/option v1.0.0 // indirect
+	github.com/matryer/is v1.4.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	golang.org/x/crypto v0.0.0-20201217014255-9d1352758620 // indirect
 )

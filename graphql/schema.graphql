@@ -30,6 +30,27 @@ type Session {
     weight: Int!
     sex: String!
 	last_question: String!
+type Info {
+	id: ID!
+	name: String!
+    age: Int!
+    height: Int!
+    weight: Int!
+    sexe: String!
+	surname: String!
+}
+
+type Health {
+	id:	ID!
+	patientallergies: String!
+	patientsillness: String!
+}
+
+type Notification {
+	id:	ID!
+	token: String!
+	title: String!
+    message: String!
 }
 
 type Query {
@@ -56,6 +77,23 @@ type Query {
 
     # Find a session using its id.
     getSessionById(id: String!): Session
+    # Get the entire list of info.
+    getInfos: [Info]
+
+    # Find a info using its id.
+    getInfoById(id: String!): Info
+
+    # Get the entire list of health.
+    getHealths: [Health]
+
+    # Find a health using its id.
+    getHealthById(id: String!): Health
+
+    # Get the entire list of notification.
+    getNotifications: [Notification]
+
+    # Find a Notification using its id.
+    getNotificationById(id: String!): Notification
 }
 
 type Mutation {
@@ -85,6 +123,32 @@ type Mutation {
 
     # Delete a session.
     deleteSession(id: String!): Boolean
+    # Create a new info.
+    createInfo(name: String!, age: Int!, height: Int!, weight: Int!, sexe: String!, surname: String!): Info
+
+    # Update a new info.
+    updateInfo(id: String!, name: String!, age: Int, height: Int, weight: Int, sexe: String, surname: String): Info
+
+    # Delete a info.
+    deleteInfo(id: String!): Boolean
+
+    # Create a new health.
+    createHealth(patientallergies: String!, patientsillness: String!): Health
+
+    # Update a new health.
+    updateHealth(id: String!, patientallergies: String!, patientsillness: String!): Health
+
+    # Delete a health.
+    deleteHealth(id: String!): Boolean
+
+    # Create a new notification.
+    createNotification(token: String!, message: String!, title: String!): Notification
+
+    # Update a new notification.
+    updateNotification(id: String!, token: String!, message: String!, title: String!): Notification
+
+    # Delete a notification.
+    deleteNotification(id: String!): Boolean
 }
 
 enum Sex {

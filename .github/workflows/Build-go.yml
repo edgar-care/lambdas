@@ -1,0 +1,38 @@
+name: Go package
+
+on: 
+  push:
+    branches: [" CU-860qy3mud_CI-Back-end-go"]
+  pull_request:
+    branches: [ "dev" ]
+
+  issues:
+    types: [opened]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.15'
+
+      - name: Build
+        run: make build
+
+      - name: Test
+        run: go test  ./test/
+      
+      - name: Create Issue on Failed workflow
+        if: ${{ failure() }}
+        uses: dacbd/create-issue-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE }}
+        with:
+          token: ${{ github.token }}
+          title: Simple test issue
+          body: my new issue
