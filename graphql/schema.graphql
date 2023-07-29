@@ -30,6 +30,8 @@ type Session {
     weight: Int!
     sex: String!
 	last_question: String!
+}
+
 type Info {
 	id: ID!
 	name: String!
