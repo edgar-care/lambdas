@@ -1,13 +1,7 @@
 from .request import Req
+from .graphql import get_symptoms
 from .clean import clean
-
-symptoms = {
-    "maux_de_tetes": [ "tête", "tete", "migraine" ],
-    "vision_trouble": [ "vois", "yeux", "vision" ],
-    "fievre": [ "froid", "température", "temperature", "fievre" ],
-    "maux_de_ventre": [ "ventre", "estomac", "intestin" ],
-    "vomissements": [ "vomir", "brassé", "vomi" ],
-}
+from fastapi.exceptions import HTTPException
 
 def process(req: Req) -> dict:
     input = clean(req.input)
@@ -20,10 +14,13 @@ def process(req: Req) -> dict:
         else:
             context.append({ "symptom": symptom, "present": None })
 
+    symptoms = get_symptoms()
+    if symptoms == None:
+        HTTPException(500, "No symptom in database")
     for symptom in symptoms:
-        for k in symptoms[symptom]:
+        for k in symptom["symptom"]:
             if k in input:
-                context.append({ "symptom": symptom, "present": True })
+                context.append({ "symptom": symptom["code"], "present": True })
                 break
 
 
