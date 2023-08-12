@@ -11,23 +11,23 @@ import (
 /********** Types ***********/
 
 type Notification struct {
-	Id          string   `json:"id"`
-	Token    string `json:"token"`
-	Title    string `json:"title"`
-	Message  string `json:"message"`
+	Id      string `json:"id"`
+	Token   string `json:"token"`
+	Title   string `json:"title"`
+	Message string `json:"message"`
 }
 
 type NotificationOutput struct {
-	Id           string    `json:"id"`
-	Token    *string `json:"token"`
-	Title    *string `json:"title"`
-	Message  *string `json:"message"`
+	Id      string  `json:"id"`
+	Token   *string `json:"token"`
+	Title   *string `json:"title"`
+	Message *string `json:"message"`
 }
 
 type NotificationInput struct {
-	Token    string `json:"token"`
-	Title    string `json:"title"`
-	Message  string `json:"message"`
+	Token   string `json:"token"`
+	Title   string `json:"title"`
+	Message string `json:"message"`
 }
 
 /**************** GraphQL types *****************/
@@ -54,9 +54,9 @@ func CreateInfo(newNotification NotificationInput) (Notification, error) {
                 }
             }`
 	err := Query(query, map[string]interface{}{
-		"token":      newNotification.Token,
-		"title":           newNotification.Title,
-		"message":        newNotification.Message,
+		"token":   newNotification.Token,
+		"title":   newNotification.Title,
+		"message": newNotification.Message,
 	}, &notification)
 	_ = copier.Copy(&resp, &notification.Content)
 	return resp, err
@@ -91,6 +91,7 @@ func Query(query string, variables map[string]interface{}, respData interface{})
 	for key, value := range variables {
 		request.Var(key, value)
 	}
+	request.Header.Set(os.Getenv("API_KEY"), os.Getenv("API_KEY_VALUE"))
 	err := createClient().Run(ctx, request, respData)
 	return err
 }
