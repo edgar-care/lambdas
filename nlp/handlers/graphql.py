@@ -18,7 +18,7 @@ def get_symptoms():
     
     data = {"query" : gql_query}
     json_data = json.dumps(data)
-    header = {'Content-Type': "application/json"}
+    header = {'Content-Type': "application/json", os.environ.get('API_KEY'): os.environ.get('API_KEY_VALUE')}
 
     response = requests.post(url=gql_url, headers=header, data=json_data)
     response.raise_for_status()

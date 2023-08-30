@@ -11,49 +11,49 @@ import (
 /********** Types ***********/
 
 type Info struct {
-	Id          string   `json:"id"`
-	Name    	string `json:"name"`
-	Surname 	string `json:"surname"`
-	Age 		int `json:"age"`
-	Sexe 		string `json:"sexe"`
-	Weight 		string `json:"weight"`
-	Height 		string `json:"height"`
+	Id      string `json:"id"`
+	Name    string `json:"name"`
+	Surname string `json:"surname"`
+	Age     int    `json:"age"`
+	Sexe    string `json:"sexe"`
+	Weight  string `json:"weight"`
+	Height  string `json:"height"`
 }
 
 type InfoOutput struct {
-	Id           string    `json:"id"`
+	Id      string  `json:"id"`
 	Name    *string `json:"name"`
 	Surname *string `json:"surname"`
-	Age *int `json:"age"`
-	Sexe *string `json:"sexe"`
-	Weight *int `json:"weight"`
-	Height *int `json:"height"`
+	Age     *int    `json:"age"`
+	Sexe    *string `json:"sexe"`
+	Weight  *int    `json:"weight"`
+	Height  *int    `json:"height"`
 }
 
 type InfoInput struct {
 	Name    string `json:"name"`
 	Surname string `json:"surname"`
-	Age int `json:"age"`
-	Sexe string `json:"sexe"`
-	Weight int `json:"weight"`
-	Height int `json:"height"`
+	Age     int    `json:"age"`
+	Sexe    string `json:"sexe"`
+	Weight  int    `json:"weight"`
+	Height  int    `json:"height"`
 }
 
 type Health struct {
-	Id          string   `json:"id"`
-	Patientallergies    string `json:"patientallergies,omitempty"`
-	Patientsillness string `json:"patientsillness,omitempty"`
+	Id               string `json:"id"`
+	Patientallergies string `json:"patientallergies,omitempty"`
+	Patientsillness  string `json:"patientsillness,omitempty"`
 }
 
 type HealthInput struct {
-	Patientallergies    string `json:"patientallergies,omitempty"`
-	Patientsillness string `json:"patientsillness,omitempty"`
+	Patientallergies string `json:"patientallergies,omitempty"`
+	Patientsillness  string `json:"patientsillness,omitempty"`
 }
 
 type HealthOutput struct {
-	Id           string    `json:"id"`
-	Patientallergies    string `json:"patientallergies,omitempty"`
-	Patientsillness string `json:"patientsillness,omitempty"`
+	Id               string `json:"id"`
+	Patientallergies string `json:"patientallergies,omitempty"`
+	Patientsillness  string `json:"patientsillness,omitempty"`
 }
 
 /**************** GraphQL types *****************/
@@ -91,11 +91,11 @@ func CreateInfo(newInfo InfoInput) (Info, error) {
                 }
             }`
 	err := Query(query, map[string]interface{}{
-		"name":      newInfo.Name,
-		"age":           newInfo.Age,
-		"height":        newInfo.Height,
-		"weight":        newInfo.Weight,
-		"sexe":           newInfo.Sexe,
+		"name":    newInfo.Name,
+		"age":     newInfo.Age,
+		"height":  newInfo.Height,
+		"weight":  newInfo.Weight,
+		"sexe":    newInfo.Sexe,
 		"surname": newInfo.Surname,
 	}, &info)
 	_ = copier.Copy(&resp, &info.Content)
@@ -135,8 +135,8 @@ func CreateHealth(newHealth HealthInput) (Health, error) {
                 }
             }`
 	err := Query(query, map[string]interface{}{
-		"patientallergies":      newHealth.Patientallergies,
-		"patientsillness":           newHealth.Patientsillness,
+		"patientallergies": newHealth.Patientallergies,
+		"patientsillness":  newHealth.Patientsillness,
 	}, &health)
 	_ = copier.Copy(&resp, &health.Content)
 	return resp, err
@@ -170,6 +170,7 @@ func Query(query string, variables map[string]interface{}, respData interface{})
 	for key, value := range variables {
 		request.Var(key, value)
 	}
+	request.Header.Set(os.Getenv("API_KEY"), os.Getenv("API_KEY_VALUE"))
 	err := createClient().Run(ctx, request, respData)
 	return err
 }
