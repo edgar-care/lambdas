@@ -14,13 +14,21 @@ func (u *healthResolver) ID() graphql.ID {
 	return graphql.ID(u.p.ID.Hex())
 }
 
-func (u *healthResolver) Patientallergies() string {
-	return u.p.Patientallergies
+func (u *healthResolver) PatientsAllergies() *[]string {
+	return u.p.PatientsAllergies
 }
 
 
-func (u *healthResolver) Patientsillness() string {
-	return u.p.Patientsillness
+func (u *healthResolver) PatientsIllness() *[]string {
+	return u.p.PatientsIllness
+}
+
+func (u *healthResolver) PatientsTreatments() *[]string {
+	return u.p.PatientsTreatments
+}
+
+func (u *healthResolver) PatientsPrimaryDoctor() string {
+	return u.p.PatientsPrimaryDoctor
 }
 
 func resolverFromHealth(p *models.Health) healthResolver {

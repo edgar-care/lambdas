@@ -13,45 +13,24 @@ import (
 type Patient struct {
 	Id       string `json:"id"`
 	Password string `json:"password"`
-	Name     string `json:"name"`
-	LastName string `json:"last_name"`
 	Email    string `json:"email"`
-	Age      int    `json:"age"`
-	Height   int    `json:"height"`
-	Weight   int    `json:"weight"`
-	Sex      string `json:"sex"`
 }
 
 type PatientOutput struct {
 	Id       *string `json:"id"`
 	Password *string `json:"password"`
-	Name     *string `json:"name"`
-	LastName *string `json:"lastName"`
 	Email    *string `json:"email"`
-	Age      *int    `json:"age"`
-	Height   *int    `json:"height"`
-	Weight   *int    `json:"weight"`
-	Sex      *string `json:"sex"`
 }
 
 type PatientInput struct {
 	Password string `json:"password"`
-	Name     string `json:"name"`
-	LastName string `json:"last_name"`
 	Email    string `json:"email"`
-	Age      int    `json:"age"`
-	Height   int    `json:"height"`
-	Weight   int    `json:"weight"`
-	Sex      string `json:"sex"`
 }
 
 type Doctor struct {
 	Id       string `json:"id"`
 	Password string `json:"password"`
-	Name     string `json:"name"`
-	LastName string `json:"last_name"`
 	Email    string `json:"email"`
-	Address  string `json:"address"`
 }
 
 type Admin struct {
@@ -65,10 +44,7 @@ type Admin struct {
 type DoctorOutput struct {
 	Id       *string `json:"id"`
 	Password *string `json:"password"`
-	Name     *string `json:"name"`
-	LastName *string `json:"lastName"`
 	Email    *string `json:"email"`
-	Address  *string `json:"address"`
 }
 
 type AdminOutput struct {
@@ -81,10 +57,7 @@ type AdminOutput struct {
 
 type DoctorInput struct {
 	Password string `json:"password"`
-	Name     string `json:"name"`
-	LastName string `json:"last_name"`
 	Email    string `json:"email"`
-	Address  string `json:"address"`
 }
 
 type AdminInput struct {
@@ -138,13 +111,7 @@ func GetPatientById(id string) (Patient, error) {
                 getPatientByID(id: $id) {
                     id,
                     password,
-                    name,
-                    lastName,
                     email,
-                    age,
-                    height,
-                    weight,
-                    sex
                 }
             }`
 
@@ -162,10 +129,7 @@ func GetDoctorById(id string) (Doctor, error) {
                 getDoctorByID(id: $id) {
                     id,
                     password,
-                    name,
-                    lastName,
                     email,
-					address
                 }
             }`
 
@@ -183,13 +147,7 @@ func GetPatientByEmail(email string) (Patient, error) {
                 getPatientByEmail(email: $email) {
                     id,
                     password,
-                    name,
-                    lastName,
                     email,
-                    age,
-                    height,
-                    weight,
-                    sex
                     }
                 }`
 
@@ -207,10 +165,7 @@ func GetDoctorByEmail(email string) (Doctor, error) {
                 getDoctorByEmail(email: $email) {
                     id,
                     password,
-                    name,
-                    lastName,
                     email,
-					address
                 }
             }`
 
@@ -244,28 +199,16 @@ func GetAdminByEmail(email string) (Admin, error) {
 func CreatePatient(newPatient PatientInput) (Patient, error) {
 	var patient createPatientResponse
 	var resp Patient
-	query := `mutation createPatient($email: String!, $name: String!, $lastName: String!, $password: String!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!) {
-            createPatient(email:$email, name:$name, lastName:$lastName, password:$password, age:$age, height:$height, weight:$weight, sex:$sex) {
+	query := `mutation createPatient($email: String!, $password: String!) {
+            createPatient(email:$email, password:$password) {
                     id,
                     password,
-                    name,
-                    lastName,
                     email,
-                    age,
-                    height,
-                    weight,
-                    sex
                 }
             }`
 	err := Query(query, map[string]interface{}{
 		"email":    newPatient.Email,
-		"name":     newPatient.Name,
-		"lastName": newPatient.LastName,
 		"password": newPatient.Password,
-		"age":      newPatient.Age,
-		"height":   newPatient.Height,
-		"weight":   newPatient.Weight,
-		"sex":      newPatient.Sex,
 	}, &patient)
 	_ = copier.Copy(&resp, &patient.Content)
 	return resp, err
@@ -274,22 +217,16 @@ func CreatePatient(newPatient PatientInput) (Patient, error) {
 func CreateDoctor(newDoctor DoctorInput) (Doctor, error) {
 	var doctor createDoctorResponse
 	var resp Doctor
-	query := `mutation createDoctor($email: String!, $password: String!, $name: String!, $lastName: String!, $address: String!) {
-        createDoctor(email:$email, password:$password, name:$name, lastName:$lastName, address:$address) {
+	query := `mutation createDoctor($email: String!, $password: String!) {
+        createDoctor(email:$email, password:$password) {
                     id,
-                    name,
-                    lastName,
                     email,
                     password,
-					address
                 }
             }`
 	err := Query(query, map[string]interface{}{
 		"email":    newDoctor.Email,
-		"name":     newDoctor.Name,
-		"lastName": newDoctor.LastName,
 		"password": newDoctor.Password,
-		"address":  newDoctor.Address,
 	}, &doctor)
 	_ = copier.Copy(&resp, &doctor.Content)
 	return resp, err

@@ -5,11 +5,16 @@ import (
 	"net/http"
 	"time"
 
+	// "fmt"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/jwtauth/v5"
 	"github.com/joho/godotenv"
 	"github.com/ohoareau/gola"
 	"github.com/ohoareau/gola/common"
 
-	"github.com/edgar-care/unboarding/cmd/main/handlers"
+	"github.com/edgar-care/onboarding/cmd/main/handlers"
+	"github.com/edgar-care/onboarding/cmd/main/lib"
 )
 
 func init() {
@@ -22,8 +27,13 @@ func init() {
 func main() {
 	gola.Main(common.Options{
 		Apigw2Configurator: func(r *common.HttpRouter) {
-			r.Post("/onboarding/infos", timeoutHandler(handlers.Info, 10*time.Second))
-			r.Post("/onboarding/health", timeoutHandler(handlers.Health, 10*time.Second))
+			r.Group(func(router chi.Router) {
+				router.Use(jwtauth.Verifier(lib.NewTokenAuth()))
+				router.Post("/onboarding/infos", timeoutHandler(handlers.Info, 10*time.Second))
+				router.Post("/onboarding/health", timeoutHandler(handlers.Health, 10*time.Second))
+				router.Get("/dashboard/medical-info", handlers.GetMedicalInformation)
+				router.Put("/dashboard/medical-info", handlers.ModifyFolderMedical)
+			})
 		},
 		Features: map[string]bool{
 			"logger":    true,

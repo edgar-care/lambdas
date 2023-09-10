@@ -16,10 +16,10 @@ func (db *DB) InsertInfo(info *models.InfoCreateInput) (*models.Info, error) {
 	entity := models.Info{
 		ID:           result.InsertedID.(primitive.ObjectID),
 		Name:     info.Name,
-		Age:          info.Age,
+		BirthDate:          info.BirthDate,
 		Height:       info.Height,
 		Weight:       info.Weight,
-		Sexe:          info.Sexe,
+		Sex:          info.Sex,
 		Surname: info.Surname,
 	}
 	return &entity, err

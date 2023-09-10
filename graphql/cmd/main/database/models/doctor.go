@@ -8,24 +8,17 @@ type Doctor struct {
 	ID       primitive.ObjectID `bson:"_id"`
 	Email    string             `bson:"email,omitempty"`
 	Password string             `bson:"password,omitempty"`
-	Name     string             `bson:"name,omitempty"`
-	LastName string             `bson:"last_name,omitempty"`
-	Address  string             `bson:"address,omitempty"`
+	RendezVousIDs *[]*string	`bson:"rendez_vous_ids"`
 }
 
 type DoctorCreateInput struct {
 	Email    string `bson:"email,omitempty"`
 	Password string `bson:"password,omitempty"`
-	Name     string `bson:"name,omitempty"`
-	LastName string `bson:"last_name,omitempty"`
-	Address  string `bson:"address,omitempty"`
 }
 
 type DoctorUpdateInput struct {
 	ID       string  `bson:"_id"`
 	Email    *string `bson:"email,omitempty"`
 	Password *string `bson:"password,omitempty"`
-	Name     *string `bson:"name,omitempty"`
-	LastName *string `bson:"last_name,omitempty"`
-	Address  *string `bson:"address,omitempty"`
+	RendezVousIDs *[]*string	`bson:"rendez_vous_ids"`
 }
