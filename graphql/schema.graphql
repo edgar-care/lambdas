@@ -21,6 +21,15 @@ type Doctor {
     address: String!
 }
 
+# Admin entity
+type Admin {
+    id: ID!
+    email: String!
+    password: String!
+    name: String!
+    lastName: String!
+}
+
 # Session entity
 type Session {
 	id: ID!
@@ -83,6 +92,9 @@ type Query {
     # Find a doctor using its email.
     getDoctorByEmail(email: String!): Doctor
 
+    # Find an admin using its email.
+    getAdminByEmail(email: String!): Admin
+
     # Get the entire list of sessions.
     getSessions: [Session]
 
@@ -132,6 +144,15 @@ type Mutation {
 
     # Delete a doctor.
     deleteDoctor(id: String!): Boolean
+
+    # Create a new doctor.
+    createAdmin(email: String!, password: String!, name: String!, lastName: String!): Admin
+
+    # Update a doctor.
+    updateAdmin(id: String!, email: String, password: String, name: String, lastName: String): Admin
+
+    # Delete a doctor.
+    deleteAdmin(id: String!): Boolean
 
     # Create a new session.
     createSession(symptoms: [String!]!, age: Int!, height: Int!, weight: Int!, sex: String!, last_question: String!): Session

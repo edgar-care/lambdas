@@ -31,6 +31,29 @@ func Register(w http.ResponseWriter, req *http.Request) {
 		token, _ = lib.CreateToken(map[string]interface{}{
 			"doctor": doctor,
 		})
+	} else if t == "a" {
+		var input services.AdminInput
+		err := json.NewDecoder(req.Body).Decode(&input)
+		lib.CheckError(err)
+
+		if lib.VerifyToken(input.Token) == false {
+			lib.WriteResponse(w, map[string]string{
+				"message": "Unable to create account: Invalid Token",
+			}, http.StatusBadRequest)
+			return
+		}
+
+		input.Password = lib.HashPassword(input.Password)
+		admin, err := services.CreateAdmin(input)
+		if err != nil {
+			lib.WriteResponse(w, map[string]string{
+				"message": "Unable to create account: " + err.Error(),
+			}, http.StatusBadRequest)
+			return
+		}
+		token, _ = lib.CreateToken(map[string]interface{}{
+			"admin": admin,
+		})
 	} else {
 		var input services.PatientInput
 
