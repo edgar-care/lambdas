@@ -50,6 +50,15 @@ type Symptom {
     question: String!
 }
 
+# Disease entity
+type Disease {
+	id: ID!
+	code: String!
+    name: String!
+    symptoms: [String!]!
+    advice: String
+}
+
 type Info {
 	id: ID!
 	name: String!
@@ -92,6 +101,12 @@ type Query {
     # Find a doctor using its email.
     getDoctorByEmail(email: String!): Doctor
 
+    # Get the entire list of admins.
+    getAdmins: [Admin]
+
+    # Find a admin using its id.
+    getAdminById(id: String!): Admin
+
     # Find an admin using its email.
     getAdminByEmail(email: String!): Admin
 
@@ -101,8 +116,11 @@ type Query {
     # Find a session using its id.
     getSessionById(id: String!): Session
 
-    # Find a session using its id.
+    # Find a symptom using its id.
     getSymptomById(id: String!): Symptom
+
+    # Find a disease using its id.
+    getDiseaseById(id: String!): Disease
 
     # Get the entire list of info.
     getInfos: [Info]
@@ -112,6 +130,9 @@ type Query {
 
     # Get the entire list of symptoms
     getSymptoms: [Symptom]
+
+    # Get the entire list of diseases
+    getDiseases: [Disease]
 
     # Get the entire list of health.
     getHealths: [Health]
@@ -166,11 +187,20 @@ type Mutation {
     # Create a new symptom.
     createSymptom(code: String!, symptom: [String!]!, advice: String, question: String!): Symptom
 
-     # Update a new symptom.
+    # Update a new symptom.
     updateSymptom(id: String!, code: String, symptom: [String!], advice: String, question: String): Symptom
 
     # Delete a symptom.
     deleteSymptom(id: String!): Boolean
+
+    # Create a new disease.
+    createDisease(code: String!, name: String!, symptoms: [String!]!, advice: String): Disease
+
+    # Update a new disease.
+    updateDisease(id: String!, code: String, name: String, symptoms: [String!], advice: String): Disease
+
+    # Delete a disease.
+    deleteDisease(id: String!): Boolean
 
     # Create a new info.
     createInfo(name: String!, age: Int!, height: Int!, weight: Int!, sexe: String!, surname: String!): Info
