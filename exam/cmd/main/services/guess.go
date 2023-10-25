@@ -53,5 +53,5 @@ func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
 			return "Avez vous la vision trouble ?", []string{"vision_trouble"}, false
 		}
 	}
-	return "Comment ca va mon reuf ?", []string{}, true
+	return "", []string{}, true
 }
