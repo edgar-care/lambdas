@@ -18,8 +18,8 @@ func (u *infoResolver) Name() string {
 	return u.p.Name
 }
 
-func (u *infoResolver) Age() int32 {
-	return u.p.Age
+func (u *infoResolver) BirthDate() string {
+	return u.p.BirthDate
 }
 
 func (u *infoResolver) Height() int32 {
@@ -30,8 +30,8 @@ func (u *infoResolver) Weight() int32 {
 	return u.p.Weight
 }
 
-func (u *infoResolver) Sexe() string {
-	return u.p.Sexe
+func (u *infoResolver) Sex() string {
+	return u.p.Sex
 }
 
 func (u *infoResolver) Surname() string {

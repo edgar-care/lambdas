@@ -24,28 +24,16 @@ func (r *patientResolver) Password() string {
 	return r.p.Password
 }
 
-func (r *patientResolver) Name() string {
-	return r.p.Name
+func (r *patientResolver) OnboardingInfoID() *string {
+	return r.p.OnboardingInfoID 
 }
 
-func (r *patientResolver) LastName() string {
-	return r.p.LastName
+func (r *patientResolver) OnboardingHealthID() *string {
+	return r.p.OnboardingHealthID 
 }
 
-func (r *patientResolver) Age() int32 {
-	return r.p.Age
-}
-
-func (r *patientResolver) Height() int32 {
-	return r.p.Height
-}
-
-func (r *patientResolver) Weight() int32 {
-	return r.p.Weight
-}
-
-func (r *patientResolver) Sex() string {
-	return r.p.Sex
+func (r *patientResolver) RendezVousIDs() *[]*string {
+    return r.p.RendezVousIDs
 }
 
 func resolverFromPatient(p *models.Patient) patientResolver {
@@ -81,9 +69,6 @@ func (*Resolver) GetPatientByEmail(args struct{ Email string }) (*patientResolve
 }
 
 func (*Resolver) CreatePatient(patient models.PatientCreateInput) (*patientResolver, error) {
-	if patient.Sex != "M" && patient.Sex != "F" {
-		return nil, errors.New("Invalid value for Sex: " + patient.Sex)
-	}
 	_, err := db.GetPatientByEmail(patient.Email)
 	if err == nil {
 		return nil, errors.New("Email already exists")
@@ -97,7 +82,6 @@ func (*Resolver) CreatePatient(patient models.PatientCreateInput) (*patientResol
 func (*Resolver) UpdatePatient(input models.PatientUpdateInput) (*patientResolver, error) {
 	res, err := db.UpdatePatient(&input)
 	lib.CheckError(err)
-
 	return &patientResolver{res}, nil
 }
 

@@ -3,12 +3,9 @@ type Patient {
     id: ID!
     email: String!
     password: String!
-    name: String!
-    lastName: String!
-    age: Int!
-    height: Int!
-    weight: Int!
-    sex: Sex!
+    rendez_vous_ids: [String]
+    onboarding_info_id: String
+    onboarding_health_id: String
 }
 
 # Doctor entity
@@ -16,9 +13,7 @@ type Doctor {
     id: ID!
     email: String!
     password: String!
-    name: String!
-    lastName: String!
-    address: String!
+    rendez_vous_ids: [String]
 }
 
 # Admin entity
@@ -62,17 +57,24 @@ type Disease {
 type Info {
 	id: ID!
 	name: String!
-    age: Int!
+    birthdate: String!
     height: Int!
     weight: Int!
-    sexe: String!
+    sex: Sex!
 	surname: String!
 }
 
 type Health {
 	id:	ID!
-	patientallergies: String!
-	patientsillness: String!
+	patients_allergies: [String!]
+	patients_illness: [String!]
+    patients_treatments: [String!]
+    patients_primary_doctor: String!
+}
+
+type MedicalInfo {
+    Info: String
+    Health: String
 }
 
 type Notification {
@@ -80,6 +82,14 @@ type Notification {
 	token: String!
 	title: String!
     message: String!
+}
+
+type Rdv {
+    id: ID!
+    doctor_id: String!
+    id_patient: String!
+    start_date: Int!
+    end_date: Int!
 }
 
 type Query {
@@ -145,34 +155,44 @@ type Query {
 
     # Find a Notification using its id.
     getNotificationById(id: String!): Notification
+
+    # Get the entire list of rdv patients.
+    getPatientRdv(id_patient: String!): [Rdv]
+
+    #Get the entire list of rdv doctors.
+    getDoctorRdv(doctor_id: String!): [Rdv]
+
+    # Find a rdv using its id.
+    getRdvById(id: String!): Rdv
+
 }
 
 type Mutation {
     # Create a new patient.
-    createPatient(email: String!, password: String!, name: String!, lastName: String!, age: Int!, height: Int!, weight: Int!, sex: String!): Patient
+    createPatient(email: String!, password: String!): Patient
 
     # Update a patient.
-    updatePatient(id: String!, email: String, password: String, name: String, lastName: String, age: Int, height: Int, weight: Int, sex: String): Patient
+    updatePatient(id: String!, email: String, password: String, onboarding_info_id: String, onboarding_health_id: String, rendez_vous_ids: [String]): Patient
 
     # Delete a patient.
     deletePatient(id: String!): Boolean
 
     # Create a new doctor.
-    createDoctor(email: String!, password: String!, name: String!, lastName: String!, address: String!): Doctor
+    createDoctor(email: String!, password: String!): Doctor
 
     # Update a doctor.
-    updateDoctor(id: String!, email: String, password: String, name: String, lastName: String, address: String): Doctor
+    updateDoctor(id: String!, email: String, password: String): Doctor #rendez_vous_id: String
 
     # Delete a doctor.
     deleteDoctor(id: String!): Boolean
 
-    # Create a new doctor.
+    # Create a new Admin.
     createAdmin(email: String!, password: String!, name: String!, lastName: String!): Admin
 
-    # Update a doctor.
+    # Update a Admin.
     updateAdmin(id: String!, email: String, password: String, name: String, lastName: String): Admin
 
-    # Delete a doctor.
+    # Delete a Admin.
     deleteAdmin(id: String!): Boolean
 
     # Create a new session.
@@ -203,19 +223,19 @@ type Mutation {
     deleteDisease(id: String!): Boolean
 
     # Create a new info.
-    createInfo(name: String!, age: Int!, height: Int!, weight: Int!, sexe: String!, surname: String!): Info
+    createInfo(name: String!, birthdate: String!, height: Int!, weight: Int!, sex: String!, surname: String!): Info
 
-    # Update a new info.
-    updateInfo(id: String!, name: String!, age: Int, height: Int, weight: Int, sexe: String, surname: String): Info
+    # Update a new info. #A verifier birthdate
+    updateInfo(id: String!, name: String, birthdate: String, height: Int, weight: Int, sex: String, surname: String): Info
 
     # Delete a info.
     deleteInfo(id: String!): Boolean
 
     # Create a new health.
-    createHealth(patientallergies: String!, patientsillness: String!): Health
+    createHealth(patients_allergies: [String!], patients_illness: [String!], patients_primary_doctor: String!, patients_treatments: [String!]): Health
 
     # Update a new health.
-    updateHealth(id: String!, patientallergies: String!, patientsillness: String!): Health
+    updateHealth(id: String!, patients_allergies: [String!], patients_illness: [String!], patients_primary_doctor: String, patients_treatments: [String!]): Health
 
     # Delete a health.
     deleteHealth(id: String!): Boolean
@@ -228,9 +248,25 @@ type Mutation {
 
     # Delete a notification.
     deleteNotification(id: String!): Boolean
+
+    # Create a new Rdv.
+    createRdv(id_patient: String!, doctor_id: String!, start_date: Int!, end_date: Int!): Rdv
+
+    # Update a new Rdv.
+    updateRdv(id: String!, id_patient: String, doctor_id: String, start_date: Int, end_date: Int): Rdv
+
+    # Delete a Rdv.
+    deleteRdv(id: String!): Boolean
 }
 
 enum Sex {
-    M,
-    F
+    MALE,
+    FEMALE,
+    OTHER
+}
+
+enum OnboardingStatus {
+	NOT_STARTED,
+	STARTED,
+    FINISHED
 }

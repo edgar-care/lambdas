@@ -1,4 +1,4 @@
-module github.com/edgar-care/unboarding
+module github.com/edgar-care/onboarding
 
 go 1.19
 
