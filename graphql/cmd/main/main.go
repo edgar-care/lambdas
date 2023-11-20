@@ -82,7 +82,7 @@ func main() {
 
 	if !present {
 		http.Handle("/graphql", &relay.Handler{Schema: schema})
-		log.Print("Starting to listen 8080 ...")
+		log.Print("Starting to listen 8080...")
 		log.Fatal(http.ListenAndServe(":8080", nil))
 	} else {
 		lambda.Start(Handler)
