@@ -14,23 +14,18 @@ func (db *DB) InsertRdv(rdv *models.RdvCreateInput) (*models.Rdv, error) {
 	ctx := context.Background()
 	result, err := db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Rdv").InsertOne(ctx, rdv)
 	entity := models.Rdv{
-		ID:           result.InsertedID.(primitive.ObjectID),
-		DoctorID:     rdv.DoctorID,
-		IdPatient:   rdv.IdPatient,
+		ID:        result.InsertedID.(primitive.ObjectID),
+		DoctorID:  rdv.DoctorID,
+		IdPatient: rdv.IdPatient,
 		StartDate: rdv.StartDate,
-		EndDate: rdv.EndDate,
+		EndDate:   rdv.EndDate,
 	}
 	return &entity, err
 }
 
 func (db *DB) GetPatientRdv(id_patient string) (*[]models.Rdv, error) {
 	ctx := context.Background()
-	//objId, err := primitive.ObjectIDFromHex(id_patient)
-	//filter := bson.D{}
 	var results []models.Rdv
-	// if err != nil {
-	// 	return nil, err
-	// }
 
 	filter := bson.M{"id_patient": id_patient}
 
@@ -48,12 +43,7 @@ func (db *DB) GetPatientRdv(id_patient string) (*[]models.Rdv, error) {
 
 func (db *DB) GetDoctorRdv(doctor_id string) (*[]models.Rdv, error) {
 	ctx := context.Background()
-	//objId, err := primitive.ObjectIDFromHex(id_patient)
-	//filter := bson.D{}
 	var results []models.Rdv
-	// if err != nil {
-	// 	return nil, err
-	// }
 
 	filter := bson.M{"doctor_id": doctor_id, "id_patient": nil}
 
@@ -68,7 +58,6 @@ func (db *DB) GetDoctorRdv(doctor_id string) (*[]models.Rdv, error) {
 	}
 	return &results, nil
 }
-
 
 func (db *DB) GetRdvByID(id string) (*models.Rdv, error) {
 	ctx := context.Background()
@@ -107,21 +96,6 @@ func (db *DB) UpdateRdv(rdv *models.RdvUpdateInput) (*models.Rdv, error) {
 	return replacement, err
 }
 
-// func (db *DB) DeleteRdv(id string) (bool, error) {
-// 	ctx := context.Background()
-// 	objId, err := primitive.ObjectIDFromHex(id)
-// 	if err != nil {
-// 		return false, err
-// 	}
-// 	filter := bson.M{"_id": objId}
-// 	_, err = db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Rdv").DeleteOne(ctx, filter)
-// 	if err != nil {
-// 		return false, err
-// 	}
-// 	return true, err
-
-// }
-
 func (db *DB) DeleteRdv(id string) (bool, error) {
 	ctx := context.Background()
 	objId, err := primitive.ObjectIDFromHex(id)
@@ -132,7 +106,7 @@ func (db *DB) DeleteRdv(id string) (bool, error) {
 	filter := bson.M{"_id": objId}
 	update := bson.M{
 		"$unset": bson.M{
-			"id_patient": 1, // Pour supprimer le champ id_patient
+			"id_patient": 1,
 		},
 	}
 	_, err = db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Rdv").UpdateOne(ctx, filter, update)
