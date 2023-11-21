@@ -1,7 +1,7 @@
 AWS_REGION 					:= eu-west-3
 AWS_LAMBDA_FUNCTION_NAME	:= pushnotification
 AWS_CLI_PROFILE				:= edgar.care
-BINARY_NAME					:= main
+BINARY_NAME					:= bootstrap
 BUILD_DIR					:= builds
 SOURCE_DIR					:= ./cmd/main
 DATE						:= $(shell date +"%d%m%y_%H%M%S")
