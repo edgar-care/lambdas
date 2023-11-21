@@ -5,12 +5,11 @@ import (
 )
 
 type Patient struct {
-	ID       primitive.ObjectID `bson:"_id"`
-	Email    string             `bson:"email,omitempty"`
-	Password string             `bson:"password,omitempty"`
-	OnboardingInfoID	*string	`bson:"onboarding_info_id"`
-	OnboardingHealthID	*string	`bson:"onboarding_health_id"`
-	RendezVousIDs 			*[]*string	`bson:"rendez_vous_ids"`
+	ID               primitive.ObjectID `bson:"_id"`
+	Email            string             `bson:"email,omitempty"`
+	Password         string             `bson:"password,omitempty"`
+	OnboardingInfoID *string            `bson:"onboarding_info_id"`
+	RendezVousIDs    *[]*string         `bson:"rendez_vous_ids"`
 }
 
 type PatientCreateInput struct {
@@ -19,10 +18,9 @@ type PatientCreateInput struct {
 }
 
 type PatientUpdateInput struct {
-	ID       string  `bson:"_id"`
-	Email    *string `bson:"email,omitempty"`
-	Password *string `bson:"password,omitempty"`
-	OnboardingInfoID	*string	`bson:"onboarding_info_id"`
-	OnboardingHealthID	*string	`bson:"onboarding_health_id"`
-	RendezVousIDs *[]*string	`bson:"rendez_vous_ids"`
+	ID               string     `bson:"_id"`
+	Email            *string    `bson:"email,omitempty"`
+	Password         *string    `bson:"password,omitempty"`
+	OnboardingInfoID *string    `bson:"onboarding_info_id"`
+	RendezVousIDs    *[]*string `bson:"rendez_vous_ids"`
 }

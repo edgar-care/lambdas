@@ -17,6 +17,7 @@ func (db *DB) InsertSymptom(symptom *models.SymptomCreateInput) (*models.Symptom
 	entity := models.Symptom{
 		ID:       result.InsertedID.(primitive.ObjectID),
 		Code:     symptom.Code,
+		Name:     symptom.Name,
 		Symptom:  symptom.Symptom,
 		Advice:   symptom.Advice,
 		Question: symptom.Question,
