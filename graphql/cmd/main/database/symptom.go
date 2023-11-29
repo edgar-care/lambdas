@@ -13,7 +13,6 @@ import (
 func (db *DB) InsertSymptom(symptom *models.SymptomCreateInput) (*models.Symptom, error) {
 	ctx := context.Background()
 	result, err := db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Symptom").InsertOne(ctx, symptom)
-
 	entity := models.Symptom{
 		ID:       result.InsertedID.(primitive.ObjectID),
 		Code:     symptom.Code,

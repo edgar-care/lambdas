@@ -4,6 +4,7 @@ import (
 	"github.com/edgar-care/graphql/cmd/main/database/models"
 	"github.com/edgar-care/graphql/cmd/main/lib"
 	"github.com/graph-gophers/graphql-go"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type antechirResolver struct {
@@ -22,8 +23,15 @@ func (u *antechirResolver) Localisation() string {
 	return u.p.Localisation
 }
 
-func (u *antechirResolver) InducedSymptoms() []models.Symptom {
-	return u.p.InducedSymptoms
+func (u *antechirResolver) InducedSymptoms() *[]*symptomResolver {
+	var resolvers []*symptomResolver
+	for _, s := range u.p.InducedSymptoms {
+		if s.ID != primitive.NilObjectID {
+			temp := resolverFromSymptom(&s)
+			resolvers = append(resolvers, &temp)
+		}
+	}
+	return &resolvers
 }
 
 func resolverFromAnteChir(p *models.AnteChir) antechirResolver {

@@ -25,15 +25,19 @@ func (r *patientResolver) Password() string {
 }
 
 func (r *patientResolver) OnboardingInfoID() *string {
-	return r.p.OnboardingInfoID 
+	return r.p.OnboardingInfoID
 }
 
 func (r *patientResolver) OnboardingHealthID() *string {
-	return r.p.OnboardingHealthID 
+	return r.p.OnboardingHealthID
 }
 
 func (r *patientResolver) RendezVousIDs() *[]*string {
-    return r.p.RendezVousIDs
+	return r.p.RendezVousIDs
+}
+
+func (r *patientResolver) DocumentIDs() *[]*string {
+	return r.p.DocumentIDs
 }
 
 func resolverFromPatient(p *models.Patient) patientResolver {

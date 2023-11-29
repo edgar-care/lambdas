@@ -25,7 +25,11 @@ func (u *doctorResolver) Password() string {
 }
 
 func (u *doctorResolver) RendezVousIDs() *[]*string {
-    return u.p.RendezVousIDs
+	return u.p.RendezVousIDs
+}
+
+func (r *doctorResolver) SlotIDs() *[]*string {
+	return r.p.SlotIDs
 }
 
 func resolverFromDoctor(p *models.Doctor) doctorResolver {
