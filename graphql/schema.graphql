@@ -92,6 +92,84 @@ type Rdv {
     end_date: Int!
 }
 
+type AnteChir {
+    id: ID!
+    name: String!
+    localisation: String!
+    inducedsymptoms: [Symptom!]
+}
+
+type AnteDisease {
+    id: ID!
+    name: String!
+    chronicity: String!
+    chir: AnteChir
+    treatment: [Treatment]
+    symptoms: [Symptom!]!
+}
+
+type AnteFamily {
+    id: ID!
+    name: String!
+    disease: [Disease!]!
+}
+
+type Treatment {
+    id: ID!
+    name: String!
+    disease: Disease!
+    symptoms: [Symptom!]!
+    sideeffects: [Symptom!]
+}
+
+#Inputs
+input SymptomInput {
+    id: ID!
+    code: String!
+    symptom: [String!]!
+    advice: String
+    question: String!
+}
+
+input DiseaseInput {
+    id: ID!
+    code: String!
+    name: String!
+    symptoms: [String!]!
+    advice: String
+}
+
+input AnteChirInput {
+    id: ID!
+    name: String!
+    localisation: String!
+    inducedsymptoms: [SymptomInput!]
+}
+
+input AnteDiseaseInput {
+    id: ID!
+    name: String!
+    chronicity: String!
+    chir: AnteChirInput
+    treatment: [TreatmentInput]
+    symptoms: [SymptomInput!]!
+}
+
+input AnteFamilyInput {
+    id: ID!
+    name: String!
+    disease: [DiseaseInput!]!
+}
+
+input TreatmentInput {
+    id: ID!
+    name: String!
+    disease: DiseaseInput!
+    symptoms: [SymptomInput!]!
+    sideeffects: [SymptomInput!]
+}
+
+
 type Query {
     # Get the entire list of patients.
     getPatients: [Patient]
@@ -164,6 +242,30 @@ type Query {
 
     # Find a rdv using its id.
     getRdvById(id: String!): Rdv
+
+    # Get the entire list of antechirs.
+    getAnteChirs: [AnteChir]
+
+    # Get an antechir by its id.
+    getAnteChirByID(id: String!): AnteChir
+
+    # Get the entire list of antediseases.
+    getAnteDisease: [AnteDisease]
+
+    # Get an antedisease by its id.
+    getAnteDiseaseByID(id: String!): AnteDisease
+
+    # Get the entire list of .
+    getAnteFamily: [AnteFamily]
+
+    # Get an antefamily by its id.
+    getAnteFamilyByID(id: String!): AnteFamily
+
+    # Get the entire list of treatments.
+    getTreatments: [Treatment]
+
+    # Get a treament by its id.
+    getTreatmentByID(id: String!): Treatment
 
 }
 
@@ -257,6 +359,43 @@ type Mutation {
 
     # Delete a Rdv.
     deleteRdv(id: String!): Boolean
+
+    # Create a new antechir.
+    createAnteChir(name: String!, localisation: String!, inducedsymptoms: [SymptomInput!]): AnteChir
+
+    # Update a new antechir.
+    updateAnteChir(id: String!, name: String, localisation: String, inducedsymptoms: [SymptomInput!]): AnteChir
+
+    # Delete a antechir.
+    deleteAnteChir(id: String!): Boolean
+
+    # Create a new antedisease.
+    createAnteDisease(name: String!, chronicity: String!, chir: AnteChirInput, treatment: [TreatmentInput!], symptoms: [SymptomInput!]!): AnteDisease
+
+    # Update a new antedisease.
+    updateAnteDisease(id: String!, name: String, chronicity: String, chir: AnteChirInput, treatment: [TreatmentInput!], symptoms: [SymptomInput!]): AnteDisease
+
+    # Delete a antedisease.
+    deleteAnteDisease(id: String!): Boolean
+
+    # Create a new antefamily.
+    createAnteFamily(name: String!, disease: [DiseaseInput!]!): AnteFamily
+
+    # Update a new antefamily.
+    updateAnteFamily(id: String!, name: String, disease: [DiseaseInput!]): AnteFamily
+
+    # Delete a antefamily.
+    deleteAnteFamily(id: String!): Boolean
+
+    # Create a new treatment.
+    createTreatment(name: String!, disease: DiseaseInput!, symptoms: [SymptomInput!]!, sideeffects: [SymptomInput]): Treatment
+
+    # Update a new treatment.
+    updateTreatment(id: ID!, name: String, disease: DiseaseInput, symptoms: [SymptomInput!], sideeffects: [SymptomInput!]): Treatment
+
+    # Delete a treatment.
+    deleteTreatment(id: String!): Boolean
+
 }
 
 enum Sex {
