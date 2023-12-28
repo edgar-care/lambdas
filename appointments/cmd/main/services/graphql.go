@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"fmt"
 	"os"
 
 	"github.com/jinzhu/copier"
@@ -70,12 +71,20 @@ type updateRdvResponse struct {
 	Content RdvOutput `json:"updateRdv"`
 }
 
+type createRdvResponse struct {
+	Content RdvOutput `json:"createRdv"`
+}
+
 type getOneRdvByIdResponse struct {
 	Content RdvOutput `json:"GetRdvById"`
 }
 
 type getAllRdvResponse struct {
 	Content []RdvOutput `json:"getPatientRdv"`
+}
+
+type getAllRdvDoctorResponse struct {
+	Content []RdvOutput `json:"getDoctorRdv"`
 }
 
 type updatePatientResponse struct {
@@ -88,6 +97,10 @@ type deleteRdvByIdResponse struct {
 
 type getRdvDoctorResponse struct {
 	Content []RdvOutput `json:"getDoctorRdv"`
+}
+
+type updateDoctorResponse struct {
+	Content DoctorOutput `json:"updateDoctor"`
 }
 
 /*************** Implementations *****************/
@@ -205,6 +218,85 @@ func GetPatientById(id string) (Patient, error) {
 		"id": id,
 	}, &patient)
 	_ = copier.Copy(&resp, &patient.Content)
+	return resp, err
+}
+
+// ============================================================================================== //
+// Doctor
+func UpdateDoctor(updateDoctor DoctorInput) (Doctor, error) {
+	var doctor updateDoctorResponse
+	var resp Doctor
+	query := `mutation updateDoctor($id: String!, $rendez_vous_ids: [String]) {
+		updateDoctor(id:$id, rendez_vous_ids:$rendez_vous_ids) {
+                    id,
+					rendez_vous_ids
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"id":              updateDoctor.Id,
+		"rendez_vous_ids": updateDoctor.RendezVousIDs,
+	}, &doctor)
+	_ = copier.Copy(&resp, &doctor.Content)
+	return resp, err
+}
+
+func GetAllRdvDoctor(id string) ([]Rdv, error) {
+	var allrdv getAllRdvDoctorResponse
+	var resp []Rdv
+	query := `query getDoctorRdv($doctor_id: String!){
+                getDoctorRdv(doctor_id: $doctor_id) {
+                    id,
+					doctor_id,
+					start_date,
+					end_date,
+					id_patient
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"doctor_id": id,
+	}, &allrdv)
+	_ = copier.Copy(&resp, &allrdv.Content)
+	return resp, err
+}
+
+func GetDoctorById(id string) (Doctor, error) {
+	var doctor updateDoctorResponse
+	var resp Doctor
+	query := `query getDoctorById($id: String!) {
+                getDoctorById(id: $id) {
+                    id,
+					rendez_vous_ids
+                }
+            }`
+
+	err := Query(query, map[string]interface{}{
+		"id": id,
+	}, &doctor)
+	_ = copier.Copy(&resp, &doctor.Content)
+	return resp, err
+}
+
+func CreateRdv(rdvcreate RdvInput, id string) (Rdv, error) {
+	var rdv createRdvResponse
+	var resp Rdv
+
+	query := `mutation createRdv($id_patient: String!, $doctor_id: String!, $start_date: Int!, $end_date: Int!) {
+		createRdv(id_patient:$id_patient, doctor_id:$doctor_id, start_date:$start_date, end_date:$end_date) {
+                    id,
+					id_patient,
+					doctor_id,
+					start_date,
+					end_date,
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"id_patient": rdvcreate.IdPatient,
+		"doctor_id":  id,
+		"start_date": rdvcreate.StartDate,
+		"end_date":   rdvcreate.EndDate,
+	}, &rdv)
+	_ = copier.Copy(&resp, &rdv.Content)
+	fmt.Print(resp)
 	return resp, err
 }
 

@@ -34,7 +34,7 @@ func resolverFromRdv(p *models.Rdv) rdvResolver {
 	return rdvResolver{p: p}
 }
 
-func (*Resolver) GetPatientRdv(args struct{Id_patient string}) (*[]*rdvResolver, error) {
+func (*Resolver) GetPatientRdv(args struct{ Id_patient string }) (*[]*rdvResolver, error) {
 	rdvs, err := db.GetPatientRdv(args.Id_patient)
 	lib.CheckError(err)
 
@@ -46,8 +46,8 @@ func (*Resolver) GetPatientRdv(args struct{Id_patient string}) (*[]*rdvResolver,
 	return &entities, nil
 }
 
-func (*Resolver) GetDoctorRdv(args struct{Doctor_id string}) (*[]*rdvResolver, error) {
-	rdvs, err := db.GetDoctorRdv(args.Doctor_id)
+func (*Resolver) GetDoctorRdv(args struct{ Doctor_Id string }) (*[]*rdvResolver, error) {
+	rdvs, err := db.GetDoctorRdv(args.Doctor_Id)
 	lib.CheckError(err)
 
 	var entities []*rdvResolver

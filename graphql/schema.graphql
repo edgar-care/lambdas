@@ -1,3 +1,4 @@
+
 # Patient entity
 type Patient {
     id: ID!
@@ -6,6 +7,7 @@ type Patient {
     rendez_vous_ids: [String]
     onboarding_info_id: String
     onboarding_health_id: String
+    document_ids: [String]
 }
 
 # Doctor entity
@@ -14,6 +16,7 @@ type Doctor {
     email: String!
     password: String!
     rendez_vous_ids: [String]
+    slot_ids: [String]
 }
 
 # Admin entity
@@ -92,82 +95,100 @@ type Rdv {
     end_date: Int!
 }
 
-type AnteChir {
+type Slot {
     id: ID!
-    name: String!
-    localisation: String!
-    inducedsymptoms: [Symptom!]
+    doctor_id: String!
+    appointment_id: String!
+    start_date: Int!
+    end_date: Int!
 }
 
-type AnteDisease {
-    id: ID!
-    name: String!
-    chronicity: String!
-    chir: AnteChir
-    treatment: [Treatment]
-    symptoms: [Symptom!]!
+type Document {
+   id: ID!
+   owner_id: String!
+   name: String!
+   document_type: DocumentType!
+   category: Category!
+   is_favorite: Boolean!
+   download_url: String!
 }
 
-type AnteFamily {
-    id: ID!
-    name: String!
-    disease: [Disease!]!
-}
+# type AnteChir {
+#     id: ID!
+#     name: String!
+#     localisation: String!
+#     induced_symptoms: [Symptom!]
+# }
 
-type Treatment {
-    id: ID!
-    name: String!
-    disease: Disease!
-    symptoms: [Symptom!]!
-    sideeffects: [Symptom!]
-}
+# type AnteDisease {
+#     id: ID!
+#     name: String!
+#     chronicity: String!
+#     chir: AnteChir
+#     treatment: [Treatment]
+#     symptoms: [Symptom!]!
+# }
 
-#Inputs
-input SymptomInput {
-    id: ID!
-    code: String!
-    symptom: [String!]!
-    advice: String
-    question: String!
-}
+# type AnteFamily {
+#     id: ID!
+#     name: String!
+#     disease: [Disease!]!
+# }
 
-input DiseaseInput {
-    id: ID!
-    code: String!
-    name: String!
-    symptoms: [String!]!
-    advice: String
-}
+# type Treatment {
+#     id: ID!
+#     name: String!
+#     disease: Disease!
+#     symptoms: [Symptom!]!
+#     sideeffects: [Symptom!]
+# }
 
-input AnteChirInput {
-    id: ID!
-    name: String!
-    localisation: String!
-    inducedsymptoms: [SymptomInput!]
-}
+# #Inputs
+# input SymptomInput {
+#     id: ID!
+#     code: String!
+#     symptom: [String!]!
+#     advice: String
+#     question: String!
+# }
 
-input AnteDiseaseInput {
-    id: ID!
-    name: String!
-    chronicity: String!
-    chir: AnteChirInput
-    treatment: [TreatmentInput]
-    symptoms: [SymptomInput!]!
-}
+# input DiseaseInput {
+#     id: ID!
+#     code: String!
+#     name: String!
+#     symptoms: [String!]!
+#     advice: String
+# }
 
-input AnteFamilyInput {
-    id: ID!
-    name: String!
-    disease: [DiseaseInput!]!
-}
+# input AnteChirInput {
+#     id: ID!
+#     name: String!
+#     localisation: String!
+#     induced_symptoms: [SymptomInput!]
+# }
 
-input TreatmentInput {
-    id: ID!
-    name: String!
-    disease: DiseaseInput!
-    symptoms: [SymptomInput!]!
-    sideeffects: [SymptomInput!]
-}
+# input AnteDiseaseInput {
+#     id: ID!
+#     name: String!
+#     chronicity: String!
+#     chir: AnteChirInput
+#     treatment: [TreatmentInput]
+#     symptoms: [SymptomInput!]!
+# }
+
+# input AnteFamilyInput {
+#     id: ID!
+#     name: String!
+#     disease: [DiseaseInput!]!
+# }
+
+# input TreatmentInput {
+#     id: ID!
+#     name: String!
+#     disease: DiseaseInput!
+#     symptoms: [SymptomInput!]!
+#     sideeffects: [SymptomInput!]
+# }
 
 
 type Query {
@@ -243,29 +264,41 @@ type Query {
     # Find a rdv using its id.
     getRdvById(id: String!): Rdv
 
-    # Get the entire list of antechirs.
-    getAnteChirs: [AnteChir]
+    #Get the entire list of slot doctors.
+    getDoctorSlot(doctor_id: String!): [Slot]
 
-    # Get an antechir by its id.
-    getAnteChirByID(id: String!): AnteChir
+    # Find a slot using its id.
+    getSlotById(id: String!): Slot
+
+    # Get the entire list of document patient
+    getDocuments: [Document]
+
+    # Find a doucment using its id.
+    getDocumentById(id: String!): Document
+
+    # # Get the entire list of antechirs.
+    # getAnteChirs: [AnteChir]
+
+    # # Get an antechir by its id.
+    # getAnteChirByID(id: String!): AnteChir
 
     # Get the entire list of antediseases.
-    getAnteDisease: [AnteDisease]
+    # getAnteDiseases: [AnteDisease]
 
     # Get an antedisease by its id.
-    getAnteDiseaseByID(id: String!): AnteDisease
+    # getAnteDiseaseByID(id: String!): AnteDisease
 
     # Get the entire list of .
-    getAnteFamily: [AnteFamily]
+    # getAnteFamily: [AnteFamily]
 
     # Get an antefamily by its id.
-    getAnteFamilyByID(id: String!): AnteFamily
+    # getAnteFamilyByID(id: String!): AnteFamily
 
     # Get the entire list of treatments.
-    getTreatments: [Treatment]
+    # getTreatments: [Treatment]
 
     # Get a treament by its id.
-    getTreatmentByID(id: String!): Treatment
+    # getTreatmentByID(id: String!): Treatment
 
 }
 
@@ -274,7 +307,7 @@ type Mutation {
     createPatient(email: String!, password: String!): Patient
 
     # Update a patient.
-    updatePatient(id: String!, email: String, password: String, onboarding_info_id: String, onboarding_health_id: String, rendez_vous_ids: [String]): Patient
+    updatePatient(id: String!, email: String, password: String, onboarding_info_id: String, onboarding_health_id: String, rendez_vous_ids: [String], document_ids: [String]): Patient
 
     # Delete a patient.
     deletePatient(id: String!): Boolean
@@ -282,8 +315,8 @@ type Mutation {
     # Create a new doctor.
     createDoctor(email: String!, password: String!): Doctor
 
-    # Update a doctor.
-    updateDoctor(id: String!, email: String, password: String): Doctor #rendez_vous_id: String
+    # Update a doctor.rendez_vous_ids
+    updateDoctor(id: String!, email: String, password: String, rendez_vous_ids: [String], slot_ids: [String]): Doctor #rendez_vous_id: String , slot_ids: [String]
 
     # Delete a doctor.
     deleteDoctor(id: String!): Boolean
@@ -360,41 +393,59 @@ type Mutation {
     # Delete a Rdv.
     deleteRdv(id: String!): Boolean
 
+    # Create a new Slot.
+    createSlot(doctor_id: String!, start_date: Int!, end_date: Int!): Slot
+
+    # Update a new Slot.
+    updateSlot(id: String!, doctor_id: String, appointment_id: String, start_date: Int, end_date: Int): Slot
+
+    # Delete a Slot.
+    deleteSlot(id: String!): Boolean
+
+    #Create a new document.
+    createDocument(owner_id: String!, name: String!, document_type: String!, category: String!, is_favorite: Boolean!, download_url: String!): Document
+
+    # Update a new Slot.
+    updateDocument(id: String!, is_favorite: Boolean): Document
+
+    # Delete a Slot.
+    deleteDocument(id: String!): Boolean
+
     # Create a new antechir.
-    createAnteChir(name: String!, localisation: String!, inducedsymptoms: [SymptomInput!]): AnteChir
+    # createAnteChir(name: String!, localisation: String!, induced_symptoms: [SymptomInput!]!): AnteChir
 
-    # Update a new antechir.
-    updateAnteChir(id: String!, name: String, localisation: String, inducedsymptoms: [SymptomInput!]): AnteChir
+    # # Update a new antechir.
+    # updateAnteChir(id: String!, name: String, localisation: String, induced_symptoms: [SymptomInput!]): AnteChir
 
-    # Delete a antechir.
-    deleteAnteChir(id: String!): Boolean
+    # # Delete a antechir.
+    # deleteAnteChir(id: String!): Boolean
 
     # Create a new antedisease.
-    createAnteDisease(name: String!, chronicity: String!, chir: AnteChirInput, treatment: [TreatmentInput!], symptoms: [SymptomInput!]!): AnteDisease
+    # createAnteDisease(name: String!, chronicity: String!, chir: AnteChirInput, treatment: [TreatmentInput!], symptoms: [SymptomInput!]!): AnteDisease
 
     # Update a new antedisease.
-    updateAnteDisease(id: String!, name: String, chronicity: String, chir: AnteChirInput, treatment: [TreatmentInput!], symptoms: [SymptomInput!]): AnteDisease
+    # updateAnteDisease(id: String!, name: String, chronicity: String, chir: AnteChirInput, treatment: [TreatmentInput!], symptoms: [SymptomInput!]): AnteDisease
 
     # Delete a antedisease.
-    deleteAnteDisease(id: String!): Boolean
+    # deleteAnteDisease(id: String!): Boolean
 
     # Create a new antefamily.
-    createAnteFamily(name: String!, disease: [DiseaseInput!]!): AnteFamily
+    # createAnteFamily(name: String!, disease: [DiseaseInput!]!): AnteFamily
 
     # Update a new antefamily.
-    updateAnteFamily(id: String!, name: String, disease: [DiseaseInput!]): AnteFamily
+    # updateAnteFamily(id: String!, name: String, disease: [DiseaseInput!]): AnteFamily
 
     # Delete a antefamily.
-    deleteAnteFamily(id: String!): Boolean
+    # deleteAnteFamily(id: String!): Boolean
 
     # Create a new treatment.
-    createTreatment(name: String!, disease: DiseaseInput!, symptoms: [SymptomInput!]!, sideeffects: [SymptomInput]): Treatment
+    # createTreatment(name: String!, disease: DiseaseInput!, symptoms: [SymptomInput!]!, sideeffects: [SymptomInput]): Treatment
 
     # Update a new treatment.
-    updateTreatment(id: ID!, name: String, disease: DiseaseInput, symptoms: [SymptomInput!], sideeffects: [SymptomInput!]): Treatment
+    # updateTreatment(id: ID!, name: String, disease: DiseaseInput, symptoms: [SymptomInput!], sideeffects: [SymptomInput!]): Treatment
 
     # Delete a treatment.
-    deleteTreatment(id: String!): Boolean
+    # deleteTreatment(id: String!): Boolean
 
 }
 
@@ -408,4 +459,13 @@ enum OnboardingStatus {
 	NOT_STARTED,
 	STARTED,
     FINISHED
+}
+
+enum Category {
+    HEALTH,
+    FINANCE
+}
+
+enum DocumentType {
+    TEST
 }

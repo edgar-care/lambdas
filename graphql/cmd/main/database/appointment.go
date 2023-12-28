@@ -45,7 +45,7 @@ func (db *DB) GetDoctorRdv(doctor_id string) (*[]models.Rdv, error) {
 	ctx := context.Background()
 	var results []models.Rdv
 
-	filter := bson.M{"doctor_id": doctor_id, "id_patient": nil}
+	filter := bson.M{"doctor_id": doctor_id}
 
 	cursor, err := db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Rdv").Find(ctx, filter)
 	if err != nil {

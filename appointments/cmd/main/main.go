@@ -29,6 +29,10 @@ func main() {
 				router.Get("/patient/appointments/{id}", handlers.GetRdvPatient)
 				router.Delete("/appointments/{id}", handlers.DeleteRdv)
 				router.Put("/appointments/{id}", handlers.ModifRdv)
+				router.Get("/doctor/appointments/{id}", handlers.GetDoctorAppointment)
+				router.Get("/doctor/appointments", handlers.GetAllDoctorAppointments)
+				router.Put("/doctor/appointments/{id}", handlers.UpdateDoctorAppointment)
+				router.Post("/doctor/appointments", handlers.CreateRdv)
 			})
 		},
 		Features: map[string]bool{
