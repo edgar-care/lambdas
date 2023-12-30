@@ -6,6 +6,18 @@ import (
 	"github.com/graph-gophers/graphql-go"
 )
 
+type symptomWeightResolver struct {
+	p *models.SymptomWeight
+}
+
+func (u *symptomWeightResolver) Key() string {
+	return u.p.Key
+}
+
+func (u *symptomWeightResolver) Value() float64 {
+	return u.p.Value
+}
+
 type diseaseResolver struct {
 	p *models.Disease
 }
@@ -24,6 +36,42 @@ func (u *diseaseResolver) Name() string {
 
 func (u *diseaseResolver) Symptoms() []string {
 	return u.p.Symptoms
+}
+
+func (u *diseaseResolver) SymptomsAcute() *[]*symptomWeightResolver {
+	var SymptomWeightResolvers []*symptomWeightResolver
+	if u.p.SymptomsAcute == nil {
+		return nil
+	}
+	for _, symptomWeight := range *u.p.SymptomsAcute {
+		tmp := symptomWeightResolver{p: &symptomWeight}
+		SymptomWeightResolvers = append(SymptomWeightResolvers, &tmp)
+	}
+	return &SymptomWeightResolvers
+}
+
+func (u *diseaseResolver) SymptomsSubacute() *[]*symptomWeightResolver {
+	var SymptomWeightResolvers []*symptomWeightResolver
+	if u.p.SymptomsSubacute == nil {
+		return nil
+	}
+	for _, symptomWeight := range *u.p.SymptomsSubacute {
+		tmp := symptomWeightResolver{p: &symptomWeight}
+		SymptomWeightResolvers = append(SymptomWeightResolvers, &tmp)
+	}
+	return &SymptomWeightResolvers
+}
+
+func (u *diseaseResolver) SymptomsChronic() *[]*symptomWeightResolver {
+	var SymptomWeightResolvers []*symptomWeightResolver
+	if u.p.SymptomsChronic == nil {
+		return nil
+	}
+	for _, symptomWeight := range *u.p.SymptomsChronic {
+		tmp := symptomWeightResolver{p: &symptomWeight}
+		SymptomWeightResolvers = append(SymptomWeightResolvers, &tmp)
+	}
+	return &SymptomWeightResolvers
 }
 
 func (u *diseaseResolver) Advice() *string {

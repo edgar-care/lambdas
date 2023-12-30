@@ -18,19 +18,19 @@ func (u *antediseaseResolver) Name() string {
 	return u.p.Name
 }
 
-func (u *antediseaseResolver) Chronicity() float32 {
+func (u *antediseaseResolver) Chronicity() float64 {
 	return u.p.Chronicity
 }
 
-func (u *antediseaseResolver) Chir() models.AnteChir {
+func (u *antediseaseResolver) Chir() *string {
 	return u.p.Chir
 }
 
-func (u *antediseaseResolver) Treatment() []models.Treatment {
+func (u *antediseaseResolver) Treatment() *[]string {
 	return u.p.Treatment
 }
 
-func (u *antediseaseResolver) Symptoms() []models.Symptom {
+func (u *antediseaseResolver) Symptoms() *[]string {
 	return u.p.Symptoms
 }
 

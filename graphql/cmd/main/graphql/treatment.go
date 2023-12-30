@@ -18,15 +18,15 @@ func (u *treatmentResolver) Name() string {
 	return u.p.Name
 }
 
-func (u *treatmentResolver) Disease() models.Disease {
+func (u *treatmentResolver) Disease() string {
 	return u.p.Disease
 }
 
-func (u *treatmentResolver) Symptoms() []models.Symptom {
+func (u *treatmentResolver) Symptoms() *[]string {
 	return u.p.Symptoms
 }
 
-func (u *treatmentResolver) SideEffects() []models.Symptom {
+func (u *treatmentResolver) SideEffects() *[]string {
 	return u.p.SideEffects
 }
 

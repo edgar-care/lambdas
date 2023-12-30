@@ -15,11 +15,13 @@ func (db *DB) InsertDisease(disease *models.DiseaseCreateInput) (*models.Disease
 	result, err := db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Disease").InsertOne(ctx, disease)
 
 	entity := models.Disease{
-		ID:       result.InsertedID.(primitive.ObjectID),
-		Code:     disease.Code,
-		Name:     disease.Name,
-		Symptoms: disease.Symptoms,
-		Advice:   disease.Advice,
+		ID:               result.InsertedID.(primitive.ObjectID),
+		Code:             disease.Code,
+		Name:             disease.Name,
+		SymptomsAcute:    disease.SymptomsAcute,
+		SymptomsSubacute: disease.SymptomsSubacute,
+		SymptomsChronic:  disease.SymptomsChronic,
+		Advice:           disease.Advice,
 	}
 	return &entity, err
 }
