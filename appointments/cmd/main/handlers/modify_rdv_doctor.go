@@ -56,7 +56,7 @@ func UpdateDoctorAppointment(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	rdv, err := services.UpdateRdv(get_id.IdPatient, new_appointment.Id)
+	rdv, err := services.UpdateRdv(get_id.IdPatient, new_appointment.Id, nil)
 
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{
@@ -91,7 +91,7 @@ func UpdateDoctorAppointment(w http.ResponseWriter, req *http.Request) {
 
 	// =============================================================== //
 
-	_, err = services.UpdateRdv("", appointmentID)
+	_, err = services.UpdateRdv("", appointmentID, nil)
 
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{

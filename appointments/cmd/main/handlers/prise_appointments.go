@@ -44,7 +44,7 @@ func BookRdv(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	rdv, err := services.UpdateRdv(patientID, id_appointment)
+	rdv, err := services.UpdateRdv(patientID, id_appointment, nil)
 
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{

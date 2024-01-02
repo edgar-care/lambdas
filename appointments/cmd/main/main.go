@@ -34,6 +34,7 @@ func main() {
 				router.Get("/doctor/appointments", handlers.GetAllDoctorAppointments)
 				router.Put("/doctor/appointments/{id}", handlers.UpdateDoctorAppointment)
 				router.Post("/doctor/appointments", handlers.CreateRdv)
+				router.Delete("/doctor/appointments/{id}", handlers.CancelRdv)
 
 				// SLOT
 				router.Get("/doctor/slot/{id}", handlers.GetSlotId)

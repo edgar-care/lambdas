@@ -19,7 +19,7 @@ func DeleteRdv(w http.ResponseWriter, req *http.Request) {
 	}
 
 	id_appointment := chi.URLParam(req, "id")
-	_, err := services.UpdateRdv("", id_appointment)
+	_, err := services.UpdateRdv("", id_appointment, nil)
 
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{
