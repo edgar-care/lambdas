@@ -20,6 +20,7 @@ func main() {
 		Apigw2Configurator: func(r *common.HttpRouter) {
 			r.Post("/auth/{type}/login", handlers.Login)
 			r.Post("/auth/{type}/register", handlers.Register)
+			r.Post("/admin/create_account/{type}", handlers.CreateAccount)
 		},
 		Features: map[string]bool{
 			"logger":    true,
