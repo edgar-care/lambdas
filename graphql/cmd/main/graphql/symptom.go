@@ -18,6 +18,30 @@ func (u *symptomResolver) Code() string {
 	return u.p.Code
 }
 
+func (u *symptomResolver) Name() string {
+	return u.p.Name
+}
+
+func (u *symptomResolver) Location() *string {
+	return u.p.Location
+}
+
+func (u *symptomResolver) Duration() *int32 {
+	return u.p.Duration
+}
+
+func (u *symptomResolver) Acute() *int32 {
+	return u.p.Acute
+}
+
+func (u *symptomResolver) Subacute() *int32 {
+	return u.p.Subacute
+}
+
+func (u *symptomResolver) Chronic() *int32 {
+	return u.p.Chronic
+}
+
 func (u *symptomResolver) Symptom() []string {
 	return u.p.Symptom
 }

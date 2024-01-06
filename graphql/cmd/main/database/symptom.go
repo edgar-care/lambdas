@@ -18,6 +18,11 @@ func (db *DB) InsertSymptom(symptom *models.SymptomCreateInput) (*models.Symptom
 		Code:     symptom.Code,
 		Name:     symptom.Name,
 		Symptom:  symptom.Symptom,
+		Location: symptom.Location,
+		Duration: symptom.Duration,
+		Acute:    symptom.Acute,
+		Subacute: symptom.Subacute,
+		Chronic:  symptom.Chronic,
 		Advice:   symptom.Advice,
 		Question: symptom.Question,
 	}

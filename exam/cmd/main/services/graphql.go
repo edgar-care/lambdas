@@ -17,108 +17,175 @@ type DiseasesResponse struct {
 }
 
 type Disease struct {
-	Id       string   `json:"id"`
-	Code     string   `json:"code"`
-	Name     string   `json:"name"`
-	Symptoms []string `json:"symptoms"`
-	Advice   string   `json:"advice"`
+	ID               string             `json:"id"`
+	Code             string             `json:"code"`
+	Name             string             `json:"name"`
+	SymptomsAcute    map[string]float64 `json:"symptoms_acute"`
+	SymptomsSubacute map[string]float64 `json:"symptoms_subacute"`
+	SymptomsChronic  map[string]float64 `json:"symptoms_chronic"`
+	Advice           string             `json:"advice"`
+}
+
+type DiseaseOutput struct {
+	ID               *string             `json:"id"`
+	Code             *string             `json:"code"`
+	Name             *string             `json:"name"`
+	SymptomsAcute    *map[string]float64 `json:"symptoms_acute"`
+	SymptomsSubacute *map[string]float64 `json:"symptoms_subacute"`
+	SymptomsChronic  *map[string]float64 `json:"symptoms_chronic"`
+	Advice           *string             `json:"advice"`
+}
+
+type DiseaseInput struct {
+	Code             string             `json:"code"`
+	Name             string             `json:"name"`
+	SymptomsAcute    map[string]float64 `json:"symptoms_acute"`
+	SymptomsSubacute map[string]float64 `json:"symptoms_subacute"`
+	SymptomsChronic  map[string]float64 `json:"symptoms_chronic"`
+	Advice           string             `json:"advice"`
 }
 
 type Symptom struct {
-	ID       string   `json:"id"`
-	Code     string   `json:"code"`
-	Symptom  []string `json:"symptom"`
-	Advice   string   `json:"advice"`
-	Question string   `json:"question"`
+	ID       string `json:"id"`
+	Code     string `json:"code"`
+	Name     string `json:"name"`
+	Location string `json:"location"`
+	Duration int32  `json:"duration"`
+	Acute    int32  `json:"acute"`
+	Subacute int32  `json:"subacute"`
+	Chronic  int32  `json:"chronic"`
+	Advice   string `json:"advice"`
+	Question string `json:"question"`
+}
+
+type SymptomOutput struct {
+	ID       *string `json:"id"`
+	Code     *string `json:"code"`
+	Name     *string `json:"name"`
+	Location *string `json:"location"`
+	Duration int32   `json:"duration"`
+	Acute    int32   `json:"acute"`
+	Subacute int32   `json:"subacute"`
+	Chronic  int32   `json:"chronic"`
+	Advice   *string `json:"advice"`
+	Question *string `json:"question"`
+}
+
+type SymptomInput struct {
+	Code     string `json:"code"`
+	Name     string `json:"name"`
+	Location string `json:"location"`
+	Duration int32  `json:"duration"`
+	Acute    int32  `json:"acute"`
+	Subacute int32  `json:"subacute"`
+	Chronic  int32  `json:"chronic"`
+	Advice   string `json:"advice"`
+	Question string `json:"question"`
 }
 
 type AnteChir struct {
-	ID              string    `json:"id"`
-	Name            string    `json:"name"`
-	Localisation    string    `json:"localisation"`
-	InducedSymptoms []Symptom `json:"inducedsymptoms"`
+	ID              string   `json:"id"`
+	Name            string   `json:"name"`
+	Localisation    string   `json:"localisation"`
+	InducedSymptoms []string `json:"induced_symptoms"`
 }
 
 type AnteChirOutput struct {
 	ID              *string   `json:"id"`
 	Name            *string   `json:"name"`
 	Localisation    *string   `json:"localisation"`
-	InducedSymptoms []Symptom `json:"inducedsymptoms"`
+	InducedSymptoms *[]string `json:"induced_symptoms"`
 }
 
 type AnteChirInput struct {
-	Name            string    `json:"name"`
-	Localisation    string    `json:"localisation"`
-	InducedSymptoms []Symptom `json:"inducedsymptoms"`
+	Name            string   `json:"name"`
+	Localisation    string   `json:"localisation"`
+	InducedSymptoms []string `json:"induced_symptoms"`
 }
 
 type AnteDisease struct {
-	ID         string      `json:"id"`
-	Name       string      `json:"name"`
-	Chronicity float32     `json:"chronicity"`
-	Chir       AnteChir    `json:"chir"`
-	Treatment  []Treatment `json:"treatment"`
-	Symptoms   []Symptom   `json:"symptoms"`
+	ID         string   `json:"id"`
+	Name       string   `json:"name"`
+	Chronicity float64  `json:"chronicity"`
+	Chir       string   `json:"chir"`
+	Treatment  []string `json:"treatment"`
+	Symptoms   []string `json:"symptoms"`
 }
 
 type AnteDiseaseOutput struct {
-	ID         *string      `json:"id"`
-	Name       *string      `json:"name"`
-	Chronicity *float32     `json:"chronicity"`
-	Chir       *AnteChir    `json:"chir"`
-	Treatment  *[]Treatment `json:"treatment"`
-	Symptoms   *[]Symptom   `json:"symptoms"`
+	ID         *string   `json:"id"`
+	Name       *string   `json:"name"`
+	Chronicity *float64  `json:"chronicity"`
+	Chir       *string   `json:"chir"`
+	Treatment  *[]string `json:"treatment"`
+	Symptoms   *[]string `json:"symptoms"`
 }
 
 type AnteDiseaseInput struct {
-	Name       string      `json:"name"`
-	Chronicity float32     `json:"chronicity"`
-	Chir       AnteChir    `json:"chir"`
-	Treatment  []Treatment `json:"treatment"`
-	Symptoms   []Symptom   `json:"symptoms"`
+	Name       string   `json:"name"`
+	Chronicity float64  `json:"chronicity"`
+	Chir       string   `json:"chir"`
+	Treatment  []string `json:"treatment"`
+	Symptoms   []string `json:"symptoms"`
 }
 
 type AnteFamily struct {
-	ID      string    `json:"id"`
-	Name    string    `json:"name"`
-	Disease []Disease `json:"disease"`
+	ID      string   `json:"id"`
+	Name    string   `json:"name"`
+	Disease []string `json:"disease"`
 }
 
 type AnteFamilyOutput struct {
 	ID      *string   `json:"id"`
 	Name    *string   `json:"name"`
-	Disease []Disease `json:"disease"`
+	Disease *[]string `json:"disease"`
 }
 
 type AnteFamilyInput struct {
-	Name    string    `json:"name"`
-	Disease []Disease `json:"disease"`
+	Name    string   `json:"name"`
+	Disease []string `json:"disease"`
 }
 
 type Treatment struct {
-	ID          string    `json:"id"`
-	Name        string    `json:"name"`
-	Disease     Disease   `json:"disease"`
-	Symptoms    []Symptom `json:"symptoms"`
-	SideEffects []Symptom `json:"sideeffects"`
+	ID          string   `json:"id"`
+	Name        string   `json:"name"`
+	Disease     string   `json:"disease"`
+	Symptoms    []string `json:"symptoms"`
+	SideEffects []string `json:"side_effects"`
 }
 
 type TreatmentOutput struct {
 	ID          *string   `json:"id"`
 	Name        *string   `json:"name"`
-	Disease     *Disease  `json:"disease"`
-	Symptoms    []Symptom `json:"symptoms"`
-	SideEffects []Symptom `json:"sideeffects"`
+	Disease     *string   `json:"disease"`
+	Symptoms    *[]string `json:"symptoms"`
+	SideEffects *[]string `json:"side_effects"`
 }
 
 type TreatmentInput struct {
-	Name        string    `json:"name"`
-	Disease     Disease   `json:"disease"`
-	Symptoms    []Symptom `json:"symptoms"`
-	SideEffects []Symptom `json:"sideeffects"`
+	Name        string   `json:"name"`
+	Disease     string   `json:"disease"`
+	Symptoms    []string `json:"symptoms"`
+	SideEffects []string `json:"side_effects"`
 }
 
 /**************** GraphQL types *****************/
+
+type getDiseaseByIdResponse struct {
+	Content DiseaseOutput `json:"getDiseaseByIdResponse"`
+}
+
+type createDiseaseResponse struct {
+	Content DiseaseOutput `json:"createDiseaseResponse"`
+}
+
+type getSymptomByIdResponse struct {
+	Content SymptomOutput `json:"getSymptomByIdResponse"`
+}
+
+type createSymptomeResponse struct {
+	Content SymptomOutput `json:"createSymptomeResponse"`
+}
 
 type getAnteChirByIdResponse struct {
 	Content AnteChirOutput `json:"getAnteChirById"`
@@ -144,7 +211,7 @@ type createAnteFamilyResponse struct {
 	Content AnteFamilyOutput `json:"createAnteFamily"`
 }
 
-type getTreatmentIdResponse struct {
+type getTreatmentByIdResponse struct {
 	Content TreatmentOutput `json:"getTreatmentById"`
 }
 
@@ -228,7 +295,112 @@ func GetDiseases() ([]Disease, error) {
 	return resp.GetDiseases, err
 }
 
-func GetAnteChirById(id string) (AnteChir, error) {
+func getDiseaseById(id string) (Disease, error) {
+	var disease getDiseaseByIdResponse
+	var resp Disease
+	query := `query getDiseaseById($id: String!) {
+                getDiseaseById(id: $id) {
+                    id,
+					code,
+                    name,
+					symptoms_acute,
+                    symptoms_subacute,
+					symptoms_chronic,
+					advice,
+                }
+            }`
+
+	err := Query(query, map[string]interface{}{
+		"id": id,
+	}, &disease)
+	_ = copier.Copy(&resp, &disease.Content)
+	return resp, err
+}
+
+func createDisease(newDisease DiseaseInput) (Disease, error) {
+	var disease createDiseaseResponse
+	var resp Disease
+	query := `mutation createDisease($code: String!, $name: String!, $symptoms_acute: Map, $symptoms_subacute: Map, $symptoms_chronic: Map, $advice: String) {
+        createDisease(code: $code, name: $name, symptoms_acute: $symptoms_acute, symptoms_subacute: $symptoms_subacute, symptoms_chronic: $symptoms_chronic, advice: $advice) {
+                    id,
+					code,
+                    name,
+					symptoms_acute,
+                    symptoms_subacute,
+					symptoms_chronic,
+					advice,
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"code":              newDisease.Code,
+		"name":              newDisease.Name,
+		"symptoms_acute":    newDisease.SymptomsAcute,
+		"symptoms_subacute": newDisease.SymptomsSubacute,
+		"symptoms_chronic":  newDisease.SymptomsChronic,
+		"advice":            newDisease.Advice,
+	}, &disease)
+	_ = copier.Copy(&resp, &disease.Content)
+	return resp, err
+}
+
+func getSymptomById(id string) (Symptom, error) {
+	var symptom getSymptomByIdResponse
+	var resp Symptom
+	query := `query getSymptomById($id: String!) {
+                getSymptomById(id: $id) {
+                    id,
+					code,
+                    name,
+					location,
+                    duration,
+					acute,
+					subacute,
+					chronic,
+					advice,
+					question,
+                }
+            }`
+
+	err := Query(query, map[string]interface{}{
+		"id": id,
+	}, &symptom)
+	_ = copier.Copy(&resp, &symptom.Content)
+	return resp, err
+}
+
+func createSymptom(newSymptom SymptomInput) (Symptom, error) {
+	var symptom createSymptomeResponse
+	var resp Symptom
+	query := `mutation createSymptom($code: String!, $name: String!, $location: String, $duration: Int, $acute: Int, $subacute: Int, $chronic: Int, $advice: String, $question: String!) {
+        createSymptom(code: $code, name: $name, location: $location, duration: $duration, acute: $acute, subacute: $subacute, chronic: $chronic, advice: $advice, question: $question) {
+                    id,
+					code,
+                    name,
+					location,
+                    duration,
+					acute,
+					subacute,
+					chronic,
+					advice,
+					question,
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"code":     newSymptom.Code,
+		"name":     newSymptom.Name,
+		"location": newSymptom.Location,
+		"duration": newSymptom.Duration,
+		"acute":    newSymptom.Acute,
+		"subacute": newSymptom.Subacute,
+		"chronic":  newSymptom.Chronic,
+		"advice":   newSymptom.Advice,
+		"question": newSymptom.Question,
+	}, &symptom)
+	_ = copier.Copy(&resp, &symptom.Content)
+	return resp, err
+}
+
+func getAnteChirById(id string) (AnteChir, error) {
 	var antechir getAnteChirByIdResponse
 	var resp AnteChir
 	query := `query getAnteChirById($id: String!) {
@@ -236,7 +408,7 @@ func GetAnteChirById(id string) (AnteChir, error) {
                     id,
                     name,
                     localisation,
-					inducedsymptoms,
+					induced_symptoms,
                 }
             }`
 
@@ -247,27 +419,27 @@ func GetAnteChirById(id string) (AnteChir, error) {
 	return resp, err
 }
 
-func CreateAnteChir(newAnteChir AnteChirInput) (AnteChir, error) {
+func createAnteChir(newAnteChir AnteChirInput) (AnteChir, error) {
 	var antechir createAnteChirResponse
 	var resp AnteChir
-	query := `mutation createAnteChir($name: String!, $localisation: String!, $inducedsymptoms: [SymptomInput!]) {
-        createAnteChir(name:$name, localisation:$localisation, inducedsymptoms:$inducedsymptoms) {
+	query := `mutation createAnteChir($name: String!, $localisation: String!, $induced_symptoms: [SymptomInput!]) {
+        createAnteChir(name:$name, localisation:$localisation, induced_symptoms:$induced_symptoms) {
                     id,
 					name,
                     localisation,
-                    inducedsymptoms,
+                    induced_symptoms,
                 }
             }`
 	err := Query(query, map[string]interface{}{
-		"name":            newAnteChir.Name,
-		"localisation":    newAnteChir.Localisation,
-		"inducedsymptoms": newAnteChir.InducedSymptoms,
+		"name":             newAnteChir.Name,
+		"localisation":     newAnteChir.Localisation,
+		"induced_symptoms": newAnteChir.InducedSymptoms,
 	}, &antechir)
 	_ = copier.Copy(&resp, &antechir.Content)
 	return resp, err
 }
 
-func GetAnteDiseaseById(id string) (AnteDisease, error) {
+func getAnteDiseaseById(id string) (AnteDisease, error) {
 	var antedisease getAnteDiseaseByIdResponse
 	var resp AnteDisease
 	query := `query getAnteDiseaseById($id: String!) {
@@ -288,7 +460,7 @@ func GetAnteDiseaseById(id string) (AnteDisease, error) {
 	return resp, err
 }
 
-func CreateAnteDisease(newAnteDisease AnteDiseaseInput) (AnteDisease, error) {
+func createAnteDisease(newAnteDisease AnteDiseaseInput) (AnteDisease, error) {
 	var antedisease createAnteDiseaseResponse
 	var resp AnteDisease
 	query := `mutation createAnteDisease($name: String!, $chronicity: String!, $chir: AnteChirInput, $treatment: [TreatmentInput!], $symptoms: [SymptomInput!]!) {
@@ -312,7 +484,7 @@ func CreateAnteDisease(newAnteDisease AnteDiseaseInput) (AnteDisease, error) {
 	return resp, err
 }
 
-func GetAnteFamilyById(id string) (AnteFamily, error) {
+func getAnteFamilyById(id string) (AnteFamily, error) {
 	var antefamily getAnteFamilyByIdResponse
 	var resp AnteFamily
 	query := `query getAnteFamilyById($id: String!) {
@@ -330,7 +502,7 @@ func GetAnteFamilyById(id string) (AnteFamily, error) {
 	return resp, err
 }
 
-func CreateAnteFamily(newAnteFamily AnteFamilyInput) (AnteFamily, error) {
+func createAnteFamily(newAnteFamily AnteFamilyInput) (AnteFamily, error) {
 	var antefamily createAnteFamilyResponse
 	var resp AnteFamily
 	query := `mutation createAnteFamily($name: String!, $disease: [DiseaseInput!]!) {
@@ -345,6 +517,48 @@ func CreateAnteFamily(newAnteFamily AnteFamilyInput) (AnteFamily, error) {
 		"disease": newAnteFamily.Disease,
 	}, &antefamily)
 	_ = copier.Copy(&resp, &antefamily.Content)
+	return resp, err
+}
+
+func getTreatmentById(id string) (Treatment, error) {
+	var treatment getTreatmentByIdResponse
+	var resp Treatment
+	query := `query getTreatmentById($id: String!) {
+                getTreatmentById(id: $id) {
+                    id,
+                    name,
+                    disease,
+					symptoms,
+					side_effects,
+                }
+            }`
+
+	err := Query(query, map[string]interface{}{
+		"id": id,
+	}, &treatment)
+	_ = copier.Copy(&resp, &treatment.Content)
+	return resp, err
+}
+
+func createTreatment(newTreatment TreatmentInput) (Treatment, error) {
+	var treatment createTreatmentResponse
+	var resp Treatment
+	query := `mutation createTreatment($name: String!, $disease: DiseaseInput!, $symptoms: [SymptomInput!]!, $side_effects: [SymptomInput]) {
+        createTreatment(name: $name, disease: $disease, symptoms: $symptoms, side_effects: $side_effects) {
+                    id,
+                    name,
+                    disease,
+					symptoms,
+					side_effects,
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"name":         newTreatment.Name,
+		"disease":      newTreatment.Disease,
+		"symptoms":     newTreatment.Symptoms,
+		"side_effects": newTreatment.SideEffects,
+	}, &treatment)
+	_ = copier.Copy(&resp, &treatment.Content)
 	return resp, err
 }
 

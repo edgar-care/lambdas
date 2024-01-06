@@ -7,22 +7,22 @@ import (
 type Treatment struct {
 	ID          primitive.ObjectID `bson:"_id"`
 	Name        string             `bson:"name,omitempty"`
-	Disease     Disease            `bson:"disease,omitempty"`
-	Symptoms    []Symptom          `bson:"symptoms,omitempty"`
-	SideEffects []Symptom          `bson:"sideeffects,omitempty"`
+	Disease     string             `bson:"disease,omitempty"`
+	Symptoms    *[]string          `bson:"symptoms,omitempty"`
+	SideEffects *[]string          `bson:"side_effects,omitempty"`
 }
 
 type TreatmentCreateInput struct {
 	Name        string    `bson:"name,omitempty"`
-	Disease     Disease   `bson:"disease,omitempty"`
-	Symptoms    []Symptom `bson:"symptoms,omitempty"`
-	SideEffects []Symptom `bson:"sideeffects,omitempty"`
+	Disease     string    `bson:"disease,omitempty"`
+	Symptoms    *[]string `bson:"symptoms,omitempty"`
+	SideEffects *[]string `bson:"side_effects,omitempty"`
 }
 
 type TreatmentUpdateInput struct {
-	ID          string     `bson:"_id"`
-	Name        *string    `bson:"name,omitempty"`
-	Disease     *Disease   `bson:"disease,omitempty"`
-	Symptoms    *[]Symptom `bson:"symptoms,omitempty"`
-	SideEffects *[]Symptom `bson:"sideeffects,omitempty"`
+	ID          string    `bson:"_id"`
+	Name        *string   `bson:"name,omitempty"`
+	Disease     *string   `bson:"disease,omitempty"`
+	Symptoms    *[]string `bson:"symptoms,omitempty"`
+	SideEffects *[]string `bson:"side_effects,omitempty"`
 }

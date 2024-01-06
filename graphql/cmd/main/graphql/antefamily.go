@@ -18,7 +18,7 @@ func (u *antefamilyResolver) Name() string {
 	return u.p.Name
 }
 
-func (u *antefamilyResolver) Disease() []models.Disease {
+func (u *antefamilyResolver) Disease() []string {
 	return u.p.Disease
 }
 

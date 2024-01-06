@@ -15,8 +15,9 @@ type Patient struct {
 }
 
 type PatientCreateInput struct {
-	Email    string `bson:"email,omitempty"`
-	Password string `bson:"password,omitempty"`
+	Email              string  `bson:"email,omitempty"`
+	Password           string  `bson:"password,omitempty"`
+	OnboardingHealthID *string `bson:"onboarding_health_id"`
 }
 
 type PatientUpdateInput struct {

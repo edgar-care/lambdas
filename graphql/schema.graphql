@@ -1,3 +1,12 @@
+type SymptomWeight {
+    key: String!
+    value: Float!
+}
+
+input SymptomWeightInput {
+    key: String!
+    value: Float!
+}
 
 # Patient entity
 type Patient {
@@ -41,8 +50,14 @@ type Session {
 
 # Symptom entity
 type Symptom {
-	id: ID!
-	code: String!
+    id: ID!
+    code: String!
+    name: String!
+    location: String
+    duration: Int
+    acute: Int
+    subacute: Int
+    chronic: Int
     symptom: [String!]!
     advice: String
     question: String!
@@ -54,6 +69,9 @@ type Disease {
 	code: String!
     name: String!
     symptoms: [String!]!
+    symptoms_acute: [SymptomWeight!]
+    symptoms_subacute: [SymptomWeight!]
+    symptoms_chronic: [SymptomWeight!]
     advice: String
 }
 
@@ -113,83 +131,35 @@ type Document {
    download_url: String!
 }
 
-# type AnteChir {
-#     id: ID!
-#     name: String!
-#     localisation: String!
-#     induced_symptoms: [Symptom!]
-# }
+type AnteChir {
+    id: ID!
+    name: String!
+    localisation: String!
+    induced_symptoms: [String!]
+}
 
-# type AnteDisease {
-#     id: ID!
-#     name: String!
-#     chronicity: String!
-#     chir: AnteChir
-#     treatment: [Treatment]
-#     symptoms: [Symptom!]!
-# }
+type AnteDisease {
+    id: ID!
+    name: String!
+    chronicity: Float!
+    chir: String
+    treatment: [String!]
+    symptoms: [String!]
+}
 
-# type AnteFamily {
-#     id: ID!
-#     name: String!
-#     disease: [Disease!]!
-# }
+type AnteFamily {
+    id: ID!
+    name: String!
+    disease: [String!]!
+}
 
-# type Treatment {
-#     id: ID!
-#     name: String!
-#     disease: Disease!
-#     symptoms: [Symptom!]!
-#     sideeffects: [Symptom!]
-# }
-
-# #Inputs
-# input SymptomInput {
-#     id: ID!
-#     code: String!
-#     symptom: [String!]!
-#     advice: String
-#     question: String!
-# }
-
-# input DiseaseInput {
-#     id: ID!
-#     code: String!
-#     name: String!
-#     symptoms: [String!]!
-#     advice: String
-# }
-
-# input AnteChirInput {
-#     id: ID!
-#     name: String!
-#     localisation: String!
-#     induced_symptoms: [SymptomInput!]
-# }
-
-# input AnteDiseaseInput {
-#     id: ID!
-#     name: String!
-#     chronicity: String!
-#     chir: AnteChirInput
-#     treatment: [TreatmentInput]
-#     symptoms: [SymptomInput!]!
-# }
-
-# input AnteFamilyInput {
-#     id: ID!
-#     name: String!
-#     disease: [DiseaseInput!]!
-# }
-
-# input TreatmentInput {
-#     id: ID!
-#     name: String!
-#     disease: DiseaseInput!
-#     symptoms: [SymptomInput!]!
-#     sideeffects: [SymptomInput!]
-# }
-
+type Treatment {
+    id: ID!
+    name: String!
+    disease: String!
+    symptoms: [String!]
+    side_effects: [String!]
+}
 
 type Query {
     # Get the entire list of patients.
@@ -276,29 +246,29 @@ type Query {
     # Find a doucment using its id.
     getDocumentById(id: String!): Document
 
-    # # Get the entire list of antechirs.
-    # getAnteChirs: [AnteChir]
+    # Get the entire list of antechirs.
+    getAnteChirs: [AnteChir]
 
-    # # Get an antechir by its id.
-    # getAnteChirByID(id: String!): AnteChir
+    # Get an antechir by its id.
+    getAnteChirByID(id: String!): AnteChir
 
     # Get the entire list of antediseases.
-    # getAnteDiseases: [AnteDisease]
+    getAnteDiseases: [AnteDisease]
 
     # Get an antedisease by its id.
-    # getAnteDiseaseByID(id: String!): AnteDisease
+    getAnteDiseaseByID(id: String!): AnteDisease
 
     # Get the entire list of .
-    # getAnteFamily: [AnteFamily]
+    getAnteFamilies: [AnteFamily]
 
     # Get an antefamily by its id.
-    # getAnteFamilyByID(id: String!): AnteFamily
+    getAnteFamilyByID(id: String!): AnteFamily
 
     # Get the entire list of treatments.
-    # getTreatments: [Treatment]
+    getTreatments: [Treatment]
 
     # Get a treament by its id.
-    # getTreatmentByID(id: String!): Treatment
+    getTreatmentByID(id: String!): Treatment
 
 }
 
@@ -340,19 +310,19 @@ type Mutation {
     deleteSession(id: String!): Boolean
 
     # Create a new symptom.
-    createSymptom(code: String!, symptom: [String!]!, advice: String, question: String!): Symptom
+    createSymptom(code: String!, name: String!, location: String, duration: Int, acute: Int, subacute: Int, chronic: Int, symptom: [String!]! ,advice: String, question: String!): Symptom
 
     # Update a new symptom.
-    updateSymptom(id: String!, code: String, symptom: [String!], advice: String, question: String): Symptom
+    updateSymptom(id: String!, code: String, name: String, location: String, duration: Int, acute: Int, subacute: Int, chronic: Int, symptom: [String!], advice: String, question: String): Symptom
 
     # Delete a symptom.
     deleteSymptom(id: String!): Boolean
 
     # Create a new disease.
-    createDisease(code: String!, name: String!, symptoms: [String!]!, advice: String): Disease
+    createDisease(code: String!, name: String!, symptoms: [String!]!, symptoms_acute: [SymptomWeightInput!], symptoms_subacute: [SymptomWeightInput!], symptoms_chronic: [SymptomWeightInput!], advice: String): Disease
 
     # Update a new disease.
-    updateDisease(id: String!, code: String, name: String, symptoms: [String!], advice: String): Disease
+    updateDisease(id: String!, code: String, name: String, symptoms: [String!], symptoms_acute: [SymptomWeightInput!], symptoms_subacute: [SymptomWeightInput!], symptoms_chronic: [SymptomWeightInput!], advice: String): Disease
 
     # Delete a disease.
     deleteDisease(id: String!): Boolean
@@ -412,40 +382,40 @@ type Mutation {
     deleteDocument(id: String!): Boolean
 
     # Create a new antechir.
-    # createAnteChir(name: String!, localisation: String!, induced_symptoms: [SymptomInput!]!): AnteChir
+    createAnteChir(name: String!, localisation: String!, induced_symptoms: [String!]): AnteChir
 
-    # # Update a new antechir.
-    # updateAnteChir(id: String!, name: String, localisation: String, induced_symptoms: [SymptomInput!]): AnteChir
+    # Update a new antechir.
+    updateAnteChir(id: String!, name: String, localisation: String, induced_symptoms: [String!]): AnteChir
 
-    # # Delete a antechir.
-    # deleteAnteChir(id: String!): Boolean
+    # Delete a antechir.
+    deleteAnteChir(id: String!): Boolean
 
     # Create a new antedisease.
-    # createAnteDisease(name: String!, chronicity: String!, chir: AnteChirInput, treatment: [TreatmentInput!], symptoms: [SymptomInput!]!): AnteDisease
+    createAnteDisease(name: String!, chronicity: Float!, chir: String, treatment: [String!], symptoms: [String!]): AnteDisease
 
     # Update a new antedisease.
-    # updateAnteDisease(id: String!, name: String, chronicity: String, chir: AnteChirInput, treatment: [TreatmentInput!], symptoms: [SymptomInput!]): AnteDisease
+    updateAnteDisease(id: String!, name: String, chronicity: Float, chir: String, treatment: [String!], symptoms: [String!]): AnteDisease
 
     # Delete a antedisease.
-    # deleteAnteDisease(id: String!): Boolean
+    deleteAnteDisease(id: String!): Boolean
 
     # Create a new antefamily.
-    # createAnteFamily(name: String!, disease: [DiseaseInput!]!): AnteFamily
+    createAnteFamily(name: String!, disease: [String!]!): AnteFamily
 
     # Update a new antefamily.
-    # updateAnteFamily(id: String!, name: String, disease: [DiseaseInput!]): AnteFamily
+    updateAnteFamily(id: String!, name: String, disease: [String!]): AnteFamily
 
     # Delete a antefamily.
-    # deleteAnteFamily(id: String!): Boolean
+    deleteAnteFamily(id: String!): Boolean
 
     # Create a new treatment.
-    # createTreatment(name: String!, disease: DiseaseInput!, symptoms: [SymptomInput!]!, sideeffects: [SymptomInput]): Treatment
+    createTreatment(name: String!, disease: String!, symptoms: [String!], side_effects: [String!]): Treatment
 
     # Update a new treatment.
-    # updateTreatment(id: ID!, name: String, disease: DiseaseInput, symptoms: [SymptomInput!], sideeffects: [SymptomInput!]): Treatment
+    updateTreatment(id: String!, name: String, disease: String, symptoms: [String!], side_effects: [String!]): Treatment
 
     # Delete a treatment.
-    # deleteTreatment(id: String!): Boolean
+    deleteTreatment(id: String!): Boolean
 
 }
 
