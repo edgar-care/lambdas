@@ -13,13 +13,16 @@ import (
 type DocumentType string
 
 const (
-	DocumentTypeTest DocumentType = "TEST"
+	DocumentTypeXray         DocumentType = "XRAY"
+	DocumentTypePrescription DocumentType = "PRESCRIPTION"
+	DocumentTypeOther        DocumentType = "OTHER"
+	DocumentTypeCertificate  DocumentType = "CERTIFICATE"
 )
 
 type Category string
 
 const (
-	CategoryHealth  Category = "HEALTH"
+	CategoryGENERAL Category = "GENERAL"
 	CategoryFinance Category = "FINANCE"
 )
 

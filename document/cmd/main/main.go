@@ -27,6 +27,7 @@ func main() {
 				router.Post("/document/favorite/{id}", handlers.HandleFavorite)
 				router.Get("/document/download/{id}", handlers.HandleDownload)
 				router.Delete("/document/{id}", handlers.DeleteDocument)
+				router.Delete("/document/favorite/{id}", handlers.RemoveFavorite)
 			})
 		},
 		Features: map[string]bool{
