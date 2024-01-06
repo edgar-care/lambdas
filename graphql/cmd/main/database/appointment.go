@@ -115,3 +115,18 @@ func (db *DB) DeleteRdv(id string) (bool, error) {
 	}
 	return true, nil
 }
+
+func (db *DB) DeleteSlot(id string) (bool, error) {
+	ctx := context.Background()
+	objId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return false, err
+	}
+	filter := bson.M{"_id": objId}
+	_, err = db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Rdv").DeleteOne(ctx, filter)
+	if err != nil {
+		return false, err
+	}
+	return true, err
+
+}
