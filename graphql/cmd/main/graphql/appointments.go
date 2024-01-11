@@ -86,3 +86,10 @@ func (*Resolver) DeleteRdv(args struct{ Id string }) (*bool, error) {
 
 	return &result, err
 }
+
+func (*Resolver) DeleteSlot(args struct{ Id string }) (*bool, error) {
+	result, err := db.DeleteSlot(args.Id)
+	lib.CheckError(err)
+
+	return &result, err
+}

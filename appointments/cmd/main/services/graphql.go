@@ -91,9 +91,9 @@ type updatePatientResponse struct {
 	Content PatientOutput `json:"updatePatient"`
 }
 
-type deleteRdvByIdResponse struct {
-	Content RdvOutput `json:"DeleteRdvById"`
-}
+// type deleteRdvByIdResponse struct {
+// 	Content RdvOutput `json:"DeleteRdvById"`
+// }
 
 type getRdvDoctorResponse struct {
 	Content []RdvOutput `json:"getDoctorRdv"`
@@ -101,6 +101,10 @@ type getRdvDoctorResponse struct {
 
 type updateDoctorResponse struct {
 	Content DoctorOutput `json:"updateDoctor"`
+}
+
+type deleteSlotResponse struct {
+	Content bool `json:"deleteSlot"`
 }
 
 /*************** Implementations *****************/
@@ -297,6 +301,23 @@ func CreateRdv(rdvcreate RdvInput, id string) (Rdv, error) {
 	}, &rdv)
 	_ = copier.Copy(&resp, &rdv.Content)
 	fmt.Print(resp)
+	return resp, err
+}
+
+// ============================================================================================== //
+// SLOT
+
+func DeleteSlotId(id string) (Rdv, error) {
+	var slotdelete deleteSlotResponse
+	var resp Rdv
+	query := `mutation deleteSlot($id: String!) {
+		deleteSlot(id:$id)
+	}`
+
+	err := Query(query, map[string]interface{}{
+		"id": id,
+	}, &slotdelete)
+	_ = copier.Copy(&resp, &slotdelete.Content)
 	return resp, err
 }
 

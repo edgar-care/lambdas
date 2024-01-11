@@ -68,9 +68,9 @@ func (*Resolver) UpdateSlot(input models.SlotUpdateInput) (*slotResolver, error)
 	return &slotResolver{res}, nil
 }
 
-func (*Resolver) DeleteSlot(args struct{ Id string }) (*bool, error) {
-	result, err := db.DeleteSlot(args.Id)
-	lib.CheckError(err)
+// func (*Resolver) DeleteSlot(args struct{ Id string }) (*bool, error) {
+// 	result, err := db.DeleteSlot(args.Id)
+// 	lib.CheckError(err)
 
-	return &result, err
-}
+// 	return &result, err
+// }

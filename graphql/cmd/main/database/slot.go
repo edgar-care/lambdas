@@ -96,17 +96,17 @@ func (db *DB) UpdateSlot(slot *models.SlotUpdateInput) (*models.Slot, error) {
 	return replacement, err
 }
 
-func (db *DB) DeleteSlot(id string) (bool, error) {
-	ctx := context.Background()
-	objId, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		return false, err
-	}
-	filter := bson.M{"_id": objId}
-	_, err = db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Slot").DeleteOne(ctx, filter)
-	if err != nil {
-		return false, err
-	}
-	return true, err
+// func (db *DB) DeleteSlot(id string) (bool, error) {
+// 	ctx := context.Background()
+// 	objId, err := primitive.ObjectIDFromHex(id)
+// 	if err != nil {
+// 		return false, err
+// 	}
+// 	filter := bson.M{"_id": objId}
+// 	_, err = db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Slot").DeleteOne(ctx, filter)
+// 	if err != nil {
+// 		return false, err
+// 	}
+// 	return true, err
 
-}
+// }

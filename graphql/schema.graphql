@@ -25,7 +25,7 @@ type Doctor {
     email: String!
     password: String!
     rendez_vous_ids: [String]
-    slot_ids: [String]
+    #slot_ids: [String]
 }
 
 # Admin entity
@@ -113,13 +113,13 @@ type Rdv {
     end_date: Int!
 }
 
-type Slot {
-    id: ID!
-    doctor_id: String!
-    appointment_id: String!
-    start_date: Int!
-    end_date: Int!
-}
+# type Slot {
+#     id: ID!
+#     doctor_id: String!
+#     appointment_id: String!
+#     start_date: Int!
+#     end_date: Int!
+# }
 
 type Document {
    id: ID!
@@ -235,10 +235,10 @@ type Query {
     getRdvById(id: String!): Rdv
 
     #Get the entire list of slot doctors.
-    getDoctorSlot(doctor_id: String!): [Slot]
+    # getDoctorSlot(doctor_id: String!): [Slot]
 
-    # Find a slot using its id.
-    getSlotById(id: String!): Slot
+    # # Find a slot using its id.
+    # getSlotById(id: String!): Slot
 
     # Get the entire list of document patient
     getDocuments: [Document]
@@ -286,7 +286,7 @@ type Mutation {
     createDoctor(email: String!, password: String!): Doctor
 
     # Update a doctor.rendez_vous_ids
-    updateDoctor(id: String!, email: String, password: String, rendez_vous_ids: [String], slot_ids: [String]): Doctor #rendez_vous_id: String , slot_ids: [String]
+    updateDoctor(id: String!, email: String, password: String, rendez_vous_ids: [String]): Doctor #rendez_vous_id: String , slot_ids: [String]
 
     # Delete a doctor.
     deleteDoctor(id: String!): Boolean
@@ -364,10 +364,10 @@ type Mutation {
     deleteRdv(id: String!): Boolean
 
     # Create a new Slot.
-    createSlot(doctor_id: String!, start_date: Int!, end_date: Int!): Slot
+    #createSlot(doctor_id: String!, start_date: Int!, end_date: Int!): Slot
 
     # Update a new Slot.
-    updateSlot(id: String!, doctor_id: String, appointment_id: String, start_date: Int, end_date: Int): Slot
+    #updateSlot(id: String!, doctor_id: String, appointment_id: String, start_date: Int, end_date: Int): Slot
 
     # Delete a Slot.
     deleteSlot(id: String!): Boolean
@@ -432,10 +432,13 @@ enum OnboardingStatus {
 }
 
 enum Category {
-    HEALTH,
+    GENERAL,
     FINANCE
 }
 
 enum DocumentType {
-    TEST
+    XRAY,
+    PRESCRIPTION,
+    OTHER,
+    CERTIFICATE
 }

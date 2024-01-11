@@ -23,6 +23,7 @@ func main() {
 		Apigw2Configurator: func(r *common.HttpRouter) {
 			r.Group(func(router chi.Router) {
 				router.Use(jwtauth.Verifier(lib.NewTokenAuth()))
+				// APPOINTMENT
 				router.Get("/doctor/{id}/appointments", handlers.GetRdvDoctor)
 				router.Get("/patient/appointments", handlers.GetRdv)
 				router.Post("/appointments/{id}", handlers.BookRdv)
@@ -33,6 +34,12 @@ func main() {
 				router.Get("/doctor/appointments", handlers.GetAllDoctorAppointments)
 				router.Put("/doctor/appointments/{id}", handlers.UpdateDoctorAppointment)
 				router.Post("/doctor/appointments", handlers.CreateRdv)
+
+				// SLOT
+				router.Get("/doctor/slot/{id}", handlers.GetSlotId)
+				router.Post("/doctor/slot", handlers.CreateSlot)
+				router.Delete("/doctor/slot/{id}", handlers.DeleteSlot)
+				router.Get("/doctor/slots", handlers.GetSlots)
 			})
 		},
 		Features: map[string]bool{
