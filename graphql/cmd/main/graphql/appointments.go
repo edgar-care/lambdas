@@ -30,6 +30,10 @@ func (u *rdvResolver) EndDate() int32 {
 	return u.p.EndDate
 }
 
+func (u *rdvResolver) CancelationReason() *string {
+	return u.p.CancelationReason
+}
+
 func resolverFromRdv(p *models.Rdv) rdvResolver {
 	return rdvResolver{p: p}
 }

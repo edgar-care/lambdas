@@ -49,7 +49,7 @@ func ModifRdv(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	rdv, err := services.UpdateRdv(patientID, new_appointment.Id)
+	rdv, err := services.UpdateRdv(patientID, new_appointment.Id, nil)
 
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{
@@ -84,7 +84,7 @@ func ModifRdv(w http.ResponseWriter, req *http.Request) {
 
 	// =============================================================== //
 
-	_, err = services.UpdateRdv("", id_appointment)
+	_, err = services.UpdateRdv("", id_appointment, nil)
 
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{

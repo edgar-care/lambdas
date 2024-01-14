@@ -5,11 +5,12 @@ import (
 )
 
 type Rdv struct {
-	ID        primitive.ObjectID `bson:"_id"`
-	DoctorID  string             `bson:"doctor_id,omitempty"`
-	StartDate int32              `bson:"start_date,omitempty"`
-	EndDate   int32              `bson:"end_date,omitempty"`
-	IdPatient string             `bson:"id_patient,omitempty"`
+	ID                primitive.ObjectID `bson:"_id"`
+	DoctorID          string             `bson:"doctor_id,omitempty"`
+	StartDate         int32              `bson:"start_date,omitempty"`
+	EndDate           int32              `bson:"end_date,omitempty"`
+	IdPatient         string             `bson:"id_patient,omitempty"`
+	CancelationReason *string            `bson:"cancelation_reason,omitempty"`
 }
 
 type RdvCreateInput struct {
@@ -20,9 +21,10 @@ type RdvCreateInput struct {
 }
 
 type RdvUpdateInput struct {
-	ID        string  `bson:"_id"`
-	DoctorID  *string `bson:"doctor_id,omitempty"`
-	StartDate *int32  `bson:"start_date,omitempty"`
-	EndDate   *int32  `bson:"end_date,omitempty"`
-	IdPatient *string `bson:"id_patient,omitempty"`
+	ID                string  `bson:"_id"`
+	DoctorID          *string `bson:"doctor_id,omitempty"`
+	StartDate         *int32  `bson:"start_date,omitempty"`
+	EndDate           *int32  `bson:"end_date,omitempty"`
+	IdPatient         *string `bson:"id_patient,omitempty"`
+	CancelationReason *string `bson:"cancelation_reason,omitempty"`
 }

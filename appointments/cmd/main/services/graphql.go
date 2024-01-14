@@ -12,19 +12,21 @@ import (
 /********** Types ***********/
 
 type Rdv struct {
-	Id        string `json:"id"`
-	DoctorID  string `json:"doctor_id"`
-	IdPatient string `json:"id_patient"`
-	StartDate int    `json:"start_date"`
-	EndDate   int    `json:"end_date"`
+	Id                string  `json:"id"`
+	DoctorID          string  `json:"doctor_id"`
+	IdPatient         string  `json:"id_patient"`
+	StartDate         int     `json:"start_date"`
+	EndDate           int     `json:"end_date"`
+	CancelationReason *string `json:"cancelation_reason"`
 }
 
 type RdvOutput struct {
-	Id        string  `json:"id"`
-	DoctorID  *string `json:"doctor_id"`
-	IdPatient *string `json:"id_patient"`
-	StartDate *int    `json:"start_date"`
-	EndDate   *int    `json:"end_date"`
+	Id                string  `json:"id"`
+	DoctorID          *string `json:"doctor_id"`
+	IdPatient         *string `json:"id_patient"`
+	StartDate         *int    `json:"start_date"`
+	EndDate           *int    `json:"end_date"`
+	CancelationReason *string `json:"cancelation_reason"`
 }
 
 type RdvInput struct {
@@ -109,21 +111,23 @@ type deleteSlotResponse struct {
 
 /*************** Implementations *****************/
 
-func UpdateRdv(id_patient string, rdv_id string) (Rdv, error) {
+func UpdateRdv(id_patient string, rdv_id string, cancelation_reason *string) (Rdv, error) {
 	var rdv updateRdvResponse
 	var resp Rdv
-	query := `mutation updateRdv($id: String!, $id_patient: String!) {
-		updateRdv(id:$id, id_patient:$id_patient) {
+	query := `mutation updateRdv($id: String!, $id_patient: String!, $cancelation_reason: String) {
+		updateRdv(id:$id, id_patient:$id_patient, cancelation_reason:$cancelation_reason) {
                     id,
 					doctor_id,
 					start_date,
 					end_date,
-					id_patient
+					id_patient,
+					cancelation_reason
                 }
             }`
 	err := Query(query, map[string]interface{}{
-		"id":         rdv_id,
-		"id_patient": id_patient,
+		"id":                 rdv_id,
+		"id_patient":         id_patient,
+		"cancelation_reason": cancelation_reason,
 	}, &rdv)
 	_ = copier.Copy(&resp, &rdv.Content)
 	return resp, err
@@ -139,6 +143,7 @@ func GetRdvById(id string) (Rdv, error) {
 					start_date,
 					end_date,
 					id_patient
+					cancelation_reason
                 }
             }`
 
@@ -158,7 +163,8 @@ func GetAllRdv(id string) ([]Rdv, error) {
 					doctor_id,
 					start_date,
 					end_date,
-					id_patient
+					id_patient,
+					cancelation_reason
                 }
             }`
 	err := Query(query, map[string]interface{}{
@@ -179,7 +185,8 @@ func GetRdvDoctorById(id string) ([]Rdv, error) {
 					doctor_id,
 					start_date,
 					end_date,
-					id_patient
+					id_patient,
+					cancelation_reason
                 }
             }`
 	err := Query(query, map[string]interface{}{
@@ -253,7 +260,8 @@ func GetAllRdvDoctor(id string) ([]Rdv, error) {
 					doctor_id,
 					start_date,
 					end_date,
-					id_patient
+					id_patient,
+					cancelation_reason
                 }
             }`
 	err := Query(query, map[string]interface{}{
@@ -291,6 +299,7 @@ func CreateRdv(rdvcreate RdvInput, id string) (Rdv, error) {
 					doctor_id,
 					start_date,
 					end_date,
+					cancelation_reason
                 }
             }`
 	err := Query(query, map[string]interface{}{
