@@ -1,28 +1,37 @@
 package handlers
 
 import (
-	"encoding/json"
-	"github.com/edgar-care/diagnostic/cmd/main/lib"
-	"github.com/edgar-care/diagnostic/cmd/main/services"
 	"net/http"
 	"strings"
+
+	"github.com/edgar-care/diagnostic/cmd/main/services"
+	edgarhttp "github.com/edgar-care/edgarlib/http"
 )
 
 func Initiate(w http.ResponseWriter, req *http.Request) {
 	var input services.SessionInput
-	err := json.NewDecoder(req.Body).Decode(&input)
-	lib.CheckError(err)
+	//err := json.NewDecoder(req.Body).Decode(&input)
+	// QUICK FIX
+	// TODO: Fix the model
 	input.Symptoms = []string{}
+	input.Age = 0
+	input.Height = 0
+	input.Weight = 0
+	input.Sex = "M"
+	input.LastQuestion = ""
+	input.Symptoms = []string{}
+
+	services.WakeNlpUp()
 
 	session, err := services.CreateSession(input)
 	if err != nil {
-		lib.WriteResponse(w, map[string]string{
+		edgarhttp.WriteResponse(w, map[string]string{
 			"message": "Unable to create session: " + strings.ToLower(err.Error()[9:]),
 		}, 400)
 		return
 	}
 
-	lib.WriteResponse(w, map[string]interface{}{
+	edgarhttp.WriteResponse(w, map[string]interface{}{
 		"sessionId": session.Id,
 	}, 200)
 }

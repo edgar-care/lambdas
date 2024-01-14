@@ -3,3 +3,4 @@ uvicorn
 unidecode
 requests
 python-dotenv
+spacy

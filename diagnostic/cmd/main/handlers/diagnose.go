@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/edgar-care/diagnostic/cmd/main/lib"
-	"github.com/edgar-care/diagnostic/cmd/main/services"
 	"net/http"
 	"strings"
+
+	"github.com/edgar-care/diagnostic/cmd/main/services"
+	"github.com/edgar-care/edgarlib"
+	edgarhttp "github.com/edgar-care/edgarlib/http"
 )
 
 type diagnoseInput struct {
@@ -16,10 +18,10 @@ type diagnoseInput struct {
 func Diagnose(w http.ResponseWriter, req *http.Request) {
 	var input diagnoseInput
 	err := json.NewDecoder(req.Body).Decode(&input)
-	lib.CheckError(err)
+	edgarlib.CheckError(err)
 	session, err := services.GetSessionById(input.Id)
 	if err != nil {
-		lib.WriteResponse(w, map[string]string{
+		edgarhttp.WriteResponse(w, map[string]string{
 			"message": "Unable to get session: " + strings.ToLower(err.Error()[9:]),
 		}, 400)
 		return
@@ -42,9 +44,9 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 		session.LastQuestion = exam.Symptoms[0]
 	}
 	_, err = services.UpdateSession(session)
-	lib.CheckError(err)
+	edgarlib.CheckError(err)
 
-	lib.WriteResponse(w, map[string]interface{}{
+	edgarhttp.WriteResponse(w, map[string]interface{}{
 		"done":     exam.Done,
 		"question": exam.Question,
 	}, 200)

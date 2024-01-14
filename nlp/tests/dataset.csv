@@ -1,0 +1,1755 @@
+phrase,symptôme
+trouble,vision_trouble
+vision,vision_trouble
+temperature,fievre
+fievre,fievre
+ventre,maux_de_ventre
+estomac,maux_de_ventre
+intestin,maux_de_ventre
+vomir,vomissements
+vomissement,vomissements
+brassé,vomissements
+vomi,vomissements
+maux de tete,maux_de_tete
+mal de tete,maux_de_tete
+tete,maux_de_tete
+respiration difficile,respiration_difficile
+difficulté,respiration_difficile
+toux,toux
+tousser,toux
+sifflante,respiration_sifflante
+tousser,respiration_sifflante
+somnolence,somnolence
+envie de dormir,somnolence
+anxiete,anxiete
+anxieux,anxiete
+brulure dans la poitrine,brulure_poitrine
+poitrine,brulure_poitrine
+boule dans la gorge,boule_gorge
+tache,tache_visuel
+zone sombre,tache_visuel
+vision,tache_visuel
+vertige,vertige
+equilibre,perte_equilibre
+perte d'équilibre,perte_equilibre
+pulsion,douleur_pulsatile
+battement,douleur_pulsatile
+pulsatile,douleur_pulsatile
+lumiere,sensibilite_lumiere
+sensible,sensibilite_lumiere
+J’ai trouble.,vision_trouble
+J’ai vision.,vision_trouble
+J’ai froid.,fievre
+J’ai temperature.,fievre
+J’ai fievre.,fievre
+J’ai ventre.,maux_de_ventre
+J’ai estomac.,maux_de_ventre
+J’ai intestin.,maux_de_ventre
+J’ai vomir.,vomissements
+J’ai vomissement.,vomissements
+J’ai brassé.,vomissements
+J’ai vomi.,vomissements
+J’ai maux de tete.,maux_de_tete
+J’ai mal de tete.,maux_de_tete
+J’ai tete.,maux_de_tete
+J’ai respiration difficile.,respiration_difficile
+J’ai difficulté.,respiration_difficile
+J’ai toux.,toux
+J’ai tousser.,toux
+J’ai sifflante.,respiration_sifflante
+J’ai tousser.,respiration_sifflante
+J’ai somnolence.,somnolence
+J’ai envie de dormir.,somnolence
+J’ai anxiete.,anxiete
+J’ai anxieux.,anxiete
+J’ai brulure dans la poitrine.,brulure_poitrine
+J’ai poitrine.,brulure_poitrine
+J’ai boule dans la gorge.,boule_gorge
+J’ai tache.,tache_visuel
+J’ai zone sombre.,tache_visuel
+J’ai vision.,tache_visuel
+J’ai vertige.,vertige
+J’ai equilibre.,perte_equilibre
+J’ai perte d'équilibre.,perte_equilibre
+J’ai pulsion.,douleur_pulsatile
+J’ai battement.,douleur_pulsatile
+J’ai pulsatile.,douleur_pulsatile
+J’ai lumiere.,sensibilite_lumiere
+J’ai sensible.,sensibilite_lumiere
+Je souffre de trouble.,vision_trouble
+Je souffre de vision.,vision_trouble
+Je souffre de froid.,fievre
+Je souffre de temperature.,fievre
+Je souffre de fievre.,fievre
+Je souffre de ventre.,maux_de_ventre
+Je souffre de estomac.,maux_de_ventre
+Je souffre de intestin.,maux_de_ventre
+Je souffre de vomir.,vomissements
+Je souffre de vomissement.,vomissements
+Je souffre de brassé.,vomissements
+Je souffre de vomi.,vomissements
+Je souffre de maux de tete.,maux_de_tete
+Je souffre de mal de tete.,maux_de_tete
+Je souffre de tete.,maux_de_tete
+Je souffre de respiration difficile.,respiration_difficile
+Je souffre de difficulté.,respiration_difficile
+Je souffre de toux.,toux
+Je souffre de tousser.,toux
+Je souffre de sifflante.,respiration_sifflante
+Je souffre de tousser.,respiration_sifflante
+Je souffre de somnolence.,somnolence
+Je souffre de envie de dormir.,somnolence
+Je souffre de anxiete.,anxiete
+Je souffre de anxieux.,anxiete
+Je souffre de brulure dans la poitrine.,brulure_poitrine
+Je souffre de poitrine.,brulure_poitrine
+Je souffre de boule dans la gorge.,boule_gorge
+Je souffre de tache.,tache_visuel
+Je souffre de zone sombre.,tache_visuel
+Je souffre de vision.,tache_visuel
+Je souffre de vertige.,vertige
+Je souffre de equilibre.,perte_equilibre
+Je souffre de perte d'équilibre.,perte_equilibre
+Je souffre de pulsion.,douleur_pulsatile
+Je souffre de battement.,douleur_pulsatile
+Je souffre de pulsatile.,douleur_pulsatile
+Je souffre de lumiere.,sensibilite_lumiere
+Je souffre de sensible.,sensibilite_lumiere
+Je ressens des trouble.,vision_trouble
+Je ressens des vision.,vision_trouble
+Je ressens des froid.,fievre
+Je ressens des temperature.,fievre
+Je ressens des fievre.,fievre
+Je ressens des ventre.,maux_de_ventre
+Je ressens des estomac.,maux_de_ventre
+Je ressens des intestin.,maux_de_ventre
+Je ressens des vomir.,vomissements
+Je ressens des vomissement.,vomissements
+Je ressens des brassé.,vomissements
+Je ressens des vomi.,vomissements
+Je ressens des maux de tete.,maux_de_tete
+Je ressens des mal de tete.,maux_de_tete
+Je ressens des tete.,maux_de_tete
+Je ressens des respiration difficile.,respiration_difficile
+Je ressens des difficulté.,respiration_difficile
+Je ressens des toux.,toux
+Je ressens des tousser.,toux
+Je ressens des sifflante.,respiration_sifflante
+Je ressens des tousser.,respiration_sifflante
+Je ressens des somnolence.,somnolence
+Je ressens des envie de dormir.,somnolence
+Je ressens des anxiete.,anxiete
+Je ressens des anxieux.,anxiete
+Je ressens des brulure dans la poitrine.,brulure_poitrine
+Je ressens des poitrine.,brulure_poitrine
+Je ressens des boule dans la gorge.,boule_gorge
+Je ressens des tache.,tache_visuel
+Je ressens des zone sombre.,tache_visuel
+Je ressens des vision.,tache_visuel
+Je ressens des vertige.,vertige
+Je ressens des equilibre.,perte_equilibre
+Je ressens des perte d'équilibre.,perte_equilibre
+Je ressens des pulsion.,douleur_pulsatile
+Je ressens des battement.,douleur_pulsatile
+Je ressens des pulsatile.,douleur_pulsatile
+Je ressens des lumiere.,sensibilite_lumiere
+Je ressens des sensible.,sensibilite_lumiere
+Depuis deux trois jour j’ai trouble.,vision_trouble
+Depuis deux trois jour j’ai vision.,vision_trouble
+Depuis deux trois jour j’ai froid.,fievre
+Depuis deux trois jour j’ai temperature.,fievre
+Depuis deux trois jour j’ai fievre.,fievre
+Depuis deux trois jour j’ai ventre.,maux_de_ventre
+Depuis deux trois jour j’ai estomac.,maux_de_ventre
+Depuis deux trois jour j’ai intestin.,maux_de_ventre
+Depuis deux trois jour j’ai vomir.,vomissements
+Depuis deux trois jour j’ai vomissement.,vomissements
+Depuis deux trois jour j’ai brassé.,vomissements
+Depuis deux trois jour j’ai vomi.,vomissements
+Depuis deux trois jour j’ai maux de tete.,maux_de_tete
+Depuis deux trois jour j’ai mal de tete.,maux_de_tete
+Depuis deux trois jour j’ai tete.,maux_de_tete
+Depuis deux trois jour j’ai respiration difficile.,respiration_difficile
+Depuis deux trois jour j’ai difficulté.,respiration_difficile
+Depuis deux trois jour j’ai toux.,toux
+Depuis deux trois jour j’ai tousser.,toux
+Depuis deux trois jour j’ai sifflante.,respiration_sifflante
+Depuis deux trois jour j’ai tousser.,respiration_sifflante
+Depuis deux trois jour j’ai somnolence.,somnolence
+Depuis deux trois jour j’ai envie de dormir.,somnolence
+Depuis deux trois jour j’ai anxiete.,anxiete
+Depuis deux trois jour j’ai anxieux.,anxiete
+Depuis deux trois jour j’ai brulure dans la poitrine.,brulure_poitrine
+Depuis deux trois jour j’ai poitrine.,brulure_poitrine
+Depuis deux trois jour j’ai boule dans la gorge.,boule_gorge
+Depuis deux trois jour j’ai tache.,tache_visuel
+Depuis deux trois jour j’ai zone sombre.,tache_visuel
+Depuis deux trois jour j’ai vision.,tache_visuel
+Depuis deux trois jour j’ai vertige.,vertige
+Depuis deux trois jour j’ai equilibre.,perte_equilibre
+Depuis deux trois jour j’ai perte d'équilibre.,perte_equilibre
+Depuis deux trois jour j’ai pulsion.,douleur_pulsatile
+Depuis deux trois jour j’ai battement.,douleur_pulsatile
+Depuis deux trois jour j’ai pulsatile.,douleur_pulsatile
+Depuis deux trois jour j’ai lumiere.,sensibilite_lumiere
+Depuis deux trois jour j’ai sensible.,sensibilite_lumiere
+Alors en fait il s'avère que j'ai trouble.,vision_trouble
+Alors en fait il s'avère que j'ai vision.,vision_trouble
+Alors en fait il s'avère que j'ai froid.,fievre
+Alors en fait il s'avère que j'ai temperature.,fievre
+Alors en fait il s'avère que j'ai fievre.,fievre
+Alors en fait il s'avère que j'ai ventre.,maux_de_ventre
+Alors en fait il s'avère que j'ai estomac.,maux_de_ventre
+Alors en fait il s'avère que j'ai intestin.,maux_de_ventre
+Alors en fait il s'avère que j'ai vomir.,vomissements
+Alors en fait il s'avère que j'ai vomissement.,vomissements
+Alors en fait il s'avère que j'ai brassé.,vomissements
+Alors en fait il s'avère que j'ai vomi.,vomissements
+Alors en fait il s'avère que j'ai maux de tete.,maux_de_tete
+Alors en fait il s'avère que j'ai mal de tete.,maux_de_tete
+Alors en fait il s'avère que j'ai tete.,maux_de_tete
+Alors en fait il s'avère que j'ai respiration difficile.,respiration_difficile
+Alors en fait il s'avère que j'ai difficulté.,respiration_difficile
+Alors en fait il s'avère que j'ai toux.,toux
+Alors en fait il s'avère que j'ai tousser.,toux
+Alors en fait il s'avère que j'ai sifflante.,respiration_sifflante
+Alors en fait il s'avère que j'ai tousser.,respiration_sifflante
+Alors en fait il s'avère que j'ai somnolence.,somnolence
+Alors en fait il s'avère que j'ai envie de dormir.,somnolence
+Alors en fait il s'avère que j'ai anxiete.,anxiete
+Alors en fait il s'avère que j'ai anxieux.,anxiete
+Alors en fait il s'avère que j'ai brulure dans la poitrine.,brulure_poitrine
+Alors en fait il s'avère que j'ai poitrine.,brulure_poitrine
+Alors en fait il s'avère que j'ai boule dans la gorge.,boule_gorge
+Alors en fait il s'avère que j'ai tache.,tache_visuel
+Alors en fait il s'avère que j'ai zone sombre.,tache_visuel
+Alors en fait il s'avère que j'ai vision.,tache_visuel
+Alors en fait il s'avère que j'ai vertige.,vertige
+Alors en fait il s'avère que j'ai equilibre.,perte_equilibre
+Alors en fait il s'avère que j'ai perte d'équilibre.,perte_equilibre
+Alors en fait il s'avère que j'ai pulsion.,douleur_pulsatile
+Alors en fait il s'avère que j'ai battement.,douleur_pulsatile
+Alors en fait il s'avère que j'ai pulsatile.,douleur_pulsatile
+Alors en fait il s'avère que j'ai lumiere.,sensibilite_lumiere
+Alors en fait il s'avère que j'ai sensible.,sensibilite_lumiere
+J'ai trouble et trouble,vision_trouble vision_trouble
+J'ai trouble et vision,vision_trouble vision_trouble
+J'ai trouble et froid,vision_trouble fievre
+J'ai trouble et temperature,vision_trouble fievre
+J'ai trouble et fievre,vision_trouble fievre
+J'ai trouble et ventre,vision_trouble maux_de_ventre
+J'ai trouble et estomac,vision_trouble maux_de_ventre
+J'ai trouble et intestin,vision_trouble maux_de_ventre
+J'ai trouble et vomir,vision_trouble vomissements
+J'ai trouble et vomissement,vision_trouble vomissements
+J'ai trouble et brassé,vision_trouble vomissements
+J'ai trouble et vomi,vision_trouble vomissements
+J'ai trouble et maux de tete,vision_trouble maux_de_tete
+J'ai trouble et mal de tete,vision_trouble maux_de_tete
+J'ai trouble et tete,vision_trouble maux_de_tete
+J'ai trouble et respiration difficile,vision_trouble respiration_difficile
+J'ai trouble et difficulté,vision_trouble respiration_difficile
+J'ai trouble et toux,vision_trouble toux
+J'ai trouble et tousser,vision_trouble toux
+J'ai trouble et sifflante,vision_trouble respiration_sifflante
+J'ai trouble et tousser,vision_trouble respiration_sifflante
+J'ai trouble et somnolence,vision_trouble somnolence
+J'ai trouble et envie de dormir,vision_trouble somnolence
+J'ai trouble et anxiete,vision_trouble anxiete
+J'ai trouble et anxieux,vision_trouble anxiete
+J'ai trouble et brulure dans la poitrine,vision_trouble brulure_poitrine
+J'ai trouble et poitrine,vision_trouble brulure_poitrine
+J'ai trouble et boule dans la gorge,vision_trouble boule_gorge
+J'ai trouble et tache,vision_trouble tache_visuel
+J'ai trouble et zone sombre,vision_trouble tache_visuel
+J'ai trouble et vision,vision_trouble tache_visuel
+J'ai trouble et vertige,vision_trouble vertige
+J'ai trouble et equilibre,vision_trouble perte_equilibre
+J'ai trouble et perte d'équilibre,vision_trouble perte_equilibre
+J'ai trouble et pulsion,vision_trouble douleur_pulsatile
+J'ai trouble et battement,vision_trouble douleur_pulsatile
+J'ai trouble et pulsatile,vision_trouble douleur_pulsatile
+J'ai trouble et lumiere,vision_trouble sensibilite_lumiere
+J'ai trouble et sensible,vision_trouble sensibilite_lumiere
+J'ai vision et trouble,vision_trouble vision_trouble
+J'ai vision et vision,vision_trouble vision_trouble
+J'ai vision et froid,vision_trouble fievre
+J'ai vision et temperature,vision_trouble fievre
+J'ai vision et fievre,vision_trouble fievre
+J'ai vision et ventre,vision_trouble maux_de_ventre
+J'ai vision et estomac,vision_trouble maux_de_ventre
+J'ai vision et intestin,vision_trouble maux_de_ventre
+J'ai vision et vomir,vision_trouble vomissements
+J'ai vision et vomissement,vision_trouble vomissements
+J'ai vision et brassé,vision_trouble vomissements
+J'ai vision et vomi,vision_trouble vomissements
+J'ai vision et maux de tete,vision_trouble maux_de_tete
+J'ai vision et mal de tete,vision_trouble maux_de_tete
+J'ai vision et tete,vision_trouble maux_de_tete
+J'ai vision et respiration difficile,vision_trouble respiration_difficile
+J'ai vision et difficulté,vision_trouble respiration_difficile
+J'ai vision et toux,vision_trouble toux
+J'ai vision et tousser,vision_trouble toux
+J'ai vision et sifflante,vision_trouble respiration_sifflante
+J'ai vision et tousser,vision_trouble respiration_sifflante
+J'ai vision et somnolence,vision_trouble somnolence
+J'ai vision et envie de dormir,vision_trouble somnolence
+J'ai vision et anxiete,vision_trouble anxiete
+J'ai vision et anxieux,vision_trouble anxiete
+J'ai vision et brulure dans la poitrine,vision_trouble brulure_poitrine
+J'ai vision et poitrine,vision_trouble brulure_poitrine
+J'ai vision et boule dans la gorge,vision_trouble boule_gorge
+J'ai vision et tache,vision_trouble tache_visuel
+J'ai vision et zone sombre,vision_trouble tache_visuel
+J'ai vision et vision,vision_trouble tache_visuel
+J'ai vision et vertige,vision_trouble vertige
+J'ai vision et equilibre,vision_trouble perte_equilibre
+J'ai vision et perte d'équilibre,vision_trouble perte_equilibre
+J'ai vision et pulsion,vision_trouble douleur_pulsatile
+J'ai vision et battement,vision_trouble douleur_pulsatile
+J'ai vision et pulsatile,vision_trouble douleur_pulsatile
+J'ai vision et lumiere,vision_trouble sensibilite_lumiere
+J'ai vision et sensible,vision_trouble sensibilite_lumiere
+J'ai froid et trouble,fievre vision_trouble
+J'ai froid et vision,fievre vision_trouble
+J'ai froid et froid,fievre fievre
+J'ai froid et temperature,fievre fievre
+J'ai froid et fievre,fievre fievre
+J'ai froid et ventre,fievre maux_de_ventre
+J'ai froid et estomac,fievre maux_de_ventre
+J'ai froid et intestin,fievre maux_de_ventre
+J'ai froid et vomir,fievre vomissements
+J'ai froid et vomissement,fievre vomissements
+J'ai froid et brassé,fievre vomissements
+J'ai froid et vomi,fievre vomissements
+J'ai froid et maux de tete,fievre maux_de_tete
+J'ai froid et mal de tete,fievre maux_de_tete
+J'ai froid et tete,fievre maux_de_tete
+J'ai froid et respiration difficile,fievre respiration_difficile
+J'ai froid et difficulté,fievre respiration_difficile
+J'ai froid et toux,fievre toux
+J'ai froid et tousser,fievre toux
+J'ai froid et sifflante,fievre respiration_sifflante
+J'ai froid et tousser,fievre respiration_sifflante
+J'ai froid et somnolence,fievre somnolence
+J'ai froid et envie de dormir,fievre somnolence
+J'ai froid et anxiete,fievre anxiete
+J'ai froid et anxieux,fievre anxiete
+J'ai froid et brulure dans la poitrine,fievre brulure_poitrine
+J'ai froid et poitrine,fievre brulure_poitrine
+J'ai froid et boule dans la gorge,fievre boule_gorge
+J'ai froid et tache,fievre tache_visuel
+J'ai froid et zone sombre,fievre tache_visuel
+J'ai froid et vision,fievre tache_visuel
+J'ai froid et vertige,fievre vertige
+J'ai froid et equilibre,fievre perte_equilibre
+J'ai froid et perte d'équilibre,fievre perte_equilibre
+J'ai froid et pulsion,fievre douleur_pulsatile
+J'ai froid et battement,fievre douleur_pulsatile
+J'ai froid et pulsatile,fievre douleur_pulsatile
+J'ai froid et lumiere,fievre sensibilite_lumiere
+J'ai froid et sensible,fievre sensibilite_lumiere
+J'ai temperature et trouble,fievre vision_trouble
+J'ai temperature et vision,fievre vision_trouble
+J'ai temperature et froid,fievre fievre
+J'ai temperature et temperature,fievre fievre
+J'ai temperature et fievre,fievre fievre
+J'ai temperature et ventre,fievre maux_de_ventre
+J'ai temperature et estomac,fievre maux_de_ventre
+J'ai temperature et intestin,fievre maux_de_ventre
+J'ai temperature et vomir,fievre vomissements
+J'ai temperature et vomissement,fievre vomissements
+J'ai temperature et brassé,fievre vomissements
+J'ai temperature et vomi,fievre vomissements
+J'ai temperature et maux de tete,fievre maux_de_tete
+J'ai temperature et mal de tete,fievre maux_de_tete
+J'ai temperature et tete,fievre maux_de_tete
+J'ai temperature et respiration difficile,fievre respiration_difficile
+J'ai temperature et difficulté,fievre respiration_difficile
+J'ai temperature et toux,fievre toux
+J'ai temperature et tousser,fievre toux
+J'ai temperature et sifflante,fievre respiration_sifflante
+J'ai temperature et tousser,fievre respiration_sifflante
+J'ai temperature et somnolence,fievre somnolence
+J'ai temperature et envie de dormir,fievre somnolence
+J'ai temperature et anxiete,fievre anxiete
+J'ai temperature et anxieux,fievre anxiete
+J'ai temperature et brulure dans la poitrine,fievre brulure_poitrine
+J'ai temperature et poitrine,fievre brulure_poitrine
+J'ai temperature et boule dans la gorge,fievre boule_gorge
+J'ai temperature et tache,fievre tache_visuel
+J'ai temperature et zone sombre,fievre tache_visuel
+J'ai temperature et vision,fievre tache_visuel
+J'ai temperature et vertige,fievre vertige
+J'ai temperature et equilibre,fievre perte_equilibre
+J'ai temperature et perte d'équilibre,fievre perte_equilibre
+J'ai temperature et pulsion,fievre douleur_pulsatile
+J'ai temperature et battement,fievre douleur_pulsatile
+J'ai temperature et pulsatile,fievre douleur_pulsatile
+J'ai temperature et lumiere,fievre sensibilite_lumiere
+J'ai temperature et sensible,fievre sensibilite_lumiere
+J'ai fievre et trouble,fievre vision_trouble
+J'ai fievre et vision,fievre vision_trouble
+J'ai fievre et froid,fievre fievre
+J'ai fievre et temperature,fievre fievre
+J'ai fievre et fievre,fievre fievre
+J'ai fievre et ventre,fievre maux_de_ventre
+J'ai fievre et estomac,fievre maux_de_ventre
+J'ai fievre et intestin,fievre maux_de_ventre
+J'ai fievre et vomir,fievre vomissements
+J'ai fievre et vomissement,fievre vomissements
+J'ai fievre et brassé,fievre vomissements
+J'ai fievre et vomi,fievre vomissements
+J'ai fievre et maux de tete,fievre maux_de_tete
+J'ai fievre et mal de tete,fievre maux_de_tete
+J'ai fievre et tete,fievre maux_de_tete
+J'ai fievre et respiration difficile,fievre respiration_difficile
+J'ai fievre et difficulté,fievre respiration_difficile
+J'ai fievre et toux,fievre toux
+J'ai fievre et tousser,fievre toux
+J'ai fievre et sifflante,fievre respiration_sifflante
+J'ai fievre et tousser,fievre respiration_sifflante
+J'ai fievre et somnolence,fievre somnolence
+J'ai fievre et envie de dormir,fievre somnolence
+J'ai fievre et anxiete,fievre anxiete
+J'ai fievre et anxieux,fievre anxiete
+J'ai fievre et brulure dans la poitrine,fievre brulure_poitrine
+J'ai fievre et poitrine,fievre brulure_poitrine
+J'ai fievre et boule dans la gorge,fievre boule_gorge
+J'ai fievre et tache,fievre tache_visuel
+J'ai fievre et zone sombre,fievre tache_visuel
+J'ai fievre et vision,fievre tache_visuel
+J'ai fievre et vertige,fievre vertige
+J'ai fievre et equilibre,fievre perte_equilibre
+J'ai fievre et perte d'équilibre,fievre perte_equilibre
+J'ai fievre et pulsion,fievre douleur_pulsatile
+J'ai fievre et battement,fievre douleur_pulsatile
+J'ai fievre et pulsatile,fievre douleur_pulsatile
+J'ai fievre et lumiere,fievre sensibilite_lumiere
+J'ai fievre et sensible,fievre sensibilite_lumiere
+J'ai ventre et trouble,maux_de_ventre vision_trouble
+J'ai ventre et vision,maux_de_ventre vision_trouble
+J'ai ventre et froid,maux_de_ventre fievre
+J'ai ventre et temperature,maux_de_ventre fievre
+J'ai ventre et fievre,maux_de_ventre fievre
+J'ai ventre et ventre,maux_de_ventre maux_de_ventre
+J'ai ventre et estomac,maux_de_ventre maux_de_ventre
+J'ai ventre et intestin,maux_de_ventre maux_de_ventre
+J'ai ventre et vomir,maux_de_ventre vomissements
+J'ai ventre et vomissement,maux_de_ventre vomissements
+J'ai ventre et brassé,maux_de_ventre vomissements
+J'ai ventre et vomi,maux_de_ventre vomissements
+J'ai ventre et maux de tete,maux_de_ventre maux_de_tete
+J'ai ventre et mal de tete,maux_de_ventre maux_de_tete
+J'ai ventre et tete,maux_de_ventre maux_de_tete
+J'ai ventre et respiration difficile,maux_de_ventre respiration_difficile
+J'ai ventre et difficulté,maux_de_ventre respiration_difficile
+J'ai ventre et toux,maux_de_ventre toux
+J'ai ventre et tousser,maux_de_ventre toux
+J'ai ventre et sifflante,maux_de_ventre respiration_sifflante
+J'ai ventre et tousser,maux_de_ventre respiration_sifflante
+J'ai ventre et somnolence,maux_de_ventre somnolence
+J'ai ventre et envie de dormir,maux_de_ventre somnolence
+J'ai ventre et anxiete,maux_de_ventre anxiete
+J'ai ventre et anxieux,maux_de_ventre anxiete
+J'ai ventre et brulure dans la poitrine,maux_de_ventre brulure_poitrine
+J'ai ventre et poitrine,maux_de_ventre brulure_poitrine
+J'ai ventre et boule dans la gorge,maux_de_ventre boule_gorge
+J'ai ventre et tache,maux_de_ventre tache_visuel
+J'ai ventre et zone sombre,maux_de_ventre tache_visuel
+J'ai ventre et vision,maux_de_ventre tache_visuel
+J'ai ventre et vertige,maux_de_ventre vertige
+J'ai ventre et equilibre,maux_de_ventre perte_equilibre
+J'ai ventre et perte d'équilibre,maux_de_ventre perte_equilibre
+J'ai ventre et pulsion,maux_de_ventre douleur_pulsatile
+J'ai ventre et battement,maux_de_ventre douleur_pulsatile
+J'ai ventre et pulsatile,maux_de_ventre douleur_pulsatile
+J'ai ventre et lumiere,maux_de_ventre sensibilite_lumiere
+J'ai ventre et sensible,maux_de_ventre sensibilite_lumiere
+J'ai estomac et trouble,maux_de_ventre vision_trouble
+J'ai estomac et vision,maux_de_ventre vision_trouble
+J'ai estomac et froid,maux_de_ventre fievre
+J'ai estomac et temperature,maux_de_ventre fievre
+J'ai estomac et fievre,maux_de_ventre fievre
+J'ai estomac et ventre,maux_de_ventre maux_de_ventre
+J'ai estomac et estomac,maux_de_ventre maux_de_ventre
+J'ai estomac et intestin,maux_de_ventre maux_de_ventre
+J'ai estomac et vomir,maux_de_ventre vomissements
+J'ai estomac et vomissement,maux_de_ventre vomissements
+J'ai estomac et brassé,maux_de_ventre vomissements
+J'ai estomac et vomi,maux_de_ventre vomissements
+J'ai estomac et maux de tete,maux_de_ventre maux_de_tete
+J'ai estomac et mal de tete,maux_de_ventre maux_de_tete
+J'ai estomac et tete,maux_de_ventre maux_de_tete
+J'ai estomac et respiration difficile,maux_de_ventre respiration_difficile
+J'ai estomac et difficulté,maux_de_ventre respiration_difficile
+J'ai estomac et toux,maux_de_ventre toux
+J'ai estomac et tousser,maux_de_ventre toux
+J'ai estomac et sifflante,maux_de_ventre respiration_sifflante
+J'ai estomac et tousser,maux_de_ventre respiration_sifflante
+J'ai estomac et somnolence,maux_de_ventre somnolence
+J'ai estomac et envie de dormir,maux_de_ventre somnolence
+J'ai estomac et anxiete,maux_de_ventre anxiete
+J'ai estomac et anxieux,maux_de_ventre anxiete
+J'ai estomac et brulure dans la poitrine,maux_de_ventre brulure_poitrine
+J'ai estomac et poitrine,maux_de_ventre brulure_poitrine
+J'ai estomac et boule dans la gorge,maux_de_ventre boule_gorge
+J'ai estomac et tache,maux_de_ventre tache_visuel
+J'ai estomac et zone sombre,maux_de_ventre tache_visuel
+J'ai estomac et vision,maux_de_ventre tache_visuel
+J'ai estomac et vertige,maux_de_ventre vertige
+J'ai estomac et equilibre,maux_de_ventre perte_equilibre
+J'ai estomac et perte d'équilibre,maux_de_ventre perte_equilibre
+J'ai estomac et pulsion,maux_de_ventre douleur_pulsatile
+J'ai estomac et battement,maux_de_ventre douleur_pulsatile
+J'ai estomac et pulsatile,maux_de_ventre douleur_pulsatile
+J'ai estomac et lumiere,maux_de_ventre sensibilite_lumiere
+J'ai estomac et sensible,maux_de_ventre sensibilite_lumiere
+J'ai intestin et trouble,maux_de_ventre vision_trouble
+J'ai intestin et vision,maux_de_ventre vision_trouble
+J'ai intestin et froid,maux_de_ventre fievre
+J'ai intestin et temperature,maux_de_ventre fievre
+J'ai intestin et fievre,maux_de_ventre fievre
+J'ai intestin et ventre,maux_de_ventre maux_de_ventre
+J'ai intestin et estomac,maux_de_ventre maux_de_ventre
+J'ai intestin et intestin,maux_de_ventre maux_de_ventre
+J'ai intestin et vomir,maux_de_ventre vomissements
+J'ai intestin et vomissement,maux_de_ventre vomissements
+J'ai intestin et brassé,maux_de_ventre vomissements
+J'ai intestin et vomi,maux_de_ventre vomissements
+J'ai intestin et maux de tete,maux_de_ventre maux_de_tete
+J'ai intestin et mal de tete,maux_de_ventre maux_de_tete
+J'ai intestin et tete,maux_de_ventre maux_de_tete
+J'ai intestin et respiration difficile,maux_de_ventre respiration_difficile
+J'ai intestin et difficulté,maux_de_ventre respiration_difficile
+J'ai intestin et toux,maux_de_ventre toux
+J'ai intestin et tousser,maux_de_ventre toux
+J'ai intestin et sifflante,maux_de_ventre respiration_sifflante
+J'ai intestin et tousser,maux_de_ventre respiration_sifflante
+J'ai intestin et somnolence,maux_de_ventre somnolence
+J'ai intestin et envie de dormir,maux_de_ventre somnolence
+J'ai intestin et anxiete,maux_de_ventre anxiete
+J'ai intestin et anxieux,maux_de_ventre anxiete
+J'ai intestin et brulure dans la poitrine,maux_de_ventre brulure_poitrine
+J'ai intestin et poitrine,maux_de_ventre brulure_poitrine
+J'ai intestin et boule dans la gorge,maux_de_ventre boule_gorge
+J'ai intestin et tache,maux_de_ventre tache_visuel
+J'ai intestin et zone sombre,maux_de_ventre tache_visuel
+J'ai intestin et vision,maux_de_ventre tache_visuel
+J'ai intestin et vertige,maux_de_ventre vertige
+J'ai intestin et equilibre,maux_de_ventre perte_equilibre
+J'ai intestin et perte d'équilibre,maux_de_ventre perte_equilibre
+J'ai intestin et pulsion,maux_de_ventre douleur_pulsatile
+J'ai intestin et battement,maux_de_ventre douleur_pulsatile
+J'ai intestin et pulsatile,maux_de_ventre douleur_pulsatile
+J'ai intestin et lumiere,maux_de_ventre sensibilite_lumiere
+J'ai intestin et sensible,maux_de_ventre sensibilite_lumiere
+J'ai vomir et trouble,vomissements vision_trouble
+J'ai vomir et vision,vomissements vision_trouble
+J'ai vomir et froid,vomissements fievre
+J'ai vomir et temperature,vomissements fievre
+J'ai vomir et fievre,vomissements fievre
+J'ai vomir et ventre,vomissements maux_de_ventre
+J'ai vomir et estomac,vomissements maux_de_ventre
+J'ai vomir et intestin,vomissements maux_de_ventre
+J'ai vomir et vomir,vomissements vomissements
+J'ai vomir et vomissement,vomissements vomissements
+J'ai vomir et brassé,vomissements vomissements
+J'ai vomir et vomi,vomissements vomissements
+J'ai vomir et maux de tete,vomissements maux_de_tete
+J'ai vomir et mal de tete,vomissements maux_de_tete
+J'ai vomir et tete,vomissements maux_de_tete
+J'ai vomir et respiration difficile,vomissements respiration_difficile
+J'ai vomir et difficulté,vomissements respiration_difficile
+J'ai vomir et toux,vomissements toux
+J'ai vomir et tousser,vomissements toux
+J'ai vomir et sifflante,vomissements respiration_sifflante
+J'ai vomir et tousser,vomissements respiration_sifflante
+J'ai vomir et somnolence,vomissements somnolence
+J'ai vomir et envie de dormir,vomissements somnolence
+J'ai vomir et anxiete,vomissements anxiete
+J'ai vomir et anxieux,vomissements anxiete
+J'ai vomir et brulure dans la poitrine,vomissements brulure_poitrine
+J'ai vomir et poitrine,vomissements brulure_poitrine
+J'ai vomir et boule dans la gorge,vomissements boule_gorge
+J'ai vomir et tache,vomissements tache_visuel
+J'ai vomir et zone sombre,vomissements tache_visuel
+J'ai vomir et vision,vomissements tache_visuel
+J'ai vomir et vertige,vomissements vertige
+J'ai vomir et equilibre,vomissements perte_equilibre
+J'ai vomir et perte d'équilibre,vomissements perte_equilibre
+J'ai vomir et pulsion,vomissements douleur_pulsatile
+J'ai vomir et battement,vomissements douleur_pulsatile
+J'ai vomir et pulsatile,vomissements douleur_pulsatile
+J'ai vomir et lumiere,vomissements sensibilite_lumiere
+J'ai vomir et sensible,vomissements sensibilite_lumiere
+J'ai vomissement et trouble,vomissements vision_trouble
+J'ai vomissement et vision,vomissements vision_trouble
+J'ai vomissement et froid,vomissements fievre
+J'ai vomissement et temperature,vomissements fievre
+J'ai vomissement et fievre,vomissements fievre
+J'ai vomissement et ventre,vomissements maux_de_ventre
+J'ai vomissement et estomac,vomissements maux_de_ventre
+J'ai vomissement et intestin,vomissements maux_de_ventre
+J'ai vomissement et vomir,vomissements vomissements
+J'ai vomissement et vomissement,vomissements vomissements
+J'ai vomissement et brassé,vomissements vomissements
+J'ai vomissement et vomi,vomissements vomissements
+J'ai vomissement et maux de tete,vomissements maux_de_tete
+J'ai vomissement et mal de tete,vomissements maux_de_tete
+J'ai vomissement et tete,vomissements maux_de_tete
+J'ai vomissement et respiration difficile,vomissements respiration_difficile
+J'ai vomissement et difficulté,vomissements respiration_difficile
+J'ai vomissement et toux,vomissements toux
+J'ai vomissement et tousser,vomissements toux
+J'ai vomissement et sifflante,vomissements respiration_sifflante
+J'ai vomissement et tousser,vomissements respiration_sifflante
+J'ai vomissement et somnolence,vomissements somnolence
+J'ai vomissement et envie de dormir,vomissements somnolence
+J'ai vomissement et anxiete,vomissements anxiete
+J'ai vomissement et anxieux,vomissements anxiete
+J'ai vomissement et brulure dans la poitrine,vomissements brulure_poitrine
+J'ai vomissement et poitrine,vomissements brulure_poitrine
+J'ai vomissement et boule dans la gorge,vomissements boule_gorge
+J'ai vomissement et tache,vomissements tache_visuel
+J'ai vomissement et zone sombre,vomissements tache_visuel
+J'ai vomissement et vision,vomissements tache_visuel
+J'ai vomissement et vertige,vomissements vertige
+J'ai vomissement et equilibre,vomissements perte_equilibre
+J'ai vomissement et perte d'équilibre,vomissements perte_equilibre
+J'ai vomissement et pulsion,vomissements douleur_pulsatile
+J'ai vomissement et battement,vomissements douleur_pulsatile
+J'ai vomissement et pulsatile,vomissements douleur_pulsatile
+J'ai vomissement et lumiere,vomissements sensibilite_lumiere
+J'ai vomissement et sensible,vomissements sensibilite_lumiere
+J'ai brassé et trouble,vomissements vision_trouble
+J'ai brassé et vision,vomissements vision_trouble
+J'ai brassé et froid,vomissements fievre
+J'ai brassé et temperature,vomissements fievre
+J'ai brassé et fievre,vomissements fievre
+J'ai brassé et ventre,vomissements maux_de_ventre
+J'ai brassé et estomac,vomissements maux_de_ventre
+J'ai brassé et intestin,vomissements maux_de_ventre
+J'ai brassé et vomir,vomissements vomissements
+J'ai brassé et vomissement,vomissements vomissements
+J'ai brassé et brassé,vomissements vomissements
+J'ai brassé et vomi,vomissements vomissements
+J'ai brassé et maux de tete,vomissements maux_de_tete
+J'ai brassé et mal de tete,vomissements maux_de_tete
+J'ai brassé et tete,vomissements maux_de_tete
+J'ai brassé et respiration difficile,vomissements respiration_difficile
+J'ai brassé et difficulté,vomissements respiration_difficile
+J'ai brassé et toux,vomissements toux
+J'ai brassé et tousser,vomissements toux
+J'ai brassé et sifflante,vomissements respiration_sifflante
+J'ai brassé et tousser,vomissements respiration_sifflante
+J'ai brassé et somnolence,vomissements somnolence
+J'ai brassé et envie de dormir,vomissements somnolence
+J'ai brassé et anxiete,vomissements anxiete
+J'ai brassé et anxieux,vomissements anxiete
+J'ai brassé et brulure dans la poitrine,vomissements brulure_poitrine
+J'ai brassé et poitrine,vomissements brulure_poitrine
+J'ai brassé et boule dans la gorge,vomissements boule_gorge
+J'ai brassé et tache,vomissements tache_visuel
+J'ai brassé et zone sombre,vomissements tache_visuel
+J'ai brassé et vision,vomissements tache_visuel
+J'ai brassé et vertige,vomissements vertige
+J'ai brassé et equilibre,vomissements perte_equilibre
+J'ai brassé et perte d'équilibre,vomissements perte_equilibre
+J'ai brassé et pulsion,vomissements douleur_pulsatile
+J'ai brassé et battement,vomissements douleur_pulsatile
+J'ai brassé et pulsatile,vomissements douleur_pulsatile
+J'ai brassé et lumiere,vomissements sensibilite_lumiere
+J'ai brassé et sensible,vomissements sensibilite_lumiere
+J'ai vomi et trouble,vomissements vision_trouble
+J'ai vomi et vision,vomissements vision_trouble
+J'ai vomi et froid,vomissements fievre
+J'ai vomi et temperature,vomissements fievre
+J'ai vomi et fievre,vomissements fievre
+J'ai vomi et ventre,vomissements maux_de_ventre
+J'ai vomi et estomac,vomissements maux_de_ventre
+J'ai vomi et intestin,vomissements maux_de_ventre
+J'ai vomi et vomir,vomissements vomissements
+J'ai vomi et vomissement,vomissements vomissements
+J'ai vomi et brassé,vomissements vomissements
+J'ai vomi et vomi,vomissements vomissements
+J'ai vomi et maux de tete,vomissements maux_de_tete
+J'ai vomi et mal de tete,vomissements maux_de_tete
+J'ai vomi et tete,vomissements maux_de_tete
+J'ai vomi et respiration difficile,vomissements respiration_difficile
+J'ai vomi et difficulté,vomissements respiration_difficile
+J'ai vomi et toux,vomissements toux
+J'ai vomi et tousser,vomissements toux
+J'ai vomi et sifflante,vomissements respiration_sifflante
+J'ai vomi et tousser,vomissements respiration_sifflante
+J'ai vomi et somnolence,vomissements somnolence
+J'ai vomi et envie de dormir,vomissements somnolence
+J'ai vomi et anxiete,vomissements anxiete
+J'ai vomi et anxieux,vomissements anxiete
+J'ai vomi et brulure dans la poitrine,vomissements brulure_poitrine
+J'ai vomi et poitrine,vomissements brulure_poitrine
+J'ai vomi et boule dans la gorge,vomissements boule_gorge
+J'ai vomi et tache,vomissements tache_visuel
+J'ai vomi et zone sombre,vomissements tache_visuel
+J'ai vomi et vision,vomissements tache_visuel
+J'ai vomi et vertige,vomissements vertige
+J'ai vomi et equilibre,vomissements perte_equilibre
+J'ai vomi et perte d'équilibre,vomissements perte_equilibre
+J'ai vomi et pulsion,vomissements douleur_pulsatile
+J'ai vomi et battement,vomissements douleur_pulsatile
+J'ai vomi et pulsatile,vomissements douleur_pulsatile
+J'ai vomi et lumiere,vomissements sensibilite_lumiere
+J'ai vomi et sensible,vomissements sensibilite_lumiere
+J'ai maux de tete et trouble,maux_de_tete vision_trouble
+J'ai maux de tete et vision,maux_de_tete vision_trouble
+J'ai maux de tete et froid,maux_de_tete fievre
+J'ai maux de tete et temperature,maux_de_tete fievre
+J'ai maux de tete et fievre,maux_de_tete fievre
+J'ai maux de tete et ventre,maux_de_tete maux_de_ventre
+J'ai maux de tete et estomac,maux_de_tete maux_de_ventre
+J'ai maux de tete et intestin,maux_de_tete maux_de_ventre
+J'ai maux de tete et vomir,maux_de_tete vomissements
+J'ai maux de tete et vomissement,maux_de_tete vomissements
+J'ai maux de tete et brassé,maux_de_tete vomissements
+J'ai maux de tete et vomi,maux_de_tete vomissements
+J'ai maux de tete et maux de tete,maux_de_tete maux_de_tete
+J'ai maux de tete et mal de tete,maux_de_tete maux_de_tete
+J'ai maux de tete et tete,maux_de_tete maux_de_tete
+J'ai maux de tete et respiration difficile,maux_de_tete respiration_difficile
+J'ai maux de tete et difficulté,maux_de_tete respiration_difficile
+J'ai maux de tete et toux,maux_de_tete toux
+J'ai maux de tete et tousser,maux_de_tete toux
+J'ai maux de tete et sifflante,maux_de_tete respiration_sifflante
+J'ai maux de tete et tousser,maux_de_tete respiration_sifflante
+J'ai maux de tete et somnolence,maux_de_tete somnolence
+J'ai maux de tete et envie de dormir,maux_de_tete somnolence
+J'ai maux de tete et anxiete,maux_de_tete anxiete
+J'ai maux de tete et anxieux,maux_de_tete anxiete
+J'ai maux de tete et brulure dans la poitrine,maux_de_tete brulure_poitrine
+J'ai maux de tete et poitrine,maux_de_tete brulure_poitrine
+J'ai maux de tete et boule dans la gorge,maux_de_tete boule_gorge
+J'ai maux de tete et tache,maux_de_tete tache_visuel
+J'ai maux de tete et zone sombre,maux_de_tete tache_visuel
+J'ai maux de tete et vision,maux_de_tete tache_visuel
+J'ai maux de tete et vertige,maux_de_tete vertige
+J'ai maux de tete et equilibre,maux_de_tete perte_equilibre
+J'ai maux de tete et perte d'équilibre,maux_de_tete perte_equilibre
+J'ai maux de tete et pulsion,maux_de_tete douleur_pulsatile
+J'ai maux de tete et battement,maux_de_tete douleur_pulsatile
+J'ai maux de tete et pulsatile,maux_de_tete douleur_pulsatile
+J'ai maux de tete et lumiere,maux_de_tete sensibilite_lumiere
+J'ai maux de tete et sensible,maux_de_tete sensibilite_lumiere
+J'ai mal de tete et trouble,maux_de_tete vision_trouble
+J'ai mal de tete et vision,maux_de_tete vision_trouble
+J'ai mal de tete et froid,maux_de_tete fievre
+J'ai mal de tete et temperature,maux_de_tete fievre
+J'ai mal de tete et fievre,maux_de_tete fievre
+J'ai mal de tete et ventre,maux_de_tete maux_de_ventre
+J'ai mal de tete et estomac,maux_de_tete maux_de_ventre
+J'ai mal de tete et intestin,maux_de_tete maux_de_ventre
+J'ai mal de tete et vomir,maux_de_tete vomissements
+J'ai mal de tete et vomissement,maux_de_tete vomissements
+J'ai mal de tete et brassé,maux_de_tete vomissements
+J'ai mal de tete et vomi,maux_de_tete vomissements
+J'ai mal de tete et maux de tete,maux_de_tete maux_de_tete
+J'ai mal de tete et mal de tete,maux_de_tete maux_de_tete
+J'ai mal de tete et tete,maux_de_tete maux_de_tete
+J'ai mal de tete et respiration difficile,maux_de_tete respiration_difficile
+J'ai mal de tete et difficulté,maux_de_tete respiration_difficile
+J'ai mal de tete et toux,maux_de_tete toux
+J'ai mal de tete et tousser,maux_de_tete toux
+J'ai mal de tete et sifflante,maux_de_tete respiration_sifflante
+J'ai mal de tete et tousser,maux_de_tete respiration_sifflante
+J'ai mal de tete et somnolence,maux_de_tete somnolence
+J'ai mal de tete et envie de dormir,maux_de_tete somnolence
+J'ai mal de tete et anxiete,maux_de_tete anxiete
+J'ai mal de tete et anxieux,maux_de_tete anxiete
+J'ai mal de tete et brulure dans la poitrine,maux_de_tete brulure_poitrine
+J'ai mal de tete et poitrine,maux_de_tete brulure_poitrine
+J'ai mal de tete et boule dans la gorge,maux_de_tete boule_gorge
+J'ai mal de tete et tache,maux_de_tete tache_visuel
+J'ai mal de tete et zone sombre,maux_de_tete tache_visuel
+J'ai mal de tete et vision,maux_de_tete tache_visuel
+J'ai mal de tete et vertige,maux_de_tete vertige
+J'ai mal de tete et equilibre,maux_de_tete perte_equilibre
+J'ai mal de tete et perte d'équilibre,maux_de_tete perte_equilibre
+J'ai mal de tete et pulsion,maux_de_tete douleur_pulsatile
+J'ai mal de tete et battement,maux_de_tete douleur_pulsatile
+J'ai mal de tete et pulsatile,maux_de_tete douleur_pulsatile
+J'ai mal de tete et lumiere,maux_de_tete sensibilite_lumiere
+J'ai mal de tete et sensible,maux_de_tete sensibilite_lumiere
+J'ai tete et trouble,maux_de_tete vision_trouble
+J'ai tete et vision,maux_de_tete vision_trouble
+J'ai tete et froid,maux_de_tete fievre
+J'ai tete et temperature,maux_de_tete fievre
+J'ai tete et fievre,maux_de_tete fievre
+J'ai tete et ventre,maux_de_tete maux_de_ventre
+J'ai tete et estomac,maux_de_tete maux_de_ventre
+J'ai tete et intestin,maux_de_tete maux_de_ventre
+J'ai tete et vomir,maux_de_tete vomissements
+J'ai tete et vomissement,maux_de_tete vomissements
+J'ai tete et brassé,maux_de_tete vomissements
+J'ai tete et vomi,maux_de_tete vomissements
+J'ai tete et maux de tete,maux_de_tete maux_de_tete
+J'ai tete et mal de tete,maux_de_tete maux_de_tete
+J'ai tete et tete,maux_de_tete maux_de_tete
+J'ai tete et respiration difficile,maux_de_tete respiration_difficile
+J'ai tete et difficulté,maux_de_tete respiration_difficile
+J'ai tete et toux,maux_de_tete toux
+J'ai tete et tousser,maux_de_tete toux
+J'ai tete et sifflante,maux_de_tete respiration_sifflante
+J'ai tete et tousser,maux_de_tete respiration_sifflante
+J'ai tete et somnolence,maux_de_tete somnolence
+J'ai tete et envie de dormir,maux_de_tete somnolence
+J'ai tete et anxiete,maux_de_tete anxiete
+J'ai tete et anxieux,maux_de_tete anxiete
+J'ai tete et brulure dans la poitrine,maux_de_tete brulure_poitrine
+J'ai tete et poitrine,maux_de_tete brulure_poitrine
+J'ai tete et boule dans la gorge,maux_de_tete boule_gorge
+J'ai tete et tache,maux_de_tete tache_visuel
+J'ai tete et zone sombre,maux_de_tete tache_visuel
+J'ai tete et vision,maux_de_tete tache_visuel
+J'ai tete et vertige,maux_de_tete vertige
+J'ai tete et equilibre,maux_de_tete perte_equilibre
+J'ai tete et perte d'équilibre,maux_de_tete perte_equilibre
+J'ai tete et pulsion,maux_de_tete douleur_pulsatile
+J'ai tete et battement,maux_de_tete douleur_pulsatile
+J'ai tete et pulsatile,maux_de_tete douleur_pulsatile
+J'ai tete et lumiere,maux_de_tete sensibilite_lumiere
+J'ai tete et sensible,maux_de_tete sensibilite_lumiere
+J'ai respiration difficile et trouble,respiration_difficile vision_trouble
+J'ai respiration difficile et vision,respiration_difficile vision_trouble
+J'ai respiration difficile et froid,respiration_difficile fievre
+J'ai respiration difficile et temperature,respiration_difficile fievre
+J'ai respiration difficile et fievre,respiration_difficile fievre
+J'ai respiration difficile et ventre,respiration_difficile maux_de_ventre
+J'ai respiration difficile et estomac,respiration_difficile maux_de_ventre
+J'ai respiration difficile et intestin,respiration_difficile maux_de_ventre
+J'ai respiration difficile et vomir,respiration_difficile vomissements
+J'ai respiration difficile et vomissement,respiration_difficile vomissements
+J'ai respiration difficile et brassé,respiration_difficile vomissements
+J'ai respiration difficile et vomi,respiration_difficile vomissements
+J'ai respiration difficile et maux de tete,respiration_difficile maux_de_tete
+J'ai respiration difficile et mal de tete,respiration_difficile maux_de_tete
+J'ai respiration difficile et tete,respiration_difficile maux_de_tete
+J'ai respiration difficile et respiration difficile,respiration_difficile respiration_difficile
+J'ai respiration difficile et difficulté,respiration_difficile respiration_difficile
+J'ai respiration difficile et toux,respiration_difficile toux
+J'ai respiration difficile et tousser,respiration_difficile toux
+J'ai respiration difficile et sifflante,respiration_difficile respiration_sifflante
+J'ai respiration difficile et tousser,respiration_difficile respiration_sifflante
+J'ai respiration difficile et somnolence,respiration_difficile somnolence
+J'ai respiration difficile et envie de dormir,respiration_difficile somnolence
+J'ai respiration difficile et anxiete,respiration_difficile anxiete
+J'ai respiration difficile et anxieux,respiration_difficile anxiete
+J'ai respiration difficile et brulure dans la poitrine,respiration_difficile brulure_poitrine
+J'ai respiration difficile et poitrine,respiration_difficile brulure_poitrine
+J'ai respiration difficile et boule dans la gorge,respiration_difficile boule_gorge
+J'ai respiration difficile et tache,respiration_difficile tache_visuel
+J'ai respiration difficile et zone sombre,respiration_difficile tache_visuel
+J'ai respiration difficile et vision,respiration_difficile tache_visuel
+J'ai respiration difficile et vertige,respiration_difficile vertige
+J'ai respiration difficile et equilibre,respiration_difficile perte_equilibre
+J'ai respiration difficile et perte d'équilibre,respiration_difficile perte_equilibre
+J'ai respiration difficile et pulsion,respiration_difficile douleur_pulsatile
+J'ai respiration difficile et battement,respiration_difficile douleur_pulsatile
+J'ai respiration difficile et pulsatile,respiration_difficile douleur_pulsatile
+J'ai respiration difficile et lumiere,respiration_difficile sensibilite_lumiere
+J'ai respiration difficile et sensible,respiration_difficile sensibilite_lumiere
+J'ai difficulté et trouble,respiration_difficile vision_trouble
+J'ai difficulté et vision,respiration_difficile vision_trouble
+J'ai difficulté et froid,respiration_difficile fievre
+J'ai difficulté et temperature,respiration_difficile fievre
+J'ai difficulté et fievre,respiration_difficile fievre
+J'ai difficulté et ventre,respiration_difficile maux_de_ventre
+J'ai difficulté et estomac,respiration_difficile maux_de_ventre
+J'ai difficulté et intestin,respiration_difficile maux_de_ventre
+J'ai difficulté et vomir,respiration_difficile vomissements
+J'ai difficulté et vomissement,respiration_difficile vomissements
+J'ai difficulté et brassé,respiration_difficile vomissements
+J'ai difficulté et vomi,respiration_difficile vomissements
+J'ai difficulté et maux de tete,respiration_difficile maux_de_tete
+J'ai difficulté et mal de tete,respiration_difficile maux_de_tete
+J'ai difficulté et tete,respiration_difficile maux_de_tete
+J'ai difficulté et respiration difficile,respiration_difficile respiration_difficile
+J'ai difficulté et difficulté,respiration_difficile respiration_difficile
+J'ai difficulté et toux,respiration_difficile toux
+J'ai difficulté et tousser,respiration_difficile toux
+J'ai difficulté et sifflante,respiration_difficile respiration_sifflante
+J'ai difficulté et tousser,respiration_difficile respiration_sifflante
+J'ai difficulté et somnolence,respiration_difficile somnolence
+J'ai difficulté et envie de dormir,respiration_difficile somnolence
+J'ai difficulté et anxiete,respiration_difficile anxiete
+J'ai difficulté et anxieux,respiration_difficile anxiete
+J'ai difficulté et brulure dans la poitrine,respiration_difficile brulure_poitrine
+J'ai difficulté et poitrine,respiration_difficile brulure_poitrine
+J'ai difficulté et boule dans la gorge,respiration_difficile boule_gorge
+J'ai difficulté et tache,respiration_difficile tache_visuel
+J'ai difficulté et zone sombre,respiration_difficile tache_visuel
+J'ai difficulté et vision,respiration_difficile tache_visuel
+J'ai difficulté et vertige,respiration_difficile vertige
+J'ai difficulté et equilibre,respiration_difficile perte_equilibre
+J'ai difficulté et perte d'équilibre,respiration_difficile perte_equilibre
+J'ai difficulté et pulsion,respiration_difficile douleur_pulsatile
+J'ai difficulté et battement,respiration_difficile douleur_pulsatile
+J'ai difficulté et pulsatile,respiration_difficile douleur_pulsatile
+J'ai difficulté et lumiere,respiration_difficile sensibilite_lumiere
+J'ai difficulté et sensible,respiration_difficile sensibilite_lumiere
+J'ai toux et trouble,toux vision_trouble
+J'ai toux et vision,toux vision_trouble
+J'ai toux et froid,toux fievre
+J'ai toux et temperature,toux fievre
+J'ai toux et fievre,toux fievre
+J'ai toux et ventre,toux maux_de_ventre
+J'ai toux et estomac,toux maux_de_ventre
+J'ai toux et intestin,toux maux_de_ventre
+J'ai toux et vomir,toux vomissements
+J'ai toux et vomissement,toux vomissements
+J'ai toux et brassé,toux vomissements
+J'ai toux et vomi,toux vomissements
+J'ai toux et maux de tete,toux maux_de_tete
+J'ai toux et mal de tete,toux maux_de_tete
+J'ai toux et tete,toux maux_de_tete
+J'ai toux et respiration difficile,toux respiration_difficile
+J'ai toux et difficulté,toux respiration_difficile
+J'ai toux et toux,toux toux
+J'ai toux et tousser,toux toux
+J'ai toux et sifflante,toux respiration_sifflante
+J'ai toux et tousser,toux respiration_sifflante
+J'ai toux et somnolence,toux somnolence
+J'ai toux et envie de dormir,toux somnolence
+J'ai toux et anxiete,toux anxiete
+J'ai toux et anxieux,toux anxiete
+J'ai toux et brulure dans la poitrine,toux brulure_poitrine
+J'ai toux et poitrine,toux brulure_poitrine
+J'ai toux et boule dans la gorge,toux boule_gorge
+J'ai toux et tache,toux tache_visuel
+J'ai toux et zone sombre,toux tache_visuel
+J'ai toux et vision,toux tache_visuel
+J'ai toux et vertige,toux vertige
+J'ai toux et equilibre,toux perte_equilibre
+J'ai toux et perte d'équilibre,toux perte_equilibre
+J'ai toux et pulsion,toux douleur_pulsatile
+J'ai toux et battement,toux douleur_pulsatile
+J'ai toux et pulsatile,toux douleur_pulsatile
+J'ai toux et lumiere,toux sensibilite_lumiere
+J'ai toux et sensible,toux sensibilite_lumiere
+J'ai tousser et trouble,toux vision_trouble
+J'ai tousser et vision,toux vision_trouble
+J'ai tousser et froid,toux fievre
+J'ai tousser et temperature,toux fievre
+J'ai tousser et fievre,toux fievre
+J'ai tousser et ventre,toux maux_de_ventre
+J'ai tousser et estomac,toux maux_de_ventre
+J'ai tousser et intestin,toux maux_de_ventre
+J'ai tousser et vomir,toux vomissements
+J'ai tousser et vomissement,toux vomissements
+J'ai tousser et brassé,toux vomissements
+J'ai tousser et vomi,toux vomissements
+J'ai tousser et maux de tete,toux maux_de_tete
+J'ai tousser et mal de tete,toux maux_de_tete
+J'ai tousser et tete,toux maux_de_tete
+J'ai tousser et respiration difficile,toux respiration_difficile
+J'ai tousser et difficulté,toux respiration_difficile
+J'ai tousser et toux,toux toux
+J'ai tousser et tousser,toux toux
+J'ai tousser et sifflante,toux respiration_sifflante
+J'ai tousser et tousser,toux respiration_sifflante
+J'ai tousser et somnolence,toux somnolence
+J'ai tousser et envie de dormir,toux somnolence
+J'ai tousser et anxiete,toux anxiete
+J'ai tousser et anxieux,toux anxiete
+J'ai tousser et brulure dans la poitrine,toux brulure_poitrine
+J'ai tousser et poitrine,toux brulure_poitrine
+J'ai tousser et boule dans la gorge,toux boule_gorge
+J'ai tousser et tache,toux tache_visuel
+J'ai tousser et zone sombre,toux tache_visuel
+J'ai tousser et vision,toux tache_visuel
+J'ai tousser et vertige,toux vertige
+J'ai tousser et equilibre,toux perte_equilibre
+J'ai tousser et perte d'équilibre,toux perte_equilibre
+J'ai tousser et pulsion,toux douleur_pulsatile
+J'ai tousser et battement,toux douleur_pulsatile
+J'ai tousser et pulsatile,toux douleur_pulsatile
+J'ai tousser et lumiere,toux sensibilite_lumiere
+J'ai tousser et sensible,toux sensibilite_lumiere
+J'ai sifflante et trouble,respiration_sifflante vision_trouble
+J'ai sifflante et vision,respiration_sifflante vision_trouble
+J'ai sifflante et froid,respiration_sifflante fievre
+J'ai sifflante et temperature,respiration_sifflante fievre
+J'ai sifflante et fievre,respiration_sifflante fievre
+J'ai sifflante et ventre,respiration_sifflante maux_de_ventre
+J'ai sifflante et estomac,respiration_sifflante maux_de_ventre
+J'ai sifflante et intestin,respiration_sifflante maux_de_ventre
+J'ai sifflante et vomir,respiration_sifflante vomissements
+J'ai sifflante et vomissement,respiration_sifflante vomissements
+J'ai sifflante et brassé,respiration_sifflante vomissements
+J'ai sifflante et vomi,respiration_sifflante vomissements
+J'ai sifflante et maux de tete,respiration_sifflante maux_de_tete
+J'ai sifflante et mal de tete,respiration_sifflante maux_de_tete
+J'ai sifflante et tete,respiration_sifflante maux_de_tete
+J'ai sifflante et respiration difficile,respiration_sifflante respiration_difficile
+J'ai sifflante et difficulté,respiration_sifflante respiration_difficile
+J'ai sifflante et toux,respiration_sifflante toux
+J'ai sifflante et tousser,respiration_sifflante toux
+J'ai sifflante et sifflante,respiration_sifflante respiration_sifflante
+J'ai sifflante et tousser,respiration_sifflante respiration_sifflante
+J'ai sifflante et somnolence,respiration_sifflante somnolence
+J'ai sifflante et envie de dormir,respiration_sifflante somnolence
+J'ai sifflante et anxiete,respiration_sifflante anxiete
+J'ai sifflante et anxieux,respiration_sifflante anxiete
+J'ai sifflante et brulure dans la poitrine,respiration_sifflante brulure_poitrine
+J'ai sifflante et poitrine,respiration_sifflante brulure_poitrine
+J'ai sifflante et boule dans la gorge,respiration_sifflante boule_gorge
+J'ai sifflante et tache,respiration_sifflante tache_visuel
+J'ai sifflante et zone sombre,respiration_sifflante tache_visuel
+J'ai sifflante et vision,respiration_sifflante tache_visuel
+J'ai sifflante et vertige,respiration_sifflante vertige
+J'ai sifflante et equilibre,respiration_sifflante perte_equilibre
+J'ai sifflante et perte d'équilibre,respiration_sifflante perte_equilibre
+J'ai sifflante et pulsion,respiration_sifflante douleur_pulsatile
+J'ai sifflante et battement,respiration_sifflante douleur_pulsatile
+J'ai sifflante et pulsatile,respiration_sifflante douleur_pulsatile
+J'ai sifflante et lumiere,respiration_sifflante sensibilite_lumiere
+J'ai sifflante et sensible,respiration_sifflante sensibilite_lumiere
+J'ai tousser et trouble,respiration_sifflante vision_trouble
+J'ai tousser et vision,respiration_sifflante vision_trouble
+J'ai tousser et froid,respiration_sifflante fievre
+J'ai tousser et temperature,respiration_sifflante fievre
+J'ai tousser et fievre,respiration_sifflante fievre
+J'ai tousser et ventre,respiration_sifflante maux_de_ventre
+J'ai tousser et estomac,respiration_sifflante maux_de_ventre
+J'ai tousser et intestin,respiration_sifflante maux_de_ventre
+J'ai tousser et vomir,respiration_sifflante vomissements
+J'ai tousser et vomissement,respiration_sifflante vomissements
+J'ai tousser et brassé,respiration_sifflante vomissements
+J'ai tousser et vomi,respiration_sifflante vomissements
+J'ai tousser et maux de tete,respiration_sifflante maux_de_tete
+J'ai tousser et mal de tete,respiration_sifflante maux_de_tete
+J'ai tousser et tete,respiration_sifflante maux_de_tete
+J'ai tousser et respiration difficile,respiration_sifflante respiration_difficile
+J'ai tousser et difficulté,respiration_sifflante respiration_difficile
+J'ai tousser et toux,respiration_sifflante toux
+J'ai tousser et tousser,respiration_sifflante toux
+J'ai tousser et sifflante,respiration_sifflante respiration_sifflante
+J'ai tousser et tousser,respiration_sifflante respiration_sifflante
+J'ai tousser et somnolence,respiration_sifflante somnolence
+J'ai tousser et envie de dormir,respiration_sifflante somnolence
+J'ai tousser et anxiete,respiration_sifflante anxiete
+J'ai tousser et anxieux,respiration_sifflante anxiete
+J'ai tousser et brulure dans la poitrine,respiration_sifflante brulure_poitrine
+J'ai tousser et poitrine,respiration_sifflante brulure_poitrine
+J'ai tousser et boule dans la gorge,respiration_sifflante boule_gorge
+J'ai tousser et tache,respiration_sifflante tache_visuel
+J'ai tousser et zone sombre,respiration_sifflante tache_visuel
+J'ai tousser et vision,respiration_sifflante tache_visuel
+J'ai tousser et vertige,respiration_sifflante vertige
+J'ai tousser et equilibre,respiration_sifflante perte_equilibre
+J'ai tousser et perte d'équilibre,respiration_sifflante perte_equilibre
+J'ai tousser et pulsion,respiration_sifflante douleur_pulsatile
+J'ai tousser et battement,respiration_sifflante douleur_pulsatile
+J'ai tousser et pulsatile,respiration_sifflante douleur_pulsatile
+J'ai tousser et lumiere,respiration_sifflante sensibilite_lumiere
+J'ai tousser et sensible,respiration_sifflante sensibilite_lumiere
+J'ai somnolence et trouble,somnolence vision_trouble
+J'ai somnolence et vision,somnolence vision_trouble
+J'ai somnolence et froid,somnolence fievre
+J'ai somnolence et temperature,somnolence fievre
+J'ai somnolence et fievre,somnolence fievre
+J'ai somnolence et ventre,somnolence maux_de_ventre
+J'ai somnolence et estomac,somnolence maux_de_ventre
+J'ai somnolence et intestin,somnolence maux_de_ventre
+J'ai somnolence et vomir,somnolence vomissements
+J'ai somnolence et vomissement,somnolence vomissements
+J'ai somnolence et brassé,somnolence vomissements
+J'ai somnolence et vomi,somnolence vomissements
+J'ai somnolence et maux de tete,somnolence maux_de_tete
+J'ai somnolence et mal de tete,somnolence maux_de_tete
+J'ai somnolence et tete,somnolence maux_de_tete
+J'ai somnolence et respiration difficile,somnolence respiration_difficile
+J'ai somnolence et difficulté,somnolence respiration_difficile
+J'ai somnolence et toux,somnolence toux
+J'ai somnolence et tousser,somnolence toux
+J'ai somnolence et sifflante,somnolence respiration_sifflante
+J'ai somnolence et tousser,somnolence respiration_sifflante
+J'ai somnolence et somnolence,somnolence somnolence
+J'ai somnolence et envie de dormir,somnolence somnolence
+J'ai somnolence et anxiete,somnolence anxiete
+J'ai somnolence et anxieux,somnolence anxiete
+J'ai somnolence et brulure dans la poitrine,somnolence brulure_poitrine
+J'ai somnolence et poitrine,somnolence brulure_poitrine
+J'ai somnolence et boule dans la gorge,somnolence boule_gorge
+J'ai somnolence et tache,somnolence tache_visuel
+J'ai somnolence et zone sombre,somnolence tache_visuel
+J'ai somnolence et vision,somnolence tache_visuel
+J'ai somnolence et vertige,somnolence vertige
+J'ai somnolence et equilibre,somnolence perte_equilibre
+J'ai somnolence et perte d'équilibre,somnolence perte_equilibre
+J'ai somnolence et pulsion,somnolence douleur_pulsatile
+J'ai somnolence et battement,somnolence douleur_pulsatile
+J'ai somnolence et pulsatile,somnolence douleur_pulsatile
+J'ai somnolence et lumiere,somnolence sensibilite_lumiere
+J'ai somnolence et sensible,somnolence sensibilite_lumiere
+J'ai envie de dormir et trouble,somnolence vision_trouble
+J'ai envie de dormir et vision,somnolence vision_trouble
+J'ai envie de dormir et froid,somnolence fievre
+J'ai envie de dormir et temperature,somnolence fievre
+J'ai envie de dormir et fievre,somnolence fievre
+J'ai envie de dormir et ventre,somnolence maux_de_ventre
+J'ai envie de dormir et estomac,somnolence maux_de_ventre
+J'ai envie de dormir et intestin,somnolence maux_de_ventre
+J'ai envie de dormir et vomir,somnolence vomissements
+J'ai envie de dormir et vomissement,somnolence vomissements
+J'ai envie de dormir et brassé,somnolence vomissements
+J'ai envie de dormir et vomi,somnolence vomissements
+J'ai envie de dormir et maux de tete,somnolence maux_de_tete
+J'ai envie de dormir et mal de tete,somnolence maux_de_tete
+J'ai envie de dormir et tete,somnolence maux_de_tete
+J'ai envie de dormir et respiration difficile,somnolence respiration_difficile
+J'ai envie de dormir et difficulté,somnolence respiration_difficile
+J'ai envie de dormir et toux,somnolence toux
+J'ai envie de dormir et tousser,somnolence toux
+J'ai envie de dormir et sifflante,somnolence respiration_sifflante
+J'ai envie de dormir et tousser,somnolence respiration_sifflante
+J'ai envie de dormir et somnolence,somnolence somnolence
+J'ai envie de dormir et envie de dormir,somnolence somnolence
+J'ai envie de dormir et anxiete,somnolence anxiete
+J'ai envie de dormir et anxieux,somnolence anxiete
+J'ai envie de dormir et brulure dans la poitrine,somnolence brulure_poitrine
+J'ai envie de dormir et poitrine,somnolence brulure_poitrine
+J'ai envie de dormir et boule dans la gorge,somnolence boule_gorge
+J'ai envie de dormir et tache,somnolence tache_visuel
+J'ai envie de dormir et zone sombre,somnolence tache_visuel
+J'ai envie de dormir et vision,somnolence tache_visuel
+J'ai envie de dormir et vertige,somnolence vertige
+J'ai envie de dormir et equilibre,somnolence perte_equilibre
+J'ai envie de dormir et perte d'équilibre,somnolence perte_equilibre
+J'ai envie de dormir et pulsion,somnolence douleur_pulsatile
+J'ai envie de dormir et battement,somnolence douleur_pulsatile
+J'ai envie de dormir et pulsatile,somnolence douleur_pulsatile
+J'ai envie de dormir et lumiere,somnolence sensibilite_lumiere
+J'ai envie de dormir et sensible,somnolence sensibilite_lumiere
+J'ai anxiete et trouble,anxiete vision_trouble
+J'ai anxiete et vision,anxiete vision_trouble
+J'ai anxiete et froid,anxiete fievre
+J'ai anxiete et temperature,anxiete fievre
+J'ai anxiete et fievre,anxiete fievre
+J'ai anxiete et ventre,anxiete maux_de_ventre
+J'ai anxiete et estomac,anxiete maux_de_ventre
+J'ai anxiete et intestin,anxiete maux_de_ventre
+J'ai anxiete et vomir,anxiete vomissements
+J'ai anxiete et vomissement,anxiete vomissements
+J'ai anxiete et brassé,anxiete vomissements
+J'ai anxiete et vomi,anxiete vomissements
+J'ai anxiete et maux de tete,anxiete maux_de_tete
+J'ai anxiete et mal de tete,anxiete maux_de_tete
+J'ai anxiete et tete,anxiete maux_de_tete
+J'ai anxiete et respiration difficile,anxiete respiration_difficile
+J'ai anxiete et difficulté,anxiete respiration_difficile
+J'ai anxiete et toux,anxiete toux
+J'ai anxiete et tousser,anxiete toux
+J'ai anxiete et sifflante,anxiete respiration_sifflante
+J'ai anxiete et tousser,anxiete respiration_sifflante
+J'ai anxiete et somnolence,anxiete somnolence
+J'ai anxiete et envie de dormir,anxiete somnolence
+J'ai anxiete et anxiete,anxiete anxiete
+J'ai anxiete et anxieux,anxiete anxiete
+J'ai anxiete et brulure dans la poitrine,anxiete brulure_poitrine
+J'ai anxiete et poitrine,anxiete brulure_poitrine
+J'ai anxiete et boule dans la gorge,anxiete boule_gorge
+J'ai anxiete et tache,anxiete tache_visuel
+J'ai anxiete et zone sombre,anxiete tache_visuel
+J'ai anxiete et vision,anxiete tache_visuel
+J'ai anxiete et vertige,anxiete vertige
+J'ai anxiete et equilibre,anxiete perte_equilibre
+J'ai anxiete et perte d'équilibre,anxiete perte_equilibre
+J'ai anxiete et pulsion,anxiete douleur_pulsatile
+J'ai anxiete et battement,anxiete douleur_pulsatile
+J'ai anxiete et pulsatile,anxiete douleur_pulsatile
+J'ai anxiete et lumiere,anxiete sensibilite_lumiere
+J'ai anxiete et sensible,anxiete sensibilite_lumiere
+J'ai anxieux et trouble,anxiete vision_trouble
+J'ai anxieux et vision,anxiete vision_trouble
+J'ai anxieux et froid,anxiete fievre
+J'ai anxieux et temperature,anxiete fievre
+J'ai anxieux et fievre,anxiete fievre
+J'ai anxieux et ventre,anxiete maux_de_ventre
+J'ai anxieux et estomac,anxiete maux_de_ventre
+J'ai anxieux et intestin,anxiete maux_de_ventre
+J'ai anxieux et vomir,anxiete vomissements
+J'ai anxieux et vomissement,anxiete vomissements
+J'ai anxieux et brassé,anxiete vomissements
+J'ai anxieux et vomi,anxiete vomissements
+J'ai anxieux et maux de tete,anxiete maux_de_tete
+J'ai anxieux et mal de tete,anxiete maux_de_tete
+J'ai anxieux et tete,anxiete maux_de_tete
+J'ai anxieux et respiration difficile,anxiete respiration_difficile
+J'ai anxieux et difficulté,anxiete respiration_difficile
+J'ai anxieux et toux,anxiete toux
+J'ai anxieux et tousser,anxiete toux
+J'ai anxieux et sifflante,anxiete respiration_sifflante
+J'ai anxieux et tousser,anxiete respiration_sifflante
+J'ai anxieux et somnolence,anxiete somnolence
+J'ai anxieux et envie de dormir,anxiete somnolence
+J'ai anxieux et anxiete,anxiete anxiete
+J'ai anxieux et anxieux,anxiete anxiete
+J'ai anxieux et brulure dans la poitrine,anxiete brulure_poitrine
+J'ai anxieux et poitrine,anxiete brulure_poitrine
+J'ai anxieux et boule dans la gorge,anxiete boule_gorge
+J'ai anxieux et tache,anxiete tache_visuel
+J'ai anxieux et zone sombre,anxiete tache_visuel
+J'ai anxieux et vision,anxiete tache_visuel
+J'ai anxieux et vertige,anxiete vertige
+J'ai anxieux et equilibre,anxiete perte_equilibre
+J'ai anxieux et perte d'équilibre,anxiete perte_equilibre
+J'ai anxieux et pulsion,anxiete douleur_pulsatile
+J'ai anxieux et battement,anxiete douleur_pulsatile
+J'ai anxieux et pulsatile,anxiete douleur_pulsatile
+J'ai anxieux et lumiere,anxiete sensibilite_lumiere
+J'ai anxieux et sensible,anxiete sensibilite_lumiere
+J'ai brulure dans la poitrine et trouble,brulure_poitrine vision_trouble
+J'ai brulure dans la poitrine et vision,brulure_poitrine vision_trouble
+J'ai brulure dans la poitrine et froid,brulure_poitrine fievre
+J'ai brulure dans la poitrine et temperature,brulure_poitrine fievre
+J'ai brulure dans la poitrine et fievre,brulure_poitrine fievre
+J'ai brulure dans la poitrine et ventre,brulure_poitrine maux_de_ventre
+J'ai brulure dans la poitrine et estomac,brulure_poitrine maux_de_ventre
+J'ai brulure dans la poitrine et intestin,brulure_poitrine maux_de_ventre
+J'ai brulure dans la poitrine et vomir,brulure_poitrine vomissements
+J'ai brulure dans la poitrine et vomissement,brulure_poitrine vomissements
+J'ai brulure dans la poitrine et brassé,brulure_poitrine vomissements
+J'ai brulure dans la poitrine et vomi,brulure_poitrine vomissements
+J'ai brulure dans la poitrine et maux de tete,brulure_poitrine maux_de_tete
+J'ai brulure dans la poitrine et mal de tete,brulure_poitrine maux_de_tete
+J'ai brulure dans la poitrine et tete,brulure_poitrine maux_de_tete
+J'ai brulure dans la poitrine et respiration difficile,brulure_poitrine respiration_difficile
+J'ai brulure dans la poitrine et difficulté,brulure_poitrine respiration_difficile
+J'ai brulure dans la poitrine et toux,brulure_poitrine toux
+J'ai brulure dans la poitrine et tousser,brulure_poitrine toux
+J'ai brulure dans la poitrine et sifflante,brulure_poitrine respiration_sifflante
+J'ai brulure dans la poitrine et tousser,brulure_poitrine respiration_sifflante
+J'ai brulure dans la poitrine et somnolence,brulure_poitrine somnolence
+J'ai brulure dans la poitrine et envie de dormir,brulure_poitrine somnolence
+J'ai brulure dans la poitrine et anxiete,brulure_poitrine anxiete
+J'ai brulure dans la poitrine et anxieux,brulure_poitrine anxiete
+J'ai brulure dans la poitrine et brulure dans la poitrine,brulure_poitrine brulure_poitrine
+J'ai brulure dans la poitrine et poitrine,brulure_poitrine brulure_poitrine
+J'ai brulure dans la poitrine et boule dans la gorge,brulure_poitrine boule_gorge
+J'ai brulure dans la poitrine et tache,brulure_poitrine tache_visuel
+J'ai brulure dans la poitrine et zone sombre,brulure_poitrine tache_visuel
+J'ai brulure dans la poitrine et vision,brulure_poitrine tache_visuel
+J'ai brulure dans la poitrine et vertige,brulure_poitrine vertige
+J'ai brulure dans la poitrine et equilibre,brulure_poitrine perte_equilibre
+J'ai brulure dans la poitrine et perte d'équilibre,brulure_poitrine perte_equilibre
+J'ai brulure dans la poitrine et pulsion,brulure_poitrine douleur_pulsatile
+J'ai brulure dans la poitrine et battement,brulure_poitrine douleur_pulsatile
+J'ai brulure dans la poitrine et pulsatile,brulure_poitrine douleur_pulsatile
+J'ai brulure dans la poitrine et lumiere,brulure_poitrine sensibilite_lumiere
+J'ai brulure dans la poitrine et sensible,brulure_poitrine sensibilite_lumiere
+J'ai poitrine et trouble,brulure_poitrine vision_trouble
+J'ai poitrine et vision,brulure_poitrine vision_trouble
+J'ai poitrine et froid,brulure_poitrine fievre
+J'ai poitrine et temperature,brulure_poitrine fievre
+J'ai poitrine et fievre,brulure_poitrine fievre
+J'ai poitrine et ventre,brulure_poitrine maux_de_ventre
+J'ai poitrine et estomac,brulure_poitrine maux_de_ventre
+J'ai poitrine et intestin,brulure_poitrine maux_de_ventre
+J'ai poitrine et vomir,brulure_poitrine vomissements
+J'ai poitrine et vomissement,brulure_poitrine vomissements
+J'ai poitrine et brassé,brulure_poitrine vomissements
+J'ai poitrine et vomi,brulure_poitrine vomissements
+J'ai poitrine et maux de tete,brulure_poitrine maux_de_tete
+J'ai poitrine et mal de tete,brulure_poitrine maux_de_tete
+J'ai poitrine et tete,brulure_poitrine maux_de_tete
+J'ai poitrine et respiration difficile,brulure_poitrine respiration_difficile
+J'ai poitrine et difficulté,brulure_poitrine respiration_difficile
+J'ai poitrine et toux,brulure_poitrine toux
+J'ai poitrine et tousser,brulure_poitrine toux
+J'ai poitrine et sifflante,brulure_poitrine respiration_sifflante
+J'ai poitrine et tousser,brulure_poitrine respiration_sifflante
+J'ai poitrine et somnolence,brulure_poitrine somnolence
+J'ai poitrine et envie de dormir,brulure_poitrine somnolence
+J'ai poitrine et anxiete,brulure_poitrine anxiete
+J'ai poitrine et anxieux,brulure_poitrine anxiete
+J'ai poitrine et brulure dans la poitrine,brulure_poitrine brulure_poitrine
+J'ai poitrine et poitrine,brulure_poitrine brulure_poitrine
+J'ai poitrine et boule dans la gorge,brulure_poitrine boule_gorge
+J'ai poitrine et tache,brulure_poitrine tache_visuel
+J'ai poitrine et zone sombre,brulure_poitrine tache_visuel
+J'ai poitrine et vision,brulure_poitrine tache_visuel
+J'ai poitrine et vertige,brulure_poitrine vertige
+J'ai poitrine et equilibre,brulure_poitrine perte_equilibre
+J'ai poitrine et perte d'équilibre,brulure_poitrine perte_equilibre
+J'ai poitrine et pulsion,brulure_poitrine douleur_pulsatile
+J'ai poitrine et battement,brulure_poitrine douleur_pulsatile
+J'ai poitrine et pulsatile,brulure_poitrine douleur_pulsatile
+J'ai poitrine et lumiere,brulure_poitrine sensibilite_lumiere
+J'ai poitrine et sensible,brulure_poitrine sensibilite_lumiere
+J'ai boule dans la gorge et trouble,boule_gorge vision_trouble
+J'ai boule dans la gorge et vision,boule_gorge vision_trouble
+J'ai boule dans la gorge et froid,boule_gorge fievre
+J'ai boule dans la gorge et temperature,boule_gorge fievre
+J'ai boule dans la gorge et fievre,boule_gorge fievre
+J'ai boule dans la gorge et ventre,boule_gorge maux_de_ventre
+J'ai boule dans la gorge et estomac,boule_gorge maux_de_ventre
+J'ai boule dans la gorge et intestin,boule_gorge maux_de_ventre
+J'ai boule dans la gorge et vomir,boule_gorge vomissements
+J'ai boule dans la gorge et vomissement,boule_gorge vomissements
+J'ai boule dans la gorge et brassé,boule_gorge vomissements
+J'ai boule dans la gorge et vomi,boule_gorge vomissements
+J'ai boule dans la gorge et maux de tete,boule_gorge maux_de_tete
+J'ai boule dans la gorge et mal de tete,boule_gorge maux_de_tete
+J'ai boule dans la gorge et tete,boule_gorge maux_de_tete
+J'ai boule dans la gorge et respiration difficile,boule_gorge respiration_difficile
+J'ai boule dans la gorge et difficulté,boule_gorge respiration_difficile
+J'ai boule dans la gorge et toux,boule_gorge toux
+J'ai boule dans la gorge et tousser,boule_gorge toux
+J'ai boule dans la gorge et sifflante,boule_gorge respiration_sifflante
+J'ai boule dans la gorge et tousser,boule_gorge respiration_sifflante
+J'ai boule dans la gorge et somnolence,boule_gorge somnolence
+J'ai boule dans la gorge et envie de dormir,boule_gorge somnolence
+J'ai boule dans la gorge et anxiete,boule_gorge anxiete
+J'ai boule dans la gorge et anxieux,boule_gorge anxiete
+J'ai boule dans la gorge et brulure dans la poitrine,boule_gorge brulure_poitrine
+J'ai boule dans la gorge et poitrine,boule_gorge brulure_poitrine
+J'ai boule dans la gorge et boule dans la gorge,boule_gorge boule_gorge
+J'ai boule dans la gorge et tache,boule_gorge tache_visuel
+J'ai boule dans la gorge et zone sombre,boule_gorge tache_visuel
+J'ai boule dans la gorge et vision,boule_gorge tache_visuel
+J'ai boule dans la gorge et vertige,boule_gorge vertige
+J'ai boule dans la gorge et equilibre,boule_gorge perte_equilibre
+J'ai boule dans la gorge et perte d'équilibre,boule_gorge perte_equilibre
+J'ai boule dans la gorge et pulsion,boule_gorge douleur_pulsatile
+J'ai boule dans la gorge et battement,boule_gorge douleur_pulsatile
+J'ai boule dans la gorge et pulsatile,boule_gorge douleur_pulsatile
+J'ai boule dans la gorge et lumiere,boule_gorge sensibilite_lumiere
+J'ai boule dans la gorge et sensible,boule_gorge sensibilite_lumiere
+J'ai tache et trouble,tache_visuel vision_trouble
+J'ai tache et vision,tache_visuel vision_trouble
+J'ai tache et froid,tache_visuel fievre
+J'ai tache et temperature,tache_visuel fievre
+J'ai tache et fievre,tache_visuel fievre
+J'ai tache et ventre,tache_visuel maux_de_ventre
+J'ai tache et estomac,tache_visuel maux_de_ventre
+J'ai tache et intestin,tache_visuel maux_de_ventre
+J'ai tache et vomir,tache_visuel vomissements
+J'ai tache et vomissement,tache_visuel vomissements
+J'ai tache et brassé,tache_visuel vomissements
+J'ai tache et vomi,tache_visuel vomissements
+J'ai tache et maux de tete,tache_visuel maux_de_tete
+J'ai tache et mal de tete,tache_visuel maux_de_tete
+J'ai tache et tete,tache_visuel maux_de_tete
+J'ai tache et respiration difficile,tache_visuel respiration_difficile
+J'ai tache et difficulté,tache_visuel respiration_difficile
+J'ai tache et toux,tache_visuel toux
+J'ai tache et tousser,tache_visuel toux
+J'ai tache et sifflante,tache_visuel respiration_sifflante
+J'ai tache et tousser,tache_visuel respiration_sifflante
+J'ai tache et somnolence,tache_visuel somnolence
+J'ai tache et envie de dormir,tache_visuel somnolence
+J'ai tache et anxiete,tache_visuel anxiete
+J'ai tache et anxieux,tache_visuel anxiete
+J'ai tache et brulure dans la poitrine,tache_visuel brulure_poitrine
+J'ai tache et poitrine,tache_visuel brulure_poitrine
+J'ai tache et boule dans la gorge,tache_visuel boule_gorge
+J'ai tache et tache,tache_visuel tache_visuel
+J'ai tache et zone sombre,tache_visuel tache_visuel
+J'ai tache et vision,tache_visuel tache_visuel
+J'ai tache et vertige,tache_visuel vertige
+J'ai tache et equilibre,tache_visuel perte_equilibre
+J'ai tache et perte d'équilibre,tache_visuel perte_equilibre
+J'ai tache et pulsion,tache_visuel douleur_pulsatile
+J'ai tache et battement,tache_visuel douleur_pulsatile
+J'ai tache et pulsatile,tache_visuel douleur_pulsatile
+J'ai tache et lumiere,tache_visuel sensibilite_lumiere
+J'ai tache et sensible,tache_visuel sensibilite_lumiere
+J'ai zone sombre et trouble,tache_visuel vision_trouble
+J'ai zone sombre et vision,tache_visuel vision_trouble
+J'ai zone sombre et froid,tache_visuel fievre
+J'ai zone sombre et temperature,tache_visuel fievre
+J'ai zone sombre et fievre,tache_visuel fievre
+J'ai zone sombre et ventre,tache_visuel maux_de_ventre
+J'ai zone sombre et estomac,tache_visuel maux_de_ventre
+J'ai zone sombre et intestin,tache_visuel maux_de_ventre
+J'ai zone sombre et vomir,tache_visuel vomissements
+J'ai zone sombre et vomissement,tache_visuel vomissements
+J'ai zone sombre et brassé,tache_visuel vomissements
+J'ai zone sombre et vomi,tache_visuel vomissements
+J'ai zone sombre et maux de tete,tache_visuel maux_de_tete
+J'ai zone sombre et mal de tete,tache_visuel maux_de_tete
+J'ai zone sombre et tete,tache_visuel maux_de_tete
+J'ai zone sombre et respiration difficile,tache_visuel respiration_difficile
+J'ai zone sombre et difficulté,tache_visuel respiration_difficile
+J'ai zone sombre et toux,tache_visuel toux
+J'ai zone sombre et tousser,tache_visuel toux
+J'ai zone sombre et sifflante,tache_visuel respiration_sifflante
+J'ai zone sombre et tousser,tache_visuel respiration_sifflante
+J'ai zone sombre et somnolence,tache_visuel somnolence
+J'ai zone sombre et envie de dormir,tache_visuel somnolence
+J'ai zone sombre et anxiete,tache_visuel anxiete
+J'ai zone sombre et anxieux,tache_visuel anxiete
+J'ai zone sombre et brulure dans la poitrine,tache_visuel brulure_poitrine
+J'ai zone sombre et poitrine,tache_visuel brulure_poitrine
+J'ai zone sombre et boule dans la gorge,tache_visuel boule_gorge
+J'ai zone sombre et tache,tache_visuel tache_visuel
+J'ai zone sombre et zone sombre,tache_visuel tache_visuel
+J'ai zone sombre et vision,tache_visuel tache_visuel
+J'ai zone sombre et vertige,tache_visuel vertige
+J'ai zone sombre et equilibre,tache_visuel perte_equilibre
+J'ai zone sombre et perte d'équilibre,tache_visuel perte_equilibre
+J'ai zone sombre et pulsion,tache_visuel douleur_pulsatile
+J'ai zone sombre et battement,tache_visuel douleur_pulsatile
+J'ai zone sombre et pulsatile,tache_visuel douleur_pulsatile
+J'ai zone sombre et lumiere,tache_visuel sensibilite_lumiere
+J'ai zone sombre et sensible,tache_visuel sensibilite_lumiere
+J'ai vision et trouble,tache_visuel vision_trouble
+J'ai vision et vision,tache_visuel vision_trouble
+J'ai vision et froid,tache_visuel fievre
+J'ai vision et temperature,tache_visuel fievre
+J'ai vision et fievre,tache_visuel fievre
+J'ai vision et ventre,tache_visuel maux_de_ventre
+J'ai vision et estomac,tache_visuel maux_de_ventre
+J'ai vision et intestin,tache_visuel maux_de_ventre
+J'ai vision et vomir,tache_visuel vomissements
+J'ai vision et vomissement,tache_visuel vomissements
+J'ai vision et brassé,tache_visuel vomissements
+J'ai vision et vomi,tache_visuel vomissements
+J'ai vision et maux de tete,tache_visuel maux_de_tete
+J'ai vision et mal de tete,tache_visuel maux_de_tete
+J'ai vision et tete,tache_visuel maux_de_tete
+J'ai vision et respiration difficile,tache_visuel respiration_difficile
+J'ai vision et difficulté,tache_visuel respiration_difficile
+J'ai vision et toux,tache_visuel toux
+J'ai vision et tousser,tache_visuel toux
+J'ai vision et sifflante,tache_visuel respiration_sifflante
+J'ai vision et tousser,tache_visuel respiration_sifflante
+J'ai vision et somnolence,tache_visuel somnolence
+J'ai vision et envie de dormir,tache_visuel somnolence
+J'ai vision et anxiete,tache_visuel anxiete
+J'ai vision et anxieux,tache_visuel anxiete
+J'ai vision et brulure dans la poitrine,tache_visuel brulure_poitrine
+J'ai vision et poitrine,tache_visuel brulure_poitrine
+J'ai vision et boule dans la gorge,tache_visuel boule_gorge
+J'ai vision et tache,tache_visuel tache_visuel
+J'ai vision et zone sombre,tache_visuel tache_visuel
+J'ai vision et vision,tache_visuel tache_visuel
+J'ai vision et vertige,tache_visuel vertige
+J'ai vision et equilibre,tache_visuel perte_equilibre
+J'ai vision et perte d'équilibre,tache_visuel perte_equilibre
+J'ai vision et pulsion,tache_visuel douleur_pulsatile
+J'ai vision et battement,tache_visuel douleur_pulsatile
+J'ai vision et pulsatile,tache_visuel douleur_pulsatile
+J'ai vision et lumiere,tache_visuel sensibilite_lumiere
+J'ai vision et sensible,tache_visuel sensibilite_lumiere
+J'ai vertige et trouble,vertige vision_trouble
+J'ai vertige et vision,vertige vision_trouble
+J'ai vertige et froid,vertige fievre
+J'ai vertige et temperature,vertige fievre
+J'ai vertige et fievre,vertige fievre
+J'ai vertige et ventre,vertige maux_de_ventre
+J'ai vertige et estomac,vertige maux_de_ventre
+J'ai vertige et intestin,vertige maux_de_ventre
+J'ai vertige et vomir,vertige vomissements
+J'ai vertige et vomissement,vertige vomissements
+J'ai vertige et brassé,vertige vomissements
+J'ai vertige et vomi,vertige vomissements
+J'ai vertige et maux de tete,vertige maux_de_tete
+J'ai vertige et mal de tete,vertige maux_de_tete
+J'ai vertige et tete,vertige maux_de_tete
+J'ai vertige et respiration difficile,vertige respiration_difficile
+J'ai vertige et difficulté,vertige respiration_difficile
+J'ai vertige et toux,vertige toux
+J'ai vertige et tousser,vertige toux
+J'ai vertige et sifflante,vertige respiration_sifflante
+J'ai vertige et tousser,vertige respiration_sifflante
+J'ai vertige et somnolence,vertige somnolence
+J'ai vertige et envie de dormir,vertige somnolence
+J'ai vertige et anxiete,vertige anxiete
+J'ai vertige et anxieux,vertige anxiete
+J'ai vertige et brulure dans la poitrine,vertige brulure_poitrine
+J'ai vertige et poitrine,vertige brulure_poitrine
+J'ai vertige et boule dans la gorge,vertige boule_gorge
+J'ai vertige et tache,vertige tache_visuel
+J'ai vertige et zone sombre,vertige tache_visuel
+J'ai vertige et vision,vertige tache_visuel
+J'ai vertige et vertige,vertige vertige
+J'ai vertige et equilibre,vertige perte_equilibre
+J'ai vertige et perte d'équilibre,vertige perte_equilibre
+J'ai vertige et pulsion,vertige douleur_pulsatile
+J'ai vertige et battement,vertige douleur_pulsatile
+J'ai vertige et pulsatile,vertige douleur_pulsatile
+J'ai vertige et lumiere,vertige sensibilite_lumiere
+J'ai vertige et sensible,vertige sensibilite_lumiere
+J'ai equilibre et trouble,perte_equilibre vision_trouble
+J'ai equilibre et vision,perte_equilibre vision_trouble
+J'ai equilibre et froid,perte_equilibre fievre
+J'ai equilibre et temperature,perte_equilibre fievre
+J'ai equilibre et fievre,perte_equilibre fievre
+J'ai equilibre et ventre,perte_equilibre maux_de_ventre
+J'ai equilibre et estomac,perte_equilibre maux_de_ventre
+J'ai equilibre et intestin,perte_equilibre maux_de_ventre
+J'ai equilibre et vomir,perte_equilibre vomissements
+J'ai equilibre et vomissement,perte_equilibre vomissements
+J'ai equilibre et brassé,perte_equilibre vomissements
+J'ai equilibre et vomi,perte_equilibre vomissements
+J'ai equilibre et maux de tete,perte_equilibre maux_de_tete
+J'ai equilibre et mal de tete,perte_equilibre maux_de_tete
+J'ai equilibre et tete,perte_equilibre maux_de_tete
+J'ai equilibre et respiration difficile,perte_equilibre respiration_difficile
+J'ai equilibre et difficulté,perte_equilibre respiration_difficile
+J'ai equilibre et toux,perte_equilibre toux
+J'ai equilibre et tousser,perte_equilibre toux
+J'ai equilibre et sifflante,perte_equilibre respiration_sifflante
+J'ai equilibre et tousser,perte_equilibre respiration_sifflante
+J'ai equilibre et somnolence,perte_equilibre somnolence
+J'ai equilibre et envie de dormir,perte_equilibre somnolence
+J'ai equilibre et anxiete,perte_equilibre anxiete
+J'ai equilibre et anxieux,perte_equilibre anxiete
+J'ai equilibre et brulure dans la poitrine,perte_equilibre brulure_poitrine
+J'ai equilibre et poitrine,perte_equilibre brulure_poitrine
+J'ai equilibre et boule dans la gorge,perte_equilibre boule_gorge
+J'ai equilibre et tache,perte_equilibre tache_visuel
+J'ai equilibre et zone sombre,perte_equilibre tache_visuel
+J'ai equilibre et vision,perte_equilibre tache_visuel
+J'ai equilibre et vertige,perte_equilibre vertige
+J'ai equilibre et equilibre,perte_equilibre perte_equilibre
+J'ai equilibre et perte d'équilibre,perte_equilibre perte_equilibre
+J'ai equilibre et pulsion,perte_equilibre douleur_pulsatile
+J'ai equilibre et battement,perte_equilibre douleur_pulsatile
+J'ai equilibre et pulsatile,perte_equilibre douleur_pulsatile
+J'ai equilibre et lumiere,perte_equilibre sensibilite_lumiere
+J'ai equilibre et sensible,perte_equilibre sensibilite_lumiere
+J'ai perte d'équilibre et trouble,perte_equilibre vision_trouble
+J'ai perte d'équilibre et vision,perte_equilibre vision_trouble
+J'ai perte d'équilibre et froid,perte_equilibre fievre
+J'ai perte d'équilibre et temperature,perte_equilibre fievre
+J'ai perte d'équilibre et fievre,perte_equilibre fievre
+J'ai perte d'équilibre et ventre,perte_equilibre maux_de_ventre
+J'ai perte d'équilibre et estomac,perte_equilibre maux_de_ventre
+J'ai perte d'équilibre et intestin,perte_equilibre maux_de_ventre
+J'ai perte d'équilibre et vomir,perte_equilibre vomissements
+J'ai perte d'équilibre et vomissement,perte_equilibre vomissements
+J'ai perte d'équilibre et brassé,perte_equilibre vomissements
+J'ai perte d'équilibre et vomi,perte_equilibre vomissements
+J'ai perte d'équilibre et maux de tete,perte_equilibre maux_de_tete
+J'ai perte d'équilibre et mal de tete,perte_equilibre maux_de_tete
+J'ai perte d'équilibre et tete,perte_equilibre maux_de_tete
+J'ai perte d'équilibre et respiration difficile,perte_equilibre respiration_difficile
+J'ai perte d'équilibre et difficulté,perte_equilibre respiration_difficile
+J'ai perte d'équilibre et toux,perte_equilibre toux
+J'ai perte d'équilibre et tousser,perte_equilibre toux
+J'ai perte d'équilibre et sifflante,perte_equilibre respiration_sifflante
+J'ai perte d'équilibre et tousser,perte_equilibre respiration_sifflante
+J'ai perte d'équilibre et somnolence,perte_equilibre somnolence
+J'ai perte d'équilibre et envie de dormir,perte_equilibre somnolence
+J'ai perte d'équilibre et anxiete,perte_equilibre anxiete
+J'ai perte d'équilibre et anxieux,perte_equilibre anxiete
+J'ai perte d'équilibre et brulure dans la poitrine,perte_equilibre brulure_poitrine
+J'ai perte d'équilibre et poitrine,perte_equilibre brulure_poitrine
+J'ai perte d'équilibre et boule dans la gorge,perte_equilibre boule_gorge
+J'ai perte d'équilibre et tache,perte_equilibre tache_visuel
+J'ai perte d'équilibre et zone sombre,perte_equilibre tache_visuel
+J'ai perte d'équilibre et vision,perte_equilibre tache_visuel
+J'ai perte d'équilibre et vertige,perte_equilibre vertige
+J'ai perte d'équilibre et equilibre,perte_equilibre perte_equilibre
+J'ai perte d'équilibre et perte d'équilibre,perte_equilibre perte_equilibre
+J'ai perte d'équilibre et pulsion,perte_equilibre douleur_pulsatile
+J'ai perte d'équilibre et battement,perte_equilibre douleur_pulsatile
+J'ai perte d'équilibre et pulsatile,perte_equilibre douleur_pulsatile
+J'ai perte d'équilibre et lumiere,perte_equilibre sensibilite_lumiere
+J'ai perte d'équilibre et sensible,perte_equilibre sensibilite_lumiere
+J'ai pulsion et trouble,douleur_pulsatile vision_trouble
+J'ai pulsion et vision,douleur_pulsatile vision_trouble
+J'ai pulsion et froid,douleur_pulsatile fievre
+J'ai pulsion et temperature,douleur_pulsatile fievre
+J'ai pulsion et fievre,douleur_pulsatile fievre
+J'ai pulsion et ventre,douleur_pulsatile maux_de_ventre
+J'ai pulsion et estomac,douleur_pulsatile maux_de_ventre
+J'ai pulsion et intestin,douleur_pulsatile maux_de_ventre
+J'ai pulsion et vomir,douleur_pulsatile vomissements
+J'ai pulsion et vomissement,douleur_pulsatile vomissements
+J'ai pulsion et brassé,douleur_pulsatile vomissements
+J'ai pulsion et vomi,douleur_pulsatile vomissements
+J'ai pulsion et maux de tete,douleur_pulsatile maux_de_tete
+J'ai pulsion et mal de tete,douleur_pulsatile maux_de_tete
+J'ai pulsion et tete,douleur_pulsatile maux_de_tete
+J'ai pulsion et respiration difficile,douleur_pulsatile respiration_difficile
+J'ai pulsion et difficulté,douleur_pulsatile respiration_difficile
+J'ai pulsion et toux,douleur_pulsatile toux
+J'ai pulsion et tousser,douleur_pulsatile toux
+J'ai pulsion et sifflante,douleur_pulsatile respiration_sifflante
+J'ai pulsion et tousser,douleur_pulsatile respiration_sifflante
+J'ai pulsion et somnolence,douleur_pulsatile somnolence
+J'ai pulsion et envie de dormir,douleur_pulsatile somnolence
+J'ai pulsion et anxiete,douleur_pulsatile anxiete
+J'ai pulsion et anxieux,douleur_pulsatile anxiete
+J'ai pulsion et brulure dans la poitrine,douleur_pulsatile brulure_poitrine
+J'ai pulsion et poitrine,douleur_pulsatile brulure_poitrine
+J'ai pulsion et boule dans la gorge,douleur_pulsatile boule_gorge
+J'ai pulsion et tache,douleur_pulsatile tache_visuel
+J'ai pulsion et zone sombre,douleur_pulsatile tache_visuel
+J'ai pulsion et vision,douleur_pulsatile tache_visuel
+J'ai pulsion et vertige,douleur_pulsatile vertige
+J'ai pulsion et equilibre,douleur_pulsatile perte_equilibre
+J'ai pulsion et perte d'équilibre,douleur_pulsatile perte_equilibre
+J'ai pulsion et pulsion,douleur_pulsatile douleur_pulsatile
+J'ai pulsion et battement,douleur_pulsatile douleur_pulsatile
+J'ai pulsion et pulsatile,douleur_pulsatile douleur_pulsatile
+J'ai pulsion et lumiere,douleur_pulsatile sensibilite_lumiere
+J'ai pulsion et sensible,douleur_pulsatile sensibilite_lumiere
+J'ai battement et trouble,douleur_pulsatile vision_trouble
+J'ai battement et vision,douleur_pulsatile vision_trouble
+J'ai battement et froid,douleur_pulsatile fievre
+J'ai battement et temperature,douleur_pulsatile fievre
+J'ai battement et fievre,douleur_pulsatile fievre
+J'ai battement et ventre,douleur_pulsatile maux_de_ventre
+J'ai battement et estomac,douleur_pulsatile maux_de_ventre
+J'ai battement et intestin,douleur_pulsatile maux_de_ventre
+J'ai battement et vomir,douleur_pulsatile vomissements
+J'ai battement et vomissement,douleur_pulsatile vomissements
+J'ai battement et brassé,douleur_pulsatile vomissements
+J'ai battement et vomi,douleur_pulsatile vomissements
+J'ai battement et maux de tete,douleur_pulsatile maux_de_tete
+J'ai battement et mal de tete,douleur_pulsatile maux_de_tete
+J'ai battement et tete,douleur_pulsatile maux_de_tete
+J'ai battement et respiration difficile,douleur_pulsatile respiration_difficile
+J'ai battement et difficulté,douleur_pulsatile respiration_difficile
+J'ai battement et toux,douleur_pulsatile toux
+J'ai battement et tousser,douleur_pulsatile toux
+J'ai battement et sifflante,douleur_pulsatile respiration_sifflante
+J'ai battement et tousser,douleur_pulsatile respiration_sifflante
+J'ai battement et somnolence,douleur_pulsatile somnolence
+J'ai battement et envie de dormir,douleur_pulsatile somnolence
+J'ai battement et anxiete,douleur_pulsatile anxiete
+J'ai battement et anxieux,douleur_pulsatile anxiete
+J'ai battement et brulure dans la poitrine,douleur_pulsatile brulure_poitrine
+J'ai battement et poitrine,douleur_pulsatile brulure_poitrine
+J'ai battement et boule dans la gorge,douleur_pulsatile boule_gorge
+J'ai battement et tache,douleur_pulsatile tache_visuel
+J'ai battement et zone sombre,douleur_pulsatile tache_visuel
+J'ai battement et vision,douleur_pulsatile tache_visuel
+J'ai battement et vertige,douleur_pulsatile vertige
+J'ai battement et equilibre,douleur_pulsatile perte_equilibre
+J'ai battement et perte d'équilibre,douleur_pulsatile perte_equilibre
+J'ai battement et pulsion,douleur_pulsatile douleur_pulsatile
+J'ai battement et battement,douleur_pulsatile douleur_pulsatile
+J'ai battement et pulsatile,douleur_pulsatile douleur_pulsatile
+J'ai battement et lumiere,douleur_pulsatile sensibilite_lumiere
+J'ai battement et sensible,douleur_pulsatile sensibilite_lumiere
+J'ai pulsatile et trouble,douleur_pulsatile vision_trouble
+J'ai pulsatile et vision,douleur_pulsatile vision_trouble
+J'ai pulsatile et froid,douleur_pulsatile fievre
+J'ai pulsatile et temperature,douleur_pulsatile fievre
+J'ai pulsatile et fievre,douleur_pulsatile fievre
+J'ai pulsatile et ventre,douleur_pulsatile maux_de_ventre
+J'ai pulsatile et estomac,douleur_pulsatile maux_de_ventre
+J'ai pulsatile et intestin,douleur_pulsatile maux_de_ventre
+J'ai pulsatile et vomir,douleur_pulsatile vomissements
+J'ai pulsatile et vomissement,douleur_pulsatile vomissements
+J'ai pulsatile et brassé,douleur_pulsatile vomissements
+J'ai pulsatile et vomi,douleur_pulsatile vomissements
+J'ai pulsatile et maux de tete,douleur_pulsatile maux_de_tete
+J'ai pulsatile et mal de tete,douleur_pulsatile maux_de_tete
+J'ai pulsatile et tete,douleur_pulsatile maux_de_tete
+J'ai pulsatile et respiration difficile,douleur_pulsatile respiration_difficile
+J'ai pulsatile et difficulté,douleur_pulsatile respiration_difficile
+J'ai pulsatile et toux,douleur_pulsatile toux
+J'ai pulsatile et tousser,douleur_pulsatile toux
+J'ai pulsatile et sifflante,douleur_pulsatile respiration_sifflante
+J'ai pulsatile et tousser,douleur_pulsatile respiration_sifflante
+J'ai pulsatile et somnolence,douleur_pulsatile somnolence
+J'ai pulsatile et envie de dormir,douleur_pulsatile somnolence
+J'ai pulsatile et anxiete,douleur_pulsatile anxiete
+J'ai pulsatile et anxieux,douleur_pulsatile anxiete
+J'ai pulsatile et brulure dans la poitrine,douleur_pulsatile brulure_poitrine
+J'ai pulsatile et poitrine,douleur_pulsatile brulure_poitrine
+J'ai pulsatile et boule dans la gorge,douleur_pulsatile boule_gorge
+J'ai pulsatile et tache,douleur_pulsatile tache_visuel
+J'ai pulsatile et zone sombre,douleur_pulsatile tache_visuel
+J'ai pulsatile et vision,douleur_pulsatile tache_visuel
+J'ai pulsatile et vertige,douleur_pulsatile vertige
+J'ai pulsatile et equilibre,douleur_pulsatile perte_equilibre
+J'ai pulsatile et perte d'équilibre,douleur_pulsatile perte_equilibre
+J'ai pulsatile et pulsion,douleur_pulsatile douleur_pulsatile
+J'ai pulsatile et battement,douleur_pulsatile douleur_pulsatile
+J'ai pulsatile et pulsatile,douleur_pulsatile douleur_pulsatile
+J'ai pulsatile et lumiere,douleur_pulsatile sensibilite_lumiere
+J'ai pulsatile et sensible,douleur_pulsatile sensibilite_lumiere
+J'ai lumiere et trouble,sensibilite_lumiere vision_trouble
+J'ai lumiere et vision,sensibilite_lumiere vision_trouble
+J'ai lumiere et froid,sensibilite_lumiere fievre
+J'ai lumiere et temperature,sensibilite_lumiere fievre
+J'ai lumiere et fievre,sensibilite_lumiere fievre
+J'ai lumiere et ventre,sensibilite_lumiere maux_de_ventre
+J'ai lumiere et estomac,sensibilite_lumiere maux_de_ventre
+J'ai lumiere et intestin,sensibilite_lumiere maux_de_ventre
+J'ai lumiere et vomir,sensibilite_lumiere vomissements
+J'ai lumiere et vomissement,sensibilite_lumiere vomissements
+J'ai lumiere et brassé,sensibilite_lumiere vomissements
+J'ai lumiere et vomi,sensibilite_lumiere vomissements
+J'ai lumiere et maux de tete,sensibilite_lumiere maux_de_tete
+J'ai lumiere et mal de tete,sensibilite_lumiere maux_de_tete
+J'ai lumiere et tete,sensibilite_lumiere maux_de_tete
+J'ai lumiere et respiration difficile,sensibilite_lumiere respiration_difficile
+J'ai lumiere et difficulté,sensibilite_lumiere respiration_difficile
+J'ai lumiere et toux,sensibilite_lumiere toux
+J'ai lumiere et tousser,sensibilite_lumiere toux
+J'ai lumiere et sifflante,sensibilite_lumiere respiration_sifflante
+J'ai lumiere et tousser,sensibilite_lumiere respiration_sifflante
+J'ai lumiere et somnolence,sensibilite_lumiere somnolence
+J'ai lumiere et envie de dormir,sensibilite_lumiere somnolence
+J'ai lumiere et anxiete,sensibilite_lumiere anxiete
+J'ai lumiere et anxieux,sensibilite_lumiere anxiete
+J'ai lumiere et brulure dans la poitrine,sensibilite_lumiere brulure_poitrine
+J'ai lumiere et poitrine,sensibilite_lumiere brulure_poitrine
+J'ai lumiere et boule dans la gorge,sensibilite_lumiere boule_gorge
+J'ai lumiere et tache,sensibilite_lumiere tache_visuel
+J'ai lumiere et zone sombre,sensibilite_lumiere tache_visuel
+J'ai lumiere et vision,sensibilite_lumiere tache_visuel
+J'ai lumiere et vertige,sensibilite_lumiere vertige
+J'ai lumiere et equilibre,sensibilite_lumiere perte_equilibre
+J'ai lumiere et perte d'équilibre,sensibilite_lumiere perte_equilibre
+J'ai lumiere et pulsion,sensibilite_lumiere douleur_pulsatile
+J'ai lumiere et battement,sensibilite_lumiere douleur_pulsatile
+J'ai lumiere et pulsatile,sensibilite_lumiere douleur_pulsatile
+J'ai lumiere et lumiere,sensibilite_lumiere sensibilite_lumiere
+J'ai lumiere et sensible,sensibilite_lumiere sensibilite_lumiere
+J'ai sensible et trouble,sensibilite_lumiere vision_trouble
+J'ai sensible et vision,sensibilite_lumiere vision_trouble
+J'ai sensible et froid,sensibilite_lumiere fievre
+J'ai sensible et temperature,sensibilite_lumiere fievre
+J'ai sensible et fievre,sensibilite_lumiere fievre
+J'ai sensible et ventre,sensibilite_lumiere maux_de_ventre
+J'ai sensible et estomac,sensibilite_lumiere maux_de_ventre
+J'ai sensible et intestin,sensibilite_lumiere maux_de_ventre
+J'ai sensible et vomir,sensibilite_lumiere vomissements
+J'ai sensible et vomissement,sensibilite_lumiere vomissements
+J'ai sensible et brassé,sensibilite_lumiere vomissements
+J'ai sensible et vomi,sensibilite_lumiere vomissements
+J'ai sensible et maux de tete,sensibilite_lumiere maux_de_tete
+J'ai sensible et mal de tete,sensibilite_lumiere maux_de_tete
+J'ai sensible et tete,sensibilite_lumiere maux_de_tete
+J'ai sensible et respiration difficile,sensibilite_lumiere respiration_difficile
+J'ai sensible et difficulté,sensibilite_lumiere respiration_difficile
+J'ai sensible et toux,sensibilite_lumiere toux
+J'ai sensible et tousser,sensibilite_lumiere toux
+J'ai sensible et sifflante,sensibilite_lumiere respiration_sifflante
+J'ai sensible et tousser,sensibilite_lumiere respiration_sifflante
+J'ai sensible et somnolence,sensibilite_lumiere somnolence
+J'ai sensible et envie de dormir,sensibilite_lumiere somnolence
+J'ai sensible et anxiete,sensibilite_lumiere anxiete
+J'ai sensible et anxieux,sensibilite_lumiere anxiete
+J'ai sensible et brulure dans la poitrine,sensibilite_lumiere brulure_poitrine
+J'ai sensible et poitrine,sensibilite_lumiere brulure_poitrine
+J'ai sensible et boule dans la gorge,sensibilite_lumiere boule_gorge
+J'ai sensible et tache,sensibilite_lumiere tache_visuel
+J'ai sensible et zone sombre,sensibilite_lumiere tache_visuel
+J'ai sensible et vision,sensibilite_lumiere tache_visuel
+J'ai sensible et vertige,sensibilite_lumiere vertige
+J'ai sensible et equilibre,sensibilite_lumiere perte_equilibre
+J'ai sensible et perte d'équilibre,sensibilite_lumiere perte_equilibre
+J'ai sensible et pulsion,sensibilite_lumiere douleur_pulsatile
+J'ai sensible et battement,sensibilite_lumiere douleur_pulsatile
+J'ai sensible et pulsatile,sensibilite_lumiere douleur_pulsatile
+J'ai sensible et lumiere,sensibilite_lumiere sensibilite_lumiere
+J'ai sensible et sensible,sensibilite_lumiere sensibilite_lumiere
