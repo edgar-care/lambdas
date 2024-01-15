@@ -68,6 +68,40 @@ type AdminInput struct {
 	Token    string `json:"token"`
 }
 
+type DemoAccount struct {
+	Id       string `json:"id"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
+
+type DemoAccountOutput struct {
+	Id       *string `json:"id"`
+	Password *string `json:"password"`
+	Email    *string `json:"email"`
+}
+
+type DemoAccountInput struct {
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
+
+type TestAccount struct {
+	Id       string `json:"id"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
+
+type TestAccountOutput struct {
+	Id       *string `json:"id"`
+	Password *string `json:"password"`
+	Email    *string `json:"email"`
+}
+
+type TestAccountInput struct {
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
+
 /**************** GraphQL types *****************/
 
 type getPatientByEmailResponse struct {
@@ -100,6 +134,14 @@ type getAdminByEmailResponse struct {
 
 type createAdminResponse struct {
 	Content AdminOutput `json:"createAdmin"`
+}
+
+type createDemoAccountResponse struct {
+	Content DemoAccountOutput `json:"createDemoAccount"`
+}
+
+type createTestAccountResponse struct {
+	Content TestAccountOutput `json:"createTestAccount"`
 }
 
 /*************** Implementations *****************/
@@ -251,6 +293,42 @@ func CreateAdmin(newAdmin AdminInput) (Admin, error) {
 		"password": newAdmin.Password,
 	}, &admin)
 	_ = copier.Copy(&resp, &admin.Content)
+	return resp, err
+}
+
+func CreateDemoAccount(newDemoAccount DemoAccountInput) (DemoAccount, error) {
+	var patient createDemoAccountResponse
+	var resp DemoAccount
+	query := `mutation createDemoAccount($email: String!, $password: String!) {
+            createDemoAccount(email:$email, password:$password) {
+                    id,
+                    password,
+                    email,
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"email":    newDemoAccount.Email,
+		"password": newDemoAccount.Password,
+	}, &patient)
+	_ = copier.Copy(&resp, &patient.Content)
+	return resp, err
+}
+
+func CreateTestAccount(newTestAccount TestAccountInput) (TestAccount, error) {
+	var patient createTestAccountResponse
+	var resp TestAccount
+	query := `mutation createTestAccount($email: String!, $password: String!) {
+            createTestAccount(email:$email, password:$password) {
+                    id,
+                    password,
+                    email,
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"email":    newTestAccount.Email,
+		"password": newTestAccount.Password,
+	}, &patient)
+	_ = copier.Copy(&resp, &patient.Content)
 	return resp, err
 }
 

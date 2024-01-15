@@ -138,6 +138,24 @@ type AnteChir {
     localisation: String!
     induced_symptoms: [String!]
 }
+type TestAccount {
+    id: ID!
+    email: String!
+    password: String!
+}
+
+type DemoAccount {
+    id: ID!
+    email: String!
+    password: String!
+}
+
+# type AnteChir {
+#     id: ID!
+#     name: String!
+#     localisation: String!
+#     induced_symptoms: [Symptom!]
+# }
 
 type AnteDisease {
     id: ID!
@@ -189,6 +207,24 @@ type Query {
 
     # Find an admin using its email.
     getAdminByEmail(email: String!): Admin
+
+    # Get the entire list of demo accounts.
+    getDemoAccounts: [DemoAccount]
+
+    # Find a demo account using its id.
+    getDemoAccountById(id: String!): DemoAccount
+
+    # Find an demo account using its email.
+    getDemoAccountByEmail(email: String!): DemoAccount
+
+    # Get the entire list of test accounts.
+    getTestAccounts: [TestAccount]
+
+    # Find a test account using its id.
+    getTestAccountById(id: String!): TestAccount
+
+    # Find an test account using its email.
+    getTestAccountByEmail(email: String!): TestAccount
 
     # Get the entire list of sessions.
     getSessions: [Session]
@@ -300,6 +336,24 @@ type Mutation {
 
     # Delete a Admin.
     deleteAdmin(id: String!): Boolean
+
+    # Create a new DemoAccount.
+    createDemoAccount(email: String!, password: String!): DemoAccount
+
+    # Update a DemoAccount.
+    updateDemoAccount(id: String!, email: String, password: String): DemoAccount
+
+    # Delete a DemoAccount.
+    deleteDemoAccount(id: String!): Boolean
+
+    # Create a new TestAccount.
+    createTestAccount(email: String!, password: String!): TestAccount
+
+    # Update a TestAccount.
+    updateTestAccount(id: String!, email: String, password: String): TestAccount
+
+    # Delete a TestAccount.
+    deleteTestAccount(id: String!): Boolean
 
     # Create a new session.
     createSession(symptoms: [String!]!, age: Int!, height: Int!, weight: Int!, sex: String!, last_question: String!): Session
