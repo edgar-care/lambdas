@@ -31,6 +31,7 @@ func main() {
 				router.Post("/onboarding/health", timeoutHandler(handlers.Health, 10*time.Second))
 				router.Get("/dashboard/medical-info", handlers.GetMedicalInformation)
 				router.Put("/dashboard/medical-info", handlers.ModifyFolderMedical)
+				router.Put("/doctor/patient/{id}", handlers.ModifyMedicalInfo)
 			})
 		},
 		Features: map[string]bool{

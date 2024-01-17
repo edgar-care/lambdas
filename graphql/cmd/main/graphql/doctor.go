@@ -28,9 +28,9 @@ func (u *doctorResolver) RendezVousIDs() *[]*string {
 	return u.p.RendezVousIDs
 }
 
-// func (r *doctorResolver) SlotIDs() *[]*string {
-// 	return r.p.SlotIDs
-// }
+func (r *doctorResolver) PatientIds() *[]*string {
+	return r.p.PatientIds
+}
 
 func resolverFromDoctor(p *models.Doctor) doctorResolver {
 	return doctorResolver{p: p}

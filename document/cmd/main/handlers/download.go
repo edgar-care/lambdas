@@ -32,3 +32,26 @@ func HandleDownload(w http.ResponseWriter, r *http.Request) {
 		"message":  "Document get succesfuly",
 	}, http.StatusCreated)
 }
+
+func GetAllDocument(w http.ResponseWriter, req *http.Request) {
+	patientID := lib.AuthMiddleware(w, req)
+	if patientID == "" {
+		lib.WriteResponse(w, map[string]string{
+			"message": "Not authenticated",
+		}, 401)
+		return
+	}
+
+	document, err := services.GetAll(patientID)
+
+	if err != nil {
+		lib.WriteResponse(w, map[string]string{
+			"message": "Invalid input: " + err.Error(),
+		}, 400)
+		return
+	}
+
+	lib.WriteResponse(w, map[string]interface{}{
+		"document": document,
+	}, 200)
+}

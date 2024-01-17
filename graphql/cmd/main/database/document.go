@@ -42,6 +42,24 @@ func (db *DB) GetDocuments() (*[]models.Document, error) {
 	return &results, nil
 }
 
+func (db *DB) GetPatientDocument(id string) (*[]models.Document, error) {
+	ctx := context.Background()
+	var results []models.Document
+
+	filter := bson.M{"owner_id": id}
+
+	cursor, err := db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Document").Find(ctx, filter)
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &results)
+	if err != nil {
+		return nil, err
+	}
+	return &results, nil
+}
+
 func (db *DB) GetDocumentByID(id string) (*models.Document, error) {
 	ctx := context.Background()
 	var result models.Document
