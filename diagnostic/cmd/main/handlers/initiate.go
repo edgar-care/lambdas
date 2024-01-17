@@ -20,6 +20,7 @@ func Initiate(w http.ResponseWriter, req *http.Request) {
 	input.Sex = "M"
 	input.LastQuestion = ""
 	input.Logs = []services.Logs{}
+	input.Alerts = []string{}
 
 	services.WakeNlpUp()
 

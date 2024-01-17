@@ -33,6 +33,7 @@ type Session struct {
 	Sex          string   `json:"sex"`
 	LastQuestion string   `json:"last_question"`
 	Logs         []Logs   `json:"logs"`
+	Alerts       []string `json:"alerts"`
 }
 
 type SessionOutput struct {
@@ -44,6 +45,7 @@ type SessionOutput struct {
 	Sex          *string   `json:"sex"`
 	LastQuestion *string   `json:"last_question"`
 	Logs         *[]Logs   `json:"logs"`
+	Alerts       *[]string `json:"alerts"`
 }
 
 type SessionInput struct {
@@ -54,6 +56,7 @@ type SessionInput struct {
 	Sex          string   `json:"sex"`
 	LastQuestion string   `json:"last_question,omitempty"`
 	Logs         []Logs   `json:"logs"`
+	Alerts       []string `json:"alerts"`
 }
 
 /**************** GraphQL types *****************/
@@ -75,8 +78,8 @@ type updateSessionResponse struct {
 func CreateSession(newSession SessionInput) (Session, error) {
 	var session createSessionResponse
 	var resp Session
-	query := `mutation createSession($symptoms: [String!]!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!, $last_question: String!, $logs: [LogsInput!]!) {
-            createSession(symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question, logs: $logs) {
+	query := `mutation createSession($symptoms: [String!]!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!, $last_question: String!, $logs: [LogsInput!]!, $alerts: [String!]!) {
+            createSession(symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question, logs: $logs, alerts: $alerts) {
                     id,
 					symptoms,
 					age,
@@ -87,7 +90,8 @@ func CreateSession(newSession SessionInput) (Session, error) {
 					logs {
 						question,
 						answer
-					}
+					},
+					alerts
                 }
             }`
 	err := Query(query, map[string]interface{}{
@@ -98,6 +102,7 @@ func CreateSession(newSession SessionInput) (Session, error) {
 		"sex":           newSession.Sex,
 		"last_question": newSession.LastQuestion,
 		"logs":          newSession.Logs,
+		"alerts":        newSession.Alerts,
 	}, &session)
 	_ = copier.Copy(&resp, &session.Content)
 	return resp, err
@@ -118,7 +123,8 @@ func GetSessionById(id string) (Session, error) {
 					logs {
 						question,
 						answer
-					}
+					},
+					alerts
                 }
             }`
 
@@ -132,8 +138,8 @@ func GetSessionById(id string) (Session, error) {
 func UpdateSession(newSession Session) (Session, error) {
 	var session updateSessionResponse
 	var resp Session
-	query := `mutation updateSession($id: String!, $symptoms: [String!], $age: Int, $height: Int, $weight: Int, $sex: String, $last_question: String, $logs: [LogsInput!]) {
-                updateSession(id: $id, symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question, logs: $logs) {
+	query := `mutation updateSession($id: String!, $symptoms: [String!], $age: Int, $height: Int, $weight: Int, $sex: String, $last_question: String, $logs: [LogsInput!], $alerts: [String!]) {
+                updateSession(id: $id, symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question, logs: $logs, alerts: $alerts) {
                     id,
 					symptoms,
 					age,
@@ -144,7 +150,8 @@ func UpdateSession(newSession Session) (Session, error) {
 					logs {
 						question,
 						answer
-					}
+					},
+					alerts
                 }
             }`
 
@@ -157,6 +164,7 @@ func UpdateSession(newSession Session) (Session, error) {
 		"sex":           newSession.Sex,
 		"last_question": newSession.LastQuestion,
 		"logs":          newSession.Logs,
+		"alerts":        newSession.Alerts,
 	}, &session)
 	_ = copier.Copy(&resp, &session.Content)
 	return resp, err

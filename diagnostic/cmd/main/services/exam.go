@@ -18,6 +18,7 @@ type examResponseBody struct {
 	Done     bool      `json:"done"`
 	Question string    `json:"question"`
 	Symptoms []string  `json:"symptoms"`
+	Alert    []string  `json:"alert"`
 }
 
 func CallExam(context []Symptom) examResponseBody {

@@ -13,40 +13,71 @@ import (
 
 /********** Types ***********/
 
-type DiseasesResponse struct {
-	GetDiseases []Disease `json:"getDiseases"`
+type SymptomWeight struct {
+	Key   string  `bson:"key"`
+	Value float64 `bson:"value,omitempty"`
+}
+
+type Alert struct {
+	ID       string   `json:"_id"`
+	Name     string   `json:"name"`
+	Sex      *string  `json:"sex"`
+	Height   *int32   `json:"height"`
+	Weight   *int32   `json:"weight"`
+	Symptoms []string `json:"symptoms"`
+	Comment  string   `json:"comment"`
+}
+
+type AlertOutput struct {
+	ID       *string   `json:"_id"`
+	Name     *string   `json:"name"`
+	Sex      *string   `json:"sex"`
+	Height   *int32    `json:"height"`
+	Weight   *int32    `json:"weight"`
+	Symptoms *[]string `json:"symptoms"`
+	Comment  *string   `json:"comment"`
+}
+
+type AlertInput struct {
+	ID       string   `json:"_id"`
+	Name     string   `json:"name"`
+	Sex      *string  `json:"sex"`
+	Height   *int32   `json:"height"`
+	Weight   *int32   `json:"weight"`
+	Symptoms []string `json:"symptoms"`
+	Comment  string   `json:"comment"`
 }
 
 type Disease struct {
-	ID               string             `json:"id"`
-	Code             string             `json:"code"`
-	Name             string             `json:"name"`
-	Symptoms         []string           `json:"symptoms"`
-	SymptomsAcute    map[string]float64 `json:"symptoms_acute"`
-	SymptomsSubacute map[string]float64 `json:"symptoms_subacute"`
-	SymptomsChronic  map[string]float64 `json:"symptoms_chronic"`
-	Advice           string             `json:"advice"`
+	ID               string           `json:"id"`
+	Code             string           `json:"code"`
+	Name             string           `json:"name"`
+	Symptoms         []string         `json:"symptoms"`
+	SymptomsAcute    *[]SymptomWeight `json:"symptoms_acute"`
+	SymptomsSubacute *[]SymptomWeight `json:"symptoms_subacute"`
+	SymptomsChronic  *[]SymptomWeight `json:"symptoms_chronic"`
+	Advice           string           `json:"advice"`
 }
 
 type DiseaseOutput struct {
-	ID               *string             `json:"id"`
-	Code             *string             `json:"code"`
-	Name             *string             `json:"name"`
-	Symptoms         *[]string           `json:"symptoms"`
-	SymptomsAcute    *map[string]float64 `json:"symptoms_acute"`
-	SymptomsSubacute *map[string]float64 `json:"symptoms_subacute"`
-	SymptomsChronic  *map[string]float64 `json:"symptoms_chronic"`
-	Advice           *string             `json:"advice"`
+	ID               *string          `json:"id"`
+	Code             *string          `json:"code"`
+	Name             *string          `json:"name"`
+	Symptoms         *[]string        `json:"symptoms"`
+	SymptomsAcute    *[]SymptomWeight `json:"symptoms_acute"`
+	SymptomsSubacute *[]SymptomWeight `json:"symptoms_subacute"`
+	SymptomsChronic  *[]SymptomWeight `json:"symptoms_chronic"`
+	Advice           *string          `json:"advice"`
 }
 
 type DiseaseInput struct {
-	Code             string             `json:"code"`
-	Name             string             `json:"name"`
-	Symptoms         []string           `json:"symptoms"`
-	SymptomsAcute    map[string]float64 `json:"symptoms_acute"`
-	SymptomsSubacute map[string]float64 `json:"symptoms_subacute"`
-	SymptomsChronic  map[string]float64 `json:"symptoms_chronic"`
-	Advice           string             `json:"advice"`
+	Code             string           `json:"code"`
+	Name             string           `json:"name"`
+	Symptoms         []string         `json:"symptoms"`
+	SymptomsAcute    *[]SymptomWeight `json:"symptoms_acute"`
+	SymptomsSubacute *[]SymptomWeight `json:"symptoms_subacute"`
+	SymptomsChronic  *[]SymptomWeight `json:"symptoms_chronic"`
+	Advice           string           `json:"advice"`
 }
 
 type Symptom struct {
@@ -175,6 +206,22 @@ type TreatmentInput struct {
 
 /**************** GraphQL types *****************/
 
+type DiseasesResponse struct {
+	GetDiseases []Disease `json:"getDiseases"`
+}
+
+type getAlertByIdResponse struct {
+	Content AlertOutput `json:"getAlertByIdResponse"`
+}
+
+type getAlertsResponse struct {
+	GetAlerts []Alert `json:"getAlerts"`
+}
+
+type createAlertResponse struct {
+	Content AlertOutput `json:"createAlertResponse"`
+}
+
 type getDiseaseByIdResponse struct {
 	Content DiseaseOutput `json:"getDiseaseByIdResponse"`
 }
@@ -224,6 +271,93 @@ type createTreatmentResponse struct {
 }
 
 /*************** Implementations *****************/
+
+func GetAlerts() ([]Alert, error) {
+	var resp getAlertsResponse
+	var err error
+
+	query := `query getAlerts {
+                getAlertById {
+                    id,
+					name,
+                    sex,
+					height,
+                    weight,
+					symptoms,
+					comment,
+                }
+            }`
+
+	err = Query(query, nil, &resp)
+	return resp.GetAlerts, err
+}
+
+func GetAlertsHotFix() []Alert {
+	var grossesse Alert
+
+	grossesse.ID = "65a37163854654b936c39ce2"
+	grossesse.Name = "grossesse_extra_uterine"
+	grossesse.Sex = new(string)
+	*grossesse.Sex = "F"
+	grossesse.Symptoms = []string{"abdominalgies"}
+	grossesse.Comment = "Toute femme en âge de procréer ayant des douleurs abdominales ou des saignements est suspecte de grossesse extra-utérine (GEU) jusqu'à preuve du contraire"
+
+	var etatgeneral Alert
+	etatgeneral.ID = "65afbcc162c5259b6f30cc4e"
+	etatgeneral.Name = "alteration_etat_general"
+	etatgeneral.Symptoms = []string{"asthenie", "anorexie", "amaigrissement"}
+	etatgeneral.Comment = "L'asthénie, l'anorexie et l'amaigrissement constituent le triptyque de l'altération de l'état général. Il peut être nécessaire de faire des tests concerant un probable cancer"
+
+	return []Alert{grossesse, etatgeneral}
+}
+
+func getAlertById(id string) (Alert, error) {
+	var alert getAlertByIdResponse
+	var resp Alert
+	query := `query getAlertById($id: String!) {
+                getAlertById(id: $id) {
+                    id,
+					name,
+                    sex,
+					height,
+                    weight,
+					symptoms,
+					comment,
+                }
+            }`
+
+	err := Query(query, map[string]interface{}{
+		"id": id,
+	}, &alert)
+	_ = copier.Copy(&resp, &alert.Content)
+	return resp, err
+}
+
+func createAlert(newDisease AlertInput) (Alert, error) {
+	var alert createAlertResponse
+	var resp Alert
+	query := `mutation createDisease($name: String!, $sex: String!, $height: Int, $weight: Int, $symptoms: [String!]!, $comment: String!) {
+        createDisease(name: $name, sex: $sex, height: $height, weight: $weight symptoms: $symptoms, comment: $comment) {
+                    id,
+					name,
+                    sex,
+					height,
+                    weight,
+					symptoms,
+					comment,
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"name":     newDisease.Name,
+		"sex":      newDisease.Sex,
+		"height":   newDisease.Height,
+		"weight":   newDisease.Weight,
+		"symptoms": newDisease.Symptoms,
+		"comment":  newDisease.Comment,
+	}, &alert)
+	_ = copier.Copy(&resp, &alert.Content)
+	return resp, err
+}
 
 func GetDiseases() ([]Disease, error) {
 	var resp DiseasesResponse
@@ -300,7 +434,7 @@ func GetDiseases() ([]Disease, error) {
 }
 
 func getPossibleSymptoms() []string {
-	return []string{"respiration_difficile", "toux", "respiration_sifflante", "somnolence", "anxiete", "brulure_poitrine", "respiration_difficile", "boule_gorge", "maux_de_tetes", "vision_trouble", "tache_visuel"}
+	return []string{"respiration_difficile", "toux", "respiration_sifflante", "somnolence", "anxiete", "brulure_poitrine", "respiration_difficile", "boule_gorge", "maux_de_tetes", "vision_trouble", "tache_visuel", "abdominalgies", "asthenie", "anorexie", "amaigrissement"}
 }
 
 func getDiseaseById(id string) (Disease, error) {

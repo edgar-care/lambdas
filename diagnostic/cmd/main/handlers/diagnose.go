@@ -47,6 +47,11 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 	}
 
 	exam := services.CallExam(symptoms)
+	if len(exam.Alert) > 0 {
+		for _, alert := range exam.Alert {
+			session.Alerts = append(session.Alerts, alert)
+		}
+	}
 	session.Symptoms = services.SymptomsToString(exam.Context)
 	if len(exam.Symptoms) > 0 {
 		session.LastQuestion = exam.Symptoms[0]
