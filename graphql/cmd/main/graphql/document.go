@@ -54,6 +54,18 @@ func (*Resolver) GetDocuments() (*[]*documentResolver, error) {
 	return &entities, nil
 }
 
+func (*Resolver) GetPatientDocument(args struct{ Id string }) (*[]*documentResolver, error) {
+	documents, err := db.GetPatientDocument(args.Id)
+	lib.CheckError(err)
+
+	var entities []*documentResolver
+	for i := range *documents {
+		resolv := resolverFromDocument(&(*documents)[i])
+		entities = append(entities, &resolv)
+	}
+	return &entities, nil
+}
+
 func (*Resolver) GetDocumentById(args struct{ Id string }) (*documentResolver, error) {
 	document, err := db.GetDocumentByID(args.Id)
 	lib.CheckError(err)

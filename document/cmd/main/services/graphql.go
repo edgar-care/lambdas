@@ -66,8 +66,8 @@ type PatientInput struct {
 }
 
 type PatientOuput struct {
-	Id         string    `json:"id"`
-	DocumentID *[]string `json:"document_ids"`
+	Id          *string   `json:"id"`
+	DocumentIDs *[]string `json:"document_ids"`
 }
 
 /**************** GraphQL types *****************/
@@ -80,8 +80,16 @@ type getDocumentByIdResponse struct {
 	Content DocumentOutput `json:"getDocumentById"`
 }
 
+type getAllDocumentByIdResponse struct {
+	Content []DocumentOutput `json:"getPatientDocument"`
+}
+
 type updateFavoriteByIdResponse struct {
 	Content bool `json:"updateFavoriteById"`
+}
+
+type updateByIdResponse struct {
+	Content DocumentOutput `json:"updateDocument"`
 }
 
 type deleteDocumentResponse struct {
@@ -147,6 +155,28 @@ func GetDocument(id string) (Document, error) {
 	return resp, err
 }
 
+func GetAll(id string) ([]Document, error) {
+	var document getAllDocumentByIdResponse
+	var resp []Document
+	query := `query getPatientDocument($id: String!) {
+		getPatientDocument(id: $id) {
+                    id,
+					owner_id,
+					name,
+					document_type,
+					category,
+					is_favorite
+					download_url
+                }
+            }`
+
+	err := Query(query, map[string]interface{}{
+		"id": id,
+	}, &document)
+	_ = copier.Copy(&resp, &document.Content)
+	return resp, err
+}
+
 func UpdateFavoriteById(id string, isFavorite bool) (Document, error) {
 	var updateFavorite updateFavoriteByIdResponse
 	var resp Document
@@ -172,6 +202,26 @@ func UpdateFavoriteById(id string, isFavorite bool) (Document, error) {
 	return resp, err
 }
 
+func UpdateDocument(id string, new DocumentInput) (Document, error) {
+	var update updateByIdResponse
+	var resp Document
+
+	query := `
+		mutation updateDocument($id: String!, $name: String!) {
+			updateDocument(id: $id, name:$name) {
+				id,
+				name,
+			}
+		}`
+	err := Query(query, map[string]interface{}{
+		"id":   id,
+		"name": new.Name,
+	}, &update)
+	_ = copier.Copy(&resp, &update.Content)
+
+	return resp, err
+}
+
 func DeleteDocument(id string) (Document, error) {
 	var deleteDocument deleteDocumentResponse
 	var resp Document
@@ -191,7 +241,7 @@ func DeleteDocument(id string) (Document, error) {
 func UpdatePatient(updatePatient PatientInput) (Patient, error) {
 	var patient updatePatientResponse
 	var resp Patient
-	query := `mutation updatePatient($id: String!, $document_ids: [String]) {
+	query := `mutation updatePatient($id: String!, $document_ids: [String!]!) {
 		updatePatient(id:$id, document_ids:$document_ids) {
                     id,
 					document_ids

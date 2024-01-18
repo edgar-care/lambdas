@@ -25,6 +25,7 @@ type Doctor {
     email: String!
     password: String!
     rendez_vous_ids: [String]
+    patient_ids: [String]
     #slot_ids: [String]
 }
 
@@ -283,6 +284,8 @@ type Query {
     # Find a doucment using its id.
     getDocumentById(id: String!): Document
 
+    getPatientDocument(id: String!): [Document]
+
     # Get the entire list of antechirs.
     getAnteChirs: [AnteChir]
 
@@ -323,7 +326,7 @@ type Mutation {
     createDoctor(email: String!, password: String!): Doctor
 
     # Update a doctor.rendez_vous_ids
-    updateDoctor(id: String!, email: String, password: String, rendez_vous_ids: [String]): Doctor #rendez_vous_id: String , slot_ids: [String]
+    updateDoctor(id: String!, email: String, password: String, rendez_vous_ids: [String], patient_ids: [String]): Doctor #rendez_vous_id: String , slot_ids: [String]
 
     # Delete a doctor.
     deleteDoctor(id: String!): Boolean
@@ -431,7 +434,7 @@ type Mutation {
     createDocument(owner_id: String!, name: String!, document_type: String!, category: String!, is_favorite: Boolean!, download_url: String!): Document
 
     # Update a new Slot.
-    updateDocument(id: String!, is_favorite: Boolean): Document
+    updateDocument(id: String!, name: String, is_favorite: Boolean): Document
 
     # Delete a Slot.
     deleteDocument(id: String!): Boolean

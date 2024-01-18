@@ -28,6 +28,8 @@ func main() {
 				router.Get("/document/download/{id}", handlers.HandleDownload)
 				router.Delete("/document/{id}", handlers.DeleteDocument)
 				router.Delete("/document/favorite/{id}", handlers.RemoveFavorite)
+				router.Put("/document/{id}", handlers.HandleUpdate)
+				router.Get("/document/download", handlers.GetAllDocument)
 			})
 		},
 		Features: map[string]bool{

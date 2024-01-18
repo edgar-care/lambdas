@@ -9,6 +9,7 @@ type Doctor struct {
 	Email         string             `bson:"email,omitempty"`
 	Password      string             `bson:"password,omitempty"`
 	RendezVousIDs *[]*string         `bson:"rendez_vous_ids"`
+	PatientIds    *[]*string         `bson:"patient_ids"`
 	//SlotIDs       *[]*string         `bson:"slot_ids"`
 }
 
@@ -22,5 +23,6 @@ type DoctorUpdateInput struct {
 	Email         *string    `bson:"email,omitempty"`
 	Password      *string    `bson:"password,omitempty"`
 	RendezVousIDs *[]*string `bson:"rendez_vous_ids"`
+	PatientIds    *[]*string `bson:"patient_ids"`
 	//SlotIDs       *[]*string `bson:"slot_ids"`
 }
