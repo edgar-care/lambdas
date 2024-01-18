@@ -52,6 +52,6 @@ func GetPatients(w http.ResponseWriter, req *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"all patient": patient,
+		"patients": patient,
 	}, 201)
 }
