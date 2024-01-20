@@ -20,6 +20,9 @@ func main() {
 		Apigw2Configurator: func(r *common.HttpRouter) {
 			r.Post("/auth/{type}/login", handlers.Login)
 			r.Post("/auth/{type}/register", handlers.Register)
+			r.Post("/auth/p/create_account", handlers.CreatePatientAccount)
+			r.Post("/auth/p/missing-password", handlers.MissingPassword)
+			r.Post("/auth/p/reset-password", handlers.ResetPassword)
 			r.Post("/admin/create_account/{type}", handlers.CreateAccount)
 		},
 		Features: map[string]bool{

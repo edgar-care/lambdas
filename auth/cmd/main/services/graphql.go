@@ -27,6 +27,12 @@ type PatientInput struct {
 	Email    string `json:"email"`
 }
 
+type PatientUpdateInput struct {
+	Id       string `json:"id"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
+
 type Doctor struct {
 	Id       string `json:"id"`
 	Password string `json:"password"`
@@ -114,6 +120,10 @@ type getPatientByIdResponse struct {
 
 type createPatientResponse struct {
 	Content PatientOutput `json:"createPatient"`
+}
+
+type updatePatientResponse struct {
+	Content PatientOutput `json:"updatePatient"`
 }
 
 type getDoctorByIdResponse struct {
@@ -249,6 +259,25 @@ func CreatePatient(newPatient PatientInput) (Patient, error) {
                 }
             }`
 	err := Query(query, map[string]interface{}{
+		"email":    newPatient.Email,
+		"password": newPatient.Password,
+	}, &patient)
+	_ = copier.Copy(&resp, &patient.Content)
+	return resp, err
+}
+
+func UpdatePatient(newPatient PatientUpdateInput) (Patient, error) {
+	var patient updatePatientResponse
+	var resp Patient
+	query := `mutation updatePatient($id: String!, $email: String!, $password: String!) {
+            updatePatient(id:$id, email:$email, password:$password) {
+                    id,
+                    password,
+                    email,
+                }
+            }`
+	err := Query(query, map[string]interface{}{
+		"id":       newPatient.Id,
 		"email":    newPatient.Email,
 		"password": newPatient.Password,
 	}, &patient)
