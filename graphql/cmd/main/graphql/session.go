@@ -6,6 +6,18 @@ import (
 	"github.com/graph-gophers/graphql-go"
 )
 
+type logsResolver struct {
+	p models.Logs
+}
+
+func (u *logsResolver) Question() string {
+	return u.p.Question
+}
+
+func (u *logsResolver) Answer() string {
+	return u.p.Answer
+}
+
 type sessionResolver struct {
 	p *models.Session
 }
@@ -36,6 +48,18 @@ func (u *sessionResolver) Sex() string {
 
 func (u *sessionResolver) LastQuestion() string {
 	return u.p.LastQuestion
+}
+
+func (u *sessionResolver) Logs() []*logsResolver {
+	var LogsResolvers []*logsResolver
+	if u.p.Logs == nil {
+		return nil
+	}
+	for _, logs := range u.p.Logs {
+		tmp := logsResolver{p: logs}
+		LogsResolvers = append(LogsResolvers, &tmp)
+	}
+	return LogsResolvers
 }
 
 func resolverFromSession(p *models.Session) sessionResolver {

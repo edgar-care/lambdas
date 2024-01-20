@@ -31,6 +31,14 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 	questionSymptom := []string{session.LastQuestion}
 	if session.LastQuestion == "" {
 		questionSymptom = []string{}
+
+		tmp := services.Logs{Question: "", Answer: input.Sentence}
+		session.Logs = append(session.Logs, tmp)
+		edgarlib.CheckError(err)
+	} else {
+		tmp := services.Logs{Question: session.LastQuestion, Answer: input.Sentence}
+		session.Logs = append(session.Logs, tmp)
+		edgarlib.CheckError(err)
 	}
 
 	newSymptoms := services.CallNlp(input.Sentence, questionSymptom)

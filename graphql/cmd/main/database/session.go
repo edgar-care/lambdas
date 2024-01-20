@@ -21,6 +21,7 @@ func (db *DB) InsertSession(session *models.SessionCreateInput) (*models.Session
 		Weight:       session.Weight,
 		Sex:          session.Sex,
 		LastQuestion: session.LastQuestion,
+		Logs:         session.Logs,
 	}
 	return &entity, err
 }

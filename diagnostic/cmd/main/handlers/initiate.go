@@ -19,7 +19,7 @@ func Initiate(w http.ResponseWriter, req *http.Request) {
 	input.Weight = 0
 	input.Sex = "M"
 	input.LastQuestion = ""
-	input.Symptoms = []string{}
+	input.Logs = []services.Logs{}
 
 	services.WakeNlpUp()
 

@@ -8,6 +8,16 @@ input SymptomWeightInput {
     value: Float!
 }
 
+type Logs {
+    question: String!
+    answer: String!
+}
+
+input LogsInput {
+    question: String!
+    answer: String!
+}
+
 # Patient entity
 type Patient {
     id: ID!
@@ -47,6 +57,7 @@ type Session {
     weight: Int!
     sex: String!
 	last_question: String!
+    logs: [Logs!]!
 }
 
 # Symptom entity
@@ -359,10 +370,10 @@ type Mutation {
     deleteTestAccount(id: String!): Boolean
 
     # Create a new session.
-    createSession(symptoms: [String!]!, age: Int!, height: Int!, weight: Int!, sex: String!, last_question: String!): Session
+    createSession(symptoms: [String!]!, age: Int!, height: Int!, weight: Int!, sex: String!, last_question: String!, logs: [LogsInput!]!): Session
 
     # Update a new session.
-    updateSession(id: String!, symptoms: [String!], age: Int, height: Int, weight: Int, sex: String, last_question: String): Session
+    updateSession(id: String!, symptoms: [String!], age: Int, height: Int, weight: Int, sex: String, last_question: String, logs: [LogsInput!]): Session
 
     # Delete a session.
     deleteSession(id: String!): Boolean
