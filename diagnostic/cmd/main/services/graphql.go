@@ -9,6 +9,21 @@ import (
 
 /********** Types ***********/
 
+type Logs struct {
+	Question string `json:"question"`
+	Answer   string `json:"answer"`
+}
+
+type LogsInput struct {
+	Question string `json:"question"`
+	Answer   string `json:"answer"`
+}
+
+type LogsOutput struct {
+	Question string `json:"question"`
+	Answer   string `json:"answer"`
+}
+
 type Session struct {
 	Id           string   `json:"id"`
 	Symptoms     []string `json:"symptoms"`
@@ -17,6 +32,7 @@ type Session struct {
 	Weight       int      `json:"weight"`
 	Sex          string   `json:"sex"`
 	LastQuestion string   `json:"last_question"`
+	Logs         []Logs   `json:"logs"`
 }
 
 type SessionOutput struct {
@@ -27,6 +43,7 @@ type SessionOutput struct {
 	Weight       *int      `json:"weight"`
 	Sex          *string   `json:"sex"`
 	LastQuestion *string   `json:"last_question"`
+	Logs         *[]Logs   `json:"logs"`
 }
 
 type SessionInput struct {
@@ -36,6 +53,7 @@ type SessionInput struct {
 	Weight       int      `json:"weight"`
 	Sex          string   `json:"sex"`
 	LastQuestion string   `json:"last_question,omitempty"`
+	Logs         []Logs   `json:"logs"`
 }
 
 /**************** GraphQL types *****************/
@@ -57,15 +75,19 @@ type updateSessionResponse struct {
 func CreateSession(newSession SessionInput) (Session, error) {
 	var session createSessionResponse
 	var resp Session
-	query := `mutation createSession($symptoms: [String!]!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!, $last_question: String!) {
-            createSession(symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question) {
+	query := `mutation createSession($symptoms: [String!]!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!, $last_question: String!, $logs: [LogsInput!]!) {
+            createSession(symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question, logs: $logs) {
                     id,
 					symptoms,
 					age,
 					height,
 					weight,
 					sex,
-					last_question
+					last_question,
+					logs {
+						question,
+						answer
+					}
                 }
             }`
 	err := Query(query, map[string]interface{}{
@@ -75,6 +97,7 @@ func CreateSession(newSession SessionInput) (Session, error) {
 		"weight":        newSession.Weight,
 		"sex":           newSession.Sex,
 		"last_question": newSession.LastQuestion,
+		"logs":          newSession.Logs,
 	}, &session)
 	_ = copier.Copy(&resp, &session.Content)
 	return resp, err
@@ -91,7 +114,11 @@ func GetSessionById(id string) (Session, error) {
 					height,
 					weight,
 					sex,
-					last_question
+					last_question,
+					logs {
+						question,
+						answer
+					}
                 }
             }`
 
@@ -105,15 +132,19 @@ func GetSessionById(id string) (Session, error) {
 func UpdateSession(newSession Session) (Session, error) {
 	var session updateSessionResponse
 	var resp Session
-	query := `mutation updateSession($id: String!, $symptoms: [String!], $age: Int, $height: Int, $weight: Int, $sex: String, $last_question: String) {
-                updateSession(id: $id, symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question) {
+	query := `mutation updateSession($id: String!, $symptoms: [String!], $age: Int, $height: Int, $weight: Int, $sex: String, $last_question: String, $logs: [LogsInput!]) {
+                updateSession(id: $id, symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question, logs: $logs) {
                     id,
 					symptoms,
 					age,
 					height,
 					weight,
 					sex,
-					last_question
+					last_question,
+					logs {
+						question,
+						answer
+					}
                 }
             }`
 
@@ -125,6 +156,7 @@ func UpdateSession(newSession Session) (Session, error) {
 		"weight":        newSession.Weight,
 		"sex":           newSession.Sex,
 		"last_question": newSession.LastQuestion,
+		"logs":          newSession.Logs,
 	}, &session)
 	_ = copier.Copy(&resp, &session.Content)
 	return resp, err

@@ -4,6 +4,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+type Logs struct {
+	Question string `bson:"question,omitempty"`
+	Answer   string `bson:"answer,omitempty"`
+}
+
 type Session struct {
 	ID           primitive.ObjectID `bson:"_id"`
 	Symptoms     []string           `bson:"symptoms,omitempty"`
@@ -12,6 +17,7 @@ type Session struct {
 	Weight       int32              `bson:"weight,omitempty"`
 	Sex          string             `bson:"sex,omitempty"`
 	LastQuestion string             `bson:"last_question,omitempty"`
+	Logs         []Logs             `bson:"logs,omitempty"`
 }
 
 type SessionCreateInput struct {
@@ -21,6 +27,7 @@ type SessionCreateInput struct {
 	Weight       int32    `bson:"weight,omitempty"`
 	Sex          string   `bson:"sex,omitempty"`
 	LastQuestion string   `bson:"last_question,omitempty"`
+	Logs         []Logs   `bson:"logs,omitempty"`
 }
 
 type SessionUpdateInput struct {
@@ -31,4 +38,5 @@ type SessionUpdateInput struct {
 	Weight       *int32    `bson:"weight,omitempty"`
 	Sex          *string   `bson:"sex,omitempty"`
 	LastQuestion *string   `bson:"last_question,omitempty"`
+	Logs         *[]Logs   `bson:"logs,omitempty"`
 }
