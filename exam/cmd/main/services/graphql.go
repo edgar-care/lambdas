@@ -4,8 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/jinzhu/copier"
 	"os"
+
+	"github.com/jinzhu/copier"
 
 	"github.com/machinebox/graphql"
 )
@@ -20,6 +21,7 @@ type Disease struct {
 	ID               string             `json:"id"`
 	Code             string             `json:"code"`
 	Name             string             `json:"name"`
+	Symptoms         []string           `json:"symptoms"`
 	SymptomsAcute    map[string]float64 `json:"symptoms_acute"`
 	SymptomsSubacute map[string]float64 `json:"symptoms_subacute"`
 	SymptomsChronic  map[string]float64 `json:"symptoms_chronic"`
@@ -30,6 +32,7 @@ type DiseaseOutput struct {
 	ID               *string             `json:"id"`
 	Code             *string             `json:"code"`
 	Name             *string             `json:"name"`
+	Symptoms         *[]string           `json:"symptoms"`
 	SymptomsAcute    *map[string]float64 `json:"symptoms_acute"`
 	SymptomsSubacute *map[string]float64 `json:"symptoms_subacute"`
 	SymptomsChronic  *map[string]float64 `json:"symptoms_chronic"`
@@ -39,6 +42,7 @@ type DiseaseOutput struct {
 type DiseaseInput struct {
 	Code             string             `json:"code"`
 	Name             string             `json:"name"`
+	Symptoms         []string           `json:"symptoms"`
 	SymptomsAcute    map[string]float64 `json:"symptoms_acute"`
 	SymptomsSubacute map[string]float64 `json:"symptoms_subacute"`
 	SymptomsChronic  map[string]float64 `json:"symptoms_chronic"`
@@ -295,6 +299,10 @@ func GetDiseases() ([]Disease, error) {
 	return resp.GetDiseases, err
 }
 
+func getPossibleSymptoms() []string {
+	return []string{"respiration_difficile", "toux", "respiration_sifflante", "somnolence", "anxiete", "brulure_poitrine", "respiration_difficile", "boule_gorge", "maux_de_tetes", "vision_trouble", "tache_visuel"}
+}
+
 func getDiseaseById(id string) (Disease, error) {
 	var disease getDiseaseByIdResponse
 	var resp Disease
@@ -303,6 +311,7 @@ func getDiseaseById(id string) (Disease, error) {
                     id,
 					code,
                     name,
+					symptoms,
 					symptoms_acute,
                     symptoms_subacute,
 					symptoms_chronic,
@@ -320,11 +329,12 @@ func getDiseaseById(id string) (Disease, error) {
 func createDisease(newDisease DiseaseInput) (Disease, error) {
 	var disease createDiseaseResponse
 	var resp Disease
-	query := `mutation createDisease($code: String!, $name: String!, $symptoms_acute: Map, $symptoms_subacute: Map, $symptoms_chronic: Map, $advice: String) {
-        createDisease(code: $code, name: $name, symptoms_acute: $symptoms_acute, symptoms_subacute: $symptoms_subacute, symptoms_chronic: $symptoms_chronic, advice: $advice) {
+	query := `mutation createDisease($code: String!, $name: String!, $symptoms: [string!]! $symptoms_acute: Map, $symptoms_subacute: Map, $symptoms_chronic: Map, $advice: String) {
+        createDisease(code: $code, name: $name, symptoms: $symptoms, symptoms_acute: $symptoms_acute, symptoms_subacute: $symptoms_subacute, symptoms_chronic: $symptoms_chronic, advice: $advice) {
                     id,
 					code,
                     name,
+					symptoms,
 					symptoms_acute,
                     symptoms_subacute,
 					symptoms_chronic,
@@ -334,6 +344,7 @@ func createDisease(newDisease DiseaseInput) (Disease, error) {
 	err := Query(query, map[string]interface{}{
 		"code":              newDisease.Code,
 		"name":              newDisease.Name,
+		"symptoms":          newDisease.Symptoms,
 		"symptoms_acute":    newDisease.SymptomsAcute,
 		"symptoms_subacute": newDisease.SymptomsSubacute,
 		"symptoms_chronic":  newDisease.SymptomsChronic,

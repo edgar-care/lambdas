@@ -1,6 +1,7 @@
 package services
 
 import (
+	"math/rand"
 	"sort"
 )
 
@@ -55,7 +56,8 @@ func calculCoverage(context []ExamContextItem, disease Disease) diseaseCoverage 
 
 func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
 	diseases, _ := GetDiseases()
-
+	symptoms := getPossibleSymptoms()
+	next := symptoms[rand.Intn(len(symptoms))]
 	mapped := make([]diseaseCoverage, len(diseases))
 	for i, e := range diseases {
 		mapped[i] = calculCoverage(context, e)
@@ -74,7 +76,7 @@ func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
 		if disease.present >= 70 {
 			return "", []string{}, true
 		}
-		return "next question", []string{"question"}, false
+		return next, []string{next}, false
 	}
 	return "", []string{}, true
 }
