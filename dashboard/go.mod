@@ -9,6 +9,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/machinebox/graphql v0.2.2
 	github.com/ohoareau/gola v0.4.9
+	golang.org/x/crypto v0.15.0
 )
 
 require (
@@ -26,6 +27,5 @@ require (
 	github.com/matryer/is v1.4.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
-	golang.org/x/crypto v0.15.0 // indirect
 	golang.org/x/sys v0.14.0 // indirect
 )

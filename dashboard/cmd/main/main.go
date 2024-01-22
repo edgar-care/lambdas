@@ -37,8 +37,8 @@ func main() {
 				// Get
 				router.Get("/doctor/patient/{id}", handlers.GetPatientId)
 				router.Get("/doctor/patients", handlers.GetPatients)
-				// router.Post("/doctor/patient", handlers.CreatePatient)
-				// router.Put("/doctor/patient/{id}", handlers.UpdatePatientInfo)
+				router.Post("/doctor/patient", handlers.CreatePatient)
+				//router.Delete("/doctor/patient/{id}", handlers.DeletePatientHandler)
 			})
 		},
 		Features: map[string]bool{

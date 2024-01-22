@@ -3,9 +3,11 @@ package lib
 import (
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/go-chi/jwtauth/v5"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func NewTokenAuth() *jwtauth.JWTAuth {
@@ -57,4 +59,15 @@ func AuthMiddleware(w http.ResponseWriter, r *http.Request) string {
 		return ""
 	}
 	return GetAuthenticatedUser(w, r)
+}
+
+func HashPassword(password string) string {
+	salt, _ := strconv.Atoi(os.Getenv("SALT"))
+	bytes, _ := bcrypt.GenerateFromPassword([]byte(password), salt)
+	return string(bytes)
+}
+
+func CheckPassword(password string, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }
