@@ -19,17 +19,6 @@ func init() {
 }
 
 func main() {
-	// c := cron.New()
-	// c.AddFunc("0 0 * * *", func() {
-	// 	services.CronJobDeleteExpiredAccounts()
-	// })
-	// c.Start()
-
-	// // Démarrage du cron job pour l'envoi quotidien des emails d'expiration
-	// c.AddFunc("0 0 * * *", func() {
-	// 	services.CronJobSendExpirationEmails()
-	// })
-	// c.Start()
 	gola.Main(common.Options{
 		Apigw2Configurator: func(r *common.HttpRouter) {
 			r.Group(func(router chi.Router) {
@@ -38,7 +27,7 @@ func main() {
 				router.Get("/doctor/patient/{id}", handlers.GetPatientId)
 				router.Get("/doctor/patients", handlers.GetPatients)
 				router.Post("/doctor/patient", handlers.CreatePatient)
-				//router.Delete("/doctor/patient/{id}", handlers.DeletePatientHandler)
+				router.Delete("/doctor/patient/{id}", handlers.DeletePatientHandler)
 			})
 		},
 		Features: map[string]bool{

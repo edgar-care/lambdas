@@ -14,6 +14,7 @@ type Patient struct {
 	Id                 string `json:"id"`
 	OnboardingInfoID   string `json:"onboarding_info_id"`
 	OnboardingHealthID string `json:"onboarding_health_id"`
+	Email              string `json:"email"`
 }
 
 type PatientsInput struct {
@@ -24,6 +25,7 @@ type PatientOutput struct {
 	Id                 *string `json:"id"`
 	OnboardingInfoID   *string `json:"onboarding_info_id"`
 	OnboardingHealthID *string `json:"onboarding_health_id"`
+	Email              string  `json:"email"`
 }
 
 type PatientsOutput struct {
@@ -156,6 +158,10 @@ type createHealthResponse struct {
 	Content HealthOutput `json:"createHealth"`
 }
 
+type deletePatientResponse struct {
+	Content bool `json:"deletePatient"`
+}
+
 /*************** Implementations *****************/
 
 func GetPatientById(id string) (Patient, error) {
@@ -165,7 +171,8 @@ func GetPatientById(id string) (Patient, error) {
                 getPatientById(id: $id) {
                     id,
 					onboarding_info_id,
-					onboarding_health_id
+					onboarding_health_id,
+					email
                 }
             }`
 
@@ -357,6 +364,20 @@ func GetInfoById(id string) (Info, error) {
 }
 
 ///
+
+func DeleteSlotId(id string) (Patient, error) {
+	var patientdelete deletePatientResponse
+	var resp Patient
+	query := `mutation deletePatient($id: String!) {
+		deletePatient(id:$id)
+	}`
+
+	err := Query(query, map[string]interface{}{
+		"id": id,
+	}, &patientdelete)
+	_ = copier.Copy(&resp, &patientdelete.Content)
+	return resp, err
+}
 
 func createClient() *graphql.Client {
 	return graphql.NewClient(os.Getenv("GRAPHQL_URL"))
