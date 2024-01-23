@@ -19,6 +19,7 @@ func main() {
 		Apigw2Configurator: func(r *common.HttpRouter) {
 			r.Post("/diagnostic/initiate", handlers.Initiate)
 			r.Post("/diagnostic/diagnose", handlers.Diagnose)
+			r.Get("/diagnostic/summary/{id}", handlers.GetSummary)
 		},
 		Features: map[string]bool{
 			"logger":    true,
