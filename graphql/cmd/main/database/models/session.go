@@ -18,6 +18,7 @@ type Session struct {
 	Sex          string             `bson:"sex,omitempty"`
 	LastQuestion string             `bson:"last_question,omitempty"`
 	Logs         []Logs             `bson:"logs,omitempty"`
+	Alerts       []string           `bson:"alerts,omitempty"`
 }
 
 type SessionCreateInput struct {
@@ -28,6 +29,7 @@ type SessionCreateInput struct {
 	Sex          string   `bson:"sex,omitempty"`
 	LastQuestion string   `bson:"last_question,omitempty"`
 	Logs         []Logs   `bson:"logs,omitempty"`
+	Alerts       []string `bson:"alerts,omitempty"`
 }
 
 type SessionUpdateInput struct {
@@ -39,4 +41,5 @@ type SessionUpdateInput struct {
 	Sex          *string   `bson:"sex,omitempty"`
 	LastQuestion *string   `bson:"last_question,omitempty"`
 	Logs         *[]Logs   `bson:"logs,omitempty"`
+	Alerts       *[]string `bson:"alerts,omitempty"`
 }

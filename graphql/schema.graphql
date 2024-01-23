@@ -58,6 +58,7 @@ type Session {
     sex: String!
 	last_question: String!
     logs: [Logs!]!
+    alerts: [String!]!
 }
 
 # Symptom entity
@@ -150,6 +151,7 @@ type AnteChir {
     localisation: String!
     induced_symptoms: [String!]
 }
+
 type TestAccount {
     id: ID!
     email: String!
@@ -161,13 +163,6 @@ type DemoAccount {
     email: String!
     password: String!
 }
-
-# type AnteChir {
-#     id: ID!
-#     name: String!
-#     localisation: String!
-#     induced_symptoms: [Symptom!]
-# }
 
 type AnteDisease {
     id: ID!
@@ -190,6 +185,16 @@ type Treatment {
     disease: String!
     symptoms: [String!]
     side_effects: [String!]
+}
+
+type Alert {
+    id: ID!
+    name: String!
+    sex: String
+    height: Int
+    weight: Int
+    symptoms: [String!]!
+    comment: String!
 }
 
 type Query {
@@ -321,6 +326,12 @@ type Query {
     # Get a treament by its id.
     getTreatmentByID(id: String!): Treatment
 
+    # Get the entire list of alerts.
+    getAlerts: [Alert]
+
+    # Get an alert by its id.
+    getAlertById(id: String!): Alert
+
 }
 
 type Mutation {
@@ -370,10 +381,10 @@ type Mutation {
     deleteTestAccount(id: String!): Boolean
 
     # Create a new session.
-    createSession(symptoms: [String!]!, age: Int!, height: Int!, weight: Int!, sex: String!, last_question: String!, logs: [LogsInput!]!): Session
+    createSession(symptoms: [String!]!, age: Int!, height: Int!, weight: Int!, sex: String!, last_question: String!, logs: [LogsInput!]!, alerts: [String!]!): Session
 
     # Update a new session.
-    updateSession(id: String!, symptoms: [String!], age: Int, height: Int, weight: Int, sex: String, last_question: String, logs: [LogsInput!]): Session
+    updateSession(id: String!, symptoms: [String!], age: Int, height: Int, weight: Int, sex: String, last_question: String, logs: [LogsInput!], alerts: [String!]): Session
 
     # Delete a session.
     deleteSession(id: String!): Boolean
@@ -485,6 +496,15 @@ type Mutation {
 
     # Delete a treatment.
     deleteTreatment(id: String!): Boolean
+
+    # Create a new alert.
+    createAlert(name: String!, sex: String, height: Int, weight: Int, symptoms: [String!]!, comment: String!): Alert
+
+    # Update a new alert.
+    updateAlert(id: String!, name: String, sex: String, height: Int, weight: Int, symptoms: [String!], comment: String): Alert
+
+    # Delete an alert.
+    deleteAlert(id: String!): Boolean
 
 }
 

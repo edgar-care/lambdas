@@ -62,6 +62,10 @@ func (u *sessionResolver) Logs() []*logsResolver {
 	return LogsResolvers
 }
 
+func (u *sessionResolver) Alerts() []string {
+	return u.p.Alerts
+}
+
 func resolverFromSession(p *models.Session) sessionResolver {
 	return sessionResolver{p: p}
 }
