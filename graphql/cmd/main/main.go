@@ -28,6 +28,13 @@ var (
 func Handler(context context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	log.Printf("Processing Lambda request %s\n", request.RequestContext.RequestID)
 
+	if request.Headers[os.Getenv("API_KEY")] != os.Getenv("API_KEY_VALUE") {
+		return events.APIGatewayProxyResponse{
+			Body:       "Unauthorized",
+			StatusCode: 401,
+		}, nil
+	}
+
 	if len(request.Body) < 1 {
 		return events.APIGatewayProxyResponse{
 			Body:       string(lib.ErrorMarshal("No query was provided in the HTTP body")),

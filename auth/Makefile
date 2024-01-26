@@ -1,7 +1,7 @@
 AWS_REGION 					:= eu-west-3
 AWS_LAMBDA_FUNCTION_NAME	:= auth
 AWS_CLI_PROFILE				:= edgar.care
-BINARY_NAME					:= main
+BINARY_NAME					:= bootstrap
 BUILD_DIR					:= builds
 SOURCE_DIR					:= ./cmd/main
 DATE						:= $(shell date +"%d%m%y_%H%M%S")
@@ -40,6 +40,9 @@ zip: build
 	@mkdir -p $(BUILD_DIR)
 	@zip builds/$(AWS_LAMBDA_FUNCTION_NAME)$(DATE) $(BINARY_NAME) $(EXTRA_FILES)
 
+test:
+	@go test -coverprofile=coverage.out -v ./...
+	@go tool cover -html=coverage.out
 
 .PHONY: all \
 		build \

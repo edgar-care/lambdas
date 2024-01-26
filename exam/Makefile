@@ -1,11 +1,11 @@
 AWS_REGION 					:= eu-west-3
 AWS_LAMBDA_FUNCTION_NAME	:= exam
 AWS_CLI_PROFILE				:= edgar.care
-BINARY_NAME					:= main
+BINARY_NAME					:= bootstrap
 BUILD_DIR					:= builds
 SOURCE_DIR					:= ./cmd/main
 DATE						:= $(shell date +"%d%m%y_%H%M%S")
-EXTRA_FILES					:=
+EXTRA_FILES					:= .env
 ARCHIVE_NAME				:= $(BUILD_DIR)/$(AWS_LAMBDA_FUNCTION_NAME)$(DATE)
 GO_BINARY_PATH  			:= $(shell go env GOPATH)/bin
 GOOS						:= linux

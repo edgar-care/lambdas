@@ -1,0 +1,28 @@
+name: Export GraphQL
+on:
+  push:
+    branches:
+      - dev
+
+env:
+  APOLLO_KEY: "service:edgarcare-Graph-znnna9:${{ secrets.APOLLO_KEY }}"
+
+jobs:
+  export:
+    name: Export
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install rover
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/v0.10.0 | sh
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+
+      - name: Export
+        run: |
+          rover subgraph publish edgarcare-Graph-znnna9@current \
+          --schema ./graphql/schema.graphql \
+          --name main \
+          --routing-url http://products.prod.svc.cluster.local:4001/graphql

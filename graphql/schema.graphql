@@ -1,14 +1,32 @@
+type SymptomWeight {
+    key: String!
+    value: Float!
+}
+
+input SymptomWeightInput {
+    key: String!
+    value: Float!
+}
+
+type Logs {
+    question: String!
+    answer: String!
+}
+
+input LogsInput {
+    question: String!
+    answer: String!
+}
+
 # Patient entity
 type Patient {
     id: ID!
     email: String!
     password: String!
-    name: String!
-    lastName: String!
-    age: Int!
-    height: Int!
-    weight: Int!
-    sex: Sex!
+    rendez_vous_ids: [String]
+    onboarding_info_id: String
+    onboarding_health_id: String
+    document_ids: [String]
 }
 
 # Doctor entity
@@ -16,9 +34,167 @@ type Doctor {
     id: ID!
     email: String!
     password: String!
+    rendez_vous_ids: [String]
+    patient_ids: [String]
+    #slot_ids: [String]
+}
+
+# Admin entity
+type Admin {
+    id: ID!
+    email: String!
+    password: String!
     name: String!
     lastName: String!
-    address: String!
+}
+
+# Session entity
+type Session {
+	id: ID!
+	symptoms: [String!]!
+    age: Int!
+    height: Int!
+    weight: Int!
+    sex: String!
+	last_question: String!
+    logs: [Logs!]!
+    alerts: [String!]!
+}
+
+# Symptom entity
+type Symptom {
+    id: ID!
+    code: String!
+    name: String!
+    location: String
+    duration: Int
+    acute: Int
+    subacute: Int
+    chronic: Int
+    symptom: [String!]!
+    advice: String
+    question: String!
+}
+
+# Disease entity
+type Disease {
+	id: ID!
+	code: String!
+    name: String!
+    symptoms: [String!]!
+    symptoms_acute: [SymptomWeight!]
+    symptoms_subacute: [SymptomWeight!]
+    symptoms_chronic: [SymptomWeight!]
+    advice: String
+}
+
+type Info {
+	id: ID!
+	name: String!
+    birthdate: String!
+    height: Int!
+    weight: Int!
+    sex: Sex!
+	surname: String!
+}
+
+type Health {
+	id:	ID!
+	patients_allergies: [String!]
+	patients_illness: [String!]
+    patients_treatments: [String!]
+    patients_primary_doctor: String!
+}
+
+type MedicalInfo {
+    Info: String
+    Health: String
+}
+
+type Notification {
+	id:	ID!
+	token: String!
+	title: String!
+    message: String!
+}
+
+type Rdv {
+    id: ID!
+    doctor_id: String!
+    id_patient: String!
+    start_date: Int!
+    end_date: Int!
+    cancelation_reason: String
+}
+
+# type Slot {
+#     id: ID!
+#     doctor_id: String!
+#     appointment_id: String!
+#     start_date: Int!
+#     end_date: Int!
+# }
+
+type Document {
+   id: ID!
+   owner_id: String!
+   name: String!
+   document_type: DocumentType!
+   category: Category!
+   is_favorite: Boolean!
+   download_url: String!
+}
+
+type AnteChir {
+    id: ID!
+    name: String!
+    localisation: String!
+    induced_symptoms: [String!]
+}
+
+type TestAccount {
+    id: ID!
+    email: String!
+    password: String!
+}
+
+type DemoAccount {
+    id: ID!
+    email: String!
+    password: String!
+}
+
+type AnteDisease {
+    id: ID!
+    name: String!
+    chronicity: Float!
+    chir: String
+    treatment: [String!]
+    symptoms: [String!]
+}
+
+type AnteFamily {
+    id: ID!
+    name: String!
+    disease: [String!]!
+}
+
+type Treatment {
+    id: ID!
+    name: String!
+    disease: String!
+    symptoms: [String!]
+    side_effects: [String!]
+}
+
+type Alert {
+    id: ID!
+    name: String!
+    sex: String
+    height: Int
+    weight: Int
+    symptoms: [String!]!
+    comment: String!
 }
 
 type Query {
@@ -39,29 +215,319 @@ type Query {
 
     # Find a doctor using its email.
     getDoctorByEmail(email: String!): Doctor
+
+    # Get the entire list of admins.
+    getAdmins: [Admin]
+
+    # Find a admin using its id.
+    getAdminById(id: String!): Admin
+
+    # Find an admin using its email.
+    getAdminByEmail(email: String!): Admin
+
+    # Get the entire list of demo accounts.
+    getDemoAccounts: [DemoAccount]
+
+    # Find a demo account using its id.
+    getDemoAccountById(id: String!): DemoAccount
+
+    # Find an demo account using its email.
+    getDemoAccountByEmail(email: String!): DemoAccount
+
+    # Get the entire list of test accounts.
+    getTestAccounts: [TestAccount]
+
+    # Find a test account using its id.
+    getTestAccountById(id: String!): TestAccount
+
+    # Find an test account using its email.
+    getTestAccountByEmail(email: String!): TestAccount
+
+    # Get the entire list of sessions.
+    getSessions: [Session]
+
+    # Find a session using its id.
+    getSessionById(id: String!): Session
+
+    # Find a symptom using its id.
+    getSymptomById(id: String!): Symptom
+
+    # Find a disease using its id.
+    getDiseaseById(id: String!): Disease
+
+    # Get the entire list of info.
+    getInfos: [Info]
+
+    # Find a info using its id.
+    getInfoById(id: String!): Info
+
+    # Get the entire list of symptoms
+    getSymptoms: [Symptom]
+
+    # Get the entire list of diseases
+    getDiseases: [Disease]
+
+    # Get the entire list of health.
+    getHealths: [Health]
+
+    # Find a health using its id.
+    getHealthById(id: String!): Health
+
+    # Get the entire list of notification.
+    getNotifications: [Notification]
+
+    # Find a Notification using its id.
+    getNotificationById(id: String!): Notification
+
+    # Get the entire list of rdv patients.
+    getPatientRdv(id_patient: String!): [Rdv]
+
+    #Get the entire list of rdv doctors.
+    getDoctorRdv(doctor_id: String!): [Rdv]
+
+    # Find a rdv using its id.
+    getRdvById(id: String!): Rdv
+
+    #Get the entire list of slot doctors.
+    # getDoctorSlot(doctor_id: String!): [Slot]
+
+    # # Find a slot using its id.
+    # getSlotById(id: String!): Slot
+
+    # Get the entire list of document patient
+    getDocuments: [Document]
+
+    # Find a doucment using its id.
+    getDocumentById(id: String!): Document
+
+    getPatientDocument(id: String!): [Document]
+
+    # Get the entire list of antechirs.
+    getAnteChirs: [AnteChir]
+
+    # Get an antechir by its id.
+    getAnteChirByID(id: String!): AnteChir
+
+    # Get the entire list of antediseases.
+    getAnteDiseases: [AnteDisease]
+
+    # Get an antedisease by its id.
+    getAnteDiseaseByID(id: String!): AnteDisease
+
+    # Get the entire list of .
+    getAnteFamilies: [AnteFamily]
+
+    # Get an antefamily by its id.
+    getAnteFamilyByID(id: String!): AnteFamily
+
+    # Get the entire list of treatments.
+    getTreatments: [Treatment]
+
+    # Get a treament by its id.
+    getTreatmentByID(id: String!): Treatment
+
+    # Get the entire list of alerts.
+    getAlerts: [Alert]
+
+    # Get an alert by its id.
+    getAlertById(id: String!): Alert
+
 }
 
 type Mutation {
     # Create a new patient.
-    createPatient(email: String!, password: String!, name: String!, lastName: String!, age: Int!, height: Int!, weight: Int!, sex: String!): Patient
+    createPatient(email: String!, password: String!): Patient
 
     # Update a patient.
-    updatePatient(id: String!, email: String, password: String, name: String, lastName: String, age: Int, height: Int, weight: Int, sex: String): Patient
+    updatePatient(id: String!, email: String, password: String, onboarding_info_id: String, onboarding_health_id: String, rendez_vous_ids: [String], document_ids: [String]): Patient
 
     # Delete a patient.
     deletePatient(id: String!): Boolean
 
     # Create a new doctor.
-    createDoctor(email: String!, password: String!, name: String!, lastName: String!, address: String!): Doctor
+    createDoctor(email: String!, password: String!): Doctor
 
-    # Update a doctor.
-    updateDoctor(id: String!, email: String, password: String, name: String, lastName: String, address: String): Doctor
+    # Update a doctor.rendez_vous_ids
+    updateDoctor(id: String!, email: String, password: String, rendez_vous_ids: [String], patient_ids: [String]): Doctor #rendez_vous_id: String , slot_ids: [String]
 
     # Delete a doctor.
     deleteDoctor(id: String!): Boolean
+
+    # Create a new Admin.
+    createAdmin(email: String!, password: String!, name: String!, lastName: String!): Admin
+
+    # Update a Admin.
+    updateAdmin(id: String!, email: String, password: String, name: String, lastName: String): Admin
+
+    # Delete a Admin.
+    deleteAdmin(id: String!): Boolean
+
+    # Create a new DemoAccount.
+    createDemoAccount(email: String!, password: String!): DemoAccount
+
+    # Update a DemoAccount.
+    updateDemoAccount(id: String!, email: String, password: String): DemoAccount
+
+    # Delete a DemoAccount.
+    deleteDemoAccount(id: String!): Boolean
+
+    # Create a new TestAccount.
+    createTestAccount(email: String!, password: String!): TestAccount
+
+    # Update a TestAccount.
+    updateTestAccount(id: String!, email: String, password: String): TestAccount
+
+    # Delete a TestAccount.
+    deleteTestAccount(id: String!): Boolean
+
+    # Create a new session.
+    createSession(symptoms: [String!]!, age: Int!, height: Int!, weight: Int!, sex: String!, last_question: String!, logs: [LogsInput!]!, alerts: [String!]!): Session
+
+    # Update a new session.
+    updateSession(id: String!, symptoms: [String!], age: Int, height: Int, weight: Int, sex: String, last_question: String, logs: [LogsInput!], alerts: [String!]): Session
+
+    # Delete a session.
+    deleteSession(id: String!): Boolean
+
+    # Create a new symptom.
+    createSymptom(code: String!, name: String!, location: String, duration: Int, acute: Int, subacute: Int, chronic: Int, symptom: [String!]! ,advice: String, question: String!): Symptom
+
+    # Update a new symptom.
+    updateSymptom(id: String!, code: String, name: String, location: String, duration: Int, acute: Int, subacute: Int, chronic: Int, symptom: [String!], advice: String, question: String): Symptom
+
+    # Delete a symptom.
+    deleteSymptom(id: String!): Boolean
+
+    # Create a new disease.
+    createDisease(code: String!, name: String!, symptoms: [String!]!, symptoms_acute: [SymptomWeightInput!], symptoms_subacute: [SymptomWeightInput!], symptoms_chronic: [SymptomWeightInput!], advice: String): Disease
+
+    # Update a new disease.
+    updateDisease(id: String!, code: String, name: String, symptoms: [String!], symptoms_acute: [SymptomWeightInput!], symptoms_subacute: [SymptomWeightInput!], symptoms_chronic: [SymptomWeightInput!], advice: String): Disease
+
+    # Delete a disease.
+    deleteDisease(id: String!): Boolean
+
+    # Create a new info.
+    createInfo(name: String!, birthdate: String!, height: Int!, weight: Int!, sex: String!, surname: String!): Info
+
+    # Update a new info. #A verifier birthdate
+    updateInfo(id: String!, name: String, birthdate: String, height: Int, weight: Int, sex: String, surname: String): Info
+
+    # Delete a info.
+    deleteInfo(id: String!): Boolean
+
+    # Create a new health.
+    createHealth(patients_allergies: [String!], patients_illness: [String!], patients_primary_doctor: String!, patients_treatments: [String!]): Health
+
+    # Update a new health.
+    updateHealth(id: String!, patients_allergies: [String!], patients_illness: [String!], patients_primary_doctor: String, patients_treatments: [String!]): Health
+
+    # Delete a health.
+    deleteHealth(id: String!): Boolean
+
+    # Create a new notification.
+    createNotification(token: String!, message: String!, title: String!): Notification
+
+    # Update a new notification.
+    updateNotification(id: String!, token: String!, message: String!, title: String!): Notification
+
+    # Delete a notification.
+    deleteNotification(id: String!): Boolean
+
+    # Create a new Rdv.
+    createRdv(id_patient: String!, doctor_id: String!, start_date: Int!, end_date: Int!): Rdv
+
+    # Update a new Rdv.
+    updateRdv(id: String!, id_patient: String, doctor_id: String, start_date: Int, end_date: Int, cancelation_reason: String): Rdv
+
+    # Delete a Rdv.
+    deleteRdv(id: String!): Boolean
+
+    # Create a new Slot.
+    #createSlot(doctor_id: String!, start_date: Int!, end_date: Int!): Slot
+
+    # Update a new Slot.
+    #updateSlot(id: String!, doctor_id: String, appointment_id: String, start_date: Int, end_date: Int): Slot
+
+    # Delete a Slot.
+    deleteSlot(id: String!): Boolean
+
+    #Create a new document.
+    createDocument(owner_id: String!, name: String!, document_type: String!, category: String!, is_favorite: Boolean!, download_url: String!): Document
+
+    # Update a new Slot.
+    updateDocument(id: String!, name: String, is_favorite: Boolean): Document
+
+    # Delete a Slot.
+    deleteDocument(id: String!): Boolean
+
+    # Create a new antechir.
+    createAnteChir(name: String!, localisation: String!, induced_symptoms: [String!]): AnteChir
+
+    # Update a new antechir.
+    updateAnteChir(id: String!, name: String, localisation: String, induced_symptoms: [String!]): AnteChir
+
+    # Delete a antechir.
+    deleteAnteChir(id: String!): Boolean
+
+    # Create a new antedisease.
+    createAnteDisease(name: String!, chronicity: Float!, chir: String, treatment: [String!], symptoms: [String!]): AnteDisease
+
+    # Update a new antedisease.
+    updateAnteDisease(id: String!, name: String, chronicity: Float, chir: String, treatment: [String!], symptoms: [String!]): AnteDisease
+
+    # Delete a antedisease.
+    deleteAnteDisease(id: String!): Boolean
+
+    # Create a new antefamily.
+    createAnteFamily(name: String!, disease: [String!]!): AnteFamily
+
+    # Update a new antefamily.
+    updateAnteFamily(id: String!, name: String, disease: [String!]): AnteFamily
+
+    # Delete a antefamily.
+    deleteAnteFamily(id: String!): Boolean
+
+    # Create a new treatment.
+    createTreatment(name: String!, disease: String!, symptoms: [String!], side_effects: [String!]): Treatment
+
+    # Update a new treatment.
+    updateTreatment(id: String!, name: String, disease: String, symptoms: [String!], side_effects: [String!]): Treatment
+
+    # Delete a treatment.
+    deleteTreatment(id: String!): Boolean
+
+    # Create a new alert.
+    createAlert(name: String!, sex: String, height: Int, weight: Int, symptoms: [String!]!, comment: String!): Alert
+
+    # Update a new alert.
+    updateAlert(id: String!, name: String, sex: String, height: Int, weight: Int, symptoms: [String!], comment: String): Alert
+
+    # Delete an alert.
+    deleteAlert(id: String!): Boolean
+
 }
 
 enum Sex {
-    M,
-    F
+    MALE,
+    FEMALE,
+    OTHER
+}
+
+enum OnboardingStatus {
+	NOT_STARTED,
+	STARTED,
+    FINISHED
+}
+
+enum Category {
+    GENERAL,
+    FINANCE
+}
+
+enum DocumentType {
+    XRAY,
+    PRESCRIPTION,
+    OTHER,
+    CERTIFICATE
 }

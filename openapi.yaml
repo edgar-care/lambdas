@@ -299,6 +299,148 @@ paths:
                     type: boolean
                     description: Whether the context has aggregated enough information or not.
 
+# ----------------------------------- DIAGNOSTIC ----------------------------------- #
+
+  /diagnostic/initiate:
+    post:
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  $ref: "#/components/schemas/DiagnosticInitiate"
+      summary: "Initiate a diagnostic session"
+      responses:
+        "200":
+          description: The session has been created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+
+  /diagnostic/diagnose:
+    post:
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  $ref: "#/components/schemas/DiagnosticDiagnose"
+      summary: "Diagnose"
+      responses:
+        "200":
+          description: The diagnostic was successfull
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  done:
+                    type: string
+                  question:
+                    type: string
+    
+# ----------------------------------- Onboading ----------------------------------- #
+
+  /onboarding/infos:
+    post:
+      summary: Add information about the patient.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Patient's name
+                Surname:
+                  type: string
+                  description: Patient's surname
+                age:
+                  type: integer
+                  description: Patient's age
+                sex:
+                  type: string
+                  enum: [ "M", "F" ]
+                  description: Patient's sex, either M or F
+                height:
+                  type: integer
+                  description: Patient's height
+                weight:
+                  type: integer
+                  description: Patient's weight
+      responses:
+        "200":
+          description: all information about the patient is confirm.
+          content:
+            application/json:
+              schema:
+                type: object
+ 
+        "400":
+          description: Missing information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message.
+
+  /onboarding/health:
+    post:
+      summary: Add information health about the patient.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patientallergies:
+                  type: string
+                  description: Patient's patientallergies
+                Patientsillness:
+                  type: string
+                  description: Patient's patientsillness
+
+      responses:
+        "200":
+          description: all information health about the patient is confirm.
+          content:
+            application/json:
+              schema:
+                type: object
+ 
+        "400":
+          description: error during the operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message.
+
+# ----------------------------------- Pushnotification ----------------------------------- #
+
 
 # ---------------------------------------------------------------------------- #
 #                                  Components                                  #
@@ -379,3 +521,77 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/ExamContextItem"
+
+    DiagnosticInitiate:
+      type: object
+      properties:
+        age: 
+          type: integer
+        height: 
+          type: integer
+        weight: 
+          type: integer
+        sex: 
+          type: string
+        enum:
+          type: string
+          enum: [ "M", "F" ]
+
+    DiagnosticDiagnose:
+      type: object
+      properties:
+        id:
+          type: string
+        sentence:
+          type: string
+
+    OnboardingInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of patient.
+        name:
+          type: string
+          description: Name of the patient.
+        surname:
+          type: string
+          description: Surname of the patient.
+        age:
+          type: string
+          description: age of the patient
+        sexe:
+          type: string
+          description: sex of the patient
+        height:
+          type: string
+          description: height of the patient
+        weight:
+          type: string
+          description: weight of the patient
+
+    OnboardingHealth:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of patient.
+        patientsillness:
+          type: string
+          description: patientsillness of the patient.
+        patientallergies:
+          type: string
+          description: patientallergies of the patient.
+    
+    Pushnotification:
+      type: object
+      properties:
+        token:
+          type: string
+          description: token of device.
+        title:
+          type: string
+          description: title for the notification.
+        message:
+          type: string
+          description: notification messages.

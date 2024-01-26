@@ -18,12 +18,6 @@ func (db *DB) InsertPatient(patient *models.PatientCreateInput) (*models.Patient
 		ID:       result.InsertedID.(primitive.ObjectID),
 		Email:    patient.Email,
 		Password: patient.Password,
-		Name:     patient.Name,
-		LastName: patient.LastName,
-		Age:      patient.Age,
-		Height:   patient.Height,
-		Weight:   patient.Weight,
-		Sex:      patient.Sex,
 	}
 	return &entity, err
 }
@@ -89,9 +83,7 @@ func (db *DB) UpdatePatient(patient *models.PatientUpdateInput) (*models.Patient
 	}
 
 	copier.CopyWithOption(replacement, patient, copier.Option{IgnoreEmpty: true})
-
 	_, err = db.client.Database(os.Getenv("DATABASE_NAME")).Collection("Patient").ReplaceOne(ctx, filter, replacement)
-
 	return replacement, err
 }
 

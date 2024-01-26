@@ -24,16 +24,12 @@ func (u *doctorResolver) Password() string {
 	return u.p.Password
 }
 
-func (u *doctorResolver) Name() string {
-	return u.p.Name
+func (u *doctorResolver) RendezVousIDs() *[]*string {
+	return u.p.RendezVousIDs
 }
 
-func (u *doctorResolver) LastName() string {
-	return u.p.LastName
-}
-
-func (u *doctorResolver) Address() string {
-	return u.p.Address
+func (r *doctorResolver) PatientIds() *[]*string {
+	return r.p.PatientIds
 }
 
 func resolverFromDoctor(p *models.Doctor) doctorResolver {

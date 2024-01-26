@@ -1,3 +1,6 @@
 mangum
 fastapi
 unidecode
+requests
+python-dotenv
+spacy
