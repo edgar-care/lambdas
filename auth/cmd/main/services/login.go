@@ -1,6 +1,8 @@
 package services
 
 import (
+	"errors"
+
 	"github.com/edgar-care/auth/cmd/main/lib"
 )
 
@@ -29,7 +31,7 @@ func Login(input LoginInput, t string) (string, error) {
 	if !(t == "d" && lib.CheckPassword(input.Password, doctor.(Doctor).Password)) &&
 		!(t == "a" && lib.CheckPassword(input.Password, admin.(Admin).Password)) &&
 		!(t == "p" && lib.CheckPassword(input.Password, patient.(Patient).Password)) {
-		return "Username and password mismatch.", err
+		return "Username and password mismatch.", errors.New("username and password mismatch")
 	}
 
 	if t == "d" {
