@@ -23,6 +23,7 @@ func Login(w http.ResponseWriter, req *http.Request) {
 		lib.WriteResponse(w, map[string]string{
 			"message": resp,
 		}, http.StatusBadRequest)
+		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
