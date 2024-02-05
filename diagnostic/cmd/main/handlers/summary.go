@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"github.com/go-chi/chi/v5"
 	"net/http"
 	"strings"
+
+	"github.com/go-chi/chi/v5"
 
 	"github.com/edgar-care/diagnostic/cmd/main/services"
 	edgarhttp "github.com/edgar-care/edgarlib/http"
