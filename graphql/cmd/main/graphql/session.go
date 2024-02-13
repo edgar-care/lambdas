@@ -6,6 +6,24 @@ import (
 	"github.com/graph-gophers/graphql-go"
 )
 
+// SessionSymptom  ----------------------------------------------------------------------------------------------------
+type sessionSymptomResolver struct {
+	p models.SessionSymptom
+}
+
+func (u *sessionSymptomResolver) Name() string {
+	return u.p.Name
+}
+
+func (u *sessionSymptomResolver) Presence() *bool {
+	return u.p.Presence
+}
+
+func (u *sessionSymptomResolver) Duration() *int32 {
+	return u.p.Duration
+}
+
+// Logs  --------------------------------------------------------------------------------------------------------------
 type logsResolver struct {
 	p models.Logs
 }
@@ -18,6 +36,7 @@ func (u *logsResolver) Answer() string {
 	return u.p.Answer
 }
 
+// Session  -----------------------------------------------------------------------------------------------------------
 type sessionResolver struct {
 	p *models.Session
 }
@@ -26,8 +45,16 @@ func (u *sessionResolver) ID() graphql.ID {
 	return graphql.ID(u.p.ID.Hex())
 }
 
-func (u *sessionResolver) Symptoms() []string {
-	return u.p.Symptoms
+func (u *sessionResolver) Symptoms() []*sessionSymptomResolver {
+	var SessionSymptomResolver []*sessionSymptomResolver
+	if u.p.Symptoms == nil {
+		return nil
+	}
+	for _, symptoms := range u.p.Symptoms {
+		tmp := sessionSymptomResolver{p: symptoms}
+		SessionSymptomResolver = append(SessionSymptomResolver, &tmp)
+	}
+	return SessionSymptomResolver
 }
 
 func (u *sessionResolver) Age() int32 {
