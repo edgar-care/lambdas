@@ -7,7 +7,25 @@ import (
 	"os"
 )
 
-/********** Types ***********/
+/********** Sub-Structures ***********/
+
+type SessionSymptom struct {
+	Name     string `json:"name"`
+	Presence *bool  `json:"presence"`
+	Duration *int32 `json:"duration"`
+}
+
+type SessionSymptomInput struct {
+	Name     string `json:"name"`
+	Presence *bool  `json:"presence"`
+	Duration *int32 `json:"duration"`
+}
+
+type SessionSymptomOutput struct {
+	Name     string `json:"name"`
+	Presence *bool  `json:"presence"`
+	Duration *int32 `json:"duration"`
+}
 
 type Logs struct {
 	Question string `json:"question"`
@@ -24,39 +42,41 @@ type LogsOutput struct {
 	Answer   string `json:"answer"`
 }
 
+/********** Types ***********/
+
 type Session struct {
-	Id           string   `json:"id"`
-	Symptoms     []string `json:"symptoms"`
-	Age          int      `json:"age"`
-	Height       int      `json:"height"`
-	Weight       int      `json:"weight"`
-	Sex          string   `json:"sex"`
-	LastQuestion string   `json:"last_question"`
-	Logs         []Logs   `json:"logs"`
-	Alerts       []string `json:"alerts"`
+	Id           string           `json:"id"`
+	Symptoms     []SessionSymptom `json:"symptoms"`
+	Age          int32            `json:"age"`
+	Height       int32            `json:"height"`
+	Weight       int32            `json:"weight"`
+	Sex          string           `json:"sex"`
+	LastQuestion string           `json:"last_question"`
+	Logs         []Logs           `json:"logs"`
+	Alerts       []string         `json:"alerts"`
 }
 
 type SessionOutput struct {
-	Id           string    `json:"id"`
-	Symptoms     *[]string `json:"symptoms"`
-	Age          *int      `json:"age"`
-	Height       *int      `json:"height"`
-	Weight       *int      `json:"weight"`
-	Sex          *string   `json:"sex"`
-	LastQuestion *string   `json:"last_question"`
-	Logs         *[]Logs   `json:"logs"`
-	Alerts       *[]string `json:"alerts"`
+	Id           string            `json:"id"`
+	Symptoms     *[]SessionSymptom `json:"symptoms"`
+	Age          *int32            `json:"age"`
+	Height       *int32            `json:"height"`
+	Weight       *int32            `json:"weight"`
+	Sex          *string           `json:"sex"`
+	LastQuestion *string           `json:"last_question"`
+	Logs         *[]Logs           `json:"logs"`
+	Alerts       *[]string         `json:"alerts"`
 }
 
 type SessionInput struct {
-	Symptoms     []string `json:"symptoms"`
-	Age          int      `json:"age"`
-	Height       int      `json:"height"`
-	Weight       int      `json:"weight"`
-	Sex          string   `json:"sex"`
-	LastQuestion string   `json:"last_question,omitempty"`
-	Logs         []Logs   `json:"logs"`
-	Alerts       []string `json:"alerts"`
+	Symptoms     []SessionSymptom `json:"symptoms"`
+	Age          int32            `json:"age"`
+	Height       int32            `json:"height"`
+	Weight       int32            `json:"weight"`
+	Sex          string           `json:"sex"`
+	LastQuestion string           `json:"last_question"`
+	Logs         []Logs           `json:"logs"`
+	Alerts       []string         `json:"alerts"`
 }
 
 /**************** GraphQL types *****************/
@@ -78,22 +98,26 @@ type updateSessionResponse struct {
 func CreateSession(newSession SessionInput) (Session, error) {
 	var session createSessionResponse
 	var resp Session
-	query := `mutation createSession($symptoms: [String!]!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!, $last_question: String!, $logs: [LogsInput!]!, $alerts: [String!]!) {
-            createSession(symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question, logs: $logs, alerts: $alerts) {
-                    id,
-					symptoms,
-					age,
-					height,
-					weight,
-					sex,
-					last_question,
+	query := `mutation createSession($symptoms: [SessionSymptomInput!]!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!, $last_question: String!, $logs: [LogsInput!]!, $alerts: [String!]!) {
+				createSession(symptoms: $symptoms, age: $age, height: $height, weight: $weight, sex: $sex, last_question: $last_question, logs: $logs, alerts: $alerts) {
+					id
+					symptoms {
+						name
+						presence
+						duration
+					}
+					age
+					height
+					weight
+					sex
+					last_question
 					logs {
-						question,
+						question
 						answer
-					},
+					}
 					alerts
-                }
-            }`
+				}
+			}`
 	err := Query(query, map[string]interface{}{
 		"symptoms":      newSession.Symptoms,
 		"age":           newSession.Age,
@@ -111,22 +135,26 @@ func CreateSession(newSession SessionInput) (Session, error) {
 func GetSessionById(id string) (Session, error) {
 	var session getSessionByIdResponse
 	var resp Session
-	query := `query getSessionById($id: String!) {
-                getSessionById(id: $id) {
-                    id,
-					symptoms,
-					age,
-					height,
-					weight,
-					sex,
-					last_question,
+	query := `query	getSessionById($id: String!) {
+				getSessionById(id: $id) {
+					id
+					symptoms {
+						name
+						presence
+						duration
+					}
+					age
+					height
+					weight
+					sex
+					last_question
 					logs {
-						question,
+						question
 						answer
-					},
+					}
 					alerts
-                }
-            }`
+				}
+			}`
 
 	err := Query(query, map[string]interface{}{
 		"id": id,
@@ -138,22 +166,26 @@ func GetSessionById(id string) (Session, error) {
 func UpdateSession(newSession Session) (Session, error) {
 	var session updateSessionResponse
 	var resp Session
-	query := `mutation updateSession($id: String!, $symptoms: [String!], $age: Int, $height: Int, $weight: Int, $sex: String, $last_question: String, $logs: [LogsInput!], $alerts: [String!]) {
-                updateSession(id: $id, symptoms:$symptoms, age:$age, height:$height, weight:$weight, sex:$sex, last_question:$last_question, logs: $logs, alerts: $alerts) {
-                    id,
-					symptoms,
-					age,
-					height,
-					weight,
-					sex,
-					last_question,
+	query := `mutation createSession($symptoms: [SessionSymptomInput!]!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!, $last_question: String!, $logs: [LogsInput!]!, $alerts: [String!]!) {
+				createSession(symptoms: $symptoms, age: $age, height: $height, weight: $weight, sex: $sex, last_question: $last_question, logs: $logs, alerts: $alerts) {
+					id
+					symptoms {
+						name
+						presence
+						duration
+					}
+					age
+					height
+					weight
+					sex
+					last_question
 					logs {
-						question,
+						question
 						answer
-					},
+					}
 					alerts
-                }
-            }`
+				}
+			}`
 
 	err := Query(query, map[string]interface{}{
 		"id":            newSession.Id,

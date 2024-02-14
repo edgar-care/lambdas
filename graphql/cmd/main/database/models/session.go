@@ -17,7 +17,7 @@ type Logs struct {
 
 type Session struct {
 	ID           primitive.ObjectID `bson:"_id"`
-	Symptoms     []SessionSymptom   `bson:"n_symptomssymptoms,omitempty"`
+	Symptoms     []SessionSymptom   `bson:"symptoms,omitempty"`
 	Age          int32              `bson:"age,omitempty"`
 	Height       int32              `bson:"height,omitempty"`
 	Weight       int32              `bson:"weight,omitempty"`
@@ -28,7 +28,7 @@ type Session struct {
 }
 
 type SessionCreateInput struct {
-	Symptoms     []SessionSymptom `bson:"n_symptomssymptoms,omitempty"`
+	Symptoms     []SessionSymptom `bson:"symptoms,omitempty"`
 	Age          int32            `bson:"age,omitempty"`
 	Height       int32            `bson:"height,omitempty"`
 	Weight       int32            `bson:"weight,omitempty"`
@@ -40,7 +40,7 @@ type SessionCreateInput struct {
 
 type SessionUpdateInput struct {
 	ID           string            `bson:"_id"`
-	Symptoms     *[]SessionSymptom `bson:"n_symptomssymptoms,omitempty"`
+	Symptoms     *[]SessionSymptom `bson:"symptoms,omitempty"`
 	Age          *int32            `bson:"age,omitempty"`
 	Height       *int32            `bson:"height,omitempty"`
 	Weight       *int32            `bson:"weight,omitempty"`

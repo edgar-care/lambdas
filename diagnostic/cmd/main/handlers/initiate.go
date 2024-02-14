@@ -13,7 +13,7 @@ func Initiate(w http.ResponseWriter, req *http.Request) {
 	//err := json.NewDecoder(req.Body).Decode(&input)
 	// QUICK FIX
 	// TODO: Fix the model
-	input.Symptoms = []string{}
+	input.Symptoms = []services.SessionSymptom{}
 	input.Age = 0
 	input.Height = 0
 	input.Weight = 0
