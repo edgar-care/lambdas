@@ -22,16 +22,20 @@ func (u *antediseaseResolver) Chronicity() float64 {
 	return u.p.Chronicity
 }
 
-func (u *antediseaseResolver) Chir() *string {
-	return u.p.Chir
-}
-
-func (u *antediseaseResolver) Treatment() *[]string {
-	return u.p.Treatment
+func (u *antediseaseResolver) SurgeryIds() *[]string {
+	return u.p.SurgeryIds
 }
 
 func (u *antediseaseResolver) Symptoms() *[]string {
 	return u.p.Symptoms
+}
+
+func (u *antediseaseResolver) TreatmentIds() *[]string {
+	return u.p.TreatmentIds
+}
+
+func (u *antediseaseResolver) StillRelevant() bool {
+	return u.p.StillRelevant
 }
 
 func resolverFromAnteDisease(p *models.AnteDisease) antediseaseResolver {
