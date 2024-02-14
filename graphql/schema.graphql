@@ -197,9 +197,10 @@ type AnteDisease {
     id: ID!
     name: String!
     chronicity: Float!
-    chir: String
-    treatment: [String!]
+    surgery_ids: [String!]
     symptoms: [String!]
+    treatment_ids: [String!]
+    still_relevant: Boolean!
 }
 
 # AnteFamily entity
@@ -507,10 +508,10 @@ type Mutation {
     deleteAnteChir(id: String!): Boolean
 
     # Create a new antedisease.
-    createAnteDisease(name: String!, chronicity: Float!, chir: String, treatment: [String!], symptoms: [String!]): AnteDisease
+    createAnteDisease(name: String!, chronicity: Float!, surgery_ids: [String!], symptoms: [String!], treatment_ids: [String!], still_relevant: Boolean!): AnteDisease
 
     # Update a new antedisease.
-    updateAnteDisease(id: String!, name: String, chronicity: Float, chir: String, treatment: [String!], symptoms: [String!]): AnteDisease
+    updateAnteDisease(id: String!, name: String!, chronicity: Float!, surgery_ids: [String!], symptoms: [String!], treatment_ids: [String!], still_relevant: Boolean!): AnteDisease
 
     # Delete a antedisease.
     deleteAnteDisease(id: String!): Boolean
