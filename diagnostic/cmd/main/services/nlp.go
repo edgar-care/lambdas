@@ -37,11 +37,11 @@ func CallNlp(sentence string, symptoms []string) nlpResponseBody {
 	edgarlib.CheckError(err)
 
 	fmt.Println(respBody.Context[0].Name)
-	if *respBody.Context[0].Present == false {
-		fmt.Println("yes")
-	} else {
-		fmt.Println("no")
-	}
+	//if *respBody.Context[0].Present == false {
+	//	fmt.Println("yes")
+	//} else {
+	//	fmt.Println("no")
+	//}
 	return respBody
 }
 
