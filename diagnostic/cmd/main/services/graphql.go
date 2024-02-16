@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
 	"github.com/jinzhu/copier"
 	"github.com/machinebox/graphql"
 	"os"
@@ -134,7 +133,6 @@ func CreateSession(newSession SessionInput) (Session, error) {
 }
 
 func GetSessionById(id string) (Session, error) {
-	fmt.Println(id)
 	var session getSessionByIdResponse
 	var resp Session
 	query := `query	getSessionById($id: String!) {
@@ -162,15 +160,14 @@ func GetSessionById(id string) (Session, error) {
 		"id": id,
 	}, &session)
 	_ = copier.Copy(&resp, &session.Content)
-	fmt.Println(resp.Id)
 	return resp, err
 }
 
 func UpdateSession(newSession Session) (Session, error) {
 	var session updateSessionResponse
 	var resp Session
-	query := `mutation createSession($symptoms: [SessionSymptomInput!]!, $age: Int!, $height: Int!, $weight: Int!, $sex: String!, $last_question: String!, $logs: [LogsInput!]!, $alerts: [String!]!) {
-				createSession(symptoms: $symptoms, age: $age, height: $height, weight: $weight, sex: $sex, last_question: $last_question, logs: $logs, alerts: $alerts) {
+	query := `mutation updateSession($id: String!, $symptoms: [SessionSymptomInput!], $age: Int, $height: Int, $weight: Int, $sex: String, $last_question: String, $logs: [LogsInput!], $alerts: [String!]) {
+				updateSession(id: $id, symptoms: $symptoms, age: $age, height: $height, weight: $weight, sex: $sex, last_question: $last_question, logs: $logs, alerts: $alerts) {
 					id
 					symptoms {
 						name

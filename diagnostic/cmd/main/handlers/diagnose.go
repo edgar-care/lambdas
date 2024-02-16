@@ -44,9 +44,14 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 	}
 
 	newSymptoms := services.CallNlp(input.Sentence, questionSymptom)
+
 	for _, s := range newSymptoms.Context {
-		symptoms = append(symptoms, s)
+		var newSessionSymptom services.SessionSymptom
+		newSessionSymptom.Name = s.Name
+		newSessionSymptom.Presence = s.Present
+		symptoms = append(symptoms, newSessionSymptom)
 	}
+	fmt.Println(symptoms)
 
 	exam := services.CallExam(symptoms)
 	if len(exam.Alert) > 0 {
@@ -59,7 +64,6 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 	if len(exam.Symptoms) > 0 {
 		session.LastQuestion = exam.Symptoms[0]
 	}
-	fmt.Println(session.Id)
 	_, err = services.UpdateSession(session)
 	edgarlib.CheckError(err)
 

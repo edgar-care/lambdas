@@ -63,16 +63,16 @@ func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
 	diseases, _ := GetDiseases()
 	//symptoms := getPossibleSymptoms()
 	mapped := make([]diseaseCoverage, len(diseases))
-	fmt.Println(mapped)
 	for i, e := range diseases {
 		mapped[i] = calculCoverage(context, e)
 	}
-
+	fmt.Println(mapped)
 	if len(context) == 0 {
 		return "Pourriez-vous décrire vos symptomes ?", []string{}, false
 	}
 
 	sort.Sort(ByCoverage(mapped))
+	fmt.Println(mapped)
 
 	for _, disease := range mapped {
 		if disease.absent >= 40 {

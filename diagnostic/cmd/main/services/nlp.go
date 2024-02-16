@@ -3,6 +3,7 @@ package services
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -15,7 +16,7 @@ type nlpRequestBody struct {
 }
 
 type nlpResponseBody struct {
-	Context []SessionSymptom `json:"context"`
+	Context []Symptom `json:"context"`
 }
 
 func CallNlp(sentence string, symptoms []string) nlpResponseBody {
@@ -35,6 +36,12 @@ func CallNlp(sentence string, symptoms []string) nlpResponseBody {
 	err = json.NewDecoder(resp.Body).Decode(&respBody)
 	edgarlib.CheckError(err)
 
+	fmt.Println(respBody.Context[0].Name)
+	if *respBody.Context[0].Present == false {
+		fmt.Println("yes")
+	} else {
+		fmt.Println("no")
+	}
 	return respBody
 }
 
