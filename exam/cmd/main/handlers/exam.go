@@ -19,9 +19,9 @@ func Exam(w http.ResponseWriter, req *http.Request) {
 
 	question, possibleSymptoms, isDone := services.GuessQuestion(input.Context)
 	var alert []string
-	//if isDone == true {
-	alert = services.CheckAlerts(input.Context)
-	//}
+	if isDone == true {
+		alert = services.CheckAlerts(input.Context)
+	}
 
 	lib.WriteResponse(w, map[string]interface{}{
 		"context":  input.Context,

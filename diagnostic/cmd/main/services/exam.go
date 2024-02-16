@@ -10,18 +10,18 @@ import (
 )
 
 type examRequestBody struct {
-	Context []Symptom `json:"context"`
+	Context []SessionSymptom `json:"context"`
 }
 
 type examResponseBody struct {
-	Context  []Symptom `json:"context"`
-	Done     bool      `json:"done"`
-	Question string    `json:"question"`
-	Symptoms []string  `json:"symptoms"`
-	Alert    []string  `json:"alert"`
+	Context  []SessionSymptom `json:"context"`
+	Done     bool             `json:"done"`
+	Question string           `json:"question"`
+	Symptoms []string         `json:"symptoms"`
+	Alert    []string         `json:"alert"`
 }
 
-func CallExam(context []Symptom) examResponseBody {
+func CallExam(context []SessionSymptom) examResponseBody {
 	var rBody = examRequestBody{
 		Context: context,
 	}

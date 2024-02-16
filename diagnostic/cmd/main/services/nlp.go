@@ -15,7 +15,7 @@ type nlpRequestBody struct {
 }
 
 type nlpResponseBody struct {
-	Context []Symptom `json:"context"`
+	Context []SessionSymptom `json:"context"`
 }
 
 func CallNlp(sentence string, symptoms []string) nlpResponseBody {

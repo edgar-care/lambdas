@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -27,7 +28,8 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	symptoms := services.StringToSymptoms(session.Symptoms)
+	//symptoms := services.StringToSymptoms(session.Symptoms)
+	symptoms := session.Symptoms
 	questionSymptom := []string{session.LastQuestion}
 	if session.LastQuestion == "" {
 		questionSymptom = []string{}
@@ -52,10 +54,12 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 			session.Alerts = append(session.Alerts, alert)
 		}
 	}
-	session.Symptoms = services.SymptomsToString(exam.Context)
+	//session.Symptoms = services.SymptomsToString(exam.Context)
+	session.Symptoms = exam.Context
 	if len(exam.Symptoms) > 0 {
 		session.LastQuestion = exam.Symptoms[0]
 	}
+	fmt.Println(session.Id)
 	_, err = services.UpdateSession(session)
 	edgarlib.CheckError(err)
 

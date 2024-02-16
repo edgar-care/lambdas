@@ -14,9 +14,9 @@ func Initiate(w http.ResponseWriter, req *http.Request) {
 	// QUICK FIX
 	// TODO: Fix the model
 	input.Symptoms = []services.SessionSymptom{}
-	input.Age = 0
-	input.Height = 0
-	input.Weight = 0
+	input.Age = 25
+	input.Height = 180
+	input.Weight = 75
 	input.Sex = "M"
 	input.LastQuestion = ""
 	input.Logs = []services.Logs{}
