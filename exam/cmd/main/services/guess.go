@@ -1,14 +1,16 @@
 package services
 
 import (
-	"math/rand"
+	"fmt"
 	"sort"
 )
 
 type diseaseCoverage struct {
-	coverage int
-	present  int
-	absent   int
+	disease           string
+	coverage          int
+	present           int
+	absent            int
+	potentialQuestion string
 }
 
 type ByCoverage []diseaseCoverage
@@ -19,7 +21,7 @@ func (a ByCoverage) Less(i, j int) bool { return a[i].coverage > a[j].coverage }
 
 func findInContext(context []ExamContextItem, symptom string) *ExamContextItem {
 	for _, item := range context {
-		if item.Symptom == symptom {
+		if item.Name == symptom {
 			return &item
 		}
 	}
@@ -29,7 +31,7 @@ func findInContext(context []ExamContextItem, symptom string) *ExamContextItem {
 func isPresent(context []ExamContextItem, symptom string) *bool {
 	item := findInContext(context, symptom)
 	if item != nil {
-		return item.Present
+		return item.Presence
 	}
 	return nil
 }
@@ -38,6 +40,7 @@ func calculCoverage(context []ExamContextItem, disease Disease) diseaseCoverage 
 	var coverage int
 	var present int
 	var absent int
+	var potentialQuestionSymptom string
 	total := len(disease.Symptoms)
 
 	for _, symptom := range disease.Symptoms {
@@ -49,16 +52,18 @@ func calculCoverage(context []ExamContextItem, disease Disease) diseaseCoverage 
 			} else {
 				absent += 1
 			}
+		} else {
+			potentialQuestionSymptom = symptom
 		}
 	}
-	return diseaseCoverage{coverage: coverage * 100 / total, present: present * 100 / total, absent: absent * 100 / total}
+	return diseaseCoverage{disease: disease.Code, coverage: coverage * 100 / total, present: present * 100 / total, absent: absent * 100 / total, potentialQuestion: potentialQuestionSymptom}
 }
 
 func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
 	diseases, _ := GetDiseases()
-	symptoms := getPossibleSymptoms()
-	next := symptoms[rand.Intn(len(symptoms))]
+	//symptoms := getPossibleSymptoms()
 	mapped := make([]diseaseCoverage, len(diseases))
+	fmt.Println(mapped)
 	for i, e := range diseases {
 		mapped[i] = calculCoverage(context, e)
 	}
@@ -76,7 +81,7 @@ func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
 		if disease.present >= 70 {
 			return "", []string{}, true
 		}
-		return next, []string{next}, false
+		return disease.potentialQuestion, []string{disease.potentialQuestion}, false
 	}
 	return "", []string{}, true
 }

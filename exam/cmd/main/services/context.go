@@ -1,6 +1,7 @@
 package services
 
 type ExamContextItem struct {
-	Symptom string
-	Present *bool
+	Name     string
+	Presence *bool
+	Duration *int32
 }

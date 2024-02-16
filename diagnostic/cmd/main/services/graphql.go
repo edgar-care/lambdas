@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"fmt"
 	"github.com/jinzhu/copier"
 	"github.com/machinebox/graphql"
 	"os"
@@ -133,6 +134,7 @@ func CreateSession(newSession SessionInput) (Session, error) {
 }
 
 func GetSessionById(id string) (Session, error) {
+	fmt.Println(id)
 	var session getSessionByIdResponse
 	var resp Session
 	query := `query	getSessionById($id: String!) {
@@ -160,6 +162,7 @@ func GetSessionById(id string) (Session, error) {
 		"id": id,
 	}, &session)
 	_ = copier.Copy(&resp, &session.Content)
+	fmt.Println(resp.Id)
 	return resp, err
 }
 
