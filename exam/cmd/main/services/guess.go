@@ -86,7 +86,7 @@ func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
 	}
 
 	sort.Sort(ByCoverage(mapped))
-	//fmt.Println(mapped)
+	fmt.Println(mapped[0])
 
 	for _, disease := range mapped {
 		if disease.absent >= 40 {

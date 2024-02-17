@@ -31,6 +31,7 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 	//symptoms := services.StringToSymptoms(session.Symptoms)
 	symptoms := session.Symptoms
 	questionSymptom := []string{session.LastQuestion}
+
 	if session.LastQuestion == "" {
 		questionSymptom = []string{}
 
@@ -61,8 +62,20 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 	}
 	//session.Symptoms = services.SymptomsToString(exam.Context)
 	session.Symptoms = exam.Context
-	if len(exam.Symptoms) > 0 {
-		session.LastQuestion = exam.Symptoms[0]
+
+	// Wait for move to lib
+	//if len(session.AnteDiseases) > 0 {
+	//	anteSymptom := services.CheckAnteDiseaseInSymptoms(session)
+	//	if anteSymptom != "" {
+	//		exam.Question = anteSymptom
+	//	}
+	//}
+
+	session.LastQuestion = exam.Question
+
+	if len(exam.Symptoms) == 0 { // Attention si pas de retour question avant Done == true
+		session.LastQuestion = ""
+		exam.Question = ""
 	}
 	_, err = services.UpdateSession(session)
 	edgarlib.CheckError(err)
