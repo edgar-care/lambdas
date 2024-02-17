@@ -74,6 +74,9 @@ type Session {
     height: Int!
     weight: Int!
     sex: String!
+    ante_chirs: [String!]!
+    ante_diseases: [String!]!
+    treatments: [String!]!
 	last_question: String!
     logs: [Logs!]!
     alerts: [String!]!
@@ -417,10 +420,10 @@ type Mutation {
     deleteTestAccount(id: String!): Boolean
 
     # Create a new session.
-    createSession(symptoms: [SessionSymptomInput!]!, age: Int!, height: Int!, weight: Int!, sex: String!, last_question: String!, logs: [LogsInput!]!, alerts: [String!]!): Session
+    createSession(symptoms: [SessionSymptomInput!]!, age: Int!, height: Int!, weight: Int!, sex: String!, ante_chirs: [String!]!, ante_diseases: [String!]!, treatments: [String!]!, last_question: String!, logs: [LogsInput!]!, alerts: [String!]!): Session
 
     # Update a new session.
-    updateSession(id: String!, symptoms: [SessionSymptomInput!], age: Int, height: Int, weight: Int, sex: String, last_question: String, logs: [LogsInput!], alerts: [String!]): Session
+    updateSession(id: String!, symptoms: [SessionSymptomInput!], age: Int, height: Int, weight: Int, sex: String, ante_chirs: [String!], ante_diseases: [String!], treatments: [String!], last_question: String, logs: [LogsInput!], alerts: [String!]): Session
 
     # Delete a session.
     deleteSession(id: String!): Boolean

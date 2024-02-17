@@ -73,6 +73,18 @@ func (u *sessionResolver) Sex() string {
 	return u.p.Sex
 }
 
+func (u *sessionResolver) AnteChirs() []string {
+	return u.p.AnteChirs
+}
+
+func (u *sessionResolver) AnteDiseases() []string {
+	return u.p.AnteDiseases
+}
+
+func (u *sessionResolver) Treatments() []string {
+	return u.p.Treatments
+}
+
 func (u *sessionResolver) LastQuestion() string {
 	return u.p.LastQuestion
 }

@@ -22,6 +22,9 @@ type Session struct {
 	Height       int32              `bson:"height,omitempty"`
 	Weight       int32              `bson:"weight,omitempty"`
 	Sex          string             `bson:"sex,omitempty"`
+	AnteChirs    []string           `bson:"ante_chirs,omitempty"`
+	AnteDiseases []string           `bson:"ante_diseases,omitempty"`
+	Treatments   []string           `bson:"treatments,omitempty"`
 	LastQuestion string             `bson:"last_question,omitempty"`
 	Logs         []Logs             `bson:"logs,omitempty"`
 	Alerts       []string           `bson:"alerts,omitempty"`
@@ -33,6 +36,9 @@ type SessionCreateInput struct {
 	Height       int32            `bson:"height,omitempty"`
 	Weight       int32            `bson:"weight,omitempty"`
 	Sex          string           `bson:"sex,omitempty"`
+	AnteChirs    []string         `bson:"ante_chirs,omitempty"`
+	AnteDiseases []string         `bson:"ante_diseases,omitempty"`
+	Treatments   []string         `bson:"treatments,omitempty"`
 	LastQuestion string           `bson:"last_question,omitempty"`
 	Logs         []Logs           `bson:"logs,omitempty"`
 	Alerts       []string         `bson:"alerts,omitempty"`
@@ -45,6 +51,9 @@ type SessionUpdateInput struct {
 	Height       *int32            `bson:"height,omitempty"`
 	Weight       *int32            `bson:"weight,omitempty"`
 	Sex          *string           `bson:"sex,omitempty"`
+	AnteChirs    *[]string         `bson:"ante_chirs,omitempty"`
+	AnteDiseases *[]string         `bson:"ante_diseases,omitempty"`
+	Treatments   *[]string         `bson:"treatments,omitempty"`
 	LastQuestion *string           `bson:"last_question,omitempty"`
 	Logs         *[]Logs           `bson:"logs,omitempty"`
 	Alerts       *[]string         `bson:"alerts,omitempty"`
