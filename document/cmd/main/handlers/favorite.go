@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/document/cmd/main/lib"
-	"github.com/edgar-care/document/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/document"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -22,27 +22,31 @@ func HandleFavorite(w http.ResponseWriter, r *http.Request) {
 
 	IdDocument := chi.URLParam(r, "id")
 
-	document, err := services.GetDocument(IdDocument)
-	if err != nil {
-		http.Error(w, "Failed to create document: "+err.Error(), http.StatusInternalServerError)
+	document := edgarlib.GetDocument(IdDocument)
+	if document.Err != nil {
+		lib.WriteResponse(w, map[string]string{
+			"message": document.Err.Error(),
+		}, document.Code)
 		return
 	}
 
-	var input services.DocumentInput
-	err = json.NewDecoder(r.Body).Decode(&input)
+	var input edgarlib.CreateDocumentInput
+	err := json.NewDecoder(r.Body).Decode(&input)
 	lib.CheckError(err)
 
 	// Invert the value of IsFavorite
-	input.IsFavorite = !document.IsFavorite
+	input.IsFavorite = !document.Document.IsFavorite
 
-	_, err = services.UpdateFavoriteById(IdDocument, input.IsFavorite)
-	if err != nil {
-		http.Error(w, "Failed to update document: "+err.Error(), http.StatusInternalServerError)
+	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite)
+	if favorite.Err != nil {
+		lib.WriteResponse(w, map[string]string{
+			"message": favorite.Err.Error(),
+		}, favorite.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"update documents": input.IsFavorite,
+		"update documents": favorite,
 		"message":          "Document status favorite edited",
 	}, http.StatusCreated)
 }
@@ -60,27 +64,23 @@ func RemoveFavorite(w http.ResponseWriter, r *http.Request) {
 
 	IdDocument := chi.URLParam(r, "id")
 
-	// document, err := services.GetDocument(IdDocument)
-	// if err != nil {
-	// 	http.Error(w, "Failed to create document: "+err.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
-
-	var input services.DocumentInput
+	var input edgarlib.CreateDocumentInput
 	err := json.NewDecoder(r.Body).Decode(&input)
 	lib.CheckError(err)
 
 	// Invert the value of IsFavorite
 	input.IsFavorite = false
 
-	_, err = services.UpdateFavoriteById(IdDocument, input.IsFavorite)
-	if err != nil {
-		http.Error(w, "Failed to update document: "+err.Error(), http.StatusInternalServerError)
+	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite)
+	if favorite.Err != nil {
+		lib.WriteResponse(w, map[string]string{
+			"message": favorite.Err.Error(),
+		}, favorite.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"update documents": input.IsFavorite,
+		"update documents": favorite,
 		"message":          "Document status favorite deleted",
 	}, http.StatusCreated)
 }

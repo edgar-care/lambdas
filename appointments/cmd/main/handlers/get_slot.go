@@ -1,10 +1,11 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	"github.com/edgar-care/appointments/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/slot"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -17,26 +18,20 @@ func GetSlotId(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	t := chi.URLParam(req, "id")
+	id := chi.URLParam(req, "id")
 
-	slot, err := services.GetRdvById(t)
+	slot := edgarlib.GetSlotById(id, doctorID)
 
-	if err != nil {
+	if slot.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
-		return
-	}
-	if slot.DoctorID != doctorID {
-		lib.WriteResponse(w, map[string]string{
-			"message": "You can't access to this appointment",
-		}, 403)
+			"message": slot.Err.Error(),
+		}, slot.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"slot": slot,
-	}, 201)
+		"slot": slot.Slot,
+	}, 200)
 }
 
 func GetSlots(w http.ResponseWriter, req *http.Request) {
@@ -48,16 +43,17 @@ func GetSlots(w http.ResponseWriter, req *http.Request) {
 		}, 401)
 		return
 	}
-	slot, err := services.GetAllRdvDoctor(doctorID)
+	fmt.Print(doctorID)
+	slot := edgarlib.GetSlots(doctorID)
 
-	if err != nil {
+	if slot.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
+			"message": slot.Err.Error(),
+		}, slot.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"slot": slot,
-	}, 201)
+		"slot": slot.Slots,
+	}, 200)
 }

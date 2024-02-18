@@ -5,8 +5,14 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	"github.com/edgar-care/appointments/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/appointment"
 )
+
+type RdvInput struct {
+	IDPatient string `json:"id_patient"`
+	StartDate int    `json:"start_date"`
+	EndDate   int    `json:"end_date"`
+}
 
 func CreateRdv(w http.ResponseWriter, req *http.Request) {
 	doctorID := lib.AuthMiddlewareDoctor(w, req)
@@ -17,42 +23,21 @@ func CreateRdv(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var input services.RdvInput
+	var input RdvInput
 
 	err := json.NewDecoder(req.Body).Decode(&input)
 
 	lib.CheckError(err)
-	rdv, err := services.CreateRdv(input, doctorID)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Unable  (check if you share all information) " + err.Error(),
-		}, 400)
-		return
-	}
-	var updatedDoctor services.DoctorInput
-	doctor, err := services.GetDoctorById(doctorID)
-	lib.CheckError(err)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Id not correspond to a doctor",
-		}, 400)
-		return
-	}
+	rdv := edgarlib.CreateRdv(input.IDPatient, doctorID, input.StartDate, input.EndDate)
 
-	updatedDoctor = services.DoctorInput{
-		Id:            doctorID,
-		RendezVousIDs: append(doctor.RendezVousIDs, rdv.Id),
-	}
-	updatDoctor, err := services.UpdateDoctor(updatedDoctor)
-	if err != nil {
+	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Update Failed " + err.Error(),
-		}, 500)
+			"message": rdv.Err.Error(),
+		}, rdv.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"rdv":    rdv,
-		"doctor": updatDoctor,
+		"rdv": rdv.Rdv,
 	}, 201)
 }

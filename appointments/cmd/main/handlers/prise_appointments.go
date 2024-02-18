@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	"github.com/edgar-care/appointments/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/appointment"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -27,59 +27,17 @@ func BookRdv(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	appointment, err := services.GetRdvById(id_appointment)
+	appointment := edgarlib.BookAppointment(id_appointment, patientID)
 
-	lib.CheckError(err)
-	if err != nil {
+	if appointment.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Id not correspond to an appointment",
-		}, 400)
-		return
-	}
-
-	if appointment.IdPatient != "" {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Is already book",
-		}, 400)
-		return
-	}
-
-	rdv, err := services.UpdateRdv(patientID, id_appointment, nil)
-
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
-		return
-	}
-
-	var updatePatient services.PatientInput
-
-	patient, err := services.GetPatientById(patientID)
-	lib.CheckError(err)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Id not correspond to a patient",
-		}, 400)
-		return
-	}
-
-	updatePatient = services.PatientInput{
-		Id:            patientID,
-		RendezVousIDs: append(patient.RendezVousIDs, id_appointment),
-	}
-
-	updatedPatient, err := services.UpdatePatient(updatePatient)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Update Failed " + err.Error(),
-		}, 500)
+			"message": appointment.Err.Error(),
+		}, appointment.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"rdv":     rdv,
-		"patient": updatedPatient,
+		"rdv": appointment,
 	}, 201)
 }
 
@@ -94,19 +52,12 @@ func GetRdvPatient(w http.ResponseWriter, req *http.Request) {
 
 	t := chi.URLParam(req, "id")
 
-	rdv, err := services.GetRdvById(t)
+	rdv := edgarlib.GetRdvPatient(t, patientID)
 
-	if err != nil {
+	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
-		return
-	}
-
-	if rdv.IdPatient != patientID {
-		lib.WriteResponse(w, map[string]string{
-			"message": "You can't access to this appointment",
-		}, 403)
+			"message": rdv.Err.Error(),
+		}, rdv.Code)
 		return
 	}
 
@@ -124,16 +75,16 @@ func GetRdv(w http.ResponseWriter, req *http.Request) {
 		}, 401)
 		return
 	}
-	rdv, err := services.GetAllRdv(patientID)
+	rdv := edgarlib.GetRdv(patientID)
 
-	if err != nil {
+	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
+			"message": rdv.Err.Error(),
+		}, rdv.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"rdv": rdv,
+		"rdv": rdv.Rdv,
 	}, 201)
 }

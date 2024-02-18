@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	"github.com/edgar-care/appointments/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/slot"
 )
 
 func CreateSlot(w http.ResponseWriter, req *http.Request) {
@@ -17,42 +17,20 @@ func CreateSlot(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var input services.RdvInput
+	var input edgarlib.CreateSlotInput
 
 	err := json.NewDecoder(req.Body).Decode(&input)
 
 	lib.CheckError(err)
-	rdv, err := services.CreateRdv(input, doctorID)
-	if err != nil {
+	slot := edgarlib.CreateSlot(input, doctorID)
+	if slot.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Unable  (check if you share all information) " + err.Error(),
-		}, 400)
-		return
-	}
-	var updatedDoctor services.DoctorInput
-	doctor, err := services.GetDoctorById(doctorID)
-	lib.CheckError(err)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Id not correspond to a doctor",
-		}, 400)
-		return
-	}
-
-	updatedDoctor = services.DoctorInput{
-		Id:            doctorID,
-		RendezVousIDs: append(doctor.RendezVousIDs, rdv.Id),
-	}
-	updatDoctor, err := services.UpdateDoctor(updatedDoctor)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Update Failed " + err.Error(),
-		}, 500)
+			"message": slot.Err.Error(),
+		}, slot.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"rdv":    rdv,
-		"doctor": updatDoctor,
+		"rdv": slot.Rdv,
 	}, 201)
 }

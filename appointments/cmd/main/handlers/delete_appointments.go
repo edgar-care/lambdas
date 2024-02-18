@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	"github.com/edgar-care/appointments/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/appointment"
 )
 
 func DeleteRdv(w http.ResponseWriter, req *http.Request) {
@@ -19,50 +19,16 @@ func DeleteRdv(w http.ResponseWriter, req *http.Request) {
 	}
 
 	id_appointment := chi.URLParam(req, "id")
-	_, err := services.UpdateRdv("", id_appointment, nil)
+	updateRdv := edgarlib.DeleteRdv(id_appointment, patientID)
 
-	if err != nil {
+	if updateRdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
-		return
-	}
-
-	var updatePatient services.PatientInput
-
-	patient, err := services.GetPatientById(patientID)
-	lib.CheckError(err)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Id not correspond to a patient",
-		}, 400)
-		return
-	}
-
-	updatePatient = services.PatientInput{
-		Id:            patientID,
-		RendezVousIDs: removeElement(patient.RendezVousIDs, id_appointment),
-	}
-
-	updatedPatient, err := services.UpdatePatient(updatePatient)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Update Failed " + err.Error(),
-		}, 500)
+			"message": updateRdv.Err.Error(),
+		}, updateRdv.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"updated_patient": updatedPatient,
+		"updated_patient": updateRdv.UpdatedPatient,
 	}, 201)
-}
-
-func removeElement(slice []string, element string) []string {
-	var result []string
-	for _, v := range slice {
-		if v != element {
-			result = append(result, v)
-		}
-	}
-	return result
 }

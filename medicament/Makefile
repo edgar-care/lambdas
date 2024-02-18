@@ -1,5 +1,5 @@
 AWS_REGION 					:= eu-west-3
-AWS_LAMBDA_FUNCTION_NAME	:= slot
+AWS_LAMBDA_FUNCTION_NAME	:= medicament
 AWS_CLI_PROFILE				:= edgar.care
 BINARY_NAME					:= bootstrap
 BUILD_DIR					:= builds
