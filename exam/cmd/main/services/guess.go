@@ -61,16 +61,14 @@ func calculCoverage(context []ExamContextItem, disease Disease) diseaseCoverage 
 
 func getTheQuestion(symptomName string) string {
 	//	var symptoms []Symptom
-	fmt.Println("hey")
 	symptoms, _ := GetSymptoms()
 	fmt.Println(symptoms)
 	for _, symptom := range symptoms {
 		if symptomName == symptom.Name {
-			fmt.Println(symptom.Question)
 			return symptom.Question
 		}
 	}
-	return symptomName
+	return "Est-ce que vous avez ce symptôme: " + symptomName + " ?"
 }
 
 func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
@@ -80,13 +78,12 @@ func GuessQuestion(context []ExamContextItem) (string, []string, bool) {
 	for i, e := range diseases {
 		mapped[i] = calculCoverage(context, e)
 	}
-	//fmt.Println(mapped)
 	if len(context) == 0 {
 		return "Pourriez-vous décrire vos symptomes ?", []string{}, false
 	}
 
 	sort.Sort(ByCoverage(mapped))
-	//fmt.Println(mapped)
+	fmt.Println(mapped[0])
 
 	for _, disease := range mapped {
 		if disease.absent >= 40 {
