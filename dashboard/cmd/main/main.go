@@ -28,6 +28,11 @@ func main() {
 				router.Get("/doctor/patients", handlers.GetPatients)
 				router.Post("/doctor/patient", handlers.CreatePatient)
 				router.Delete("/doctor/patient/{id}", handlers.DeletePatientHandler)
+
+				router.Get("/{env}/doctor/patient/{id}", handlers.GetPatientId)
+				router.Get("/{env}/doctor/patients", handlers.GetPatients)
+				router.Post("/{env}/doctor/patient", handlers.CreatePatient)
+				router.Delete("/{env}/doctor/patient/{id}", handlers.DeletePatientHandler)
 			})
 		},
 		Features: map[string]bool{

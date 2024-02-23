@@ -10,3 +10,7 @@ load_dotenv()
 @app.post("/nlp")
 async def predictions(req: Req):
     return process(req)
+
+@app.post("/{env}/nlp")
+async def predictions(req: Req):
+    return process(req)

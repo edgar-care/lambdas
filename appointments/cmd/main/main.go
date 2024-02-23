@@ -41,6 +41,25 @@ func main() {
 				router.Post("/doctor/slot", handlers.CreateSlot)
 				router.Delete("/doctor/slot/{id}", handlers.DeleteSlot)
 				router.Get("/doctor/slots", handlers.GetSlots)
+
+				// APPOINTMENT
+				router.Get("/{env}/doctor/{id}/appointments", handlers.GetRdvDoctor)
+				router.Get("/{env}/patient/appointments", handlers.GetRdv)
+				router.Post("/{env}/appointments/{id}", handlers.BookRdv)
+				router.Get("/{env}/patient/appointments/{id}", handlers.GetRdvPatient)
+				router.Delete("/{env}/appointments/{id}", handlers.DeleteRdv)
+				router.Put("/{env}/appointments/{id}", handlers.ModifRdv)
+				router.Get("/{env}/doctor/appointments/{id}", handlers.GetDoctorAppointment)
+				router.Get("/{env}/doctor/appointments", handlers.GetAllDoctorAppointments)
+				router.Put("/{env}/doctor/appointments/{id}", handlers.UpdateDoctorAppointment)
+				router.Post("/{env}/doctor/appointments", handlers.CreateRdv)
+				router.Delete("/{env}/doctor/appointments/{id}", handlers.CancelRdv)
+
+				// SLOT
+				router.Get("/{env}/doctor/slot/{id}", handlers.GetSlotId)
+				router.Post("/{env}/doctor/slot", handlers.CreateSlot)
+				router.Delete("/{env}/doctor/slot/{id}", handlers.DeleteSlot)
+				router.Get("/{env}/doctor/slots", handlers.GetSlots)
 			})
 		},
 		Features: map[string]bool{

@@ -27,6 +27,9 @@ build:
 deploy:
 	@make -C $(t) deploy
 
+deploy-stage:
+	@make -C $(t) deploy-stage stage=$(stage)
+
 install:
 	@make -C $(t) install
 

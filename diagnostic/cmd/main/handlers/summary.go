@@ -1,33 +1,31 @@
 package handlers
 
 import (
-	"net/http"
-	"strings"
-
 	"github.com/go-chi/chi/v5"
+	"net/http"
 
-	"github.com/edgar-care/diagnostic/cmd/main/services"
+	edgar_diag "github.com/edgar-care/edgarlib/diagnostic"
 	edgarhttp "github.com/edgar-care/edgarlib/http"
 )
 
 func GetSummary(w http.ResponseWriter, req *http.Request) {
 	id := chi.URLParam(req, "id")
 
-	session, err := services.GetSessionById(id)
-	if err != nil {
+	resp := edgar_diag.GetSummary(id)
+	if resp.Err != nil {
 		edgarhttp.WriteResponse(w, map[string]string{
-			"message": "Unable to get session: " + strings.ToLower(err.Error()[9:]),
-		}, 400)
+			"message": resp.Err.Error(),
+		}, resp.Code)
 		return
 	}
 
 	edgarhttp.WriteResponse(w, map[string]interface{}{
-		"sessionId": session.Id,
-		"symptoms":  services.StringToSymptoms(session.Symptoms),
-		"age":       session.Age,
-		"height":    session.Height,
-		"weight":    session.Weight,
-		"sex":       session.Sex,
-		"logs":      session.Logs,
+		"sessionId": resp.SessionId,
+		"symptoms":  resp.Symptoms,
+		"age":       resp.Age,
+		"height":    resp.Height,
+		"weight":    resp.Weight,
+		"sex":       resp.Sex,
+		"logs":      resp.Logs,
 	}, 200)
 }

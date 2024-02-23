@@ -5,45 +5,42 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/auth/cmd/main/lib"
-	"github.com/edgar-care/auth/cmd/main/services"
-	edgarlib "github.com/edgar-care/edgarlib/auth"
+	edgar_auth "github.com/edgar-care/edgarlib/auth"
 	"github.com/go-chi/chi/v5"
 )
 
 func Register(w http.ResponseWriter, req *http.Request) {
 	t := chi.URLParam(req, "type")
 
-	var token string
-	var code int
-	var err error
+	var resp edgar_auth.RegisterAndLoginResponse
 
 	if t == "d" {
-		var input edgarlib.DoctorInput
-		err = json.NewDecoder(req.Body).Decode(&input)
+		var input edgar_auth.DoctorInput
+		err := json.NewDecoder(req.Body).Decode(&input)
 		lib.CheckError(err)
 
-		token, code, err = services.RegisterAndLoginDoctor(input)
+		resp = edgar_auth.RegisterAndLoginDoctor(input.Email, input.Password, input.Name, input.Firstname, input.Address)
 	} else if t == "a" {
-		var input services.AdminInput
-		err = json.NewDecoder(req.Body).Decode(&input)
+		var input edgar_auth.AdminInput
+		err := json.NewDecoder(req.Body).Decode(&input)
 		lib.CheckError(err)
 
-		token, code, err = services.RegisterAndLoginAdmin(input)
+		resp = edgar_auth.RegisterAndLoginAdmin(input.Email, input.Password, input.Name, input.LastName, input.Token)
 	} else {
-		var input services.PatientInput
+		var input edgar_auth.PatientInput
 
-		err = json.NewDecoder(req.Body).Decode(&input)
+		err := json.NewDecoder(req.Body).Decode(&input)
 		lib.CheckError(err)
 
-		token, code, err = services.RegisterAndLoginPatient(input)
+		resp = edgar_auth.RegisterAndLoginPatient(input.Email, input.Password)
 	}
-	if err != nil {
+	if resp.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": err.Error(),
-		}, code)
+			"message": resp.Err.Error(),
+		}, resp.Code)
 		return
 	}
 	lib.WriteResponse(w, map[string]string{
-		"token": token,
-	}, code)
+		"token": resp.Token,
+	}, resp.Code)
 }

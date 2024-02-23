@@ -1,10 +1,10 @@
 package main
 
 import (
-	"time"
 	"context"
-	"net/http"
 	"fmt"
+	"net/http"
+	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/ohoareau/gola"
@@ -24,6 +24,7 @@ func main() {
 	gola.Main(common.Options{
 		Apigw2Configurator: func(r *common.HttpRouter) {
 			r.Post("/push-notif", timeoutHandler(handlers.Notification, 10*time.Second))
+			r.Post("/{env}/push-notif", timeoutHandler(handlers.Notification, 10*time.Second))
 		},
 		Features: map[string]bool{
 			"logger":    true,

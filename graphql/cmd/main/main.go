@@ -75,6 +75,10 @@ func Handler(ctx context.Context, req events.APIGatewayV2HTTPRequest) (events.AP
 		r := gin.Default()
 		r.GET("/graphql/playground", playgroundHandler())
 		r.POST("/graphql/query", graphqlHandler())
+		r.POST("/dev/graphql/query", graphqlHandler())
+		r.POST("/demo/graphql/query", graphqlHandler())
+		r.GET("/dev/graphql/playground", playgroundHandler())
+		r.GET("/demo/graphql/playground", playgroundHandler())
 
 		ginLambda = ginadapter.NewV2(r)
 	}
