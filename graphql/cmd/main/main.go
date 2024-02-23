@@ -2,89 +2,88 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
+	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
+	ginadapter "github.com/awslabs/aws-lambda-go-api-proxy/gin"
+	"github.com/davecgh/go-spew/spew"
+	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
 	"os"
+	"time"
 
-	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/edgar-care/graphql/cmd/main/database"
-	edGraphql "github.com/edgar-care/graphql/cmd/main/graphql"
-	"github.com/edgar-care/graphql/cmd/main/lib"
-
-	"github.com/graph-gophers/graphql-go"
-	"github.com/graph-gophers/graphql-go/relay"
+	"github.com/99designs/gqlgen/graphql/handler"
+	edgar_gql "github.com/edgar-care/edgarlib/graphql/server"
 	"github.com/joho/godotenv"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var schema *graphql.Schema
+var ginLambda *ginadapter.GinLambdaV2
 
-var (
-	ErrQueryNameNotProvided = errors.New("no query was provided in the HTTP body")
-)
-
-func Handler(context context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	log.Printf("Processing Lambda request %s\n", request.RequestContext.RequestID)
-
-	if request.Headers[os.Getenv("API_KEY")] != os.Getenv("API_KEY_VALUE") {
-		return events.APIGatewayProxyResponse{
-			Body:       "Unauthorized",
-			StatusCode: 401,
-		}, nil
-	}
-
-	if len(request.Body) < 1 {
-		return events.APIGatewayProxyResponse{
-			Body:       string(lib.ErrorMarshal("No query was provided in the HTTP body")),
-			StatusCode: 200,
-		}, nil
-	}
-
-	var params struct {
-		Query         string                 `json:"query"`
-		OperationName string                 `json:"operationName"`
-		Variables     map[string]interface{} `json:"variables"`
-	}
-
-	if err := json.Unmarshal([]byte(request.Body), &params); err != nil {
-		log.Print("Could not decode body", err)
-	}
-
-	response := schema.Exec(context, params.Query, params.OperationName, params.Variables)
-	responseJSON, err := json.Marshal(response)
+func connect(dbUrl string) *edgar_gql.DB {
+	log.Println("Connecting to " + dbUrl)
+	client, err := mongo.NewClient(options.Client().ApplyURI(dbUrl))
 	if err != nil {
-		log.Print("Could not decode body")
+		panic(err)
 	}
 
-	return events.APIGatewayProxyResponse{
-		Body:       string(responseJSON),
-		StatusCode: 200,
-	}, nil
+	ctx, cancel := context.WithTimeout(context.Background(), 8*time.Second)
+	defer cancel()
+	err = client.Connect(ctx)
+	if err != nil {
+		panic(err)
+	}
+	tmp := edgar_gql.DB{Client: client}
 
+	return &tmp
+}
+
+func graphqlHandler() gin.HandlerFunc {
+	db := connect(os.Getenv("DATABASE_URL"))
+	h := handler.NewDefaultServer(edgar_gql.NewExecutableSchema(edgar_gql.Config{Resolvers: &edgar_gql.Resolver{Db: db}}))
+
+	return func(c *gin.Context) {
+
+		if c.Request.Header.Get(os.Getenv("API_KEY")) != os.Getenv("API_KEY_VALUE") {
+			c.JSON(http.StatusForbidden, gin.H{"error": "unauthorized"})
+			return
+		}
+		h.ServeHTTP(c.Writer, c.Request)
+	}
+}
+
+func playgroundHandler() gin.HandlerFunc {
+	h := playground.Handler("GraphQL", "/graphql/query")
+
+	return func(c *gin.Context) {
+		h.ServeHTTP(c.Writer, c.Request)
+	}
 }
 
 func init() {
 	err := godotenv.Load()
-	lib.CheckError(err)
+	if err != nil {
+		panic(err)
+	}
+}
 
-	rawSchema, err := os.ReadFile("schema.graphql")
-	lib.CheckError(err)
+func Handler(ctx context.Context, req events.APIGatewayV2HTTPRequest) (events.APIGatewayV2HTTPResponse, error) {
+	if ginLambda == nil {
+		log.Printf("Gin cold start")
+		r := gin.Default()
+		r.GET("/graphql/playground", playgroundHandler())
+		r.POST("/graphql/query", graphqlHandler())
 
-	schema = graphql.MustParseSchema(string(rawSchema), &edGraphql.Resolver{})
+		ginLambda = ginadapter.NewV2(r)
+	}
+
+	spew.Dump(req)
+
+	return ginLambda.ProxyWithContext(ctx, req)
 }
 
 func main() {
-	_, present := os.LookupEnv("AWS_LAMBDA_FUNCTION_NAME")
-	db := database.Connect(os.Getenv("DATABASE_URL"))
-	edGraphql.Init(db)
-
-	if !present {
-		http.Handle("/graphql", &relay.Handler{Schema: schema})
-		log.Print("Starting to listen 8080...")
-		log.Fatal(http.ListenAndServe(":8080", nil))
-	} else {
-		lambda.Start(Handler)
-	}
+	lambda.Start(Handler)
 }
