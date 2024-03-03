@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/document/cmd/main/lib"
-	"github.com/edgar-care/document/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/document"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -21,18 +21,20 @@ func HandleUpdate(w http.ResponseWriter, r *http.Request) {
 
 	IdDocument := chi.URLParam(r, "id")
 
-	var input services.DocumentInput
+	var input edgarlib.CreateDocumentInput
 	err := json.NewDecoder(r.Body).Decode(&input)
 	lib.CheckError(err)
 
-	document, err := services.UpdateDocument(IdDocument, input)
-	if err != nil {
-		http.Error(w, "Failed to update document: "+err.Error(), http.StatusInternalServerError)
+	document := edgarlib.UpdateDocument(input, IdDocument)
+	if document.Err != nil {
+		lib.WriteResponse(w, map[string]string{
+			"message": document.Err.Error(),
+		}, document.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"update documents": document,
+		"update documents": document.Document,
 		"message":          "Document name change",
 	}, http.StatusCreated)
 }

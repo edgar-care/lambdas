@@ -5,9 +5,13 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	"github.com/edgar-care/appointments/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/appointment"
 	"github.com/go-chi/chi/v5"
 )
+
+type UpdateRdvInput struct {
+	ID string `json:"id"`
+}
 
 func ModifRdv(w http.ResponseWriter, req *http.Request) {
 	patientID := lib.AuthMiddleware(w, req)
@@ -28,95 +32,20 @@ func ModifRdv(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// ======================================================= //
-	var new_appointment services.RdvInput
+	var new_appointment UpdateRdvInput
 	err := json.NewDecoder(req.Body).Decode(&new_appointment)
 
 	lib.CheckError(err)
-	appointment, err := services.GetRdvById(new_appointment.Id)
+	appointment := edgarlib.EditRdv(new_appointment.ID, id_appointment, patientID)
 
-	lib.CheckError(err)
-	if err != nil {
+	if appointment.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Id not correspond to an appointment",
-		}, 400)
-		return
-	}
-
-	if appointment.IdPatient != "" {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Is already book",
-		}, 400)
-		return
-	}
-
-	rdv, err := services.UpdateRdv(patientID, new_appointment.Id, nil)
-
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
-		return
-	}
-
-	var updatePatient services.PatientInput
-
-	patient, err := services.GetPatientById(patientID)
-	lib.CheckError(err)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Id not correspond to a patient",
-		}, 400)
-		return
-	}
-
-	updatePatient = services.PatientInput{
-		Id:            patientID,
-		RendezVousIDs: append(patient.RendezVousIDs, new_appointment.Id),
-	}
-
-	updatedPatient, err := services.UpdatePatient(updatePatient)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Update Failed " + err.Error(),
-		}, 500)
-		return
-	}
-
-	// =============================================================== //
-
-	_, err = services.UpdateRdv("", id_appointment, nil)
-
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
-		return
-	}
-
-	patient, err = services.GetPatientById(patientID)
-	lib.CheckError(err)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Id not correspond to a patient",
-		}, 400)
-		return
-	}
-
-	updatePatient = services.PatientInput{
-		Id:            patientID,
-		RendezVousIDs: removeElement(patient.RendezVousIDs, id_appointment),
-	}
-
-	updatedPatient, err = services.UpdatePatient(updatePatient)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Update Failed " + err.Error(),
-		}, 500)
+			"message": appointment.Err.Error(),
+		}, appointment.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"rdv":     rdv,
-		"patient": updatedPatient,
+		"rdv": appointment.Rdv,
 	}, 201)
 }

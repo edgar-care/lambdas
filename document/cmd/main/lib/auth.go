@@ -1,8 +1,8 @@
 package lib
 
 import (
-	"os"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/go-chi/jwtauth/v5"
@@ -24,6 +24,25 @@ func VerifyToken(tokenString string) bool {
 func GetAuthenticatedUser(w http.ResponseWriter, r *http.Request) string {
 	_, claims, _ := jwtauth.FromContext(r.Context())
 	return claims["patient"].(map[string]interface{})["id"].(string)
+}
+
+func GetAuthenticatedMedecin(w http.ResponseWriter, r *http.Request) string {
+	_, claims, _ := jwtauth.FromContext(r.Context())
+	return claims["doctor"].(map[string]interface{})["id"].(string)
+}
+
+func AuthMiddlewareDoctor(w http.ResponseWriter, r *http.Request) string {
+	reqToken := r.Header.Get("Authorization")
+	if reqToken == "" {
+		return ""
+	}
+	splitToken := strings.Split(reqToken, "Bearer ")
+	reqToken = splitToken[1]
+
+	if VerifyToken(reqToken) == false {
+		return ""
+	}
+	return GetAuthenticatedMedecin(w, r)
 }
 
 func AuthMiddleware(w http.ResponseWriter, r *http.Request) string {

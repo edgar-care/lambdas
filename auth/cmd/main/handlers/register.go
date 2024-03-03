@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"encoding/json"
+	"net/http"
+
 	"github.com/edgar-care/auth/cmd/main/lib"
 	"github.com/edgar-care/auth/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/auth"
 	"github.com/go-chi/chi/v5"
-	"net/http"
 )
 
 func Register(w http.ResponseWriter, req *http.Request) {
@@ -16,7 +18,7 @@ func Register(w http.ResponseWriter, req *http.Request) {
 	var err error
 
 	if t == "d" {
-		var input services.DoctorInput
+		var input edgarlib.DoctorInput
 		err = json.NewDecoder(req.Body).Decode(&input)
 		lib.CheckError(err)
 

@@ -7,7 +7,7 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	"github.com/edgar-care/appointments/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/appointment"
 )
 
 type DeleteRdvInput struct {
@@ -29,16 +29,16 @@ func CancelRdv(w http.ResponseWriter, req *http.Request) {
 	lib.CheckError(err)
 
 	idAppointment := chi.URLParam(req, "id")
-	_, err = services.UpdateRdv("", idAppointment, &input.Reason)
+	updateRdv := edgarlib.CancelRdv(idAppointment, input.Reason)
 
-	if err != nil {
+	if updateRdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
+			"message": updateRdv.Err.Error(),
+		}, updateRdv.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"reason": input.Reason,
+		"reason": updateRdv.Reason,
 	}, 200)
 }

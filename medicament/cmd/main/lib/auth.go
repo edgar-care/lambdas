@@ -23,22 +23,7 @@ func VerifyToken(tokenString string) bool {
 
 func GetAuthenticatedUser(w http.ResponseWriter, r *http.Request) string {
 	_, claims, _ := jwtauth.FromContext(r.Context())
-
 	return claims["patient"].(map[string]interface{})["id"].(string)
-}
-
-func AuthMiddleware(w http.ResponseWriter, r *http.Request) string {
-	reqToken := r.Header.Get("Authorization")
-	if reqToken == "" {
-		return ""
-	}
-	splitToken := strings.Split(reqToken, "Bearer ")
-	reqToken = splitToken[1]
-
-	if VerifyToken(reqToken) == false {
-		return ""
-	}
-	return GetAuthenticatedUser(w, r)
 }
 
 func GetAuthenticatedMedecin(w http.ResponseWriter, r *http.Request) string {
@@ -58,4 +43,18 @@ func AuthMiddlewareDoctor(w http.ResponseWriter, r *http.Request) string {
 		return ""
 	}
 	return GetAuthenticatedMedecin(w, r)
+}
+
+func AuthMiddleware(w http.ResponseWriter, r *http.Request) string {
+	reqToken := r.Header.Get("Authorization")
+	if reqToken == "" {
+		return ""
+	}
+	splitToken := strings.Split(reqToken, "Bearer ")
+	reqToken = splitToken[1]
+
+	if VerifyToken(reqToken) == false {
+		return ""
+	}
+	return GetAuthenticatedUser(w, r)
 }

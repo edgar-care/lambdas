@@ -6,10 +6,9 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	"github.com/edgar-care/appointments/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/appointment"
 )
 
-// Méthode GET pour récupérer un rendez-vous du docteur
 func GetDoctorAppointment(w http.ResponseWriter, req *http.Request) {
 	doctorID := lib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
@@ -21,29 +20,20 @@ func GetDoctorAppointment(w http.ResponseWriter, req *http.Request) {
 
 	appointmentID := chi.URLParam(req, "id")
 
-	rdv, err := services.GetRdvById(appointmentID)
+	rdv := edgarlib.GetDoctorAppointment(appointmentID, doctorID)
 
-	if err != nil {
+	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
-		return
-	}
-
-	// Vérifiez si le rendez-vous appartient au docteur
-	if rdv.DoctorID != doctorID {
-		lib.WriteResponse(w, map[string]string{
-			"message": "You can't access to this appointment",
-		}, 403)
+			"message": rdv.Err.Error(),
+		}, rdv.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"rdv": rdv,
+		"rdv": rdv.Appointment,
 	}, 200)
 }
 
-// Méthode GET pour récupérer tous les rendez-vous du docteur
 func GetAllDoctorAppointments(w http.ResponseWriter, req *http.Request) {
 	doctorID := lib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
@@ -53,16 +43,16 @@ func GetAllDoctorAppointments(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	appointments, err := services.GetAllRdvDoctor(doctorID)
+	appointments := edgarlib.GetAllDoctorAppointment(doctorID)
 
-	if err != nil {
+	if appointments.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
+			"message": appointments.Err.Error(),
+		}, appointments.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"appointments": appointments,
+		"appointments": appointments.Slots,
 	}, 200)
 }

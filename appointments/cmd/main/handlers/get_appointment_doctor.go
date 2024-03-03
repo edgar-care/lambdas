@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	"github.com/edgar-care/appointments/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/appointment"
 )
 
 func GetRdvDoctor(w http.ResponseWriter, req *http.Request) {
@@ -20,16 +20,16 @@ func GetRdvDoctor(w http.ResponseWriter, req *http.Request) {
 
 	t := chi.URLParam(req, "id")
 
-	rdv, err := services.GetRdvDoctorById(t)
+	rdv := edgarlib.GetRdvDoctor(t)
 
-	if err != nil {
+	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
+			"message": rdv.Err.Error(),
+		}, rdv.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"rdv": rdv,
+		"rdv": rdv.Rdv,
 	}, 201)
 }
