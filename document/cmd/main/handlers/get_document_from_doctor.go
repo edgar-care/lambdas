@@ -30,7 +30,7 @@ func DownloadFromDoctor(w http.ResponseWriter, r *http.Request) {
 
 	// Return the document details in the response
 	lib.WriteResponse(w, map[string]interface{}{
-		"download": downloadDocument,
+		"download": downloadDocument.Document,
 		"message":  "Document get succesfuly",
 	}, http.StatusCreated)
 }

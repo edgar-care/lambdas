@@ -46,7 +46,7 @@ func HandleFavorite(w http.ResponseWriter, r *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"update documents": favorite,
+		"update documents": favorite.Document,
 		"message":          "Document status favorite edited",
 	}, http.StatusCreated)
 }
@@ -80,7 +80,7 @@ func RemoveFavorite(w http.ResponseWriter, r *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"update documents": favorite,
+		"update documents": favorite.Document,
 		"message":          "Document status favorite deleted",
 	}, http.StatusCreated)
 }

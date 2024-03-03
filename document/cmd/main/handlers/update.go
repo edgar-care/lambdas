@@ -34,7 +34,7 @@ func HandleUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"update documents": document,
+		"update documents": document.Document,
 		"message":          "Document name change",
 	}, http.StatusCreated)
 }
