@@ -3,7 +3,7 @@ module github.com/edgar-care/medicament
 go 1.19
 
 require (
-	github.com/edgar-care/edgarlib v1.3.5
+	github.com/edgar-care/edgarlib v1.4.3
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/jwtauth/v5 v5.1.1
 	github.com/joho/godotenv v1.5.1

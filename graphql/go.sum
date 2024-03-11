@@ -22,8 +22,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dgryski/trifles v0.0.0-20200323201526-dd97f9abfb48 h1:fRzb/w+pyskVMQ+UbP35JkH8yB7MYb4q/qhBarqZE6g=
 github.com/dgryski/trifles v0.0.0-20200323201526-dd97f9abfb48/go.mod h1:if7Fbed8SFyPtHLHbg49SI7NAdJiC5WIA09pe59rfAA=
-github.com/edgar-care/edgarlib v1.3.11 h1:2Y+cwG+NhWYpbQ9eMSnlYVNRXPf2Bni/CONFF8qdHEM=
-github.com/edgar-care/edgarlib v1.3.11/go.mod h1:utgu9trYgylC+FVuASxM5Qmu9YViV6ZRZA1wJxJ7h5o=
+github.com/edgar-care/edgarlib v1.4.5 h1:n64/aHbfDDKN9oV/wkwi7urk/34MI30qz5gyE6c8Q1k=
+github.com/edgar-care/edgarlib v1.4.5/go.mod h1:utgu9trYgylC+FVuASxM5Qmu9YViV6ZRZA1wJxJ7h5o=
 github.com/fsnotify/fsnotify v1.7.0 h1:8JEhPFa5W2WU7YfeZzPNqzMP6Lwt7L2715Ggo0nosvA=
 github.com/gabriel-vasile/mimetype v1.4.2 h1:w5qFW6JKBz9Y393Y4q372O9A7cUSequkh1Q7OhCmWKU=
 github.com/gabriel-vasile/mimetype v1.4.2/go.mod h1:zApsH/mKG4w07erKIaJPFiX0Tsq9BFQgN3qGY5GnNgA=

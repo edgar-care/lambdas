@@ -1,12 +1,13 @@
 package handlers
 
 import (
+	"context"
 	"encoding/json"
+	"github.com/edgar-care/edgarlib/graphql"
 	"net/http"
 
 	"github.com/edgar-care/MedicalFolder/cmd/main/lib"
 	edgarlib "github.com/edgar-care/edgarlib/medical_folder"
-	"github.com/go-chi/chi/v5"
 )
 
 func GetMedicalInformation(w http.ResponseWriter, req *http.Request) {
@@ -42,13 +43,20 @@ func ModifyFolderMedical(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	t := chi.URLParam(req, "id")
+	//t := chi.URLParam(req, "id")
+	t, err := graphql.GetPatientById(context.Background(), graphql.CreateClient(), patientID)
+	if err != nil {
+		lib.WriteResponse(w, map[string]string{
+			"message": "Not authenticated",
+		}, 401)
+		return
+	}
 
 	var input edgarlib.CreateMedicalInfoInput
-	err := json.NewDecoder(req.Body).Decode(&input)
+	err = json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	medicalFolder := edgarlib.UpdateMedicalFolder(input, t)
+	medicalFolder := edgarlib.UpdateMedicalFolder(input, t.GetPatientById.Medical_info_id)
 	if medicalFolder.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": medicalFolder.Err.Error(),

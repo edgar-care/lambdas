@@ -25,7 +25,7 @@ func main() {
 				router.Use(jwtauth.Verifier(lib.NewTokenAuth()))
 				router.Post("/dashboard/medical-info", handlers.AddMedicalInfo)
 				router.Get("/dashboard/medical-info", handlers.GetMedicalInformation)
-				router.Put("/dashboard/medical-info/{id}", handlers.ModifyFolderMedical)
+				router.Put("/dashboard/medical-info", handlers.ModifyFolderMedical)
 				router.Put("/doctor/patient/{id}", handlers.ModifyMedicalInfo)
 
 				router.Post("/{env}/dashboard/medical-info", handlers.AddMedicalInfo)
