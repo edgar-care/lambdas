@@ -286,3 +286,5 @@ cython_debug/
 packages/
 
 bootstrap
+
+go.sum

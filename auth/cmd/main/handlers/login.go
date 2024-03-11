@@ -17,7 +17,11 @@ func Login(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	resp := edgar_auth.Login(input, t)
+	ip := lib.GetIPAddress(req)
+
+	resp := edgar_auth.Login(input, t, ip)
+
+	lib.GetDeviceInfo(w, req, resp.Token)
 
 	if resp.Err != nil {
 		lib.WriteResponse(w, map[string]string{

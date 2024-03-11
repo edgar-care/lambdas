@@ -34,10 +34,9 @@ func HandleFavorite(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&input)
 	lib.CheckError(err)
 
-	// Invert the value of IsFavorite
-	input.IsFavorite = !document.Document.IsFavorite
+	input.IsFavorite = true
 
-	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite)
+	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite, ownerID)
 	if favorite.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": favorite.Err.Error(),
@@ -68,10 +67,9 @@ func RemoveFavorite(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&input)
 	lib.CheckError(err)
 
-	// Invert the value of IsFavorite
 	input.IsFavorite = false
 
-	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite)
+	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite, ownerID)
 	if favorite.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": favorite.Err.Error(),

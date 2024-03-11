@@ -22,7 +22,7 @@ func ModifyMedicalInfo(w http.ResponseWriter, req *http.Request) {
 
 	patientId := chi.URLParam(req, "id")
 
-	var input edgarlib.CreateMedicalInfoInput
+	var input edgarlib.UpdateMedicalInfoInput
 	err := json.NewDecoder(req.Body).Decode(&input)
 	if err != nil {
 		lib.WriteError(w, http.StatusBadRequest, "Invalid JSON input")
@@ -36,7 +36,47 @@ func ModifyMedicalInfo(w http.ResponseWriter, req *http.Request) {
 		}, medicalInfo.Code)
 		return
 	}
-	lib.WriteResponse(w, map[string]interface{}{
-		"MedicalFolder": medicalInfo.MedicalInfo,
-	}, 200)
+
+	response := map[string]interface{}{
+		"medical_folder": map[string]interface{}{
+			"id":                medicalInfo.MedicalInfo.ID,
+			"name":              medicalInfo.MedicalInfo.Name,
+			"firstname":         medicalInfo.MedicalInfo.Firstname,
+			"birthdate":         medicalInfo.MedicalInfo.Birthdate,
+			"sex":               medicalInfo.MedicalInfo.Sex,
+			"height":            medicalInfo.MedicalInfo.Height,
+			"weight":            medicalInfo.MedicalInfo.Weight,
+			"primary_doctor_id": medicalInfo.MedicalInfo.PrimaryDoctorID,
+			"onboarding_status": medicalInfo.MedicalInfo.OnboardingStatus,
+			"medical_antecedents": func() []map[string]interface{} {
+				// Convert antecedent diseases to the desired format
+				var diseases []map[string]interface{}
+				for _, disease := range medicalInfo.AnteDiseasesWithTreatments {
+					d := map[string]interface{}{
+						"id":   disease.AnteDisease.ID,
+						"name": disease.AnteDisease.Name,
+						"medicines": func() []map[string]interface{} {
+							var medicines []map[string]interface{}
+							for _, treatment := range disease.Treatments {
+								medicine := map[string]interface{}{
+									"id":          treatment.ID,
+									"medicine_id": treatment.MedicineID,
+									"period":      treatment.Period,
+									"day":         treatment.Day,
+									"quantity":    treatment.Quantity,
+								}
+								medicines = append(medicines, medicine)
+							}
+							return medicines
+						}(),
+						"still_relevant": disease.AnteDisease.StillRelevant,
+					}
+					diseases = append(diseases, d)
+				}
+				return diseases
+			}(),
+		},
+	}
+
+	lib.WriteResponse(w, response, medicalInfo.Code)
 }

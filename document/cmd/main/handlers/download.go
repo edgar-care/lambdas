@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -28,11 +29,12 @@ func HandleDownload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Return the document details in the response
-	lib.WriteResponse(w, map[string]interface{}{
+	response := map[string]interface{}{
 		"download": downloadDocument.Document,
 		"message":  "Document get succesfuly",
-	}, http.StatusCreated)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
 
 func GetAllDocument(w http.ResponseWriter, req *http.Request) {
@@ -53,7 +55,9 @@ func GetAllDocument(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	lib.WriteResponse(w, map[string]interface{}{
+	response := map[string]interface{}{
 		"document": document.Documents,
-	}, 200)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }

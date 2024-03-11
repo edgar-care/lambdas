@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
 	"path/filepath"
 	"strconv"
@@ -68,13 +69,6 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Use the UploadToS3 function to upload the file to S3
-	downloadURL, err := lib.UploadToS3(file, header.Filename)
-	if err != nil {
-		http.Error(w, "Failed to upload document to S3: "+err.Error(), http.StatusInternalServerError)
-		return
-	}
-
 	// Generate the S3 download URL
 	document := edgarlib.UploadDocumentInput{
 		OwnerID:      ownerID,
@@ -82,7 +76,7 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 		Category:     category,
 		IsFavorite:   isFavorite,
 		Name:         header.Filename,
-		DownloadURL:  downloadURL,
+		DownloadURL:  "",
 	}
 
 	// Call CreateDocument to store the document in the external system
@@ -94,10 +88,21 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	lib.WriteResponse(w, map[string]interface{}{
+	fileExtension := filepath.Ext(header.Filename)
+	name_file_s3 := createdDocument.Document.ID + fileExtension
+
+	_, err = edgarlib.UploadToS3(file, name_file_s3)
+	if err != nil {
+		http.Error(w, "Failed to upload document to S3: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	response := map[string]interface{}{
 		"upload":  createdDocument.Document,
 		"message": "Document created successfully",
-	}, http.StatusCreated)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
 
 func DeleteDocument(w http.ResponseWriter, r *http.Request) {
@@ -165,29 +170,29 @@ func UploadFromDoctor(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Use the UploadToS3 function to upload the file to S3
-	downloadURL, err := lib.UploadToS3(file, header.Filename)
-	if err != nil {
-		http.Error(w, "Failed to upload document to S3: "+err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	// Generate the S3 download URL
 	document := edgarlib.UploadDocumentInput{
 		OwnerID:      patientID,
 		DocumentType: documentType,
 		Category:     category,
 		IsFavorite:   isFavorite,
 		Name:         header.Filename,
-		DownloadURL:  downloadURL,
+		DownloadURL:  "",
 	}
 
-	// Call CreateDocument to store the document in the external system
 	createdDocument := edgarlib.CreateDocument(document, patientID)
 	if createdDocument.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": createdDocument.Err.Error(),
 		}, createdDocument.Code)
+		return
+	}
+
+	fileExtension := filepath.Ext(header.Filename)
+	name_file_s3 := createdDocument.Document.ID + fileExtension
+
+	_, err = edgarlib.UploadToS3(file, name_file_s3)
+	if err != nil {
+		http.Error(w, "Failed to upload document to S3: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 

@@ -23,13 +23,13 @@ func main() {
 		Apigw2Configurator: func(r *common.HttpRouter) {
 			r.Group(func(router chi.Router) {
 				router.Use(jwtauth.Verifier(lib.NewTokenAuth()))
-				router.Get("/medicament/{id}", handlers.GetMedicament)
-				router.Post("/medicament", handlers.Addmedicament)
-				router.Get("/medicaments", handlers.GetMedicaments)
+				router.Get("/medicine/{id}", handlers.GetMedicament)
+				router.Post("/medicine", handlers.Addmedicament)
+				router.Get("/medicine", handlers.GetMedicaments)
 
-				router.Get("/{env}/medicament/{id}", handlers.GetMedicament)
-				router.Post("/{env}/medicament", handlers.Addmedicament)
-				router.Get("/{env}/medicaments", handlers.GetMedicaments)
+				router.Get("/{env}/medicine/{id}", handlers.GetMedicament)
+				router.Post("/{env}/medicine", handlers.Addmedicament)
+				router.Get("/{env}/medicine", handlers.GetMedicaments)
 			})
 		},
 		Features: map[string]bool{

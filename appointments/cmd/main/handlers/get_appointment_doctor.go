@@ -6,21 +6,21 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/appointment"
+	edgarlib "github.com/edgar-care/edgarlib/slot"
 )
 
 func GetRdvDoctor(w http.ResponseWriter, req *http.Request) {
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Not authenticated",
-		}, 401)
-		return
-	}
+	//patientID := lib.AuthMiddleware(w, req)
+	//if patientID == "" {
+	//	lib.WriteResponse(w, map[string]string{
+	//		"message": "Not authenticated",
+	//	}, 401)
+	//	return
+	//}
 
 	t := chi.URLParam(req, "id")
 
-	rdv := edgarlib.GetRdvDoctor(t)
+	rdv := edgarlib.GetSlots(t)
 
 	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
@@ -30,6 +30,6 @@ func GetRdvDoctor(w http.ResponseWriter, req *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"rdv": rdv.Rdv,
+		"rdv": rdv.Slots,
 	}, 201)
 }
