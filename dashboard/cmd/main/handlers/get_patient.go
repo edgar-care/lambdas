@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/dashboard/cmd/main/lib"
-	"github.com/edgar-care/dashboard/cmd/main/services"
+	edgarlib "github.com/edgar-care/edgarlib/dashboard"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -19,43 +19,18 @@ func GetPatientId(w http.ResponseWriter, req *http.Request) {
 
 	t := chi.URLParam(req, "id")
 
-	patient, err := services.GetPatientById(t)
-	lib.CheckError(err)
-	if err != nil {
+	patient := edgarlib.GetPatientById(t, doctorID)
+	if patient.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Id not correspond to a patient",
-		}, 400)
-		return
-	}
-
-	if patient.OnboardingInfoID == "" || patient.OnboardingHealthID == "" {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Onboarding not started",
-		}, 400)
-		return
-	}
-
-	info, err := services.GetInfoById(patient.OnboardingInfoID)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Id does not correspond to an info part",
-		}, 400)
-		return
-	}
-	health, err := services.GetHealthById(patient.OnboardingHealthID)
-	lib.CheckError(err)
-	if err != nil {
-		lib.WriteResponse(w, map[string]string{
-			"message": "Id does not correspond to a health part",
-		}, 400)
+			"message": patient.Err.Error(),
+		}, patient.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"patient":           patient,
-		"onboarding_info":   info,
-		"onboarding_health": health,
-	}, 201)
+		"patient":      patient.Patient,
+		"medical_info": patient.MedicalInfo,
+	}, 200)
 }
 
 func GetPatients(w http.ResponseWriter, req *http.Request) {
@@ -67,16 +42,16 @@ func GetPatients(w http.ResponseWriter, req *http.Request) {
 		}, 401)
 		return
 	}
-	patient, err := services.GetAllPatientDoctor(doctorID)
+	patient := edgarlib.GetPatients(doctorID)
 
-	if err != nil {
+	if patient.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": "Invalid input: " + err.Error(),
-		}, 400)
+			"message": patient.Err.Error(),
+		}, patient.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"patients": patient,
-	}, 201)
+		"patients": patient.PatientsInfo,
+	}, 200)
 }

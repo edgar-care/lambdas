@@ -29,7 +29,7 @@ func ModifyMedicalInfo(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	medicalInfo := edgarlib.UpdateMedicalFolder(input, patientId)
+	medicalInfo := edgarlib.UpdateMedicalFolderFromDoctor(input, patientId)
 	if medicalInfo.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": medicalInfo.Err.Error(),
