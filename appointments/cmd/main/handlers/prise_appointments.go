@@ -28,12 +28,12 @@ func BookRdv(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	//if id_appointment == "" {
-	//	lib.WriteResponse(w, map[string]string{
-	//		"message": "ID is not defined",
-	//	}, 400)
-	//	return
-	//}
+	if id_appointment == "" {
+		lib.WriteResponse(w, map[string]string{
+			"message": "ID is not defined",
+		}, 400)
+		return
+	}
 
 	appointment := edgarlib.BookAppointment(id_appointment, patientID, input.SessionId)
 
