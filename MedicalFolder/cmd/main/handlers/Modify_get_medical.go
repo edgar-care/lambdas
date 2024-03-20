@@ -43,7 +43,6 @@ func ModifyFolderMedical(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	//t := chi.URLParam(req, "id")
 	t, err := graphql.GetPatientById(context.Background(), graphql.CreateClient(), patientID)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{
