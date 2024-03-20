@@ -11,6 +11,7 @@ func main() {
 	gola.Main(common.Options{
 		Apigw2Configurator: func(r *common.HttpRouter) {
 			r.Post("/exam", handlers.Exam)
+			r.Post("/{env}/exam", handlers.Exam)
 		},
 		Features: map[string]bool{
 			"logger":    true,

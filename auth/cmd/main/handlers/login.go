@@ -5,28 +5,28 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/auth/cmd/main/lib"
-	"github.com/edgar-care/auth/cmd/main/services"
+	edgar_auth "github.com/edgar-care/edgarlib/auth"
 	"github.com/go-chi/chi/v5"
 )
 
 func Login(w http.ResponseWriter, req *http.Request) {
-	var input services.LoginInput
+	var input edgar_auth.LoginInput
 
 	t := chi.URLParam(req, "type")
 
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	resp, err := services.Login(input, t)
+	resp := edgar_auth.Login(input, t)
 
-	if err != nil {
+	if resp.Err != nil {
 		lib.WriteResponse(w, map[string]string{
-			"message": resp,
-		}, http.StatusBadRequest)
+			"message": resp.Err.Error(),
+		}, resp.Code)
 		return
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"token": resp,
-	}, http.StatusOK)
+		"token": resp.Token,
+	}, resp.Code)
 }

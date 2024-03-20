@@ -26,6 +26,10 @@ func main() {
 				router.Get("/medicament/{id}", handlers.GetMedicament)
 				router.Post("/medicament", handlers.Addmedicament)
 				router.Get("/medicaments", handlers.GetMedicaments)
+
+				router.Get("/{env}/medicament/{id}", handlers.GetMedicament)
+				router.Post("/{env}/medicament", handlers.Addmedicament)
+				router.Get("/{env}/medicaments", handlers.GetMedicaments)
 			})
 		},
 		Features: map[string]bool{

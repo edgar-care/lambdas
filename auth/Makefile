@@ -17,13 +17,44 @@ all: install
 build:
 	@GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=0 go build -o $(BINARY_NAME) $(SOURCE_DIR)
 
+zip: build
+	@mkdir -p $(BUILD_DIR)
+	@zip builds/$(AWS_LAMBDA_FUNCTION_NAME)$(DATE) $(BINARY_NAME) $(EXTRA_FILES)
+
 ifeq ($(strip $(z)),)
 deploy: zip
-	@AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-function-code --function-name $(AWS_LAMBDA_FUNCTION_NAME) --profile $(AWS_CLI_PROFILE) --zip-file fileb://$(ARCHIVE_NAME).zip --output yaml
+	@AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-function-code \
+	--function-name $(AWS_LAMBDA_FUNCTION_NAME) \
+	--profile $(AWS_CLI_PROFILE) \
+	--zip-file fileb://$(ARCHIVE_NAME).zip \
+	--output yaml \
+	--publish
 else
 deploy:
-	@AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-function-code --function-name $(AWS_LAMBDA_FUNCTION_NAME) --profile $(AWS_CLI_PROFILE) --zip-file fileb://$(z) --output yaml
+	@AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-function-code --function-name $(AWS_LAMBDA_FUNCTION_NAME) --profile $(AWS_CLI_PROFILE) --zip-file fileb://$(z) --output yaml --publish --alias dev
 endif
+
+deploy-stage: zip
+	@read -p "Please make sure everything is working and with the right environment. Are you sure you want to deploy? Type 'yes' to confirm: " confirm; \
+    if [ "$$confirm" != "yes" ]; then \
+    	echo "Deployment canceled."; \
+    	exit 1; \
+    fi
+	@AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-function-code \
+		--function-name $(AWS_LAMBDA_FUNCTION_NAME) \
+		--profile $(AWS_CLI_PROFILE) \
+		--zip-file fileb://$(ARCHIVE_NAME).zip \
+		--output yaml \
+		--publish
+
+		latest_version=$$(aws lambda list-versions-by-function --function-name $(AWS_LAMBDA_FUNCTION_NAME) --query "Versions[-1].Version" --output text); \
+		echo "Deploying the latest version: $$latest_version"; \
+		AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-alias \
+		--function-name $(AWS_LAMBDA_FUNCTION_NAME) \
+		--name $(stage) \
+		--function-version $$latest_version \
+		--profile $(AWS_CLI_PROFILE); \
+
 
 clean:
 	@rm -rf $(BINARY_NAME)
@@ -36,10 +67,6 @@ install:
 start:
 	@$(GO_BINARY_PATH)/air -c .air.toml
 
-zip: build
-	@mkdir -p $(BUILD_DIR)
-	@zip builds/$(AWS_LAMBDA_FUNCTION_NAME)$(DATE) $(BINARY_NAME) $(EXTRA_FILES)
-
 test:
 	@go test -coverprofile=coverage.out -v ./...
 	@go tool cover -html=coverage.out
@@ -49,5 +76,6 @@ test:
 		clean \
 		deploy \
 		install \
+		deploy-stage \
 		start \
 		zip

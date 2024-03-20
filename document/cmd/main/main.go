@@ -32,6 +32,16 @@ func main() {
 				router.Delete("/document/favorite/{id}", handlers.RemoveFavorite)
 				router.Put("/document/{id}", handlers.HandleUpdate)
 				router.Get("/document/download", handlers.GetAllDocument)
+
+				router.Post("/{env}/document/upload", handlers.HandleUpload)
+				router.Post("/{env}/document/favorite/{id}", handlers.HandleFavorite)
+				router.Post("/{env}/doctor/document/upload", handlers.UploadFromDoctor)
+				router.Get("/{env}/document/download/{id}", handlers.HandleDownload)
+				router.Get("/{env}/doctor/document/{id}", handlers.DownloadFromDoctor)
+				router.Delete("/{env}/document/{id}", handlers.DeleteDocument)
+				router.Delete("/{env}/document/favorite/{id}", handlers.RemoveFavorite)
+				router.Put("/{env}/document/{id}", handlers.HandleUpdate)
+				router.Get("/{env}/document/download", handlers.GetAllDocument)
 			})
 		},
 		Features: map[string]bool{
