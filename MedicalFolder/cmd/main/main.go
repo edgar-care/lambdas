@@ -30,7 +30,7 @@ func main() {
 
 				router.Post("/{env}/dashboard/medical-info", handlers.AddMedicalInfo)
 				router.Get("/{env}/dashboard/medical-info", handlers.GetMedicalInformation)
-				router.Put("/{env}/dashboard/medical-info/{id}", handlers.ModifyFolderMedical)
+				router.Put("/{env}/dashboard/medical-info", handlers.ModifyFolderMedical)
 				router.Put("/{env}/doctor/patient/{id}", handlers.ModifyMedicalInfo)
 			})
 		},
