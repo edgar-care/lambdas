@@ -38,8 +38,8 @@ github.com/dgraph-io/badger v1.6.0/go.mod h1:zwt7syl517jmP8s94KqSxTlM6IMsdhYy6ps
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/dgryski/go-farm v0.0.0-20190423205320-6a90982ecee2/go.mod h1:SqUrOPUnsFjfmXRMNPybcSiG0BgUW2AuFH8PAnS2iTw=
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
-github.com/edgar-care/edgarlib v1.3.11 h1:2Y+cwG+NhWYpbQ9eMSnlYVNRXPf2Bni/CONFF8qdHEM=
-github.com/edgar-care/edgarlib v1.3.11/go.mod h1:utgu9trYgylC+FVuASxM5Qmu9YViV6ZRZA1wJxJ7h5o=
+github.com/edgar-care/edgarlib v1.4.5 h1:n64/aHbfDDKN9oV/wkwi7urk/34MI30qz5gyE6c8Q1k=
+github.com/edgar-care/edgarlib v1.4.5/go.mod h1:utgu9trYgylC+FVuASxM5Qmu9YViV6ZRZA1wJxJ7h5o=
 github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385/go.mod h1:0vRUJqYpeSZifjYj7uP3BG/gKcuzL9xWVV/Y+cK33KM=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=

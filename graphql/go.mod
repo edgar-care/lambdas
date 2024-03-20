@@ -7,7 +7,7 @@ require (
 	github.com/aws/aws-lambda-go v1.46.0
 	github.com/awslabs/aws-lambda-go-api-proxy v0.16.1
 	github.com/davecgh/go-spew v1.1.1
-	github.com/edgar-care/edgarlib v1.3.11
+	github.com/edgar-care/edgarlib v1.4.5
 	github.com/gin-gonic/gin v1.9.1
 	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.13.1

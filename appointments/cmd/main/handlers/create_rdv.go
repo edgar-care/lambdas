@@ -9,9 +9,8 @@ import (
 )
 
 type RdvInput struct {
-	IDPatient string `json:"id_patient"`
-	StartDate int    `json:"start_date"`
-	EndDate   int    `json:"end_date"`
+	StartDate int `json:"start_date"`
+	EndDate   int `json:"end_date"`
 }
 
 func CreateRdv(w http.ResponseWriter, req *http.Request) {
@@ -26,9 +25,9 @@ func CreateRdv(w http.ResponseWriter, req *http.Request) {
 	var input RdvInput
 
 	err := json.NewDecoder(req.Body).Decode(&input)
-
 	lib.CheckError(err)
-	rdv := edgarlib.CreateRdv(input.IDPatient, doctorID, input.StartDate, input.EndDate)
+
+	rdv := edgarlib.CreateRdv("", doctorID, input.StartDate, input.EndDate, "")
 
 	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{

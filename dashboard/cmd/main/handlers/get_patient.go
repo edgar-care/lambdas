@@ -28,8 +28,7 @@ func GetPatientId(w http.ResponseWriter, req *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"patient":      patient.Patient,
-		"medical_info": patient.MedicalInfo,
+		"patient": patient.PatientInfo,
 	}, 200)
 }
 

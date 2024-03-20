@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
@@ -43,7 +42,6 @@ func GetSlots(w http.ResponseWriter, req *http.Request) {
 		}, 401)
 		return
 	}
-	fmt.Print(doctorID)
 	slot := edgarlib.GetSlots(doctorID)
 
 	if slot.Err != nil {

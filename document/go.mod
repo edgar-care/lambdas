@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/aws/aws-sdk-go v1.50.11
-	github.com/edgar-care/edgarlib v1.3.5
+	github.com/edgar-care/edgarlib v1.4.2
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/jwtauth/v5 v5.1.1
 	github.com/jinzhu/copier v0.4.0

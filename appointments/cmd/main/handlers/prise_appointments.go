@@ -1,12 +1,17 @@
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
 	edgarlib "github.com/edgar-care/edgarlib/appointment"
 	"github.com/go-chi/chi/v5"
 )
+
+type BookInput struct {
+	SessionId string `json:"session_id"`
+}
 
 func BookRdv(w http.ResponseWriter, req *http.Request) {
 
@@ -19,6 +24,9 @@ func BookRdv(w http.ResponseWriter, req *http.Request) {
 	}
 
 	id_appointment := chi.URLParam(req, "id")
+	var input BookInput
+	err := json.NewDecoder(req.Body).Decode(&input)
+	lib.CheckError(err)
 
 	if id_appointment == "" {
 		lib.WriteResponse(w, map[string]string{
@@ -27,7 +35,7 @@ func BookRdv(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	appointment := edgarlib.BookAppointment(id_appointment, patientID)
+	appointment := edgarlib.BookAppointment(id_appointment, patientID, input.SessionId)
 
 	if appointment.Err != nil {
 		lib.WriteResponse(w, map[string]string{
@@ -37,7 +45,7 @@ func BookRdv(w http.ResponseWriter, req *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"rdv": appointment,
+		"rdv": appointment.Rdv,
 	}, 201)
 }
 
