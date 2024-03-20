@@ -46,7 +46,6 @@ func GetPreDignosticWait(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	//retunr uniquement les pre diagnostic avec le status : WAITING_FOR_REVIEW
 	reviewWait := edgarlib.GetWaitingReview(doctorID)
 	if reviewWait.Err != nil {
 		lib.WriteResponse(w, map[string]interface{}{
