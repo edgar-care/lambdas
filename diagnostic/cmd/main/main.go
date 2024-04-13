@@ -17,13 +17,16 @@ func init() {
 func main() {
 	gola.Main(common.Options{
 		Apigw2Configurator: func(r *common.HttpRouter) {
-			r.Post("/diagnostic/initiate", handlers.Initiate)
-			r.Post("/diagnostic/diagnose", handlers.Diagnose)
-			r.Get("/diagnostic/summary/{id}", handlers.GetSummary)
+			r.Group(func(router chi.Router) {
 
-			r.Post("/{env}/diagnostic/initiate", handlers.Initiate)
-			r.Post("/{env}/diagnostic/diagnose", handlers.Diagnose)
-			r.Get("/{env}/diagnostic/summary/{id}", handlers.GetSummary)
+				r.Post("/diagnostic/initiate", handlers.Initiate)
+				r.Post("/diagnostic/diagnose", handlers.Diagnose)
+				r.Get("/diagnostic/summary/{id}", handlers.GetSummary)
+
+				r.Post("/{env}/diagnostic/initiate", handlers.Initiate)
+				r.Post("/{env}/diagnostic/diagnose", handlers.Diagnose)
+				r.Get("/{env}/diagnostic/summary/{id}", handlers.GetSummary)
+			})
 		},
 		Features: map[string]bool{
 			"logger":    true,
