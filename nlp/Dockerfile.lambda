@@ -1,17 +1,16 @@
 FROM public.ecr.aws/lambda/python:3.9
 
-RUN yum install -y make
+RUN yum install -y make && \
+    yum clean all
 
-ADD docker.mk .
 ADD requirements-lambda.txt .
 
-RUN make -f docker.mk install pip_config_file=requirements-lambda.txt python_bin=python3.9
+RUN pip install --no-cache-dir -r requirements-lambda.txt && \
+    python -m spacy download fr_core_news_lg && \
+    rm -rf /root/.cache
 
 ENV TF_CPP_MIN_LOG_LEVEL "2"
 ENV NLTK_DATA /tmp
-
-#install spacy model
-RUN python -m spacy download fr_core_news_lg
 
 ADD . ${LAMBDA_TASK_ROOT}
 

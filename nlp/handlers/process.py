@@ -1,19 +1,20 @@
 from .request import Req
-from .graphql import get_symptoms
+from .graphql import create_nlp_report
 from .clean import clean
 from fastapi.exceptions import HTTPException
 import threading
-import spacy
-import re
+import os
+import time
 
 similarities = {}
+
 
 def calcul_similarity(sentence, symptom, spacy_package):
     global similarities
     similarity = 0.0
-
+    sentence_vector = spacy_package(sentence)
     for word in symptom['symptom']:
-        similarity = max(similarity, spacy_package(sentence).similarity(spacy_package(word)))
+        similarity = max(similarity, sentence_vector.similarity(word))
 
     similarities[symptom['code']] = similarity
 
@@ -40,7 +41,8 @@ def is_present(context, symptom):
     return False
 
 
-def process(req: Req) -> dict:
+def process(req: Req, loaded_spacy_package, symptoms) -> dict:
+    start_time = time.time()
     input = req.input
     context: list = []
     for symptom in req.symptoms:
@@ -49,10 +51,8 @@ def process(req: Req) -> dict:
         elif "non" in input:
             context.append({ "symptom": symptom, "present": False })
         else:
-            context.append({ "symptom": symptom, "present": None })
-
-    symptoms = get_symptoms()
-    loaded_spacy_package = spacy.load('fr_core_news_lg')
+            if symptom != "":
+                context.append({ "symptom": symptom, "present": None })
     if symptoms == None:
         HTTPException(500, "No symptom in database")
     for sentence in input.split("."):
@@ -61,7 +61,8 @@ def process(req: Req) -> dict:
             results = calcul_similarities(clean(symptom), symptoms, loaded_spacy_package)
             if is_present(context, results[0][0]) == False:
                 context.append({ "symptom": results[0][0], "present": True })
-
+    create_nlp_report(int(os.environ.get('VERSION')), req.symptoms, input, context, int((time.time() - start_time) * 1000))
+    similarities = {}
     return {
         "context": context
     }
