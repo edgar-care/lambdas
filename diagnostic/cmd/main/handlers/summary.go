@@ -20,12 +20,11 @@ func GetSummary(w http.ResponseWriter, req *http.Request) {
 	}
 
 	edgarhttp.WriteResponse(w, map[string]interface{}{
-		"sessionId": resp.SessionId,
-		"symptoms":  resp.Symptoms,
-		"age":       resp.Age,
-		"height":    resp.Height,
-		"weight":    resp.Weight,
-		"sex":       resp.Sex,
-		"logs":      resp.Logs,
+		"session_id": resp.SessionId,
+		"diseases":   resp.Diseases,
+		"fiability":  resp.Fiability,
+		"symptoms":   resp.Symptoms,
+		"logs":       resp.Logs,
+		"alerts":     resp.Alerts,
 	}, 200)
 }

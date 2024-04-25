@@ -6,7 +6,6 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	ginadapter "github.com/awslabs/aws-lambda-go-api-proxy/gin"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -90,8 +89,6 @@ func Handler(ctx context.Context, req events.APIGatewayV2HTTPRequest) (events.AP
 
 		ginLambda = ginadapter.NewV2(r)
 	}
-
-	spew.Dump(req)
 
 	return ginLambda.ProxyWithContext(ctx, req)
 }
