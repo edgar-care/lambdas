@@ -73,6 +73,14 @@ func Handler(ctx context.Context, req events.APIGatewayV2HTTPRequest) (events.AP
 	if ginLambda == nil {
 		log.Printf("Gin cold start")
 		r := gin.Default()
+
+		r.OPTIONS("/*path", func(c *gin.Context) {
+			c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+			c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, edgar-auth-key")
+			c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+			c.Writer.WriteHeader(http.StatusOK)
+		})
+
 		r.GET("/graphql/playground", playgroundHandler())
 		r.POST("/graphql/query", graphqlHandler())
 		r.POST("/dev/graphql/query", graphqlHandler())
