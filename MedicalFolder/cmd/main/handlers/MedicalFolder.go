@@ -9,7 +9,6 @@ import (
 )
 
 func AddMedicalInfo(w http.ResponseWriter, req *http.Request) {
-
 	patientID := lib.AuthMiddleware(w, req)
 	if patientID == "" {
 		lib.WriteResponse(w, map[string]string{
