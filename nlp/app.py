@@ -21,7 +21,7 @@ def init():
         words = [loaded_spacy_package(word) for word in symptom['symptom']]
         computed_symptoms.append({**symptom, 'symptom': words})
     duration_pattern = [
-        {"IS_DIGIT": True},
+        {"LIKE_NUM": True},
         {"LOWER": {"IN": ["jour", "jours", "semaine", "semaines", "mois", "annee", "annees", "an", "ans"]}}
     ]
 

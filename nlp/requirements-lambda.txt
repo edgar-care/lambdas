@@ -4,4 +4,4 @@ unidecode
 requests
 python-dotenv
 spacy
-num2words
+text2num
