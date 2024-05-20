@@ -1,6 +1,8 @@
 module github.com/edgar-care/graphql
 
-go 1.19
+go 1.21
+
+toolchain go1.21.9
 
 require (
 	github.com/99designs/gqlgen v0.17.43
