@@ -5,23 +5,22 @@ from fastapi.exceptions import HTTPException
 import threading
 import os
 import time
-from num2words import num2words
+from text_to_num import text2num
+import re
 
 similarities = {}
 
-
 def detect_duration(sentence_vector, matcher):
-
     matches = matcher(sentence_vector)
     for match_id, start, end in matches:
         duration_value_token = sentence_vector[start]
-        if duration_value_token.like_num:
-            duration_value = int(duration_value_token.text)
-        else:
-            try:
-                duration_value = int(num2words(duration_value_token.text, lang='fr'))
-            except ValueError:
-                duration_value = None
+        try:
+            if (duration_value_token.text).isdigit() != True:
+                duration_value = int(text2num(duration_value_token.text, 'fr'))
+            else:
+                duration_value = int(duration_value_token.text)
+        except ValueError:
+            duration_value = None
 
         if duration_value is not None:
             duration_unit = sentence_vector[end - 1].text.lower()
@@ -71,22 +70,40 @@ def process(req: Req, loaded_spacy_package, symptoms, matcher) -> dict:
     start_time = time.time()
     input = req.input
     context: list = []
-    for symptom in req.symptoms:
-        if "oui" in input:
-            context.append({ "symptom": symptom, "present": True })
-        elif "non" in input:
-            context.append({ "symptom": symptom, "present": False })
-        else:
-            if symptom != "":
-                context.append({ "symptom": symptom, "present": None })
+    answers = 0
+
     if symptoms == None:
         HTTPException(500, "No symptom in database")
     for sentence in input.split("."):
-        splitted = sentence.split(" et ")
+        separators = [" et ", " mais "]
+        splitted = [subphrase.strip() for subphrase in re.split("|".join(separators), sentence)]
         for symptom in splitted:
-            if symptom == 'oui' or symptom == 'non':
+            cleaned_symptom = clean(symptom)
+            sentence_vector = loaded_spacy_package(cleaned_symptom)
+            if answers < len(req.symptoms) and req.symptoms[0] != "":
+                if req.isTime != False:
+                    if " " not in cleaned_symptom:
+                        if cleaned_symptom.isdigit() == True:
+                            context.append({"symptom": req.symptoms[answers], "present": True, "days": int(cleaned_symptom)})
+                        else:
+                            try:
+                                duration = int(text2num(cleaned_symptom, 'fr'))
+                                context.append({"symptom": req.symptoms[answers], "present": True, "days": duration})
+                            except ValueError:
+                                context.append({"symptom": req.symptoms[answers], "present": True, "days": 0})
+                    else:
+                        context.append({"symptom": req.symptoms[answers], "present": True, "days": detect_duration(sentence_vector, matcher)})
+                    answers += 1
+                    continue
+                if "oui" in cleaned_symptom:
+                    context.append({ "symptom": req.symptoms[answers], "present": True, "days": detect_duration(sentence_vector, matcher) })
+                elif "non" in cleaned_symptom:
+                    context.append({ "symptom": req.symptoms[answers], "present": False, "days": 0 })
+                else:
+                    if req.symptoms[answers] != "":
+                        context.append({ "symptom": req.symptoms[answers], "present": None, "days": 0 })
+                answers += 1
                 continue
-            sentence_vector = loaded_spacy_package(clean(symptom))
             results = calcul_similarities(sentence_vector, symptoms)
             duration = detect_duration(sentence_vector, matcher)
             if is_present(context, results[0][0]) == False:

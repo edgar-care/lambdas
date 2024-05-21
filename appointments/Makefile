@@ -43,8 +43,8 @@ deploy-stage: zip
 		--output yaml \
 		--publish
 
-		latest_version=$$(aws lambda list-versions-by-function --function-name $(AWS_LAMBDA_FUNCTION_NAME) --query "Versions[-1].Version" --output text); \
-		echo "Deploying the latest version: $$latest_version"; \
+	latest_version=$$(aws lambda list-versions-by-function --function-name $(AWS_LAMBDA_FUNCTION_NAME) | jq -r '[.Versions[] | select(.Version != "$$LATEST") | .Version | tonumber] | sort | last'); \
+	echo "Deploying the latest version: $$latest_version"; \
 		AWS_REGION=$(AWS_REGION) AWS_PAGER= aws lambda update-alias \
 		--function-name $(AWS_LAMBDA_FUNCTION_NAME) \
 		--name $(stage) \
