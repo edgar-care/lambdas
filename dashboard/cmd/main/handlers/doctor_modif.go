@@ -6,13 +6,14 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/edgar-care/MedicalFolder/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/medical_folder"
+	lib "github.com/edgar-care/dashboard/cmd/main/lib"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/medical_folder"
 )
 
 func ModifyMedicalInfo(w http.ResponseWriter, req *http.Request) {
 
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -39,15 +40,16 @@ func ModifyMedicalInfo(w http.ResponseWriter, req *http.Request) {
 
 	response := map[string]interface{}{
 		"medical_folder": map[string]interface{}{
-			"id":                medicalInfo.MedicalInfo.ID,
-			"name":              medicalInfo.MedicalInfo.Name,
-			"firstname":         medicalInfo.MedicalInfo.Firstname,
-			"birthdate":         medicalInfo.MedicalInfo.Birthdate,
-			"sex":               medicalInfo.MedicalInfo.Sex,
-			"height":            medicalInfo.MedicalInfo.Height,
-			"weight":            medicalInfo.MedicalInfo.Weight,
-			"primary_doctor_id": medicalInfo.MedicalInfo.PrimaryDoctorID,
-			"onboarding_status": medicalInfo.MedicalInfo.OnboardingStatus,
+			"id":                         medicalInfo.MedicalInfo.ID,
+			"name":                       medicalInfo.MedicalInfo.Name,
+			"firstname":                  medicalInfo.MedicalInfo.Firstname,
+			"birthdate":                  medicalInfo.MedicalInfo.Birthdate,
+			"sex":                        medicalInfo.MedicalInfo.Sex,
+			"height":                     medicalInfo.MedicalInfo.Height,
+			"weight":                     medicalInfo.MedicalInfo.Weight,
+			"primary_doctor_id":          medicalInfo.MedicalInfo.PrimaryDoctorID,
+			"family_members_med_info_id": medicalInfo.MedicalInfo.FamilyMembersMedInfoID,
+			"onboarding_status":          medicalInfo.MedicalInfo.OnboardingStatus,
 			"medical_antecedents": func() []map[string]interface{} {
 				// Convert antecedent diseases to the desired format
 				var diseases []map[string]interface{}
@@ -64,6 +66,8 @@ func ModifyMedicalInfo(w http.ResponseWriter, req *http.Request) {
 									"period":      treatment.Period,
 									"day":         treatment.Day,
 									"quantity":    treatment.Quantity,
+									"start_date":  treatment.StartDate,
+									"end_date":    treatment.EndDate,
 								}
 								medicines = append(medicines, medicine)
 							}

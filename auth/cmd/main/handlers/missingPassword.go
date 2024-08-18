@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/edgar-care/auth/cmd/main/lib"
-	edgar_auth "github.com/edgar-care/edgarlib/auth"
+	edgar_auth "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 )
 

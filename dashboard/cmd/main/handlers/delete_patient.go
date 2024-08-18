@@ -1,7 +1,8 @@
 package handlers
 
 import (
-	edgarlib "github.com/edgar-care/edgarlib/dashboard"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/dashboard"
 	"net/http"
 
 	"github.com/edgar-care/dashboard/cmd/main/lib"
@@ -9,7 +10,7 @@ import (
 )
 
 func DeletePatientHandler(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",

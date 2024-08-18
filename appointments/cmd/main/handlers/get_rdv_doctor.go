@@ -1,16 +1,17 @@
 package handlers
 
 import (
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/appointment"
+	edgarlib "github.com/edgar-care/edgarlib/v2/appointment"
 )
 
 func GetDoctorAppointment(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -35,7 +36,7 @@ func GetDoctorAppointment(w http.ResponseWriter, req *http.Request) {
 }
 
 func GetAllDoctorAppointments(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",

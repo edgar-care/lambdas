@@ -2,14 +2,14 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/edgar-care/edgarlib/graphql"
-	"github.com/edgar-care/edgarlib/graphql/server/model"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	"github.com/edgar-care/edgarlib/v2/graphql/model"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 
 	"github.com/edgar-care/dashboard/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/appointment"
+	edgarlib "github.com/edgar-care/edgarlib/v2/appointment"
 )
 
 type RdvSessionCombined struct {
@@ -27,12 +27,16 @@ type RdvSessionCombined struct {
 	Diseases          []model.SessionDiseases `json:"diseases"`
 	Fiability         float64                 `json:"fiability"`
 	Symptoms          []model.SessionSymptom  `json:"symptoms"`
-	Logs              []graphql.LogsInput     `json:"logs"`
+	Logs              []model.LogsInput       `json:"logs"`
 	Alerts            []model.Alert           `json:"alerts"`
 }
 
+type ReturnStruct struct {
+	Review []RdvSessionCombined `json:"review"`
+}
+
 func RevPreDiagnostic(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -60,7 +64,7 @@ func RevPreDiagnostic(w http.ResponseWriter, req *http.Request) {
 }
 
 func GetPreDignosticWait(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -96,6 +100,6 @@ func GetPreDignosticWait(w http.ResponseWriter, req *http.Request) {
 		})
 	}
 
-	lib.WriteResponse(w, responseList, reviewWait.Code)
+	lib.WriteResponse(w, ReturnStruct{responseList}, reviewWait.Code)
 
 }

@@ -67,6 +67,7 @@ func GetAuthenticatedUser(authToken string) string {
 	if len(parts) != 3 {
 		return ""
 	}
+
 	decodedBytes, err := base64.RawURLEncoding.DecodeString(parts[1])
 	if err != nil {
 		CheckError(err)
@@ -79,54 +80,21 @@ func GetAuthenticatedUser(authToken string) string {
 		return ""
 	}
 
-	if id, ok := jsonMap["id"].(string); ok {
-		return id
+	// Vérifie si l'utilisateur est un patient
+	if patientID, ok := jsonMap["id"].(string); ok {
+		if patientEmail, ok := jsonMap["patient"].(string); ok {
+			fmt.Printf("Patient Email: %s, ID: %s\n", patientEmail, patientID)
+			return patientID
+		}
 	}
 
-	if patient, ok := jsonMap["patient"].(map[string]interface{}); ok {
-		if id, ok := patient["id"].(string); ok {
-			fmt.Print(id)
-			return id
+	// Vérifie si l'utilisateur est un docteur
+	if doctorID, ok := jsonMap["id"].(string); ok {
+		if doctorEmail, ok := jsonMap["doctor"].(string); ok {
+			fmt.Printf("Doctor Email: %s, ID: %s\n", doctorEmail, doctorID)
+			return doctorID
 		}
 	}
 
 	return ""
 }
-
-//func GetAuthenticated(authToken string) string {
-//	parts := strings.Split(authToken, ".")
-//	if len(parts) != 3 {
-//		return ""
-//	}
-//	decodedBytes, err := base64.RawURLEncoding.DecodeString(parts[1])
-//	if err != nil {
-//		CheckError(err)
-//		return ""
-//	}
-//
-//	var jsonMap map[string]interface{}
-//	if err := json.Unmarshal(decodedBytes, &jsonMap); err != nil {
-//		CheckError(err)
-//		return ""
-//	}
-//
-//	if id, ok := jsonMap["id"].(string); ok {
-//		return id
-//	}
-//
-//	if patient, ok := jsonMap["patient"].(map[string]interface{}); ok {
-//		if id, ok := patient["id"].(string); ok {
-//			fmt.Print(id)
-//			return id
-//		}
-//	}
-//
-//	if doctor, ok := jsonMap["doctor"].(map[string]interface{}); ok {
-//		if id, ok := doctor["id"].(string); ok {
-//			fmt.Print(id)
-//			return id
-//		}
-//	}
-//
-//	return ""
-//}

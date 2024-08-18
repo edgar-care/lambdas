@@ -2,9 +2,8 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/edgar-care/edgarlib"
-	edgar_diag "github.com/edgar-care/edgarlib/diagnostic"
-	edgarhttp "github.com/edgar-care/edgarlib/http"
+	edgar_diag "github.com/edgar-care/edgarlib/v2/diagnostic"
+	edgarhttp "github.com/edgar-care/edgarlib/v2/http"
 	"net/http"
 )
 

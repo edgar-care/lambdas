@@ -5,11 +5,12 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/MedicalFolder/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/medical_folder"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/medical_folder"
 )
 
 func AddMedicalInfo(w http.ResponseWriter, req *http.Request) {
-	patientID := lib.AuthMiddleware(w, req)
+	patientID := authlib.AuthMiddlewarePatient(w, req)
 	if patientID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -34,15 +35,16 @@ func AddMedicalInfo(w http.ResponseWriter, req *http.Request) {
 
 	response := map[string]interface{}{
 		"medical_folder": map[string]interface{}{
-			"id":                medical.MedicalInfo.ID,
-			"name":              medical.MedicalInfo.Name,
-			"firstname":         medical.MedicalInfo.Firstname,
-			"birthdate":         medical.MedicalInfo.Birthdate,
-			"sex":               medical.MedicalInfo.Sex,
-			"height":            medical.MedicalInfo.Height,
-			"weight":            medical.MedicalInfo.Weight,
-			"primary_doctor_id": medical.MedicalInfo.PrimaryDoctorID,
-			"onboarding_status": medical.MedicalInfo.OnboardingStatus,
+			"id":                         medical.MedicalInfo.ID,
+			"name":                       medical.MedicalInfo.Name,
+			"firstname":                  medical.MedicalInfo.Firstname,
+			"birthdate":                  medical.MedicalInfo.Birthdate,
+			"sex":                        medical.MedicalInfo.Sex,
+			"height":                     medical.MedicalInfo.Height,
+			"weight":                     medical.MedicalInfo.Weight,
+			"primary_doctor_id":          medical.MedicalInfo.PrimaryDoctorID,
+			"family_members_med_info_id": medical.MedicalInfo.FamilyMembersMedInfoID,
+			"onboarding_status":          medical.MedicalInfo.OnboardingStatus,
 			"medical_antecedents": func() []map[string]interface{} {
 				// Convert antecedent diseases to the desired format
 				var diseases []map[string]interface{}
@@ -59,6 +61,8 @@ func AddMedicalInfo(w http.ResponseWriter, req *http.Request) {
 									"period":      treatment.Period,
 									"day":         treatment.Day,
 									"quantity":    treatment.Quantity,
+									"start_date":  treatment.StartDate,
+									"end_date":    treatment.EndDate,
 								}
 								medicines = append(medicines, medicine)
 							}

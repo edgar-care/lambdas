@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/edgar-care/dashboard/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/auth"
 	"github.com/go-chi/chi/v5"
 )
 

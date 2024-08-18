@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/appointment"
+	edgarlib "github.com/edgar-care/edgarlib/v2/appointment"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -15,7 +16,7 @@ type BookInput struct {
 
 func BookRdv(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
+	patientID := authlib.AuthMiddlewarePatient(w, req)
 	if patientID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -43,7 +44,7 @@ func BookRdv(w http.ResponseWriter, req *http.Request) {
 }
 
 func GetRdvPatient(w http.ResponseWriter, req *http.Request) {
-	patientID := lib.AuthMiddleware(w, req)
+	patientID := authlib.AuthMiddlewarePatient(w, req)
 	if patientID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -64,12 +65,12 @@ func GetRdvPatient(w http.ResponseWriter, req *http.Request) {
 
 	lib.WriteResponse(w, map[string]interface{}{
 		"rdv": rdv,
-	}, 201)
+	}, 200)
 }
 
 func GetRdv(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
+	patientID := authlib.AuthMiddlewarePatient(w, req)
 	if patientID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -87,5 +88,5 @@ func GetRdv(w http.ResponseWriter, req *http.Request) {
 
 	lib.WriteResponse(w, map[string]interface{}{
 		"rdv": rdv.Rdv,
-	}, 201)
+	}, 200)
 }

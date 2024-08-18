@@ -1,17 +1,18 @@
 package handlers
 
 import (
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"github.com/go-chi/chi/v5"
 	"net/http"
 
 	"github.com/edgar-care/double_auth/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/double_auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/double_auth"
 )
 
 func DeleteTrustDevice(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	ownerID := authlib.AuthMiddlewareAccount(w, req)
+	if ownerID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -20,7 +21,7 @@ func DeleteTrustDevice(w http.ResponseWriter, req *http.Request) {
 
 	t := chi.URLParam(req, "id")
 
-	new_trust_device := edgarlib.RemoveTrustDevice(t, patientID)
+	new_trust_device := edgarlib.RemoveTrustDevice(t, ownerID)
 
 	if new_trust_device.Err != nil {
 		lib.WriteError(w, new_trust_device.Code, new_trust_device.Err.Error())
@@ -28,6 +29,6 @@ func DeleteTrustDevice(w http.ResponseWriter, req *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"double_auth": new_trust_device.Patient,
-	}, 201)
+		"message": "Trust Device deleted successfully",
+	}, 200)
 }

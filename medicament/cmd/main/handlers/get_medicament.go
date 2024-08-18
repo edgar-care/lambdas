@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	edgarlib "github.com/edgar-care/edgarlib/medicament"
+	edgarlib "github.com/edgar-care/edgarlib/v2/medicament"
 	"github.com/edgar-care/medicament/cmd/main/lib"
 )
 

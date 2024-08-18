@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"context"
-	edgargraph "github.com/edgar-care/edgarlib/graphql"
-	"github.com/edgar-care/edgarlib/graphql/server/model"
-	edgarlib "github.com/edgar-care/edgarlib/treatment"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgargraph "github.com/edgar-care/edgarlib/v2/graphql"
+	"github.com/edgar-care/edgarlib/v2/graphql/model"
+	edgarlib "github.com/edgar-care/edgarlib/v2/treatment"
 	"github.com/edgar-care/treatment/cmd/main/lib"
 	"github.com/go-chi/chi/v5"
 	"log"
@@ -13,7 +13,7 @@ import (
 
 func GetTreatment(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
+	patientID := authlib.AuthMiddlewarePatient(w, req)
 	if patientID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -41,12 +41,19 @@ func GetTreatment(w http.ResponseWriter, req *http.Request) {
 }
 
 func GetTreatments(w http.ResponseWriter, req *http.Request) {
-	gqlClient := edgargraph.CreateClient()
-	patientID := lib.AuthMiddleware(w, req)
+	patientID := authlib.AuthMiddlewarePatient(w, req)
 	if patientID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, http.StatusUnauthorized)
+		return
+	}
+
+	check_account := authlib.CheckAccountEnable(patientID)
+	if check_account.Code == 409 {
+		lib.WriteResponse(w, map[string]string{
+			"message": "Not authorized, this account is disable",
+		}, 409)
 		return
 	}
 
@@ -59,13 +66,13 @@ func GetTreatments(w http.ResponseWriter, req *http.Request) {
 	treatmentMap := make(map[string][]model.Treatment)
 
 	for _, antedisease := range treatments.Antedisease {
-		associatedAnte, err := edgargraph.GetAnteDiseaseByID(context.Background(), gqlClient, antedisease.ID)
+		associatedAnte, err := edgargraph.GetAnteDiseaseByID(antedisease.ID)
 		if err != nil {
 			log.Println("Failed to retrieve associated treatments for antedisease:", err)
 			continue
 		}
 
-		for _, treatmentID := range associatedAnte.GetAnteDiseaseByID.Treatment_ids {
+		for _, treatmentID := range associatedAnte.TreatmentIds {
 			associatedTreatment := edgarlib.GetTreatmentById(treatmentID, patientID)
 			if associatedTreatment.Err != nil {
 				log.Println("Failed to retrieve associated treatment with ID:", treatmentID, ":", associatedTreatment.Err)

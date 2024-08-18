@@ -4,8 +4,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"net/http"
 
-	edgar_diag "github.com/edgar-care/edgarlib/diagnostic"
-	edgarhttp "github.com/edgar-care/edgarlib/http"
+	edgar_diag "github.com/edgar-care/edgarlib/v2/diagnostic"
+	edgarhttp "github.com/edgar-care/edgarlib/v2/http"
 )
 
 func GetSummary(w http.ResponseWriter, req *http.Request) {

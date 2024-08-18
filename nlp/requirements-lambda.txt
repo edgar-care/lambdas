@@ -1,7 +1,0 @@
-mangum
-fastapi
-unidecode
-requests
-python-dotenv
-spacy
-text2num

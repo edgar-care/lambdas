@@ -2,12 +2,13 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 	"path/filepath"
 	"strconv"
 
 	"github.com/edgar-care/document/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/document"
+	edgarlib "github.com/edgar-care/edgarlib/v2/document"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -32,7 +33,7 @@ func isValidFileExtension(filename string) bool {
 }
 
 func HandleUpload(w http.ResponseWriter, r *http.Request) {
-	ownerID := lib.AuthMiddleware(w, r)
+	ownerID := authlib.AuthMiddlewarePatient(w, r)
 	if ownerID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -80,7 +81,7 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call CreateDocument to store the document in the external system
-	createdDocument := edgarlib.CreateDocument(document, ownerID)
+	createdDocument := edgarlib.CreateDocument(document, ownerID, ownerID)
 	if createdDocument.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": createdDocument.Err.Error(),
@@ -106,7 +107,7 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteDocument(w http.ResponseWriter, r *http.Request) {
-	ownerID := lib.AuthMiddleware(w, r)
+	ownerID := authlib.AuthMiddlewarePatient(w, r)
 	if ownerID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -132,7 +133,7 @@ func DeleteDocument(w http.ResponseWriter, r *http.Request) {
 }
 
 func UploadFromDoctor(w http.ResponseWriter, r *http.Request) {
-	ownerID := lib.AuthMiddlewareDoctor(w, r)
+	ownerID := authlib.AuthMiddlewareDoctor(w, r)
 	if ownerID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -179,7 +180,7 @@ func UploadFromDoctor(w http.ResponseWriter, r *http.Request) {
 		DownloadURL:  "",
 	}
 
-	createdDocument := edgarlib.CreateDocument(document, patientID)
+	createdDocument := edgarlib.CreateDocument(document, patientID, ownerID)
 	if createdDocument.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": createdDocument.Err.Error(),

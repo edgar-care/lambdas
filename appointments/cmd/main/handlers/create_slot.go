@@ -2,14 +2,15 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/slot"
+	edgarlib "github.com/edgar-care/edgarlib/v2/slot"
 )
 
 func CreateSlot(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",

@@ -2,17 +2,17 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/edgar-care/document/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/document"
+	edgarlib "github.com/edgar-care/edgarlib/v2/document"
 	"github.com/go-chi/chi/v5"
 )
 
 func HandleFavorite(w http.ResponseWriter, r *http.Request) {
 
-	// =================================== //
-	ownerID := lib.AuthMiddleware(w, r)
+	ownerID := authlib.AuthMiddlewarePatient(w, r)
 	if ownerID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -52,8 +52,7 @@ func HandleFavorite(w http.ResponseWriter, r *http.Request) {
 
 func RemoveFavorite(w http.ResponseWriter, r *http.Request) {
 
-	// =================================== //
-	ownerID := lib.AuthMiddleware(w, r)
+	ownerID := authlib.AuthMiddlewarePatient(w, r)
 	if ownerID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",

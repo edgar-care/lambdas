@@ -1,23 +1,24 @@
 package handlers
 
 import (
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"github.com/go-chi/chi/v5"
 	"net/http"
 
 	"github.com/edgar-care/double_auth/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/double_auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/double_auth"
 )
 
 func DisableDoubleAuth(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	ownerID := authlib.AuthMiddlewareAccount(w, req)
+	if ownerID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
 		return
 	}
-	double_auth := chi.URLParam(req, "id")
+	double_auth := chi.URLParam(req, "ENUM")
 
 	if double_auth == "" {
 		lib.WriteResponse(w, map[string]string{
@@ -40,7 +41,7 @@ func DisableDoubleAuth(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	deletedDevice := edgarlib.RemoveDoubleAuthMethod(double_auth, patientID)
+	deletedDevice := edgarlib.RemoveDoubleAuthMethod(double_auth, ownerID)
 	if deletedDevice != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": deletedDevice.Error(),

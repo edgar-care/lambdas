@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	//edgarauth "github.com/edgar-care/edgarlib/auth"
+	//edgarauth "github.com/edgar-care/edgarlib/v2/auth"
 	lib "github.com/edgar-care/diagnostic/cmd/main/lib"
-	edgar_diag "github.com/edgar-care/edgarlib/diagnostic"
-	edgarhttp "github.com/edgar-care/edgarlib/http"
+	edgar_diag "github.com/edgar-care/edgarlib/v2/diagnostic"
+	edgarhttp "github.com/edgar-care/edgarlib/v2/http"
 	"net/http"
 )
 

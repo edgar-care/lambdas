@@ -31,6 +31,7 @@ func main() {
 				router.Get("/doctor/diagnostic/waiting", handlers.GetPreDignosticWait)
 				router.Get("/doctor/{id}", handlers.GetDoctorId)
 				router.Get("/doctors", handlers.GetDoctors)
+				router.Put("/doctor/patient/{id}", handlers.ModifyMedicalInfo)
 
 				//env
 				router.Get("/{env}/doctor/patient/{id}", handlers.GetPatientId)
@@ -41,6 +42,8 @@ func main() {
 				router.Get("/{env}/doctor/diagnostic/waiting", handlers.GetPreDignosticWait)
 				router.Get("/{env}/doctor/{id}", handlers.GetDoctorId)
 				router.Get("/{env}/doctors", handlers.GetDoctors)
+				router.Put("/{env}/doctor/patient/{id}", handlers.ModifyMedicalInfo)
+
 			})
 		},
 		Features: map[string]bool{

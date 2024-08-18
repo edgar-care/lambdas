@@ -3,12 +3,13 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/edgar-care/dashboard/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/dashboard"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/dashboard"
 	"net/http"
 )
 
 func CreatePatient(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
 	if doctorID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
@@ -33,15 +34,16 @@ func CreatePatient(w http.ResponseWriter, req *http.Request) {
 		"id":      patient.Patient.ID,
 		"patient": patient.Patient.Email,
 		"medical_folder": map[string]interface{}{
-			"id":                patient.MedicalInfo.ID,
-			"name":              patient.MedicalInfo.Name,
-			"firstname":         patient.MedicalInfo.Firstname,
-			"birthdate":         patient.MedicalInfo.Birthdate,
-			"sex":               patient.MedicalInfo.Sex,
-			"height":            patient.MedicalInfo.Height,
-			"weight":            patient.MedicalInfo.Weight,
-			"primary_doctor_id": patient.MedicalInfo.PrimaryDoctorID,
-			"onboarding_status": patient.MedicalInfo.OnboardingStatus,
+			"id":                         patient.MedicalInfo.ID,
+			"name":                       patient.MedicalInfo.Name,
+			"firstname":                  patient.MedicalInfo.Firstname,
+			"birthdate":                  patient.MedicalInfo.Birthdate,
+			"sex":                        patient.MedicalInfo.Sex,
+			"height":                     patient.MedicalInfo.Height,
+			"weight":                     patient.MedicalInfo.Weight,
+			"primary_doctor_id":          patient.MedicalInfo.PrimaryDoctorID,
+			"family_members_med_info_id": patient.MedicalInfo.FamilyMembersMedInfoID,
+			"onboarding_status":          patient.MedicalInfo.OnboardingStatus,
 			"medical_antecedents": func() []map[string]interface{} {
 				// Convert antecedent diseases to the desired format
 				var diseases []map[string]interface{}
@@ -58,6 +60,8 @@ func CreatePatient(w http.ResponseWriter, req *http.Request) {
 									"period":      treatment.Period,
 									"day":         treatment.Day,
 									"quantity":    treatment.Quantity,
+									"start_date":  treatment.StartDate,
+									"end_date":    treatment.EndDate,
 								}
 								medicines = append(medicines, medicine)
 							}

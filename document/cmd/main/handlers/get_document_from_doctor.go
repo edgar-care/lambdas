@@ -2,17 +2,17 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/edgar-care/document/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/document"
-	response "github.com/edgar-care/edgarlib/http"
+	edgarlib "github.com/edgar-care/edgarlib/v2/document"
+	response "github.com/edgar-care/edgarlib/v2/http"
 )
 
 func DownloadFromDoctor(w http.ResponseWriter, r *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, r)
+	doctorID := authlib.AuthMiddlewareDoctor(w, r)
 	if doctorID == "" {
 		response.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
