@@ -20,7 +20,7 @@ func GetMedicament(w http.ResponseWriter, req *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"medicament": medicament.Medicament,
+		"medicament": medicament.Medicine,
 	}, 201)
 }
 
@@ -33,6 +33,6 @@ func GetMedicaments(w http.ResponseWriter, req *http.Request) {
 	}
 
 	lib.WriteResponse(w, map[string]interface{}{
-		"medicament": medicaments.Medicaments,
+		"medicament": medicaments.Medicines,
 	}, 201)
 }

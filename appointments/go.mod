@@ -3,7 +3,7 @@ module github.com/edgar-care/appointments
 go 1.19
 
 require (
-	github.com/edgar-care/edgarlib v1.4.4
+	github.com/edgar-care/edgarlib v1.7.1
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/jwtauth/v5 v5.1.1
 	github.com/joho/godotenv v1.5.1

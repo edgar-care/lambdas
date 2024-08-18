@@ -32,7 +32,46 @@ func AddMedicalInfo(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	lib.WriteResponse(w, map[string]interface{}{
-		"MedicalFolder": medical.MedicalInfo,
-	}, 201)
+	response := map[string]interface{}{
+		"medical_folder": map[string]interface{}{
+			"id":                medical.MedicalInfo.ID,
+			"name":              medical.MedicalInfo.Name,
+			"firstname":         medical.MedicalInfo.Firstname,
+			"birthdate":         medical.MedicalInfo.Birthdate,
+			"sex":               medical.MedicalInfo.Sex,
+			"height":            medical.MedicalInfo.Height,
+			"weight":            medical.MedicalInfo.Weight,
+			"primary_doctor_id": medical.MedicalInfo.PrimaryDoctorID,
+			"onboarding_status": medical.MedicalInfo.OnboardingStatus,
+			"medical_antecedents": func() []map[string]interface{} {
+				// Convert antecedent diseases to the desired format
+				var diseases []map[string]interface{}
+				for _, disease := range medical.AnteDiseasesWithTreatments {
+					d := map[string]interface{}{
+						"id":   disease.AnteDisease.ID,
+						"name": disease.AnteDisease.Name,
+						"medicines": func() []map[string]interface{} {
+							var medicines []map[string]interface{}
+							for _, treatment := range disease.Treatments {
+								medicine := map[string]interface{}{
+									"id":          treatment.ID,
+									"medicine_id": treatment.MedicineID,
+									"period":      treatment.Period,
+									"day":         treatment.Day,
+									"quantity":    treatment.Quantity,
+								}
+								medicines = append(medicines, medicine)
+							}
+							return medicines
+						}(),
+						"still_relevant": disease.AnteDisease.StillRelevant,
+					}
+					diseases = append(diseases, d)
+				}
+				return diseases
+			}(),
+		},
+	}
+
+	lib.WriteResponse(w, response, medical.Code)
 }

@@ -588,7 +588,7 @@ components:
       properties:
         token:
           type: string
-          description: token of device.
+          description: token of double_auth.
         title:
           type: string
           description: title for the notification.

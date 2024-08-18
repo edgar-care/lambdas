@@ -31,8 +31,10 @@ func Register(w http.ResponseWriter, req *http.Request) {
 
 		err := json.NewDecoder(req.Body).Decode(&input)
 		lib.CheckError(err)
+		ip := "62.34.233.53" //lib.GetIPAddress(req)
+		resp = edgar_auth.RegisterAndLoginPatient(input.Email, input.Password, ip)
 
-		resp = edgar_auth.RegisterAndLoginPatient(input.Email, input.Password)
+		lib.GetDeviceInfo(w, req, resp.Token)
 	}
 	if resp.Err != nil {
 		lib.WriteResponse(w, map[string]string{

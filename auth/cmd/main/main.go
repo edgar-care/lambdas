@@ -24,11 +24,19 @@ func main() {
 			r.Post("/{env}/auth/p/missing-password", handlers.MissingPassword)
 			r.Post("/{env}/auth/p/reset-password", handlers.ResetPassword)
 
+			r.Put("/{env}/auth/disable_account", handlers.DisableAccount)
+			r.Put("/{env}/auth/enable_account", handlers.EnableAccount)
+			r.Post("/{env}/auth/creation_backup_code", handlers.CreateBackupCode)
+
 			r.Post("/auth/{type}/login", handlers.Login)
 			r.Post("/auth/{type}/register", handlers.Register)
 			r.Post("/auth/p/create_account", handlers.CreatePatientAccount)
 			r.Post("/auth/p/missing-password", handlers.MissingPassword)
 			r.Post("/auth/p/reset-password", handlers.ResetPassword)
+
+			r.Put("/auth/disable_account", handlers.DisableAccount)
+			r.Put("/auth/enable_account", handlers.EnableAccount)
+			r.Post("/auth/creation_backup_code", handlers.CreateBackupCode)
 		},
 		Features: map[string]bool{
 			"logger":    true,
