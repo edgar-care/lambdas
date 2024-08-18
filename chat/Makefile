@@ -74,12 +74,5 @@ zip: build
 		deploy \
 		install \
 		start \
-<<<<<<< HEAD
-<<<<<<< HEAD
 		zip
-=======
-		zip
->>>>>>> 2a04d28 (fix(medicalFolder): wrong lambda use)
-=======
-		zip
->>>>>>> bc7ac9b (fix(lamnda): fix lambda)
+

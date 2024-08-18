@@ -13,16 +13,15 @@ import (
 )
 
 type RdvSessionCombined struct {
-	ID                string                  `json:"id"`
-	DoctorID          string                  `json:"doctor_id"`
-	PatientID         string                  `json:"id_patient"`
-	StartDate         int                     `json:"start_date"`
-	EndDate           int                     `json:"end_date"`
-	CancelationReason *string                 `json:"cancelation_reason"`
-<<<<<<< HEAD
-=======
-	HealthMethod      *string                 `json:"health_method"`
->>>>>>> 2a04d28 (fix(medicalFolder): wrong lambda use)
+	ID                string  `json:"id"`
+	DoctorID          string  `json:"doctor_id"`
+	PatientID         string  `json:"id_patient"`
+	StartDate         int     `json:"start_date"`
+	EndDate           int     `json:"end_date"`
+	CancelationReason *string `json:"cancelation_reason"`
+
+	HealthMethod *string `json:"health_method"`
+
 	AppointmentStatus model.AppointmentStatus `json:"appointment_status"`
 	SessionID         string                  `json:"session_id"`
 	Diseases          []model.SessionDiseases `json:"diseases"`
@@ -85,10 +84,8 @@ func GetPreDignosticWait(w http.ResponseWriter, req *http.Request) {
 			StartDate:         rdvSession.Rdv.StartDate,
 			EndDate:           rdvSession.Rdv.EndDate,
 			CancelationReason: rdvSession.Rdv.CancelationReason,
-<<<<<<< HEAD
-=======
 			HealthMethod:      rdvSession.Rdv.HealthMethod,
->>>>>>> 2a04d28 (fix(medicalFolder): wrong lambda use)
+
 			AppointmentStatus: rdvSession.Rdv.AppointmentStatus,
 			SessionID:         rdvSession.Rdv.SessionID,
 			Diseases:          rdvSession.Session.Diseases,
