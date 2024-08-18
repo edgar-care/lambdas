@@ -3,12 +3,11 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/edgar-care/auth/cmd/main/lib"
-	edgar_auth "github.com/edgar-care/edgarlib/auth"
+	edgar_auth "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 )
 
 type ResetPasswordInput struct {
-	Email       string `json:"email"`
 	NewPassword string `json:"new_password"`
 }
 
@@ -18,7 +17,7 @@ func ResetPassword(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	resp := edgar_auth.ResetPassword(input.Email, input.NewPassword, uuid)
+	resp := edgar_auth.ResetPassword(input.NewPassword, uuid)
 	if resp.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": resp.Err.Error(),

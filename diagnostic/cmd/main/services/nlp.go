@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
-
-	"github.com/edgar-care/edgarlib"
 )
 
 type nlpRequestBody struct {

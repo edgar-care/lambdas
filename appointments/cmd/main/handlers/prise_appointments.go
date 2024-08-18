@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/appointment"
+	edgarlib "github.com/edgar-care/edgarlib/v2/appointment"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -15,8 +16,14 @@ type BookInput struct {
 
 func BookRdv(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -28,7 +35,7 @@ func BookRdv(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	appointment := edgarlib.BookAppointment(id_appointment, patientID, input.SessionId)
+	appointment := edgarlib.BookAppointment(id_appointment, patientID.ID, input.SessionId)
 
 	if appointment.Err != nil {
 		lib.WriteResponse(w, map[string]string{
@@ -43,8 +50,14 @@ func BookRdv(w http.ResponseWriter, req *http.Request) {
 }
 
 func GetRdvPatient(w http.ResponseWriter, req *http.Request) {
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -53,7 +66,7 @@ func GetRdvPatient(w http.ResponseWriter, req *http.Request) {
 
 	t := chi.URLParam(req, "id")
 
-	rdv := edgarlib.GetRdvPatient(t, patientID)
+	rdv := edgarlib.GetRdvPatient(t, patientID.ID)
 
 	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
@@ -64,19 +77,25 @@ func GetRdvPatient(w http.ResponseWriter, req *http.Request) {
 
 	lib.WriteResponse(w, map[string]interface{}{
 		"rdv": rdv,
-	}, 201)
+	}, 200)
 }
 
 func GetRdv(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
 		return
 	}
-	rdv := edgarlib.GetRdv(patientID)
+	rdv := edgarlib.GetRdv(patientID.ID)
 
 	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
@@ -87,5 +106,5 @@ func GetRdv(w http.ResponseWriter, req *http.Request) {
 
 	lib.WriteResponse(w, map[string]interface{}{
 		"rdv": rdv.Rdv,
-	}, 201)
+	}, 200)
 }

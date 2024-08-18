@@ -3,7 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/edgar-care/chat/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/chat"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/chat"
+	"github.com/edgar-care/edgarlib/v2/double_auth"
 	"net/http"
 )
 
@@ -24,18 +26,23 @@ func CreatChat(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	DoctorID := lib.AuthMiddlewareDoctor(input.Payload.AuthToken)
-	PatientID := lib.AuthMiddleware(input.Payload.AuthToken)
-	if DoctorID == "" && PatientID == "" {
+	accountID := lib.AuthMiddleware(input.Payload.AuthToken)
+	check_account := authlib.CheckAccountEnable(accountID)
+	if check_account.Code == 409 || check_account.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": check_account.Err.Error(),
+		}, check_account.Code)
+		return
+	}
+
+	if accountID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
 		return
 	}
 
-	id := DoctorID + PatientID
-
-	createdChat := edgarlib.CreateChat(id, edgarlib.ContentInput{Message: input.Payload.Message, RecipientIds: input.Payload.RecipientIds})
+	createdChat := edgarlib.CreateChat(accountID, edgarlib.ContentInput{Message: input.Payload.Message, RecipientIds: input.Payload.RecipientIds})
 	if createdChat.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": createdChat.Err.Error(),
@@ -48,7 +55,18 @@ func CreatChat(w http.ResponseWriter, req *http.Request) {
 		"chat":   createdChat.Chat,
 	}
 
-	lib.BroadcastMessage(w, input.Payload.RecipientIds, data)
+	var deviceIds []string
+	for _, recipientID := range input.Payload.RecipientIds {
+		connectedDevice := double_auth.GetDeviceConnect(recipientID)
+		if connectedDevice.Err != nil {
+			continue
+		}
+		for _, connectedDevice := range connectedDevice.DevicesConnect {
+			deviceIds = append(deviceIds, connectedDevice.ID)
+		}
+	}
+
+	lib.BroadcastMessage(w, deviceIds, data)
 
 	response := map[string]interface{}{
 		"message": "Message sent",

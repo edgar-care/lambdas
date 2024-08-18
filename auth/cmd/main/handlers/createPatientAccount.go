@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/edgar-care/auth/cmd/main/lib"
-	edgar_auth "github.com/edgar-care/edgarlib/auth"
+	edgar_auth "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 )
 
@@ -23,6 +23,7 @@ func CreatePatientAccount(w http.ResponseWriter, req *http.Request) {
 		lib.WriteResponse(w, map[string]string{
 			"message": resp.Err.Error(),
 		}, resp.Code)
+		return
 	}
 
 	lib.WriteResponse(w, map[string]string{

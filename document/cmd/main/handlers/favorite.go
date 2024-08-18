@@ -2,18 +2,24 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/edgar-care/document/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/document"
+	edgarlib "github.com/edgar-care/edgarlib/v2/document"
 	"github.com/go-chi/chi/v5"
 )
 
 func HandleFavorite(w http.ResponseWriter, r *http.Request) {
 
-	// =================================== //
-	ownerID := lib.AuthMiddleware(w, r)
-	if ownerID == "" {
+	ownerID := authlib.AuthMiddlewarePatient(w, r)
+	if ownerID.Code == 409 || ownerID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": ownerID.Err.Error(),
+		}, ownerID.Code)
+		return
+	}
+	if ownerID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, http.StatusUnauthorized)
@@ -36,7 +42,7 @@ func HandleFavorite(w http.ResponseWriter, r *http.Request) {
 
 	input.IsFavorite = true
 
-	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite, ownerID)
+	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite, ownerID.ID)
 	if favorite.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": favorite.Err.Error(),
@@ -52,9 +58,14 @@ func HandleFavorite(w http.ResponseWriter, r *http.Request) {
 
 func RemoveFavorite(w http.ResponseWriter, r *http.Request) {
 
-	// =================================== //
-	ownerID := lib.AuthMiddleware(w, r)
-	if ownerID == "" {
+	ownerID := authlib.AuthMiddlewarePatient(w, r)
+	if ownerID.Code == 409 || ownerID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": ownerID.Err.Error(),
+		}, ownerID.Code)
+		return
+	}
+	if ownerID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, http.StatusUnauthorized)
@@ -69,7 +80,7 @@ func RemoveFavorite(w http.ResponseWriter, r *http.Request) {
 
 	input.IsFavorite = false
 
-	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite, ownerID)
+	favorite := edgarlib.Updatefavorite(IdDocument, input.IsFavorite, ownerID.ID)
 	if favorite.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": favorite.Err.Error(),

@@ -3,8 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/edgar-care/chat/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/http"
-	"github.com/edgar-care/edgarlib/redis"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/http"
+	"github.com/edgar-care/edgarlib/v2/redis"
 	"net/http"
 )
 
@@ -15,6 +16,7 @@ type ReadyInput struct {
 
 type PayloadReady struct {
 	AuthToken string `json:"authToken"`
+	DeviceID  string `json:"deviceId"`
 }
 
 type DisconnectInput struct {
@@ -36,24 +38,28 @@ func Ready(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	DoctorID := lib.AuthMiddlewareDoctor(input.Payload.AuthToken)
-	PatientID := lib.AuthMiddleware(input.Payload.AuthToken)
+	accountID := lib.AuthMiddleware(input.Payload.AuthToken)
+	check_account := authlib.CheckAccountEnable(accountID)
+	if check_account.Code == 409 || check_account.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": check_account.Err.Error(),
+		}, check_account.Code)
+		return
+	}
 
-	if DoctorID == "" && PatientID == "" {
+	if accountID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
 		return
 	}
 
-	id := DoctorID + PatientID
-
-	_, err = redis.SetKey(id, input.ConnectionId, nil)
+	_, err = redis.SetKey(input.Payload.DeviceID, input.ConnectionId, nil)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}
 
-	_, err = redis.SetKey(input.ConnectionId, id, nil)
+	_, err = redis.SetKey(input.ConnectionId, input.Payload.DeviceID, nil)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}
@@ -71,7 +77,7 @@ func Disconnect(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	userId, err := redis.GetKey(input.ConnectionId)
+	deviceId, err := redis.GetKey(input.ConnectionId)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}
@@ -80,7 +86,7 @@ func Disconnect(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}
-	_, err = redis.DeleteKey(userId)
+	_, err = redis.DeleteKey(deviceId)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}

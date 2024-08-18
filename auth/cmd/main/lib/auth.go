@@ -3,8 +3,6 @@ package lib
 import (
 	"encoding/base64"
 	"encoding/json"
-	"fmt"
-	"net/http"
 	"os"
 	"strconv"
 	"strings"
@@ -42,7 +40,7 @@ func AuthMiddleware(authToken string) string {
 		return ""
 	}
 
-	if VerifyToken(authToken) == false {
+	if !VerifyToken(authToken) {
 		return ""
 	}
 	return GetAuthenticatedUser(authToken)
@@ -53,6 +51,7 @@ func GetAuthenticatedUser(authToken string) string {
 	if len(parts) != 3 {
 		return ""
 	}
+
 	decodedBytes, err := base64.RawURLEncoding.DecodeString(parts[1])
 	if err != nil {
 		CheckError(err)
@@ -65,34 +64,19 @@ func GetAuthenticatedUser(authToken string) string {
 		return ""
 	}
 
-	if id, ok := jsonMap["id"].(string); ok {
-		return id
+	// Vérifie si l'utilisateur est un patient
+	if patientID, ok := jsonMap["id"].(string); ok {
+		if _, ok := jsonMap["patient"].(string); ok {
+			return patientID
+		}
 	}
 
-	if patient, ok := jsonMap["patient"].(map[string]interface{}); ok {
-		if id, ok := patient["id"].(string); ok {
-			fmt.Print(id)
-			return id
+	// Vérifie si l'utilisateur est un docteur
+	if doctorID, ok := jsonMap["id"].(string); ok {
+		if _, ok := jsonMap["doctor"].(string); ok {
+			return doctorID
 		}
 	}
 
 	return ""
-}
-
-func GetBearerToken(req *http.Request) string {
-	authHeader := req.Header.Get("Authorization")
-	if authHeader == "" {
-		return ""
-	}
-
-	parts := strings.Split(authHeader, " ")
-	if len(parts) != 2 || parts[0] != "Bearer" {
-		return ""
-	}
-	//checkTokenCode, _ := edgarlib.TokenCheck(parts[1])
-	//if checkTokenCode == http.StatusUnauthorized || checkTokenCode == http.StatusInternalServerError {
-	//	return ""
-	//}
-
-	return parts[1]
 }

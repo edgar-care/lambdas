@@ -1,7 +1,8 @@
 package handlers
 
 import (
-	edgarlib "github.com/edgar-care/edgarlib/dashboard"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/dashboard"
 	"net/http"
 
 	"github.com/edgar-care/dashboard/cmd/main/lib"
@@ -9,8 +10,14 @@ import (
 )
 
 func DeletePatientHandler(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
-	if doctorID == "" {
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
+	if doctorID.Code == 409 || doctorID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": doctorID.Err.Error(),
+		}, doctorID.Code)
+		return
+	}
+	if doctorID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, http.StatusUnauthorized)
@@ -18,7 +25,7 @@ func DeletePatientHandler(w http.ResponseWriter, req *http.Request) {
 	}
 
 	PatientID := chi.URLParam(req, "id")
-	patient := edgarlib.DeletePatient(PatientID, doctorID)
+	patient := edgarlib.DeletePatient(PatientID, doctorID.ID)
 
 	if patient.Err != nil {
 		lib.WriteResponse(w, map[string]string{

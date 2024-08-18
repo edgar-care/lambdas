@@ -3,7 +3,7 @@ module github.com/edgar-care/Lambda_test
 go 1.19
 
 require (
-	github.com/edgar-care/edgarlib v1.3.0
+	github.com/edgar-care/edgarlib/v2 v1.3.0
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/jwtauth/v5 v5.3.0
 	github.com/joho/godotenv v1.5.1

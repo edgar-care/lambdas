@@ -2,16 +2,23 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
-	edgarlib "github.com/edgar-care/edgarlib/follow_treatment"
+	edgarlib "github.com/edgar-care/edgarlib/v2/follow_treatment"
 	"github.com/edgar-care/treatment_follow_up/cmd/main/lib"
 )
 
 func AddFollowTreatment(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -26,7 +33,7 @@ func AddFollowTreatment(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	follow_up := edgarlib.CreateTreatmentFollowUp(input, patientID)
+	follow_up := edgarlib.CreateTreatmentFollowUp(input, patientID.ID)
 
 	if follow_up.Err != nil {
 		lib.WriteError(w, follow_up.Code, follow_up.Err.Error())

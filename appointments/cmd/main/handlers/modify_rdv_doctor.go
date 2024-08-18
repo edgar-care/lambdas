@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/appointment"
+	edgarlib "github.com/edgar-care/edgarlib/v2/appointment"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -14,8 +15,14 @@ type UpdateRdvDoctorInput struct {
 }
 
 func UpdateDoctorAppointment(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
-	if doctorID == "" {
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
+	if doctorID.Code == 409 || doctorID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": doctorID.Err.Error(),
+		}, doctorID.Code)
+		return
+	}
+	if doctorID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)

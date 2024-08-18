@@ -2,7 +2,7 @@ package lib
 
 import (
 	"encoding/json"
-	"github.com/edgar-care/edgarlib/redis"
+	"github.com/edgar-care/edgarlib/v2/redis"
 	"net/http"
 	"strings"
 )

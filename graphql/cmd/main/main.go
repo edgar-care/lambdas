@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/99designs/gqlgen/graphql/handler"
-	edgar_gql "github.com/edgar-care/edgarlib/graphql/server"
+	edgar_gql "github.com/edgar-care/edgarlib/v2/graphql/server"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
