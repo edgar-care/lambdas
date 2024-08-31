@@ -53,6 +53,7 @@ func BroadcastMessage(w http.ResponseWriter, recipientIds []string, message map[
 			WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 		}
 		PostToConnection(w, strings.Replace(recipientConnectionId, "\n", "", -1), jsonString)
-
+		return
 	}
+	WriteResponse(w, map[string]string{"message": "No recipient found"}, 404)
 }

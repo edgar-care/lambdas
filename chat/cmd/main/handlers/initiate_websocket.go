@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/edgar-care/chat/cmd/main/lib"
 	authlib "github.com/edgar-care/edgarlib/v2/auth"
-	"github.com/edgar-care/edgarlib/v2/auth/utils"
 	edgarlib "github.com/edgar-care/edgarlib/v2/http"
 	"github.com/edgar-care/edgarlib/v2/redis"
 	"net/http"
@@ -17,6 +16,7 @@ type ReadyInput struct {
 
 type PayloadReady struct {
 	AuthToken string `json:"authToken"`
+	DeviceID  string `json:"deviceId"`
 }
 
 type DisconnectInput struct {
@@ -53,14 +53,13 @@ func Ready(w http.ResponseWriter, req *http.Request) {
 		}, 401)
 		return
 	}
-	currentUserDevice := utils.GetCurrentUserDevice(w, req, accountID)
 
-	_, err = redis.SetKey(currentUserDevice.ID, input.ConnectionId, nil)
+	_, err = redis.SetKey(input.Payload.DeviceID, input.ConnectionId, nil)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}
 
-	_, err = redis.SetKey(input.ConnectionId, currentUserDevice.ID, nil)
+	_, err = redis.SetKey(input.ConnectionId, input.Payload.DeviceID, nil)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}

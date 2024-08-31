@@ -22,3 +22,17 @@ func PostToConnection(w http.ResponseWriter, connectionId string, data []byte) {
 		log.Fatalln(err)
 	}
 }
+
+func DisconnectToConnection(w http.ResponseWriter, connectionId string) {
+
+	disconnectBody, _ := json.Marshal(map[string]string{
+		"connectionId": connectionId,
+		"stage":        os.Getenv("STAGE"),
+	})
+	responseBody := bytes.NewBuffer(disconnectBody)
+
+	_, err := http.Post("http://x2025edgarcare2028075120000.francecentral.cloudapp.azure.com:8081/ws/disconnect", "application/json", responseBody)
+	if err != nil {
+		log.Fatalln(err)
+	}
+}

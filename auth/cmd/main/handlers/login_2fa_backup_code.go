@@ -56,8 +56,6 @@ func Login2faBackupCode(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	utils.DeviceConnectMiddleware(w, req, logSaveCode.Token)
-
 	lib.WriteResponse(w, map[string]interface{}{
 		"token": logSaveCode.Token,
 	}, logSaveCode.Code)

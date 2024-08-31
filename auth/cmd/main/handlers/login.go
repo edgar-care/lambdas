@@ -52,7 +52,7 @@ func Login(w http.ResponseWriter, req *http.Request) {
 
 	doubleAuthSent := getDoubleAuth(accountId)
 
-	if doubleAuthSent.Err != nil && doubleAuthSent.Code != 200 {
+	if doubleAuthSent.Err == nil && doubleAuthSent.Code != 200 {
 		utils.DeviceConnectMiddleware(w, req, accountId)
 		device := utils.GetCurrentUserDevice(w, req, accountId)
 
@@ -77,7 +77,7 @@ func Login(w http.ResponseWriter, req *http.Request) {
 func getDoubleAuth(accountID string) CheckDoubleAuthResponse {
 
 	patientInfo, err := graphql.GetPatientById(accountID)
-	if err == nil && (patientInfo.DoubleAuthMethodsID != nil || *patientInfo.DoubleAuthMethodsID != "") {
+	if err == nil && patientInfo.DoubleAuthMethodsID != nil && *patientInfo.DoubleAuthMethodsID != "" {
 		response, err := graphql.GetDoubleAuthById(*patientInfo.DoubleAuthMethodsID)
 		if err != nil {
 			return CheckDoubleAuthResponse{
@@ -94,7 +94,7 @@ func getDoubleAuth(accountID string) CheckDoubleAuthResponse {
 	}
 
 	doctorInfo, err := graphql.GetDoctorById(accountID)
-	if err == nil && (doctorInfo.DoubleAuthMethodsID != nil || *doctorInfo.DoubleAuthMethodsID != "") {
+	if err == nil && doctorInfo.DoubleAuthMethodsID != nil && *doctorInfo.DoubleAuthMethodsID != "" {
 		response, err := graphql.GetDoubleAuthById(*doctorInfo.DoubleAuthMethodsID)
 		if err != nil {
 			return CheckDoubleAuthResponse{
