@@ -3,7 +3,6 @@ package lib
 import (
 	"encoding/base64"
 	"encoding/json"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -67,16 +66,14 @@ func GetAuthenticatedUser(authToken string) string {
 
 	// Vérifie si l'utilisateur est un patient
 	if patientID, ok := jsonMap["id"].(string); ok {
-		if patientEmail, ok := jsonMap["patient"].(string); ok {
-			fmt.Printf("Patient Email: %s, ID: %s\n", patientEmail, patientID)
+		if _, ok := jsonMap["patient"].(string); ok {
 			return patientID
 		}
 	}
 
 	// Vérifie si l'utilisateur est un docteur
 	if doctorID, ok := jsonMap["id"].(string); ok {
-		if doctorEmail, ok := jsonMap["doctor"].(string); ok {
-			fmt.Printf("Doctor Email: %s, ID: %s\n", doctorEmail, doctorID)
+		if _, ok := jsonMap["doctor"].(string); ok {
 			return doctorID
 		}
 	}

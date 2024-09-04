@@ -8,7 +8,8 @@ import (
 )
 
 func EnableAccount(w http.ResponseWriter, req *http.Request) {
-	accountID := edgarlib.AuthMiddlewareAccount(w, req)
+	token := edgarlib.GetBearerToken(req)
+	accountID, _ := edgarlib.GetAuthenticatedAccount(token)
 	if accountID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
