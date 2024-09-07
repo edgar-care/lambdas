@@ -7,7 +7,7 @@ require (
 	github.com/99designs/gqlgen v0.17.43
 	github.com/aws/aws-lambda-go v1.46.0
 	github.com/awslabs/aws-lambda-go-api-proxy v0.16.1
-	github.com/edgar-care/edgarlib/v2 v2.1.7
+	github.com/edgar-care/edgarlib/v2 v2.1.10
 	github.com/gin-gonic/gin v1.9.1
 	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.13.1

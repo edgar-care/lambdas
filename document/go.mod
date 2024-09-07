@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/aws/aws-sdk-go v1.50.11
-	github.com/edgar-care/edgarlib/v2 v2.1.7
+	github.com/edgar-care/edgarlib/v2 v2.1.9
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/jwtauth/v5 v5.1.1
 	github.com/jinzhu/copier v0.4.0
@@ -16,7 +16,7 @@ require (
 require (
 	github.com/aws/aws-lambda-go v1.26.0 // indirect
 	github.com/awslabs/aws-lambda-go-api-proxy v0.11.0 // indirect
-	github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc // indirect
+	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.2.0 // indirect
 	github.com/go-chi/cors v1.2.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect

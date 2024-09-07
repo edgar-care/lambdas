@@ -21,8 +21,8 @@ func main() {
 			r.Post("/{env}/auth/{type}/login", handlers.Login)
 			r.Post("/{env}/auth/{type}/register", handlers.Register)
 			r.Post("/{env}/auth/p/create_account", handlers.CreatePatientAccount)
-			r.Post("/{env}/auth/p/missing-password", handlers.MissingPassword)
-			r.Post("/{env}/auth/p/reset-password", handlers.ResetPassword)
+			r.Post("/{env}/auth/missing-password", handlers.MissingPassword)
+			r.Post("/{env}/auth/reset-password", handlers.ResetPassword)
 			r.Post("/{env}/auth/update_password", handlers.UpdatePassword)
 
 			r.Put("/{env}/auth/disable_account", handlers.DisableAccount)
@@ -41,8 +41,8 @@ func main() {
 			r.Post("/auth/{type}/login", handlers.Login)
 			r.Post("/auth/{type}/register", handlers.Register)
 			r.Post("/auth/p/create_account", handlers.CreatePatientAccount)
-			r.Post("/auth/p/missing-password", handlers.MissingPassword)
-			r.Post("/auth/p/reset-password", handlers.ResetPassword)
+			r.Post("/auth/missing-password", handlers.MissingPassword)
+			r.Post("/auth/reset-password", handlers.ResetPassword)
 			r.Post("/auth/update_password", handlers.UpdatePassword)
 
 			r.Post("/auth/sending_email", handlers.SenderEmail2FA)

@@ -8,7 +8,6 @@ import (
 )
 
 type ResetPasswordInput struct {
-	Email       string `json:"email"`
 	NewPassword string `json:"new_password"`
 }
 
