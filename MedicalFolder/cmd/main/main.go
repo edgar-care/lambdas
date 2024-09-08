@@ -26,10 +26,12 @@ func main() {
 				router.Post("/dashboard/medical-info", handlers.AddMedicalInfo)
 				router.Get("/dashboard/medical-info", handlers.GetMedicalInformation)
 				router.Put("/dashboard/medical-info", handlers.ModifyFolderMedical)
+				router.Get("/dashboard/medical-info/disease/{name}", handlers.GetSymptomsByDiseaseName)
 
 				router.Post("/{env}/dashboard/medical-info", handlers.AddMedicalInfo)
 				router.Get("/{env}/dashboard/medical-info", handlers.GetMedicalInformation)
 				router.Put("/{env}/dashboard/medical-info", handlers.ModifyFolderMedical)
+				router.Get("/{env}/dashboard/medical-info/disease/{name}", handlers.GetSymptomsByDiseaseName)
 			})
 		},
 		Features: map[string]bool{
