@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"github.com/edgar-care/diagnostic/cmd/main/lib"
 	edgarauth "github.com/edgar-care/edgarlib/v2/auth"
 	edgar_diag "github.com/edgar-care/edgarlib/v2/diagnostic"
 	edgarhttp "github.com/edgar-care/edgarlib/v2/http"
@@ -10,7 +11,13 @@ import (
 
 func Initiate(w http.ResponseWriter, req *http.Request) {
 	patientID := edgarauth.AuthMiddlewarePatient(w, req)
-	if patientID == "" {
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		edgarhttp.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -19,7 +26,7 @@ func Initiate(w http.ResponseWriter, req *http.Request) {
 
 	fmt.Print(patientID)
 
-	resp := edgar_diag.Initiate(patientID)
+	resp := edgar_diag.Initiate(patientID.ID)
 
 	if resp.Err != nil {
 		edgarhttp.WriteResponse(w, map[string]string{

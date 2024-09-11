@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/edgar-care/diagnostic/cmd/main/lib"
 	edgarauth "github.com/edgar-care/edgarlib/v2/auth"
 	"github.com/go-chi/chi/v5"
 	"net/http"
@@ -13,7 +14,13 @@ func GetSummary(w http.ResponseWriter, req *http.Request) {
 	id := chi.URLParam(req, "id")
 
 	DoctorID := edgarauth.AuthMiddlewareDoctor(w, req)
-	if DoctorID == "" {
+	if DoctorID.Code == 409 || DoctorID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": DoctorID.Err.Error(),
+		}, DoctorID.Code)
+		return
+	}
+	if DoctorID.ID == "" {
 		edgarhttp.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
