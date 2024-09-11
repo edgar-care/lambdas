@@ -2,18 +2,33 @@ package handlers
 
 import (
 	"encoding/json"
-	edgarlib "github.com/edgar-care/edgarlib/treatment"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/treatment"
 	"github.com/edgar-care/treatment/cmd/main/lib"
 	"net/http"
 )
 
 func EditTreatment(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
+		return
+	}
+
+	check_account := authlib.CheckAccountEnable(patientID.ID)
+	if check_account.Code == 409 {
+		lib.WriteResponse(w, map[string]string{
+			"message": "Not authorized, this account is disable",
+		}, 409)
 		return
 	}
 
@@ -25,7 +40,7 @@ func EditTreatment(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	treatment := edgarlib.UpdateTreatment(input, patientID)
+	treatment := edgarlib.UpdateTreatment(input, patientID.ID)
 
 	if treatment.Err != nil {
 		lib.WriteError(w, treatment.Code, treatment.Err.Error())

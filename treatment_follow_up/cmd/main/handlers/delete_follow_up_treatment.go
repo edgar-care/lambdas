@@ -1,7 +1,8 @@
 package handlers
 
 import (
-	edgarlib "github.com/edgar-care/edgarlib/follow_treatment"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/follow_treatment"
 	"github.com/edgar-care/treatment_follow_up/cmd/main/lib"
 	"github.com/go-chi/chi/v5"
 	"net/http"
@@ -9,8 +10,14 @@ import (
 
 func DeleteFollowTreatment(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -19,7 +26,7 @@ func DeleteFollowTreatment(w http.ResponseWriter, req *http.Request) {
 
 	t := chi.URLParam(req, "id")
 
-	follow_delete := edgarlib.Delete_follow_up(t, patientID)
+	follow_delete := edgarlib.Delete_follow_up(t, patientID.ID)
 
 	if follow_delete.Err != nil {
 		lib.WriteError(w, follow_delete.Code, follow_delete.Err.Error())

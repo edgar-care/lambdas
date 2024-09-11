@@ -1,17 +1,24 @@
 package handlers
 
 import (
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/appointment"
+	edgarlib "github.com/edgar-care/edgarlib/v2/appointment"
 )
 
 func GetDoctorAppointment(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
-	if doctorID == "" {
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
+	if doctorID.Code == 409 {
+		lib.WriteResponse(w, map[string]string{
+			"message": doctorID.Err.Error(),
+		}, doctorID.Code)
+		return
+	}
+	if doctorID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -20,7 +27,7 @@ func GetDoctorAppointment(w http.ResponseWriter, req *http.Request) {
 
 	appointmentID := chi.URLParam(req, "id")
 
-	rdv := edgarlib.GetDoctorAppointment(appointmentID, doctorID)
+	rdv := edgarlib.GetDoctorAppointment(appointmentID, doctorID.ID)
 
 	if rdv.Err != nil {
 		lib.WriteResponse(w, map[string]string{
@@ -35,15 +42,21 @@ func GetDoctorAppointment(w http.ResponseWriter, req *http.Request) {
 }
 
 func GetAllDoctorAppointments(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
-	if doctorID == "" {
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
+	if doctorID.Code == 409 || doctorID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": doctorID.Err.Error(),
+		}, doctorID.Code)
+		return
+	}
+	if doctorID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
 		return
 	}
 
-	appointments := edgarlib.GetAllDoctorAppointment(doctorID)
+	appointments := edgarlib.GetAllDoctorAppointment(doctorID.ID)
 
 	if appointments.Err != nil {
 		lib.WriteResponse(w, map[string]string{

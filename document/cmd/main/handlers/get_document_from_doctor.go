@@ -2,18 +2,24 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/edgar-care/document/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/document"
-	response "github.com/edgar-care/edgarlib/http"
+	edgarlib "github.com/edgar-care/edgarlib/v2/document"
+	response "github.com/edgar-care/edgarlib/v2/http"
 )
 
 func DownloadFromDoctor(w http.ResponseWriter, r *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, r)
-	if doctorID == "" {
+	doctorID := authlib.AuthMiddlewareDoctor(w, r)
+	if doctorID.Code == 409 || doctorID.Code == 401 {
+		response.WriteResponse(w, map[string]string{
+			"message": doctorID.Err.Error(),
+		}, doctorID.Code)
+		return
+	}
+	if doctorID.ID == "" {
 		response.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, http.StatusUnauthorized)

@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/appointment"
+	edgarlib "github.com/edgar-care/edgarlib/v2/appointment"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -14,8 +15,14 @@ type UpdateRdvInput struct {
 }
 
 func ModifRdv(w http.ResponseWriter, req *http.Request) {
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -31,12 +38,11 @@ func ModifRdv(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// ======================================================= //
 	var new_appointment UpdateRdvInput
 	err := json.NewDecoder(req.Body).Decode(&new_appointment)
 
 	lib.CheckError(err)
-	appointment := edgarlib.EditRdv(new_appointment.ID, id_appointment, patientID)
+	appointment := edgarlib.EditRdv(new_appointment.ID, id_appointment, patientID.ID)
 
 	if appointment.Err != nil {
 		lib.WriteResponse(w, map[string]string{

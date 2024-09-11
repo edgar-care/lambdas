@@ -27,11 +27,12 @@ def get_symptoms():
 
 def create_nlp_report(version, input_symptoms, input_sentence, output, computation_time):
     gql_url = os.environ.get('GRAPHQL_URL')
-    if (gql_url == None):
+    if gql_url is None:
         return None
+    
     query = '''
-    mutation createNlpReport($version: Int!, $input_symptoms: [String!]!, $input_sentence: String!, $output: [NlpReportOutputInput!]!, $computation_time: Int!) {
-        createNlpReport(version: $version, input_symptoms: $input_symptoms, input_sentence: $input_sentence, output: $output, computation_time: $computation_time) {
+    mutation CreateNlpReport($input: CreateNlpReportInput!) {
+        createNlpReport(input: $input) {
             id
             version
             input_symptoms
@@ -39,27 +40,36 @@ def create_nlp_report(version, input_symptoms, input_sentence, output, computati
             output {
                 symptom
                 present
+                days
             }
             computation_time
+            createdAt
+            updatedAt
         }
     }
     '''
 
     variables = {
-        'version': version,
-        'input_symptoms': input_symptoms,
-        'input_sentence': input_sentence,
-        'output': output,
-        'computation_time': computation_time
+        'input': {
+            'version': version,
+            'input_symptoms': input_symptoms,
+            'input_sentence': input_sentence,
+            'output': output,
+            'computation_time': computation_time
+        }
     }
 
-    header = {'Content-Type': "application/json", os.environ.get('API_KEY'): os.environ.get('API_KEY_VALUE')}
+    headers = {
+        'Content-Type': "application/json",
+        os.environ.get('API_KEY'): os.environ.get('API_KEY_VALUE')
+    }
+
     data = {
         'query': query,
         'variables': variables
     }
 
-    response = requests.post(gql_url, headers=header, json=data)
+    response = requests.post(gql_url, headers=headers, json=data)
     response.raise_for_status()
 
     return response.json()

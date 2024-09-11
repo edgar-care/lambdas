@@ -3,7 +3,8 @@ package handlers
 import (
 	"encoding/json"
 	lib "github.com/edgar-care/chat/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/chat"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/chat"
 	"net/http"
 )
 
@@ -24,17 +25,23 @@ func ReadMessage(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	DoctorID := lib.AuthMiddlewareDoctor(input.Payload.AuthToken)
-	PatientID := lib.AuthMiddleware(input.Payload.AuthToken)
-	if DoctorID == "" && PatientID == "" {
+	accountID := lib.AuthMiddleware(input.Payload.AuthToken)
+	check_account := authlib.CheckAccountEnable(accountID)
+	if check_account.Code == 409 || check_account.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": check_account.Err.Error(),
+		}, check_account.Code)
+		return
+	}
+
+	if accountID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
 		return
 	}
-	id := DoctorID + PatientID
 
-	readMessage := edgarlib.UpdateMessageRead(id, input.Payload.ChatId)
+	readMessage := edgarlib.UpdateMessageRead(accountID, input.Payload.ChatId)
 	if readMessage.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": readMessage.Err.Error(),

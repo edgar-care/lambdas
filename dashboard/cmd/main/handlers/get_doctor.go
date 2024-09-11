@@ -2,9 +2,10 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/edgar-care/dashboard/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/auth"
+	edgarlib "github.com/edgar-care/edgarlib/v2/auth"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -57,8 +58,20 @@ func GetDoctorId(w http.ResponseWriter, req *http.Request) {
 }
 
 func GetDoctors(w http.ResponseWriter, req *http.Request) {
-
-	doctors := edgarlib.GetDoctors()
+	var doctors edgarlib.GetDoctorsResponse
+	page := req.URL.Query().Get("page")
+	size := req.URL.Query().Get("size")
+	if page == "" && size == "" {
+		doctors = edgarlib.GetDoctors(0, 0)
+	} else {
+		number_page, err1 := strconv.Atoi(page)
+		number_size, err2 := strconv.Atoi(size)
+		if err1 != nil || err2 != nil {
+			doctors = edgarlib.GetDoctors(0, 0)
+		} else {
+			doctors = edgarlib.GetDoctors(number_page, number_size)
+		}
+	}
 
 	if doctors.Err != nil {
 		lib.WriteResponse(w, map[string]string{

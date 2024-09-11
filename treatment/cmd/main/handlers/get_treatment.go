@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"context"
-	edgargraph "github.com/edgar-care/edgarlib/graphql"
-	"github.com/edgar-care/edgarlib/graphql/server/model"
-	edgarlib "github.com/edgar-care/edgarlib/treatment"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	edgargraph "github.com/edgar-care/edgarlib/v2/graphql"
+	"github.com/edgar-care/edgarlib/v2/graphql/model"
+	edgarlib "github.com/edgar-care/edgarlib/v2/treatment"
 	"github.com/edgar-care/treatment/cmd/main/lib"
 	"github.com/go-chi/chi/v5"
 	"log"
@@ -13,8 +13,14 @@ import (
 
 func GetTreatment(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -23,7 +29,7 @@ func GetTreatment(w http.ResponseWriter, req *http.Request) {
 
 	t := chi.URLParam(req, "id")
 
-	treatment := edgarlib.GetTreatmentById(t, patientID)
+	treatment := edgarlib.GetTreatmentById(t, patientID.ID)
 	if treatment.Err != nil {
 		lib.WriteError(w, treatment.Code, treatment.Err.Error())
 		return
@@ -41,16 +47,29 @@ func GetTreatment(w http.ResponseWriter, req *http.Request) {
 }
 
 func GetTreatments(w http.ResponseWriter, req *http.Request) {
-	gqlClient := edgargraph.CreateClient()
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, http.StatusUnauthorized)
 		return
 	}
 
-	treatments := edgarlib.GetTreatments(patientID)
+	check_account := authlib.CheckAccountEnable(patientID.ID)
+	if check_account.Code == 409 {
+		lib.WriteResponse(w, map[string]string{
+			"message": "Not authorized, this account is disable",
+		}, 409)
+		return
+	}
+
+	treatments := edgarlib.GetTreatments(patientID.ID)
 	if treatments.Err != nil {
 		lib.WriteError(w, treatments.Code, treatments.Err.Error())
 		return
@@ -59,14 +78,14 @@ func GetTreatments(w http.ResponseWriter, req *http.Request) {
 	treatmentMap := make(map[string][]model.Treatment)
 
 	for _, antedisease := range treatments.Antedisease {
-		associatedAnte, err := edgargraph.GetAnteDiseaseByID(context.Background(), gqlClient, antedisease.ID)
+		associatedAnte, err := edgargraph.GetAnteDiseaseByID(antedisease.ID)
 		if err != nil {
 			log.Println("Failed to retrieve associated treatments for antedisease:", err)
 			continue
 		}
 
-		for _, treatmentID := range associatedAnte.GetAnteDiseaseByID.Treatment_ids {
-			associatedTreatment := edgarlib.GetTreatmentById(treatmentID, patientID)
+		for _, treatmentID := range associatedAnte.TreatmentIds {
+			associatedTreatment := edgarlib.GetTreatmentById(treatmentID, patientID.ID)
 			if associatedTreatment.Err != nil {
 				log.Println("Failed to retrieve associated treatment with ID:", treatmentID, ":", associatedTreatment.Err)
 				continue

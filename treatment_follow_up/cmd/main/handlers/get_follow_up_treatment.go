@@ -1,17 +1,24 @@
 package handlers
 
 import (
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"github.com/go-chi/chi/v5"
 	"net/http"
 
-	edgarlib "github.com/edgar-care/edgarlib/follow_treatment"
+	edgarlib "github.com/edgar-care/edgarlib/v2/follow_treatment"
 	"github.com/edgar-care/treatment_follow_up/cmd/main/lib"
 )
 
 func GetFollowTreatment(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -31,15 +38,28 @@ func GetFollowTreatment(w http.ResponseWriter, req *http.Request) {
 
 func GetfFollowsTreatments(w http.ResponseWriter, req *http.Request) {
 
-	patientID := lib.AuthMiddleware(w, req)
-	if patientID == "" {
+	patientID := authlib.AuthMiddlewarePatient(w, req)
+	if patientID.Code == 409 || patientID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": patientID.Err.Error(),
+		}, patientID.Code)
+		return
+	}
+	if patientID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
 		return
 	}
+	check_account := authlib.CheckAccountEnable(patientID.ID)
+	if check_account.Code == 409 {
+		lib.WriteResponse(w, map[string]string{
+			"message": "Not authorized, this account is disable",
+		}, 409)
+		return
+	}
 
-	follow_up := edgarlib.GetTreatmentFollowUp(patientID)
+	follow_up := edgarlib.GetTreatmentFollowUp(patientID.ID)
 	if follow_up.Err != nil {
 		lib.WriteError(w, follow_up.Code, follow_up.Err.Error())
 		return

@@ -1,16 +1,23 @@
 package handlers
 
 import (
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/edgar-care/dashboard/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/dashboard"
+	edgarlib "github.com/edgar-care/edgarlib/v2/dashboard"
 	"github.com/go-chi/chi/v5"
 )
 
 func GetPatientId(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
-	if doctorID == "" {
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
+	if doctorID.Code == 409 || doctorID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": doctorID.Err.Error(),
+		}, doctorID.Code)
+		return
+	}
+	if doctorID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
@@ -19,7 +26,7 @@ func GetPatientId(w http.ResponseWriter, req *http.Request) {
 
 	t := chi.URLParam(req, "id")
 
-	patient := edgarlib.GetPatientById(t, doctorID)
+	patient := edgarlib.GetPatientById(t, doctorID.ID)
 	if patient.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": patient.Err.Error(),
@@ -34,15 +41,16 @@ func GetPatientId(w http.ResponseWriter, req *http.Request) {
 		"document_ids":            patient.PatientInfo.DocumentsIds,
 		"rendez_vous_ids":         patient.PatientInfo.RendezVousIds,
 		"medical_folder": map[string]interface{}{
-			"id":                patient.PatientInfo.MedicalInfo.ID,
-			"name":              patient.PatientInfo.MedicalInfo.Name,
-			"firstname":         patient.PatientInfo.MedicalInfo.Firstname,
-			"birthdate":         patient.PatientInfo.MedicalInfo.Birthdate,
-			"sex":               patient.PatientInfo.MedicalInfo.Sex,
-			"height":            patient.PatientInfo.MedicalInfo.Height,
-			"weight":            patient.PatientInfo.MedicalInfo.Weight,
-			"primary_doctor_id": patient.PatientInfo.MedicalInfo.PrimaryDoctorID,
-			"onboarding_status": patient.PatientInfo.MedicalInfo.OnboardingStatus,
+			"id":                         patient.PatientInfo.MedicalInfo.ID,
+			"name":                       patient.PatientInfo.MedicalInfo.Name,
+			"firstname":                  patient.PatientInfo.MedicalInfo.Firstname,
+			"birthdate":                  patient.PatientInfo.MedicalInfo.Birthdate,
+			"sex":                        patient.PatientInfo.MedicalInfo.Sex,
+			"height":                     patient.PatientInfo.MedicalInfo.Height,
+			"weight":                     patient.PatientInfo.MedicalInfo.Weight,
+			"primary_doctor_id":          patient.PatientInfo.MedicalInfo.PrimaryDoctorID,
+			"family_members_med_info_id": patient.PatientInfo.MedicalInfo.FamilyMembersMedInfoID,
+			"onboarding_status":          patient.PatientInfo.MedicalInfo.OnboardingStatus,
 			"medical_antecedents": func() []map[string]interface{} {
 				// Convert antecedent diseases to the desired format
 				var diseases []map[string]interface{}
@@ -59,6 +67,8 @@ func GetPatientId(w http.ResponseWriter, req *http.Request) {
 									"period":      treatment.Period,
 									"day":         treatment.Day,
 									"quantity":    treatment.Quantity,
+									"start_date":  treatment.StartDate,
+									"end_date":    treatment.EndDate,
 								}
 								medicines = append(medicines, medicine)
 							}
@@ -76,19 +86,26 @@ func GetPatientId(w http.ResponseWriter, req *http.Request) {
 
 func GetPatients(w http.ResponseWriter, req *http.Request) {
 
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
-	if doctorID == "" {
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
+	if doctorID.Code == 409 || doctorID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": doctorID.Err.Error(),
+		}, doctorID.Code)
+		return
+	}
+	if doctorID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
 		return
 	}
-	patient := edgarlib.GetPatients(doctorID)
+
+	patient := edgarlib.GetPatients(doctorID.ID)
 
 	if patient.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": patient.Err.Error(),
-		}, patient.Code)
+		}, 400)
 		return
 	}
 
@@ -102,15 +119,16 @@ func GetPatients(w http.ResponseWriter, req *http.Request) {
 			"document_ids":            patientInfo.DocumentsIds,
 			"rendez_vous_ids":         patientInfo.RendezVousIds,
 			"medical_folder": map[string]interface{}{
-				"id":                patientInfo.MedicalInfo.ID,
-				"name":              patientInfo.MedicalInfo.Name,
-				"firstname":         patientInfo.MedicalInfo.Firstname,
-				"birthdate":         patientInfo.MedicalInfo.Birthdate,
-				"sex":               patientInfo.MedicalInfo.Sex,
-				"height":            patientInfo.MedicalInfo.Height,
-				"weight":            patientInfo.MedicalInfo.Weight,
-				"primary_doctor_id": patientInfo.MedicalInfo.PrimaryDoctorID,
-				"onboarding_status": patientInfo.MedicalInfo.OnboardingStatus,
+				"id":                         patientInfo.MedicalInfo.ID,
+				"name":                       patientInfo.MedicalInfo.Name,
+				"firstname":                  patientInfo.MedicalInfo.Firstname,
+				"birthdate":                  patientInfo.MedicalInfo.Birthdate,
+				"sex":                        patientInfo.MedicalInfo.Sex,
+				"height":                     patientInfo.MedicalInfo.Height,
+				"weight":                     patientInfo.MedicalInfo.Weight,
+				"primary_doctor_id":          patientInfo.MedicalInfo.PrimaryDoctorID,
+				"family_members_med_info_id": patientInfo.MedicalInfo.FamilyMembersMedInfoID,
+				"onboarding_status":          patientInfo.MedicalInfo.OnboardingStatus,
 				"medical_antecedents": func() []map[string]interface{} {
 					var diseases []map[string]interface{}
 					for _, disease := range patientInfo.Antedisease {
@@ -126,6 +144,8 @@ func GetPatients(w http.ResponseWriter, req *http.Request) {
 										"period":      treatment.Period,
 										"day":         treatment.Day,
 										"quantity":    treatment.Quantity,
+										"start_date":  treatment.StartDate,
+										"end_date":    treatment.EndDate,
 									}
 									medicines = append(medicines, medicine)
 								}

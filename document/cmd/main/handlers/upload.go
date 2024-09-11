@@ -2,12 +2,13 @@ package handlers
 
 import (
 	"encoding/json"
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 	"path/filepath"
 	"strconv"
 
 	"github.com/edgar-care/document/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/document"
+	edgarlib "github.com/edgar-care/edgarlib/v2/document"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -32,8 +33,14 @@ func isValidFileExtension(filename string) bool {
 }
 
 func HandleUpload(w http.ResponseWriter, r *http.Request) {
-	ownerID := lib.AuthMiddleware(w, r)
-	if ownerID == "" {
+	ownerID := authlib.AuthMiddlewarePatient(w, r)
+	if ownerID.Code == 409 || ownerID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": ownerID.Err.Error(),
+		}, ownerID.Code)
+		return
+	}
+	if ownerID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, http.StatusUnauthorized)
@@ -71,7 +78,7 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 
 	// Generate the S3 download URL
 	document := edgarlib.UploadDocumentInput{
-		OwnerID:      ownerID,
+		OwnerID:      ownerID.ID,
 		DocumentType: documentType,
 		Category:     category,
 		IsFavorite:   isFavorite,
@@ -80,7 +87,7 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call CreateDocument to store the document in the external system
-	createdDocument := edgarlib.CreateDocument(document, ownerID)
+	createdDocument := edgarlib.CreateDocument(document, ownerID.ID, ownerID.ID)
 	if createdDocument.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": createdDocument.Err.Error(),
@@ -106,8 +113,14 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteDocument(w http.ResponseWriter, r *http.Request) {
-	ownerID := lib.AuthMiddleware(w, r)
-	if ownerID == "" {
+	ownerID := authlib.AuthMiddlewarePatient(w, r)
+	if ownerID.Code == 409 || ownerID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": ownerID.Err.Error(),
+		}, ownerID.Code)
+		return
+	}
+	if ownerID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, http.StatusUnauthorized)
@@ -116,7 +129,7 @@ func DeleteDocument(w http.ResponseWriter, r *http.Request) {
 
 	IdDocumement := chi.URLParam(r, "id")
 
-	delete := edgarlib.DeleteDocument(IdDocumement, ownerID)
+	delete := edgarlib.DeleteDocument(IdDocumement, ownerID.ID)
 	if delete.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": delete.Err.Error(),
@@ -132,8 +145,14 @@ func DeleteDocument(w http.ResponseWriter, r *http.Request) {
 }
 
 func UploadFromDoctor(w http.ResponseWriter, r *http.Request) {
-	ownerID := lib.AuthMiddlewareDoctor(w, r)
-	if ownerID == "" {
+	ownerID := authlib.AuthMiddlewareDoctor(w, r)
+	if ownerID.Code == 409 || ownerID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": ownerID.Err.Error(),
+		}, ownerID.Code)
+		return
+	}
+	if ownerID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, http.StatusUnauthorized)
@@ -179,7 +198,7 @@ func UploadFromDoctor(w http.ResponseWriter, r *http.Request) {
 		DownloadURL:  "",
 	}
 
-	createdDocument := edgarlib.CreateDocument(document, patientID)
+	createdDocument := edgarlib.CreateDocument(document, patientID, ownerID.ID)
 	if createdDocument.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": createdDocument.Err.Error(),

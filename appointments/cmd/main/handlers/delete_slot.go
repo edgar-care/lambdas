@@ -1,21 +1,29 @@
 package handlers
 
 import (
+	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	"net/http"
 
 	"github.com/edgar-care/appointments/cmd/main/lib"
-	edgarlib "github.com/edgar-care/edgarlib/slot"
+	edgarlib "github.com/edgar-care/edgarlib/v2/slot"
 	"github.com/go-chi/chi/v5"
 )
 
 func DeleteSlot(w http.ResponseWriter, req *http.Request) {
-	doctorID := lib.AuthMiddlewareDoctor(w, req)
-	if doctorID == "" {
+	doctorID := authlib.AuthMiddlewareDoctor(w, req)
+	if doctorID.Code == 409 || doctorID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": doctorID.Err.Error(),
+		}, doctorID.Code)
+		return
+	}
+	if doctorID.ID == "" {
 		lib.WriteResponse(w, map[string]string{
 			"message": "Not authenticated",
 		}, 401)
 		return
 	}
+
 	slotID := chi.URLParam(req, "id")
 
 	if slotID == "" {
@@ -25,7 +33,7 @@ func DeleteSlot(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	deletedSlot := edgarlib.DeleteSlot(slotID, doctorID)
+	deletedSlot := edgarlib.DeleteSlot(slotID, doctorID.ID)
 	if deletedSlot.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": deletedSlot.Err.Error(),
