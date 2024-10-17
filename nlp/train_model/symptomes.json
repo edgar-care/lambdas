@@ -1,0 +1,442 @@
+{
+  "Brûlure poitrine": [
+    "une brûlure dans la poitrine", "des douleurs au thorax", "un feu dans la poitrine", "une gêne thoracique", "une brulure poitrine",
+    "un inconfort au niveau du thorax", "une chaleur à la poitrine", "des sensations de brûlure dans le thorax", "une gêne dans le haut du torse"
+  ],
+  "Syndrome de l'imposteur": [
+    "un syndrome de l'imposteur", "un doute professionnel", "une peur de ne pas être à la hauteur", "un manque de confiance en moi",
+    "le sentiment de ne pas mériter ma place", "une peur de l'échec", "un complexe d'imposteur", "une impression d'être inadéquat"
+  ],
+  "Tremblements": [
+    "des tremblements", "un tremblement des mains", "des secousses involontaires", "un corps qui tremble", "des frissons",
+    "une sensation de tremblements", "un tremblement léger", "un tremblement dans les mains", "des secousses dans le corps"
+  ],
+  "Sensibilité à la lumière": [
+    "une sensibilité à la lumière", "une photophobie", "un inconfort visuel sous la lumière", "des douleurs aux yeux avec la lumière",
+    "une hypersensibilité lumineuse", "un inconfort en présence de lumière", "une douleur sous les lumières vives"
+  ],
+  "Otorrhée": [
+    "une otorrhée", "un écoulement de l'oreille", "du liquide dans l'oreille", "une oreille qui coule", "un écoulement auriculaire",
+    "un sang qui sort de l'oreille", "des écoulements dans les oreilles", "une sécrétion au niveau de l'oreille"
+  ],
+  "Fatigue": [
+    "de la fatigue", "un état de fatigue", "une sensation d'épuisement", "un manque d'énergie", "de l'affaiblissement",
+    "une fatigue intense", "de la somnolence", "une grande fatigue", "une sensation de lassitude", "de l'épuisement"
+  ],
+  "Hypoacousie": [
+    "de l'hypoacousie", "une perte auditive", "une surdité partielle", "une perte d'audition", "une difficulté à entendre",
+    "un malentendu", "un affaiblissement de l'audition", "une baisse de l'audition"
+  ],
+  "Vision trouble": [
+    "une vision trouble", "une vue floue", "une difficulté à voir clairement", "des troubles visuels", "un flou visuel",
+    "une vision pas nette", "un brouillard dans la vision", "des problèmes de vue",  "vois flou", "vois floue"
+  ],
+  "Respiration sifflante": [
+    "une respiration sifflante", "un sifflement en respirant", "une respiration difficile", "des sifflements dans les poumons",
+    "une respiration bruyante", "un sifflement à l'inspiration", "un souffle saccadé"
+  ],
+  "Vomissements": [
+    "des vomissements", "un besoin de vomir", "gerber", "envie de gerber", "une envie de rendre", "un haut-le-coeur", "une sensation de nausée",
+    "une impression de vouloir vomir", "des nausées importantes", "des hauts-le-coeur fréquents", "vomi", "vomis", "vomit"
+  ],
+  "Frilosité": [
+    "de la frilosité", "une sensation de froid", "une hypersensibilité au froid", "un état de frilosité",
+    "un frisson continuel", "une grande sensibilité aux températures basses"
+  ],
+  "Anxiété": [
+    "de l'anxiété", "un état d'angoisse", "de l'inquiétude", "une nervosité excessive", "des crises d'angoisse",
+    "une peur permanente", "une anxiété palpable", "des crises de panique"
+  ],
+  "Boule à la gorge": [
+    "une boule à la gorge", "une gêne dans la gorge", "un nœud dans la gorge", "une oppression dans la gorge",
+    "une sensation d'étouffement", "une sensation de nœud au niveau du cou", "une gêne au niveau du cou"
+  ],
+  "Rhinorrhée": [
+    "de la rhinorrhée", "un écoulement nasal", "un nez qui coule", "des sécrétions nasales", "une congestion nasale",
+    "des sécrétions dans les narines", "un nez bouché", "une sensation de nez encombré"
+  ],
+  "Pertes d'équilibre": [
+    "des pertes d'équilibre", "un manque de stabilité", "un vertige", "un déséquilibre", "un balancement du corps",
+    "une perte de stabilité en marchant", "une sensation de vacillement", "perd l'équilibre"
+  ],
+  "Inflammation": [
+    "une inflammation", "un gonflement", "une zone enflée", "des rougeurs", "une irritation localisée",
+    "un gonflement rouge", "une inflammation visible"
+  ],
+  "Polydipsie": [
+    "une polydipsie", "une soif excessive", "un besoin constant de boire", "une sensation de soif persistante",
+    "une bouche sèche et assoiffée", "une envie continuelle de boire de l'eau"
+  ],
+  "Vision floue": [
+    "une vision floue", "une vue brouillée", "une difficulté à voir distinctement", "des troubles visuels",
+    "une vision altérée", "un flou dans la vision", "une vision peu claire"
+  ],
+  "Retard de cicatrisation": [
+    "un retard de cicatrisation", "une cicatrisation lente", "des plaies qui ne guérissent pas", "un manque de guérison",
+    "une plaie qui tarde à guérir", "un processus de guérison retardé"
+  ],
+  "Épistaxis": [
+    "une épistaxis", "un saignement du nez", "du sang qui sort du nez", "un écoulement sanguin nasal", "un nez qui saigne souvent",
+    "un saignement fréquent au niveau du nez"
+  ],
+  "Troubles de la circulation": [
+    "des troubles de la circulation", "une mauvaise circulation", "des jambes lourdes", "un flux sanguin difficile",
+    "des extrémités froides", "une circulation sanguine réduite"
+  ],
+  "Tache visuelle": [
+    "une tache visuelle", "un point noir dans la vision", "un scotome", "un point aveugle", "une tache sombre dans le champ visuel",
+    "une obstruction visuelle", "un voile devant les yeux"
+  ],
+  "Asthénie": [
+    "de l'asthénie", "une fatigue excessive", "un épuisement général", "un manque de force", "un affaiblissement",
+    "une sensation de faiblesse", "un affaiblissement généralisé"
+  ],
+  "Dyspnée": [
+    "une dyspnée", "une difficulté à respirer", "un souffle court", "un essoufflement", "une respiration laborieuse",
+    "un manque d'air", "une sensation de suffocation"
+  ],
+  "Dysphagie": [
+    "une dysphagie", "une difficulté à avaler", "un blocage dans la gorge", "un avalement difficile",
+    "une gêne lors de la déglutition", "un trouble de la déglutition"
+  ],
+  "Xérose cutanée": [
+    "une xérose cutanée", "une peau sèche", "un dessèchement cutané", "une peau rugueuse", "une déshydratation de la peau",
+    "un assèchement cutané"
+  ],
+  "Somnolence": [
+    "de la somnolence", "un besoin de dormir", "une fatigue diurne", "une envie de s'endormir",
+    "un état de somnolence", "une fatigue intense", "un assoupissement"
+  ],
+  "Palpitations": [
+    "des palpitations", "un coeur qui bat fort", "un coeur qui s'emballe", "des battements cardiaques rapides",
+    "un rythme cardiaque irrégulier", "une accélération du pouls"
+  ],
+  "Vertige": [
+    "un vertige", "une sensation de vertige", "des vertiges", "un étourdissement", "un trouble de l'équilibre", "un vertige intense",
+    "un vertige soudain", "des sensations de tournis", "une impression de tournis", "un vertige persistant"
+  ],
+  "Pharyngodynie": [
+    "une pharyngodynie", "une douleur à la gorge", "un mal de gorge", "une gêne dans la gorge", "un mal à la gorge", "une inflammation du pharynx",
+    "une irritation dans la gorge", "une pharyngodynie persistante", "un mal persistant dans la gorge"
+  ],
+  "Bradycardie": [
+    "une bradycardie", "un rythme cardiaque ralenti", "un coeur qui bat lentement", "une baisse de la fréquence cardiaque", "un pouls lent",
+    "un ralentissement cardiaque", "un coeur qui bat moins vite", "une sensation de pouls faible", "une bradycardie modérée"
+  ],
+  "Maux de tête": [
+    "des maux de tête", "un mal de tête", "mal à la tête", "mal a la tête", "mal a la tete", "une douleur à la tête", "des céphalées", "des douleurs crâniennes", "une migraine",
+    "un mal à la tête", "un mal de tête persistant", "un poids dans la tête", "un mal de crane", "un mal au crane"
+  ],
+  "Sternutation": [
+    "une sternutation", "un éternuement", "des éternuements fréquents", "une envie d'éternuer", "des crises d'éternuement",
+    "un éternuement persistant", "des éternuements soudains", "des éternuements gênants", "un éternuement sans arrêt"
+  ],
+  "Prise de poids": [
+    "une prise de poids", "un gain de poids", "une augmentation de la masse corporelle", "un gain de kilos", "une surcharge pondérale",
+    "un excès de poids", "une prise de kilos", "une augmentation du poids", "des kilos en plus"
+  ],
+  "Adénopathie": [
+    "une adénopathie", "un gonflement des ganglions", "des ganglions enflés", "une hypertrophie des ganglions", "des ganglions douloureux",
+    "des nodules au niveau des ganglions", "une enflure des ganglions", "un gonflement au niveau du cou"
+  ],
+  "Troubles menstruels": [
+    "des troubles menstruels", "des règles irrégulières", "un cycle menstruel perturbé", "des irrégularités dans les règles", "des menstruations douloureuses",
+    "un retard de règles", "une absence de règles", "des douleurs menstruelles", "une menstruation imprévisible", "des fluctuations du cycle"
+  ],
+  "Fièvre": [
+    "de la fièvre", "une montée de température", "une forte fièvre", "de la température", "un état fébrile", "une fièvre modérée",
+    "une élévation de la température corporelle", "une fièvre persistante", "de la fièvre intense", "un état fébrile prolongé"
+  ],
+  "Intolérance à la chaleur": [
+    "une intolérance à la chaleur", "une hypersensibilité à la chaleur", "une gêne face à la chaleur", "une difficulté à supporter la chaleur",
+    "un inconfort en présence de chaleur", "une intolérance aux températures élevées", "une sensibilité à la chaleur", "une fatigue due à la chaleur"
+  ],
+  "Détachement émotionnel": [
+    "un détachement émotionnel", "une distance émotionnelle", "un manque d'émotion", "une insensibilité", "un sentiment de vide",
+    "une absence d'émotions", "un recul émotionnel", "une froideur émotionnelle", "une indifférence aux émotions"
+  ],
+  "Anorexie": [
+    "une anorexie", "une perte d'appétit", "un manque d'envie de manger", "une absence de faim", "une diminution de l'appétit",
+    "un rejet de la nourriture", "une perte de poids par manque d'alimentation", "une réduction de l'appétit", "une envie de ne pas manger"
+  ],
+  "Irritabilité": [
+    "de l'irritabilité", "une tendance à s'énerver facilement", "une humeur irritable", "une nervosité", "une impatience",
+    "un caractère colérique", "une irritabilité accrue", "une agitation", "une sensibilité aux contrariétés"
+  ],
+  "Somatisation": [
+    "de la somatisation", "un transfert de stress au corps", "des symptômes physiques liés au stress", "une manifestation corporelle de l'angoisse",
+    "une douleur somatique", "des réactions physiques au stress", "des douleurs psychosomatiques", "un trouble somatique", "une réponse physique au stress"
+  ],
+  "Amaigrissement": [
+    "un amaigrissement", "une perte de poids", "un affinement du corps", "une diminution de la masse corporelle", "une fonte des graisses",
+    "une réduction de poids", "une perte de kilos", "une perte de masse", "une maigreur accrue"
+  ],
+  "Respiration difficile": [
+    "une respiration difficile", "un essoufflement", "un souffle court", "une difficulté à respirer", "un manque d'air", "une oppression thoracique",
+    "une respiration lourde", "une sensation d'étouffement", "un effort pour respirer", "mal à respirer"
+  ],
+  "Toux": [
+    "une toux", "tousse", "une toux persistante", "des quintes de toux", "un besoin de tousser", "une toux sèche", "une toux grasse",
+    "une irritation de la gorge provoquant la toux", "une toux chronique", "des crises de toux", "un mal de gorge qui fait tousser"
+  ],
+  "Diarrhée": [
+    "de la diarrhée", "envie de chier", "j'arrête pas de chier", "caca moux","des selles liquides", "un besoin fréquent d'aller aux toilettes", "des maux de ventre avec diarrhée",
+    "une diarrhée intense", "une évacuation rapide des selles", "des selles fréquentes", "une diarrhée persistante", "des douleurs abdominales avec diarrhée"
+  ],
+  "Abdominalgies": [
+    "des abdominalgies", "des douleurs abdominales", "un mal de ventre", "des crampes dans le ventre", "un ventre douloureux",
+    "une douleur dans le bas-ventre", "une gêne abdominale", "un inconfort abdominal", "des maux d'estomac"
+  ],
+  "Otalgie": [
+    "une otalgie", "une douleur à l'oreille", "un mal d'oreille", "des douleurs auriculaires", "une gêne dans l'oreille",
+    "une sensibilité dans l'oreille", "une otalgie intense", "une douleur lancinante à l'oreille", "un inconfort auriculaire"
+  ],
+  "Polyphagie": [
+    "une polyphagie", "un appétit excessif", "une faim continue", "un besoin constant de manger", "une sensation de faim intense",
+    "une hyperphagie", "une envie de manger sans arrêt", "un besoin incontrôlé de nourriture", "une sensation de faim persistante"
+  ],
+  "Gérontoxon": [
+    "un gérontoxon", "une opacité cornéenne", "un cercle gris autour de l'œil", "un anneau blanc dans l'œil", "une tache cornéenne",
+    "un anneau autour de l'iris", "un cercle cornéen", "un voile cornéen", "une décoloration cornéenne"
+  ],
+  "Nausées": [
+    "des nausées", "une sensation de mal au cœur", "un besoin de vomir", "un haut-le-cœur", "une envie de rendre", "un dégoût",
+    "une sensation de malaise", "un estomac barbouillé", "un mal de cœur", "une nausée continue"
+  ],
+  "Douleurs thoraciques": [
+    "des douleurs thoraciques", "une douleur à la poitrine", "un mal au thorax", "des pincements dans la poitrine", "une douleur au niveau du cœur",
+    "une sensation d'oppression thoracique", "une gêne dans la poitrine", "une douleur dans le torse", "un malaise thoracique"
+  ],
+  "Myalgies": [
+    "des myalgies", "des douleurs musculaires", "un mal dans les muscles", "une gêne dans les muscles", "des crampes musculaires",
+    "une douleur diffuse dans les muscles", "des douleurs corporelles", "des muscles endoloris", "une douleur musculaire continue"
+  ],
+  "Étourdissement": [
+    "un étourdissement", "une perte d'équilibre", "un vertige léger", "une sensation de tête qui tourne", "une instabilité", "un déséquilibre",
+    "une sensation d'étourdissement", "un vertige passager", "une vision trouble avec étourdissement"
+  ],
+  "Constipation": [
+    "de la constipation", "un transit ralenti", "des difficultés à aller aux toilettes", "des selles dures", "un manque de transit",
+    "une constipation persistante", "un inconfort digestif", "des difficultés d'évacuation", "un ventre ballonné"
+  ],
+  "Nervosité": [
+    "de la nervosité", "un état de nervosité", "une tension", "une excitation", "un état nerveux", "une irritation",
+    "un stress permanent", "une hyperactivité nerveuse", "une agitation nerveuse", "une nervosité excessive"
+  ],
+  "Onychorrhexie": [
+    "une onychorrhexie", "une fragilité des ongles", "des ongles cassants", "des fissures dans les ongles", "une fragilité unguéale",
+    "des ongles fissurés", "une rupture des ongles", "des ongles abîmés", "une fragilité de la kératine"
+  ],
+  "Changements dans l'écriture": [
+    "des changements dans l'écriture", "une modification de la calligraphie", "une difficulté à écrire", "une altération de l'écriture",
+    "des tremblements dans l'écriture", "une écriture imprécise", "un changement dans la façon d'écrire", "une écriture plus tremblante"
+  ],
+  "Insomnies": [
+    "des insomnies", "une incapacité à dormir", "une difficulté à trouver le sommeil", "un manque de sommeil", "des nuits blanches",
+    "un sommeil perturbé", "un réveil fréquent durant la nuit", "un sommeil peu réparateur", "une incapacité à s'endormir"
+  ],
+  "Changements d'humeur": [
+    "des changements d'humeur", "une variation de l'humeur", "un humeur instable", "des fluctuations d'humeur",
+    "une humeur changeante", "des sautes d'humeur", "une alternance d'états émotionnels", "un état émotionnel instable"
+  ],
+  "Épuisement émotionnel": [
+    "un épuisement émotionnel", "une fatigue mentale", "un stress intense", "un épuisement psychologique",
+    "une surcharge émotionnelle", "une lassitude mentale", "un sentiment d'épuisement", "une usure émotionnelle"
+  ],
+  "Maux de ventre": [
+    "des maux de ventre", "une douleur abdominale", "des douleurs dans le ventre", "un inconfort dans le bas-ventre",
+    "une douleur au niveau de l'abdomen", "des crampes abdominales", "un ventre douloureux", "mal au ventre"
+  ],
+  "Douleur pulsatile": [
+    "une douleur pulsatile", "une sensation de battement douloureux", "une douleur qui bat", "des pulsations douloureuses",
+    "une douleur en vagues", "une douleur rythmée", "un battement dans la douleur", "une douleur palpitante"
+  ],
+  "Confusion": [
+    "de la confusion", "un état confus", "une désorientation mentale", "une difficulté à se concentrer",
+    "une confusion mentale", "un esprit embrouillé", "un manque de clarté mentale", "un état de confusion"
+  ],
+  "Polyurie": [
+    "une polyurie", "une augmentation de la fréquence urinaire", "des mictions fréquentes", "un besoin constant d'uriner",
+    "une production d'urine excessive", "des envies fréquentes d'uriner", "une élimination fréquente de l'urine", "une polyurie marquée"
+  ],
+  "Xanthomes": [
+    "des xanthomes", "des taches jaunes sur la peau", "des dépôts graisseux sous-cutanés", "une accumulation de lipides sous la peau",
+    "des petites bosses jaunâtres", "une formation de xanthomes", "des amas graisseux jaunes", "des nodules jaunes sur la peau"
+  ],
+  "Courbatures": [
+    "des courbatures", "des douleurs musculaires", "une sensation de muscles endoloris", "des raideurs corporelles",
+    "un corps courbaturé", "des douleurs dans les muscles", "une fatigue musculaire", "des tensions dans le corps"
+  ],
+  "Toux non productive": [
+    "une toux non productive", "une toux sèche", "une toux sans expectoration", "un besoin de tousser sans crachat",
+    "une toux irritante", "une toux sèche persistante", "une toux sans mucosités", "une irritation de la gorge avec toux"
+  ],
+  "Diminution de la mobilité": [
+    "une diminution de la mobilité", "une limitation des mouvements", "une perte de flexibilité", "une difficulté à se déplacer",
+    "une réduction de l'amplitude des mouvements", "une mobilité réduite", "une rigidité dans les mouvements", "une entrave à la mobilité"
+  ],
+  "Démangeaisons": [
+    "des démangeaisons", "un besoin de se gratter", "des picotements sur la peau", "une sensation de peau qui gratte",
+    "des irritations cutanées", "un prurit persistant", "des démangeaisons gênantes", "une envie irrésistible de gratter"
+  ],
+  "Douleur articulaires": [
+    "des douleurs articulaires", "une gêne dans les articulations", "un mal dans les articulations", "une sensation d'articulations raides",
+    "des douleurs au niveau des articulations", "des raideurs articulaires", "une douleur articulaire persistante", "des maux articulaires"
+  ],
+  "Démangeaisons oculaires": [
+    "des démangeaisons oculaires", "une sensation d'irritation dans les yeux", "des yeux qui grattent", "une gêne dans les yeux",
+    "un prurit oculaire", "des picotements oculaires", "une envie de se frotter les yeux", "un inconfort oculaire"
+  ],
+  "Douleurs abdominales": [
+    "des douleurs abdominales", "un mal au ventre", "des crampes abdominales", "un inconfort dans l'abdomen",
+    "une gêne dans le bas-ventre", "un ventre douloureux", "une douleur au niveau de l'estomac", "des douleurs dans l'abdomen"
+  ],
+  "Dysurie": [
+    "une dysurie", "une difficulté à uriner", "une douleur pendant la miction", "un inconfort en urinant",
+    "une sensation de brûlure lors de la miction", "des mictions douloureuses", "un trouble de l'urination", "une difficulté à éliminer l'urine"
+  ],
+  "Douleurs musculaires": [
+    "des douleurs musculaires", "une sensation de muscles tendus", "des courbatures", "des raideurs musculaires",
+    "un inconfort dans les muscles", "des maux dans les muscles", "une gêne musculaire", "des douleurs dans le corps"
+  ],
+  "Douleurs dorsales": [
+    "des douleurs dorsales", "un mal de dos", "une gêne dans le dos", "des tensions dans le dos",
+    "des douleurs lombaires", "un dos endolori", "une douleur dans le bas du dos", "un inconfort dorsal"
+  ],
+  "Gonflement abdominal": [
+    "un gonflement abdominal", "un ventre ballonné", "une distension abdominale", "une sensation de ventre gonflé",
+    "un abdomen distendu", "un inconfort dans le bas-ventre", "un gonflement du ventre", "un ventre distendu"
+  ],
+  "Gencives rouges": [
+    "des gencives rouges", "une rougeur des gencives", "des gencives irritées", "une inflammation des gencives",
+    "un rougissement gingival", "des gencives sensibles", "des gencives gonflées et rouges", "un inconfort gingival"
+  ],
+  "Frissons": [
+    "des frissons", "une sensation de froid", "des tremblements", "un froid intense", "une chair de poule",
+    "des frissons incontrôlables", "un froid soudain", "un frisson dans tout le corps"
+  ],
+  "Gonflement des articulations": [
+    "un gonflement des articulations", "des articulations enflées", "une inflammation articulaire", "des articulations douloureuses et gonflées",
+    "un élargissement des articulations", "un inconfort dans les articulations", "des enflures aux articulations", "des articulations douloureuses"
+  ],
+  "Malodorance urinaire": [
+    "une malodorance urinaire", "une odeur désagréable dans les urines", "une urine malodorante", "une odeur forte dans les urines",
+    "une urine à l'odeur inhabituelle", "une senteur étrange dans l'urine", "des urines odorantes", "un changement dans l'odeur des urines"
+  ],
+  "Gencives gonflées": [
+    "des gencives gonflées", "un gonflement gingival", "une enflure des gencives", "des gencives enflées et douloureuses",
+    "une inflammation des gencives", "des gencives sensibles", "une gêne gingivale", "des gencives épaissies"
+  ],
+  "Larmoiement": [
+    "un larmoiement", "des yeux larmoyants", "une production excessive de larmes", "un écoulement lacrymal",
+    "des larmes fréquentes", "des yeux pleins d'eau", "des yeux humides", "un excès de larmes"
+  ],
+  "Ictère": [
+    "un ictère", "une jaunisse", "une coloration jaune de la peau", "un teint jaunâtre", "une couleur jaunâtre des yeux",
+    "un jaunissement de la peau", "une coloration jaune des yeux", "une teinte jaune de la peau et des yeux"
+  ],
+  "Gonflement des paupières": [
+    "un gonflement des paupières", "des paupières enflées", "des poches sous les yeux", "une enflure des paupières",
+    "une lourdeur des paupières", "un gonflement oculaire", "des paupières gonflées", "une gêne dans les paupières"
+  ],
+  "Mal de gorge": [
+    "un mal de gorge", "mal à la gorge", "mal a la gorge", "une douleur dans la gorge", "une irritation dans la gorge", "une gêne pharyngée",
+    "un inconfort en avalant", "une gorge irritée", "un mal dans la gorge", "une gorge douloureuse"
+  ],
+  "Perte de la vision": [
+    "une perte de vision", "une vision floue", "une altération de la vue", "un trouble visuel", "une perte de netteté",
+    "une baisse de vision", "une difficulté à voir", "une vision réduite"
+  ],
+  "Lésions buccales": [
+    "des lésions buccales", "des ulcères dans la bouche", "des plaies dans la cavité buccale", "une irritation dans la bouche",
+    "des blessures sur les muqueuses buccales", "des lésions douloureuses dans la bouche", "des ulcérations buccales", "des plaies à l'intérieur des joues"
+  ],
+  "Sensation de brûlure": [
+    "une sensation de brûlure", "un ressenti de chaleur intense", "une sensation de brûlure désagréable", "un picotement brûlant",
+    "un sentiment de brûlure sur la peau", "une chaleur désagréable", "un ressenti d'irritation brûlante", "une sensation de chaleur gênante"
+  ],
+  "Nodules sous-cutanés": [
+    "des nodules sous-cutanés", "des petites bosses sous la peau", "des nodules dans les tissus", "des amas sous-cutanés",
+    "des bosses sous la surface de la peau", "des petites masses dans la peau", "des nodules sous-cutanés palpables", "des formations sous la peau"
+  ],
+  "Troubles du sommeil": [
+    "des troubles du sommeil", "des difficultés à dormir", "un sommeil perturbé", "des réveils fréquents",
+    "un sommeil de mauvaise qualité", "une insomnie", "des nuits agitées", "une incapacité à bien dormir"
+  ],
+  "Saignement des gencives": [
+    "un saignement des gencives", "des gencives qui saignent", "une irritation gingivale", "un saignement gingival",
+    "des gencives sensibles et saignantes", "une inflammation accompagnée de saignement", "des saignements lors du brossage", "un écoulement de sang des gencives"
+  ],
+  "Ongles cassants": [
+    "des ongles cassants", "des ongles fragiles", "une fragilité des ongles", "des ongles qui se dédoublent",
+    "une mauvaise résistance des ongles", "des fissures sur les ongles", "des ongles abîmés", "des ongles qui se cassent facilement"
+  ],
+  "toux_productive": [
+    "une toux productive", "une toux avec expectorations", "une toux grasse", "une toux avec mucosités",
+    "un besoin de cracher en toussant", "une toux accompagnée de sécrétions", "une expectoration lors de la toux", "une toux avec sécrétions épaisses"
+  ],
+  "Désorientation": [
+    "une désorientation", "un sentiment de confusion", "un trouble de l'orientation", "une difficulté à se repérer",
+    "une perte de repères", "un état confus", "une incapacité à se situer", "une désorientation soudaine"
+  ],
+  "Pâleur": [
+    "une pâleur", "un teint blafard", "une couleur de peau pâle", "une décoloration de la peau",
+    "un teint livide", "un visage pâle", "une peau décolorée", "une perte de couleur du visage"
+  ],
+  "Mouvements involontaires": [
+    "des mouvements involontaires", "des spasmes", "une contraction musculaire incontrôlée", "des tics nerveux",
+    "des mouvements non contrôlés", "des gestes involontaires", "un tremblement non intentionnel", "des spasmes musculaires"
+  ],
+  "Rougeur des yeux": [
+    "une rougeur des yeux", "des yeux injectés de sang", "une irritation des yeux", "une teinte rougeâtre dans les yeux",
+    "une inflammation oculaire", "des yeux rouges et irrités", "une rougeur visible dans le blanc de l'œil", "des yeux irrités"
+  ],
+  "Troubles de la parole": [
+    "des troubles de la parole", "une difficulté à parler", "des troubles d'élocution", "une parole hésitante",
+    "une incapacité à s'exprimer clairement", "une difficulté à trouver ses mots", "un trouble du langage", "une articulation difficile"
+  ],
+  "Peau épaissie": [
+    "une peau épaissie", "une peau plus dense", "un épaississement cutané", "une texture de peau anormale",
+    "une peau plus dure", "un changement dans la texture de la peau", "une surface cutanée épaissie", "un durcissement de la peau"
+  ],
+  "Picotements": [
+    "des picotements", "une sensation de fourmillements", "un ressenti de picotements", "un engourdissement avec picotements",
+    "des picotements désagréables", "un fourmillement dans les membres", "une sensation de picotement légère", "des picotements gênants"
+  ],
+  "Récession gingivale": [
+    "une récession gingivale", "un retrait des gencives", "une diminution de la hauteur des gencives", "des gencives qui se rétractent",
+    "une perte de tissu gingival", "des gencives qui reculent", "un recul des gencives", "une rétraction gingivale"
+  ],
+  "Perte de mémoire": [
+    "une perte de mémoire", "un oubli fréquent", "une difficulté à se souvenir", "des trous de mémoire",
+    "une mémoire défaillante", "une diminution de la capacité de mémorisation", "une perte partielle de la mémoire", "un oubli constant"
+  ],
+  "Peau rugueuse": [
+    "une peau rugueuse", "une texture de peau irrégulière", "une peau avec des aspérités", "un toucher de peau anormalement dur",
+    "une surface de peau rugueuse", "une peau sèche et rugueuse", "une peau non lisse", "une rugosité cutanée"
+  ],
+  "Rigidité musculaire": [
+    "une rigidité musculaire", "des muscles tendus", "une difficulté à bouger librement", "un durcissement musculaire",
+    "une sensation de raideur dans les muscles", "une résistance musculaire", "un manque de souplesse musculaire", "une rigidité corporelle"
+  ],
+  "Nodules dans le sein": [
+    "des nodules dans le sein", "une masse dans le sein", "une bosse palpable dans le sein", "une formation de nodule mammaire",
+    "une petite masse dans le tissu mammaire", "des nodules mammaires", "des formations anormales dans le sein", "une boule dans le sein"
+  ],
+  "Changements de la peau du sein": [
+    "des changements de la peau du sein", "une peau du sein modifiée", "des altérations cutanées sur le sein", "un changement d'aspect cutané",
+    "une peau du sein différente", "une texture cutanée modifiée sur le sein", "une surface de peau anormale", "des modifications de la peau du sein"
+  ],
+  "Écoulement anormal du mamelon": [
+    "un écoulement anormal du mamelon", "une sécrétion inhabituelle du mamelon", "une sortie de liquide du mamelon", "une sécrétion non habituelle",
+    "un écoulement inhabituel", "une décharge du mamelon", "un liquide qui s'écoule du mamelon", "une sécrétion suspecte"
+  ],
+  "Douleur au sein": [
+    "une douleur au sein", "un inconfort dans le sein", "une douleur mammaire", "un ressenti douloureux au niveau du sein",
+    "une douleur dans la poitrine", "une gêne dans le tissu mammaire", "un sein douloureux", "une douleur dans la région mammaire"
+  ],
+  "Gonflement dans les aisselles": [
+    "un gonflement dans les aisselles", "des aisselles enflées", "une enflure sous l'aisselle", "un gonflement des ganglions",
+    "une masse dans l'aisselle", "une bosse sous l'aisselle", "un élargissement dans la zone axillaire", "un gonflement visible sous le bras"
+  ]
+}

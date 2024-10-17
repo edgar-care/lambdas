@@ -1,63 +1,45 @@
 from .request import Req
-from .graphql import create_nlp_report
 from .clean import clean
-from fastapi.exceptions import HTTPException
-import threading
-import os
-import time
 from text_to_num import text2num
-import re
 
 similarities = {}
 
-def detect_duration(sentence_vector, matcher):
-    matches = matcher(sentence_vector)
-    for match_id, start, end in matches:
-        duration_value_token = sentence_vector[start]
-        try:
-            if (duration_value_token.text).isdigit() != True:
-                duration_value = int(text2num(duration_value_token.text, 'fr'))
-            else:
-                duration_value = int(duration_value_token.text)
-        except ValueError:
-            duration_value = None
+def get_duration(text):
+    print("duration text:" + text )
+    if "avant-hier" in text or "avant hier" in text:
+        return 2
+    if "hier" in text:
+        return 1
 
-        if duration_value is not None:
-            duration_unit = sentence_vector[end - 1].text.lower()
-            if "jour" in duration_unit:
-                return duration_value
-            elif "semaine" in duration_unit:
-                return duration_value * 7
-            elif "mois" in duration_unit:
-                return duration_value * 30
-            elif "annee" in duration_unit or "an" in duration_unit:
-                return duration_value * 365
+    try:
+        value = text.split(" ")[0]
+        if value.isdigit() != True:
+            duration_value = int(text2num(value, 'fr'))
+        else:
+            duration_value = int(value)
+    except ValueError:
+        duration_value = None
+
+    if duration_value is not None:
+        if "jour" in text:
+            return duration_value
+        elif "semaine" in text:
+            return duration_value * 7
+        elif "mois" in text:
+            return duration_value * 30
+        elif "annee" in text or "an" in text:
+            return duration_value * 365
+        else:
+            return duration_value
     return 0
 
-def calcul_similarity(sentence_vector, symptom):
-    global similarities
-    similarity = 0.0
-    for word in symptom['symptom']:
-        similarity = max(similarity, sentence_vector.similarity(word))
+def detect_symptom(custom_categorizer, text):
+    doc = custom_categorizer(text)
+    categories = doc.cats
 
-    similarities[symptom['code']] = similarity
+    categories = sorted(doc.cats.items(), key=lambda x: x[1], reverse=True)
+    return categories
 
-def calcul_similarities(sentence_vector, symptoms,):
-    global similarities
-    similarities = {}
-    threads = []
-
-
-    for symptom in symptoms:
-        threads.append(threading.Thread(target=calcul_similarity, args=(sentence_vector, symptom)))
-
-    for thread in threads:
-        thread.start()
-
-    for thread in threads:
-        thread.join()
-
-    return (list(reversed(sorted(similarities.items(), key=lambda item: item[1]))))
 
 def is_present(context, symptom):
     for i in context:
@@ -65,51 +47,80 @@ def is_present(context, symptom):
             return True
     return False
 
+def detect_entities(sentence, custom_ner):
+    doc = custom_ner(sentence)
+    entities = []
 
-def process(req: Req, loaded_spacy_package, symptoms, matcher) -> dict:
-    start_time = time.time()
-    input = req.input
+    for ent in doc.ents:
+        entities.append({
+            "text": ent.text,
+            "label": ent.label_,
+            "position": (ent.start_char, ent.end_char)
+        })
+    return entities
+
+def get_first_duration(entities):
+    first_duration = None
+    for entity in entities:
+        if entity['label'] == 'DURATION':
+            first_duration = entity
+            break
+    return first_duration
+
+def process(req: Req, custom_categorizer, custom_ner) -> dict:
+    # start_time = time.time()
+    input = clean(req.input)
     context: list = []
-    answers = 0
 
-    if symptoms == None:
-        HTTPException(500, "No symptom in database")
-    for sentence in input.split("."):
-        separators = [" et ", " mais "]
-        splitted = [subphrase.strip() for subphrase in re.split("|".join(separators), sentence)]
-        for symptom in splitted:
-            cleaned_symptom = clean(symptom)
-            sentence_vector = loaded_spacy_package(cleaned_symptom)
-            if answers < len(req.symptoms) and req.symptoms[0] != "":
-                if req.isTime != False:
-                    if " " not in cleaned_symptom:
-                        if cleaned_symptom.isdigit() == True:
-                            context.append({"symptom": req.symptoms[answers], "present": True, "days": int(cleaned_symptom)})
-                        else:
-                            try:
-                                duration = int(text2num(cleaned_symptom, 'fr'))
-                                context.append({"symptom": req.symptoms[answers], "present": True, "days": duration})
-                            except ValueError:
-                                context.append({"symptom": req.symptoms[answers], "present": True, "days": 0})
-                    else:
-                        context.append({"symptom": req.symptoms[answers], "present": True, "days": detect_duration(sentence_vector, matcher)})
-                    answers += 1
-                    continue
-                if "oui" in cleaned_symptom:
-                    context.append({ "symptom": req.symptoms[answers], "present": True, "days": detect_duration(sentence_vector, matcher) })
-                elif "non" in cleaned_symptom:
-                    context.append({ "symptom": req.symptoms[answers], "present": False, "days": 0 })
-                else:
-                    if req.symptoms[answers] != "":
-                        context.append({ "symptom": req.symptoms[answers], "present": None, "days": 0 })
-                answers += 1
-                continue
-            results = calcul_similarities(sentence_vector, symptoms)
-            duration = detect_duration(sentence_vector, matcher)
-            if is_present(context, results[0][0]) == False:
-                context.append({ "symptom": results[0][0], "present": True, "days": duration})
-    create_nlp_report(int(os.environ.get('VERSION')), req.symptoms, input, context, int((time.time() - start_time) * 1000))
-    similarities = {}
+    if req.isMedicine:
+        return {
+            "context": context
+        }
+
+    entities = detect_entities(input, custom_ner)
+
+    if req.isTime:
+        first_duration = get_first_duration(entities)
+        if first_duration is None:
+            input_duration = get_duration(input)
+            if input_duration == 0:
+                return {"context": context, "answered": False}
+            context.append({ "symptom": req.symptoms[0], "present": True, "days": input_duration})
+        else:
+            context.append({"symptom": req.symptoms[0], "present": True, "days": get_duration(first_duration["text"])})
+            entities.remove(first_duration)
+
+    if len(req.symptoms) > 0 and req.symptoms[0] != "" and req.isTime == False:
+        if "oui" in input.lower() and "non" in input.lower():
+            context.append({ "symptom": req.symptoms[0], "present": None})
+        elif "oui" in input.lower():
+            first_duration = get_first_duration(entities)
+            if first_duration is None:
+                context.append({ "symptom": req.symptoms[0], "present": True})
+            else:
+                context.append({ "symptom": req.symptoms[0], "present": True, "days": get_duration(first_duration["text"])})
+                entities.remove(first_duration)
+        else:
+            context.append({ "symptom": req.symptoms[0], "present": False})
+
+    for entity in entities:
+        if entity['label'] == 'DURATION':
+            continue
+        print(entity)
+        if entity['text'].isdigit():
+            continue
+        detected_symptoms = detect_symptom(custom_categorizer, entity['text'])
+        print(detected_symptoms[:3])
+        if detected_symptoms[0][1] < 0.80:
+            continue
+        first_duration = get_first_duration(entities)
+        if first_duration is None:
+            context.append({ "symptom": detected_symptoms[0][0], "present": True})
+        else:
+            context.append({ "symptom": detected_symptoms[0][0], "present": True, "days": get_duration(first_duration["text"])})
+            entities.remove(first_duration)
+
+    #create_nlp_report(int(os.environ.get('VERSION')), req.symptoms, input, context, int((time.time() - start_time) * 1000))
     return {
         "context": context
     }

@@ -1,0 +1,15 @@
+Dockerfile.local
+Dockerfile.lambda
+builds/
+tests/
+htmlcov/
+train_model/
+__pycache__/
+*.pyc
+*.pyo
+*.pkl
+
+*.tar.gz
+*.zip
+*.log
+*.bak

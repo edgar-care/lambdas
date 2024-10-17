@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/edgar-care/diagnostic/cmd/main/lib"
 	edgarauth "github.com/edgar-care/edgarlib/v2/auth"
 	edgar_diag "github.com/edgar-care/edgarlib/v2/diagnostic"
@@ -23,8 +22,6 @@ func Initiate(w http.ResponseWriter, req *http.Request) {
 		}, 401)
 		return
 	}
-
-	fmt.Print(patientID)
 
 	resp := edgar_diag.Initiate(patientID.ID)
 
