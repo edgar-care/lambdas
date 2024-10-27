@@ -50,7 +50,7 @@ func Login(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	doubleAuthSent := getDoubleAuth(accountId)
+	doubleAuthSent := getDoubleAuth(accountId, w, req)
 
 	if doubleAuthSent.Err == nil && doubleAuthSent.Code != 200 {
 		utils.DeviceConnectMiddleware(w, req, accountId)
@@ -74,7 +74,8 @@ func Login(w http.ResponseWriter, req *http.Request) {
 
 }
 
-func getDoubleAuth(accountID string) CheckDoubleAuthResponse {
+func getDoubleAuth(accountID string, w http.ResponseWriter, req *http.Request) CheckDoubleAuthResponse {
+	device := utils.GetCurrentUserDevice(w, req, accountID)
 
 	patientInfo, err := graphql.GetPatientById(accountID)
 	if err == nil && patientInfo.DoubleAuthMethodsID != nil && *patientInfo.DoubleAuthMethodsID != "" {
@@ -87,7 +88,7 @@ func getDoubleAuth(accountID string) CheckDoubleAuthResponse {
 			}
 		}
 		return CheckDoubleAuthResponse{
-			Content: map[string]interface{}{"2fa_methods": response.Methods},
+			Content: map[string]interface{}{"2fa_methods": response.Methods, "device": device},
 			Code:    200,
 			Err:     nil,
 		}
@@ -104,7 +105,7 @@ func getDoubleAuth(accountID string) CheckDoubleAuthResponse {
 			}
 		}
 		return CheckDoubleAuthResponse{
-			Content: map[string]interface{}{"2fa_methods": response.Methods},
+			Content: map[string]interface{}{"2fa_methods": response.Methods, "device": device},
 			Code:    200,
 			Err:     nil,
 		}

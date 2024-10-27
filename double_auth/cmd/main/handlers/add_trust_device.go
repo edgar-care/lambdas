@@ -33,7 +33,15 @@ func AddTrustDevice(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	lib.WriteResponse(w, map[string]interface{}{
-		"trusted_device": new_trust_device.Patient.TrustDevices,
-	}, 201)
+	if new_trust_device.Patient != nil {
+		lib.WriteResponse(w, map[string]interface{}{
+			"trusted_device": new_trust_device.Patient.TrustDevices,
+		}, 201)
+		return
+	} else {
+		lib.WriteResponse(w, map[string]interface{}{
+			"trusted_device": new_trust_device.Doctor.TrustDevices,
+		}, 201)
+		return
+	}
 }

@@ -120,3 +120,26 @@ func GetAuthenticatedUser(authToken string) string {
 
 	return ""
 }
+
+func GetDeviceId(authToken string) string {
+	parts := strings.Split(authToken, ".")
+	if len(parts) != 3 {
+		return ""
+	}
+
+	decodedBytes, err := base64.RawURLEncoding.DecodeString(parts[1])
+	if err != nil {
+		CheckError(err)
+		return ""
+	}
+
+	var jsonMap map[string]interface{}
+	if err := json.Unmarshal(decodedBytes, &jsonMap); err != nil {
+		CheckError(err)
+		return ""
+	}
+
+	deviceID, _ := jsonMap["name_device"].(string)
+
+	return deviceID
+}

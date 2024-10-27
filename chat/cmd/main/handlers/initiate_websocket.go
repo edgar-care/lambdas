@@ -16,7 +16,6 @@ type ReadyInput struct {
 
 type PayloadReady struct {
 	AuthToken string `json:"authToken"`
-	DeviceID  string `json:"deviceId"`
 }
 
 type DisconnectInput struct {
@@ -54,12 +53,20 @@ func Ready(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	_, err = redis.SetKey(input.Payload.DeviceID, input.ConnectionId, nil)
+	deviceID := lib.GetDeviceId(input.Payload.AuthToken)
+	if deviceID == "" {
+		lib.WriteResponse(w, map[string]string{
+			"message": "Device not found in the token",
+		}, 401)
+		return
+	}
+
+	_, err = redis.SetKey(deviceID, input.ConnectionId, nil)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}
 
-	_, err = redis.SetKey(input.ConnectionId, input.Payload.DeviceID, nil)
+	_, err = redis.SetKey(input.ConnectionId, deviceID, nil)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}
