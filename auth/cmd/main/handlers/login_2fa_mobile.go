@@ -63,9 +63,9 @@ func AskMobileConnection(w http.ResponseWriter, req *http.Request) {
 	data := map[string]interface{}{
 		"action":   "ask_mobile_connection",
 		"uuid":     input.Payload.UUID,
-		"os":       infoDevice.OS,
-		"browser":  infoDevice.Browser,
-		"location": infoDevice.Location,
+		"os":       infoDevice["os"],
+		"browser":  infoDevice["browser"],
+		"location": infoDevice["location"],
 	}
 
 	trustDevices := double_auth.GetTrustDeviceConnect(accountID)

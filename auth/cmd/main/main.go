@@ -37,7 +37,7 @@ func main() {
 			r.Post("/{env}/auth/ws/ready", handlers.ReadyLoginWeb)
 			r.Post("/{env}/auth/ws/ask_mobile_connection", handlers.AskMobileConnection)
 			r.Post("/{env}/auth/ws/response_mobile_connection", handlers.ResponseMobileConnection)
-			r.Delete("/{env}/auth/delete_account", handlers.DeleteAccount)
+			//r.Delete("/{env}/auth/delete_account", handlers.DeleteAccount)
 
 			r.Post("/auth/{type}/login", handlers.Login)
 			r.Post("/auth/{type}/register", handlers.Register)
@@ -60,7 +60,7 @@ func main() {
 			r.Post("/auth/ws/ask_mobile_connection", handlers.AskMobileConnection)
 			r.Post("/auth/ws/response_mobile_connection", handlers.ResponseMobileConnection)
 
-			r.Delete("/auth/delete_account", handlers.DeleteAccount)
+			//r.Delete("/auth/delete_account", handlers.DeleteAccount)
 
 		},
 		Features: map[string]bool{

@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/aws/aws-sdk-go v1.50.11
-	github.com/edgar-care/edgarlib/v2 v2.2.6
+	github.com/edgar-care/edgarlib/v2 v2.2.11
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/jwtauth/v5 v5.1.1
 	github.com/google/uuid v1.6.0

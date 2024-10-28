@@ -76,6 +76,13 @@ func Login(w http.ResponseWriter, req *http.Request) {
 
 func getDoubleAuth(accountID string, w http.ResponseWriter, req *http.Request) CheckDoubleAuthResponse {
 	device := utils.GetCurrentUserDevice(w, req, accountID)
+	var deviceInfo interface{}
+
+	if !device.TrustDevice {
+		deviceInfo = map[string]interface{}{}
+	} else {
+		deviceInfo = device
+	}
 
 	patientInfo, err := graphql.GetPatientById(accountID)
 	if err == nil && patientInfo.DoubleAuthMethodsID != nil && *patientInfo.DoubleAuthMethodsID != "" {
@@ -88,7 +95,7 @@ func getDoubleAuth(accountID string, w http.ResponseWriter, req *http.Request) C
 			}
 		}
 		return CheckDoubleAuthResponse{
-			Content: map[string]interface{}{"2fa_methods": response.Methods, "device": device},
+			Content: map[string]interface{}{"2fa_methods": response.Methods, "device": deviceInfo},
 			Code:    200,
 			Err:     nil,
 		}
@@ -105,7 +112,7 @@ func getDoubleAuth(accountID string, w http.ResponseWriter, req *http.Request) C
 			}
 		}
 		return CheckDoubleAuthResponse{
-			Content: map[string]interface{}{"2fa_methods": response.Methods, "device": device},
+			Content: map[string]interface{}{"2fa_methods": response.Methods, "device": deviceInfo},
 			Code:    200,
 			Err:     nil,
 		}
