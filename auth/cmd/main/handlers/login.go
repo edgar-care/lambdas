@@ -11,108 +11,118 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-type CheckDoubleAuthResponse struct {
-	Content map[string]interface{}
-	Code    int
+type DoubleAuth struct {
+	Methods    []string
+	DeviceInfo map[string]interface{}
+}
+
+type DoubleAuthResponse struct {
+	Content DoubleAuth
 	Err     error
 }
 
+// si patient et médecin avec la même email
 func Login(w http.ResponseWriter, req *http.Request) {
 	var input authlib.LoginInput
 	var accountId string
+	var password string
+	var doubleAuthId *string
+	deviceId := "deviceId"
 
 	t := chi.URLParam(req, "type")
 
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	patient, patientErr := graphql.GetPatientByEmail(input.Email)
-	if patientErr == nil {
-		passwordCheck := authlib.CheckPassword(input.Password, patient.Password)
-		if !passwordCheck {
-			lib.WriteError(w, http.StatusUnauthorized, "Username and password mismatch")
+	if t == "p" {
+		patient, err := graphql.GetPatientByEmail(input.Email)
+		if err != nil {
+			lib.WriteError(w, http.StatusBadRequest, "Email does not correspond to a valid Patient")
 			return
-		} else {
-			accountId = patient.ID
 		}
-	} else {
-		doctor, doctorErr := graphql.GetDoctorByEmail(input.Email)
-		if doctorErr == nil {
-			passwordCheck := authlib.CheckPassword(input.Password, doctor.Password)
-			if !passwordCheck {
-				lib.WriteError(w, http.StatusUnauthorized, "Username and password mismatch")
+		password = patient.Password
+		accountId = patient.ID
+		doubleAuthId = patient.DoubleAuthMethodsID
+	}
+	if t == "d" {
+		doctor, err := graphql.GetDoctorByEmail(input.Email)
+		if err != nil {
+			lib.WriteError(w, http.StatusBadRequest, "Email does not correspond to a valid Doctor")
+			return
+		}
+		password = doctor.Password
+		accountId = doctor.ID
+		doubleAuthId = doctor.DoubleAuthMethodsID
+	}
+	if t == "a" {
+		admin, err := graphql.GetAdminByEmail(input.Email)
+		if err != nil {
+			lib.WriteError(w, http.StatusBadRequest, "Email does not correspond to a valid Doctor")
+			return
+		}
+		password = admin.Password
+		accountId = admin.ID
+	}
+
+	passwordCheck := authlib.CheckPassword(input.Password, password)
+	if !passwordCheck {
+		lib.WriteError(w, http.StatusUnauthorized, "Email and password mismatch")
+		return
+	}
+
+	if t != "a" {
+		if doubleAuthId != nil && *doubleAuthId != "" {
+			doubleAuthSent := getDoubleAuth(accountId, *doubleAuthId, w, req)
+
+			if doubleAuthSent.Err != nil {
+				lib.WriteResponse(w, "Unable to fetch double authentication methods.", http.StatusNotFound)
 				return
-			} else {
-				accountId = doctor.ID
 			}
-		} else {
-			lib.WriteError(w, http.StatusBadRequest, "Email does not correspond to a valid patient or doctor")
+
+			if len(doubleAuthSent.Content.Methods) != 0 {
+				lib.WriteResponse(w, doubleAuthSent.Content, http.StatusOK)
+				return
+			}
 		}
-	}
 
-	doubleAuthSent := getDoubleAuth(accountId)
-
-	if doubleAuthSent.Err == nil && doubleAuthSent.Code != 200 {
 		utils.DeviceConnectMiddleware(w, req, accountId)
-		device := utils.GetCurrentUserDevice(w, req, accountId)
-
-		resp := authlib.Login(input, t, device.ID)
-
-		if resp.Err != nil {
-			lib.WriteResponse(w, map[string]string{
-				"message": resp.Err.Error(),
-			}, resp.Code)
-			return
-		}
-
-		lib.WriteResponse(w, map[string]interface{}{
-			"token": resp.Token,
-		}, resp.Code)
-	} else {
-		lib.WriteResponse(w, doubleAuthSent.Content, doubleAuthSent.Code)
+		deviceId = utils.GetCurrentUserDevice(w, req, accountId).ID
 	}
 
+	resp := authlib.Login(input, t, deviceId)
+
+	if resp.Err != nil {
+		lib.WriteResponse(w, map[string]string{
+			"message": resp.Err.Error(),
+		}, resp.Code)
+		return
+	}
+
+	lib.WriteResponse(w, map[string]interface{}{
+		"token": resp.Token,
+	}, resp.Code)
 }
 
-func getDoubleAuth(accountID string) CheckDoubleAuthResponse {
+func getDoubleAuth(accountID string, doubleAuthId string, w http.ResponseWriter, req *http.Request) DoubleAuthResponse {
+	device := utils.GetCurrentUserDevice(w, req, accountID)
+	deviceInfo := map[string]interface{}{
+		"os":       device.DeviceType,
+		"browser":  device.Browser,
+		"location": device.City,
+	}
 
-	patientInfo, err := graphql.GetPatientById(accountID)
-	if err == nil && patientInfo.DoubleAuthMethodsID != nil && *patientInfo.DoubleAuthMethodsID != "" {
-		response, err := graphql.GetDoubleAuthById(*patientInfo.DoubleAuthMethodsID)
-		if err != nil {
-			return CheckDoubleAuthResponse{
-				Content: map[string]interface{}{"message": "Unable to fetch double authentication methods."},
-				Code:    http.StatusNotFound,
-				Err:     err,
-			}
-		}
-		return CheckDoubleAuthResponse{
-			Content: map[string]interface{}{"2fa_methods": response.Methods},
-			Code:    200,
-			Err:     nil,
+	response, err := graphql.GetDoubleAuthById(doubleAuthId)
+	if err != nil {
+		return DoubleAuthResponse{
+			Err: err,
 		}
 	}
 
-	doctorInfo, err := graphql.GetDoctorById(accountID)
-	if err == nil && doctorInfo.DoubleAuthMethodsID != nil && *doctorInfo.DoubleAuthMethodsID != "" {
-		response, err := graphql.GetDoubleAuthById(*doctorInfo.DoubleAuthMethodsID)
-		if err != nil {
-			return CheckDoubleAuthResponse{
-				Content: map[string]interface{}{"message": "Unable to fetch double authentication methods."},
-				Code:    http.StatusNotFound,
-				Err:     err,
-			}
-		}
-		return CheckDoubleAuthResponse{
-			Content: map[string]interface{}{"2fa_methods": response.Methods},
-			Code:    200,
-			Err:     nil,
-		}
-	}
-
-	return CheckDoubleAuthResponse{
-		Content: map[string]interface{}{"message": "No double authentication methods found."},
-		Code:    http.StatusNotFound,
-		Err:     nil,
+	return DoubleAuthResponse{
+		Content: DoubleAuth{
+			Methods:    response.Methods,
+			DeviceInfo: deviceInfo,
+		},
+		Err: nil,
 	}
 }
