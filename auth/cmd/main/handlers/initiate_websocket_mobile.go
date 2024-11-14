@@ -9,7 +9,14 @@ import (
 )
 
 type ReadyInput struct {
-	ConnectionId string `json:"connectionId"`
+	ConnectionId string            `json:"connectionId"`
+	Payload      PayloadReadyLogin `json:"payload"`
+}
+
+type PayloadReadyLogin struct {
+	Os       string `json:"os"`
+	Browser  string `json:"browser"`
+	Location string `json:"location"`
 }
 
 type DisconnectInput struct {
@@ -31,6 +38,11 @@ func ReadyLoginWeb(w http.ResponseWriter, req *http.Request) {
 	}
 
 	_, err = redis.SetKey(input.ConnectionId, uuidLogin.String(), &expire)
+	if err != nil {
+		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
+	}
+
+	_, err = redis.StoreUserInfoHash(uuidLogin.String()+":info", input.Payload.Os, input.Payload.Browser, input.Payload.Location, &expire)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}

@@ -2,18 +2,17 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/edgar-care/edgarlib/v2/auth/utils"
-	"github.com/edgar-care/edgarlib/v2/graphql"
-	"net/http"
-
 	"github.com/edgar-care/auth/cmd/main/lib"
 	authlib "github.com/edgar-care/edgarlib/v2/auth"
+	"github.com/edgar-care/edgarlib/v2/auth/utils"
+	"github.com/edgar-care/edgarlib/v2/graphql"
 	"github.com/go-chi/chi/v5"
+	"net/http"
 )
 
 type DoubleAuth struct {
 	Methods    []string
-	DeviceInfo map[string]interface{}
+	DeviceInfo utils.DeviceInfoResponse
 }
 
 type DoubleAuthResponse struct {
@@ -21,7 +20,6 @@ type DoubleAuthResponse struct {
 	Err     error
 }
 
-// si patient et médecin avec la même email
 func Login(w http.ResponseWriter, req *http.Request) {
 	var input authlib.LoginInput
 	var accountId string
@@ -72,7 +70,7 @@ func Login(w http.ResponseWriter, req *http.Request) {
 
 	if t != "a" {
 		if doubleAuthId != nil && *doubleAuthId != "" {
-			doubleAuthSent := getDoubleAuth(accountId, *doubleAuthId, w, req)
+			doubleAuthSent := getDoubleAuth(*doubleAuthId, req)
 
 			if doubleAuthSent.Err != nil {
 				lib.WriteResponse(w, "Unable to fetch double authentication methods.", http.StatusNotFound)
@@ -103,13 +101,8 @@ func Login(w http.ResponseWriter, req *http.Request) {
 	}, resp.Code)
 }
 
-func getDoubleAuth(accountID string, doubleAuthId string, w http.ResponseWriter, req *http.Request) DoubleAuthResponse {
-	device := utils.GetCurrentUserDevice(w, req, accountID)
-	deviceInfo := map[string]interface{}{
-		"os":       device.DeviceType,
-		"browser":  device.Browser,
-		"location": device.City,
-	}
+func getDoubleAuth(doubleAuthId string, req *http.Request) DoubleAuthResponse {
+	deviceInfo := utils.GetDeviceInfo(req)
 
 	response, err := graphql.GetDoubleAuthById(doubleAuthId)
 	if err != nil {

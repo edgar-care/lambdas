@@ -24,14 +24,14 @@ func AddMedicalInfo(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var input edgarlib.CreateMedicalInfoInput
+	var input edgarlib.CreateNewMedicalInfoInput
 	err := json.NewDecoder(req.Body).Decode(&input)
 	if err != nil {
 		lib.WriteError(w, http.StatusBadRequest, "Invalid JSON input")
 		return
 	}
 
-	medical := edgarlib.CreateMedicalInfo(input, patientID.ID)
+	medical := edgarlib.NewMedicalFolder(input, patientID.ID)
 	if medical.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": medical.Err.Error(),
@@ -51,35 +51,7 @@ func AddMedicalInfo(w http.ResponseWriter, req *http.Request) {
 			"primary_doctor_id":          medical.MedicalInfo.PrimaryDoctorID,
 			"family_members_med_info_id": medical.MedicalInfo.FamilyMembersMedInfoID,
 			"onboarding_status":          medical.MedicalInfo.OnboardingStatus,
-			"medical_antecedents": func() []map[string]interface{} {
-				// Convert antecedent diseases to the desired format
-				var diseases []map[string]interface{}
-				for _, disease := range medical.AnteDiseasesWithTreatments {
-					d := map[string]interface{}{
-						"id":   disease.AnteDisease.ID,
-						"name": disease.AnteDisease.Name,
-						"medicines": func() []map[string]interface{} {
-							var medicines []map[string]interface{}
-							for _, treatment := range disease.Treatments {
-								medicine := map[string]interface{}{
-									"id":          treatment.ID,
-									"medicine_id": treatment.MedicineID,
-									"period":      treatment.Period,
-									"day":         treatment.Day,
-									"quantity":    treatment.Quantity,
-									"start_date":  treatment.StartDate,
-									"end_date":    treatment.EndDate,
-								}
-								medicines = append(medicines, medicine)
-							}
-							return medicines
-						}(),
-						"still_relevant": disease.AnteDisease.StillRelevant,
-					}
-					diseases = append(diseases, d)
-				}
-				return diseases
-			}(),
+			"medical_antecedents":        medical.MedicalAntecedents,
 		},
 	}
 

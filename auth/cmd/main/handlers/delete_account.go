@@ -1,39 +1,39 @@
 package handlers
 
-//
-//import (
-//	"fmt"
-//	"github.com/aws/aws-sdk-go/aws"
-//	"github.com/aws/aws-sdk-go/aws/session"
-//	"github.com/aws/aws-sdk-go/service/eventbridge"
-//	"github.com/edgar-care/auth/cmd/main/lib"
-//	edgarlib "github.com/edgar-care/edgarlib/v2/auth"
-//	"github.com/edgar-care/edgarlib/v2/redis"
-//	"net/http"
-//	"strconv"
-//)
-//
-//func DeleteAccount(w http.ResponseWriter, req *http.Request) {
-//	accountID := edgarlib.AuthMiddlewareAccount(w, req)
-//	if accountID == "" {
-//		lib.WriteResponse(w, map[string]string{
-//			"message": "Not authenticated",
-//		}, 401)
-//		return
-//	}
-//
-//	err := deleteAccountLogic(accountID)
-//	if err != nil {
-//		lib.WriteResponse(w, map[string]string{
-//			"message": err.Error(),
-//		}, 500)
-//		return
-//	}
-//
-//	lib.WriteResponse(w, map[string]string{
-//		"message": "Account deletion scheduled",
-//	}, 200)
-//}
+import (
+	"github.com/edgar-care/auth/cmd/main/lib"
+	edgarlib "github.com/edgar-care/edgarlib/v2/auth"
+	"net/http"
+)
+
+func DeleteAccountInit(w http.ResponseWriter, req *http.Request) {
+	accountID := edgarlib.AuthMiddlewareAccount(w, req)
+	if accountID.Code == 409 || accountID.Code == 401 {
+		lib.WriteResponse(w, map[string]string{
+			"message": accountID.Err.Error(),
+		}, accountID.Code)
+		return
+	}
+	if accountID.ID == "" {
+		lib.WriteResponse(w, map[string]string{
+			"message": "Not authenticated",
+		}, 401)
+		return
+	}
+
+	validation := edgarlib.InitDeleteAccount(accountID.ID)
+	if validation.Err != nil {
+		lib.WriteResponse(w, map[string]string{
+			"message": validation.Err.Error(),
+		}, validation.Code)
+		return
+	}
+
+	lib.WriteResponse(w, map[string]string{
+		"message": "Account deletion scheduled",
+	}, 200)
+}
+
 //
 //func deleteAccountLogic(ownerID string) error {
 //	expire := 30 * 24 * 60 * 60

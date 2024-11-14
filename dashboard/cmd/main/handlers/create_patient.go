@@ -28,7 +28,7 @@ func CreatePatient(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&input)
 	lib.CheckError(err)
 
-	patient := edgarlib.CreatePatientFormDoctor(input, doctorID.ID)
+	patient := edgarlib.CreatePatientFromDoctor(doctorID.ID, input)
 	if patient.Err != nil {
 		lib.WriteResponse(w, map[string]string{
 			"message": patient.Err.Error(),
@@ -50,35 +50,7 @@ func CreatePatient(w http.ResponseWriter, req *http.Request) {
 			"primary_doctor_id":          patient.MedicalInfo.PrimaryDoctorID,
 			"family_members_med_info_id": patient.MedicalInfo.FamilyMembersMedInfoID,
 			"onboarding_status":          patient.MedicalInfo.OnboardingStatus,
-			"medical_antecedents": func() []map[string]interface{} {
-				// Convert antecedent diseases to the desired format
-				var diseases []map[string]interface{}
-				for _, disease := range patient.AnteDiseasesWithTreatments {
-					d := map[string]interface{}{
-						"id":   disease.AnteDisease.ID,
-						"name": disease.AnteDisease.Name,
-						"medicines": func() []map[string]interface{} {
-							var medicines []map[string]interface{}
-							for _, treatment := range disease.Treatments {
-								medicine := map[string]interface{}{
-									"id":          treatment.ID,
-									"medicine_id": treatment.MedicineID,
-									"period":      treatment.Period,
-									"day":         treatment.Day,
-									"quantity":    treatment.Quantity,
-									"start_date":  treatment.StartDate,
-									"end_date":    treatment.EndDate,
-								}
-								medicines = append(medicines, medicine)
-							}
-							return medicines
-						}(),
-						"still_relevant": disease.AnteDisease.StillRelevant,
-					}
-					diseases = append(diseases, d)
-				}
-				return diseases
-			}(),
+			"medical_antecedents":        patient.AnteDiseasesWithTreatments,
 		},
 	}
 

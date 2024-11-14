@@ -3,7 +3,7 @@ module github.com/edgar-care/dashboard
 go 1.19
 
 require (
-	github.com/edgar-care/edgarlib/v2 v2.2.2
+	github.com/edgar-care/edgarlib/v2 v2.4.0
 	github.com/go-chi/chi/v5 v5.0.11
 	github.com/go-chi/jwtauth/v5 v5.1.1
 	github.com/joho/godotenv v1.5.1

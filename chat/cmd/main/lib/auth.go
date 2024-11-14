@@ -22,57 +22,6 @@ func VerifyToken(tokenString string) bool {
 	return true
 }
 
-//func GetAuthenticatedUser(authToken string) string {
-//	decodedBytes, err := base64.RawURLEncoding.DecodeString(strings.Split(authToken, ".")[1])
-//	if err != nil {
-//		CheckError(err)
-//	}
-//
-//	var jsonMap map[string]interface{}
-//	json.Unmarshal(decodedBytes, &jsonMap)
-//	if jsonMap["patient"] != nil {
-//		return jsonMap["patient"].(map[string]interface{})["id"].(string)
-//	}
-//	return ""
-//}
-//
-//func GetAuthenticatedMedecin(authToken string) string {
-//
-//	decodedBytes, err := base64.RawURLEncoding.DecodeString(strings.Split(authToken, ".")[1])
-//	if err != nil {
-//		CheckError(err)
-//	}
-//
-//	var jsonMap map[string]interface{}
-//	json.Unmarshal(decodedBytes, &jsonMap)
-//	if jsonMap["doctor"] != nil {
-//		return jsonMap["doctor"].(map[string]interface{})["id"].(string)
-//	}
-//	return ""
-//}
-//
-//func AuthMiddlewareDoctor(authToken string) string {
-//	if authToken == "" {
-//		return ""
-//	}
-//
-//	if VerifyToken(authToken) == false {
-//		return ""
-//	}
-//	return GetAuthenticatedMedecin(authToken)
-//}
-//
-//func AuthMiddleware(authToken string) string {
-//	if authToken == "" {
-//		return ""
-//	}
-//
-//	if VerifyToken(authToken) == false {
-//		return ""
-//	}
-//	return GetAuthenticatedUser(authToken)
-//}
-
 func AuthMiddleware(authToken string) string {
 	if authToken == "" {
 		return ""

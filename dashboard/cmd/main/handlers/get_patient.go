@@ -51,35 +51,7 @@ func GetPatientId(w http.ResponseWriter, req *http.Request) {
 			"primary_doctor_id":          patient.PatientInfo.MedicalInfo.PrimaryDoctorID,
 			"family_members_med_info_id": patient.PatientInfo.MedicalInfo.FamilyMembersMedInfoID,
 			"onboarding_status":          patient.PatientInfo.MedicalInfo.OnboardingStatus,
-			"medical_antecedents": func() []map[string]interface{} {
-				// Convert antecedent diseases to the desired format
-				var diseases []map[string]interface{}
-				for _, disease := range patient.PatientInfo.Antedisease {
-					d := map[string]interface{}{
-						"id":   disease.AnteDisease.ID,
-						"name": disease.AnteDisease.Name,
-						"medicines": func() []map[string]interface{} {
-							var medicines []map[string]interface{}
-							for _, treatment := range disease.Treatments {
-								medicine := map[string]interface{}{
-									"id":          treatment.ID,
-									"medicine_id": treatment.MedicineID,
-									"period":      treatment.Period,
-									"day":         treatment.Day,
-									"quantity":    treatment.Quantity,
-									"start_date":  treatment.StartDate,
-									"end_date":    treatment.EndDate,
-								}
-								medicines = append(medicines, medicine)
-							}
-							return medicines
-						}(),
-						"still_relevant": disease.AnteDisease.StillRelevant,
-					}
-					diseases = append(diseases, d)
-				}
-				return diseases
-			}(),
+			"medical_antecedents":        patient.PatientInfo.Antedisease,
 		},
 	}, 200)
 }
@@ -129,34 +101,7 @@ func GetPatients(w http.ResponseWriter, req *http.Request) {
 				"primary_doctor_id":          patientInfo.MedicalInfo.PrimaryDoctorID,
 				"family_members_med_info_id": patientInfo.MedicalInfo.FamilyMembersMedInfoID,
 				"onboarding_status":          patientInfo.MedicalInfo.OnboardingStatus,
-				"medical_antecedents": func() []map[string]interface{} {
-					var diseases []map[string]interface{}
-					for _, disease := range patientInfo.Antedisease {
-						d := map[string]interface{}{
-							"id":   disease.AnteDisease.ID,
-							"name": disease.AnteDisease.Name,
-							"medicines": func() []map[string]interface{} {
-								var medicines []map[string]interface{}
-								for _, treatment := range disease.Treatments {
-									medicine := map[string]interface{}{
-										"id":          treatment.ID,
-										"medicine_id": treatment.MedicineID,
-										"period":      treatment.Period,
-										"day":         treatment.Day,
-										"quantity":    treatment.Quantity,
-										"start_date":  treatment.StartDate,
-										"end_date":    treatment.EndDate,
-									}
-									medicines = append(medicines, medicine)
-								}
-								return medicines
-							}(),
-							"still_relevant": disease.AnteDisease.StillRelevant,
-						}
-						diseases = append(diseases, d)
-					}
-					return diseases
-				}(),
+				"medical_antecedents":        patientInfo.Antedisease,
 			},
 		}
 

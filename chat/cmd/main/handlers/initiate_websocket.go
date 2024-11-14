@@ -1,12 +1,14 @@
 package handlers
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"github.com/edgar-care/chat/cmd/main/lib"
 	authlib "github.com/edgar-care/edgarlib/v2/auth"
 	edgarlib "github.com/edgar-care/edgarlib/v2/http"
 	"github.com/edgar-care/edgarlib/v2/redis"
 	"net/http"
+	"strings"
 )
 
 type ReadyInput struct {
@@ -16,7 +18,6 @@ type ReadyInput struct {
 
 type PayloadReady struct {
 	AuthToken string `json:"authToken"`
-	DeviceID  string `json:"deviceId"`
 }
 
 type DisconnectInput struct {
@@ -54,12 +55,29 @@ func Ready(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	_, err = redis.SetKey(input.Payload.DeviceID, input.ConnectionId, nil)
+	parts := strings.Split(input.Payload.AuthToken, ".")
+	if len(parts) != 3 {
+		return
+	}
+
+	decodedBytes, err := base64.RawURLEncoding.DecodeString(parts[1])
+	if err != nil {
+		lib.CheckError(err)
+		return
+	}
+
+	var jsonMap map[string]interface{}
+	if err := json.Unmarshal(decodedBytes, &jsonMap); err != nil {
+		lib.CheckError(err)
+		return
+	}
+
+	_, err = redis.SetKey(jsonMap["name_device"].(string), input.ConnectionId, nil)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}
 
-	_, err = redis.SetKey(input.ConnectionId, input.Payload.DeviceID, nil)
+	_, err = redis.SetKey(input.ConnectionId, jsonMap["name_device"].(string), nil)
 	if err != nil {
 		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
 	}

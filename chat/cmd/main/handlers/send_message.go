@@ -60,7 +60,7 @@ func SendMessage(w http.ResponseWriter, req *http.Request) {
 
 	var deviceIds []string
 	for _, participants := range sendMessage.Chat.Participants {
-		connectedDevice := double_auth.GetDeviceConnect(participants.ParticipantID)
+		connectedDevice := double_auth.GetDeviceConnect(participants.ParticipantID, 0, 0)
 		if connectedDevice.Err != nil {
 			continue
 		}

@@ -27,13 +27,18 @@ func AddTrustDevice(w http.ResponseWriter, req *http.Request) {
 	t := chi.URLParam(req, "id")
 
 	new_trust_device := edgarlib.AddTrustDevice(t, ownerID.ID)
-
 	if new_trust_device.Err != nil {
 		lib.WriteError(w, new_trust_device.Code, new_trust_device.Err.Error())
 		return
 	}
 
-	lib.WriteResponse(w, map[string]interface{}{
-		"trusted_device": new_trust_device.Patient.TrustDevices,
-	}, 201)
+	if new_trust_device.Patient == nil {
+		lib.WriteResponse(w, map[string]interface{}{
+			"trusted_device": new_trust_device.Doctor.TrustDevices,
+		}, 201)
+	} else {
+		lib.WriteResponse(w, map[string]interface{}{
+			"trusted_device": new_trust_device.Patient.TrustDevices,
+		}, 201)
+	}
 }

@@ -28,10 +28,24 @@ func main() {
 				router.Put("/dashboard/medical-info", handlers.ModifyFolderMedical)
 				router.Get("/dashboard/medical-info/disease/{name}", handlers.GetSymptomsByDiseaseName)
 
+				// Medical Antecedent
+				router.Post("/dashboard/medical-antecedent", handlers.AddMedicalAntecedent)
+				router.Get("/dashboard/medical-antecedent", handlers.GetMedicalAntecedents)
+				router.Get("/dashboard/medical-antecedent/{id}", handlers.GetMedicalAntecedentByID)
+				router.Put("/dashboard/medical-antecedent/{id}", handlers.EditMedicalAntecedent)
+				router.Delete("/dashboard/medical-antecedent/{id}", handlers.DeleteMedicalAntecedent)
+
 				router.Post("/{env}/dashboard/medical-info", handlers.AddMedicalInfo)
 				router.Get("/{env}/dashboard/medical-info", handlers.GetMedicalInformation)
 				router.Put("/{env}/dashboard/medical-info", handlers.ModifyFolderMedical)
 				router.Get("/{env}/dashboard/medical-info/disease/{name}", handlers.GetSymptomsByDiseaseName)
+
+				// Medical Antecedent ENV
+				router.Post("/{env}/dashboard/medical-antecedent", handlers.AddMedicalAntecedent)
+				router.Get("/{env}/dashboard/medical-antecedent", handlers.GetMedicalAntecedents)
+				router.Get("/{env}/dashboard/medical-antecedent/{id}", handlers.GetMedicalAntecedentByID)
+				router.Put("/{env}/dashboard/medical-antecedent/{id}", handlers.EditMedicalAntecedent)
+				router.Delete("/{env}/dashboard/medical-antecedent/{id}", handlers.DeleteMedicalAntecedent)
 			})
 		},
 		Features: map[string]bool{

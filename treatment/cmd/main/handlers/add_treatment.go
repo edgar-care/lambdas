@@ -25,7 +25,7 @@ func Addtreatment(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var input edgarlib.CreateNewTreatmentInput
+	var input edgarlib.CreateTreatInput
 
 	err := json.NewDecoder(req.Body).Decode(&input)
 	if err != nil {
@@ -40,13 +40,5 @@ func Addtreatment(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	response := map[string]interface{}{
-		"treatment": map[string]interface{}{
-			"name":           treatment.AnteDisease.Name,
-			"still_relevant": treatment.AnteDisease.StillRelevant,
-			"treatment":      treatment.Treatment,
-		},
-	}
-
-	lib.WriteResponse(w, response, treatment.Code)
+	lib.WriteResponse(w, treatment.Treatment, treatment.Code)
 }

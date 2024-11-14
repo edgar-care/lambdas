@@ -53,9 +53,19 @@ func AskMobileConnection(w http.ResponseWriter, req *http.Request) {
 	}
 	accountID, _ := authlib.GetAuthenticatedAccount(resp.Token)
 
+	infoKey := input.Payload.UUID + ":info"
+	infoDevice, err := redis.GetUserInfoHash(infoKey)
+	if err != nil {
+		lib.WriteResponse(w, map[string]string{"message": err.Error()}, 500)
+		return
+	}
+
 	data := map[string]interface{}{
-		"action": "ask_mobile_connection",
-		"uuid":   input.Payload.UUID,
+		"action":   "ask_mobile_connection",
+		"uuid":     input.Payload.UUID,
+		"os":       infoDevice["os"],
+		"browser":  infoDevice["navigation"],
+		"location": infoDevice["location"],
 	}
 
 	trustDevices := double_auth.GetTrustDeviceConnect(accountID)

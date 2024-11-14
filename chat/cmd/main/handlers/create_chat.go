@@ -57,7 +57,7 @@ func CreatChat(w http.ResponseWriter, req *http.Request) {
 
 	var deviceIds []string
 	for _, recipientID := range input.Payload.RecipientIds {
-		connectedDevice := double_auth.GetDeviceConnect(recipientID)
+		connectedDevice := double_auth.GetDeviceConnect(recipientID, 0, 0)
 		if connectedDevice.Err != nil {
 			continue
 		}

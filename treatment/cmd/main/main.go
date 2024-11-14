@@ -26,13 +26,13 @@ func main() {
 				router.Get("/dashboard/treatment/{id}", handlers.GetTreatment)
 				router.Post("/dashboard/treatment", handlers.Addtreatment)
 				router.Get("/dashboard/treatments", handlers.GetTreatments)
-				router.Put("/dashboard/treatment", handlers.EditTreatment)
+				router.Put("/dashboard/treatment/{id}", handlers.EditTreatment)
 				router.Delete("/dashboard/treatment/{id}", handlers.DeleteTreatment)
 
 				router.Get("/{env}/dashboard/treatment/{id}", handlers.GetTreatment)
 				router.Post("/{env}/dashboard/treatment", handlers.Addtreatment)
 				router.Get("/{env}/dashboard/treatments", handlers.GetTreatments)
-				router.Put("/{env}/dashboard/treatment", handlers.EditTreatment)
+				router.Put("/{env}/dashboard/treatment/{id}", handlers.EditTreatment)
 				router.Delete("/{env}/dashboard/treatment/{id}", handlers.DeleteTreatment)
 			})
 		},
