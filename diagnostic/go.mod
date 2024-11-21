@@ -3,7 +3,7 @@ module github.com/edgar-care/diagnostic
 go 1.19
 
 require (
-	github.com/edgar-care/edgarlib/v2 v2.2.2
+	github.com/edgar-care/edgarlib/v2 v2.4.6
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/jwtauth/v5 v5.1.1
 	github.com/jinzhu/copier v0.4.0

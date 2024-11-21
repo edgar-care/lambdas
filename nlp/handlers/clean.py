@@ -16,7 +16,7 @@ abbreviations = [
 
 def clean(sentence: str) -> str:
     cleaned_sentence = unidecode.unidecode(sentence.lower()).strip()
-    punctuation = string.punctuation.replace("-", "")
+    # punctuation = string.punctuation.replace("-", "")
 
     for abbreviation in abbreviations:
         if abbreviation[0] == cleaned_sentence:
@@ -24,7 +24,7 @@ def clean(sentence: str) -> str:
         else:
             cleaned_sentence = re.sub(abbreviation[0] + " ", abbreviation[1], cleaned_sentence)
 
-    cleaned_sentence = re.sub("[" + punctuation + "]", "", cleaned_sentence)
+    # cleaned_sentence = re.sub("[" + punctuation + "]", "", cleaned_sentence)
     cleaned_sentence = re.sub(r"\n", " ", cleaned_sentence)
     cleaned_sentence = re.sub(r"\\n", " ", cleaned_sentence)
 

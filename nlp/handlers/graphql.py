@@ -9,7 +9,7 @@ def get_symptoms():
     gql_query = """{
         getSymptoms {
             id
-            code
+            name
             symptom
             question
             advice

@@ -11,15 +11,9 @@ import (
 	"net/http"
 )
 
-type autoAnswerInput struct {
-	Name   string   `json:"name"`
-	Values []string `json:"values"`
-}
-
 type diagnoseInput struct {
-	Id         string           `json:"id"`
-	Sentence   string           `json:"sentence"`
-	AutoAnswer *autoAnswerInput `json:"auto_answer"`
+	Id       string `json:"id"`
+	Sentence string `json:"sentence"`
 }
 
 func Diagnose(w http.ResponseWriter, req *http.Request) {
@@ -41,7 +35,7 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	resp := edgar_diag.Diagnose(input.Id, input.Sentence, (*edgar_diag.AutoAnswerinfo)(input.AutoAnswer))
+	resp := edgar_diag.Diagnose(input.Id, input.Sentence, nil)
 
 	if resp.Err != nil {
 		edgarhttp.WriteResponse(w, map[string]interface{}{
@@ -51,8 +45,7 @@ func Diagnose(w http.ResponseWriter, req *http.Request) {
 	}
 
 	edgarhttp.WriteResponse(w, map[string]interface{}{
-		"done":        resp.Done,
-		"question":    resp.Question,
-		"auto_answer": resp.AutoAnswer,
+		"done":     resp.Done,
+		"question": resp.Question,
 	}, 200)
 }
